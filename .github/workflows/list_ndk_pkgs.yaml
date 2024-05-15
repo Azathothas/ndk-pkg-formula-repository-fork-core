@@ -125,15 +125,20 @@ jobs:
           {
              readarray -t pkgs < <(jq -r '.[].pkgname' "$GITHUB_WORKSPACE/main/pkgs.json")
              for pkg in "${pkgs[@]}"; do
-                 version=$(jq -r --arg pkg "$pkg" '.[] | select(.pkgname == $pkg) | .version' "$GITHUB_WORKSPACE/main/pkgs.json" 2>/dev/null | cut -c 1-100)
-                 description=$(jq -r --arg pkg "$pkg" '.[] | select(.pkgname == $pkg) | .summary' "$GITHUB_WORKSPACE/main/pkgs.json" 2>/dev/null | cut -c 1-100)
-                 homepage=$(jq -r --arg pkg "$pkg" '.[] | select(.pkgname == $pkg) | .web-url' "$GITHUB_WORKSPACE/main/pkgs.json" 2>/dev/null | cut -c 1-100)
-                 git_url=$(jq -r --arg pkg "$pkg" '.[] | select(.pkgname == $pkg) | .git-url' "$GITHUB_WORKSPACE/main/pkgs.json" 2>/dev/null | cut -c 1-100)
+                 version=$(jq -r --arg pkg "$pkg" '.[] | select(.pkgname == $pkg) | .["version"] // empty' "$GITHUB_WORKSPACE/main/pkgs.json" 2>/dev/null | cut -c 1-100)
+                 description=$(jq -r --arg pkg "$pkg" '.[] | select(.pkgname == $pkg) | .["summary"] // empty' "$GITHUB_WORKSPACE/main/pkgs.json" 2>/dev/null | cut -c 1-100)
+                 homepage=$(jq -r --arg pkg "$pkg" '.[] | select(.pkgname == $pkg) | .["web-url"] // empty' "$GITHUB_WORKSPACE/main/pkgs.json" 2>/dev/null | cut -c 1-100)
+                 git_url=$(jq -r --arg pkg "$pkg" '.[] | select(.pkgname == $pkg) | .["git-url"] // empty' "$GITHUB_WORKSPACE/main/pkgs.json" 2>/dev/null | cut -c 1-100)
                  echo "| [**$pkg**](https://github.com/leleliu008/ndk-pkg-formula-repository-official-core/blob/master/formula/$pkg.yml) | $version | $description | $homepage | $git_url |"
              done
           } > "/tmp/ndk.pkgs"
           ##Post Process
           cat "/tmp/ndk.pkgs" > "/tmp/ndk.pkgs.md"
+        continue-on-error: true
+
+      - name: Git Pull
+        run: |
+           cd "$GITHUB_WORKSPACE/main" && git pull origin main
         continue-on-error: true
 
       - name: Update README.md
