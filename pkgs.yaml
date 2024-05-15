@@ -1,4 +1,5 @@
 - pkgname: ARM_NEON_2_x86_SSE
+  pkgtype: lib
   version: 2024.05.15
   summary: The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions
   web-url: https://github.com/intel/ARM_NEON_2_x86_SSE
@@ -9,6 +10,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: aalib
+  pkgtype: lib
   version: 1.4rc5
   license: GPL-2.0-or-later
   summary: A portable ASCII art graphics library
@@ -24,6 +26,7 @@
   dopatch: sed_in_place '203c return 0;' src/aalinuxkbd.c
   install: configure --without-x --with-ncurses="$ncurses_INSTALL_DIR"
 - pkgname: abseil
+  pkgtype: lib
   version: "20240116.2"
   license: Apache-2.0
   summary: C++ Common Libraries
@@ -47,6 +50,7 @@
         -DCMAKE_CXX_STANDARD=17 \
         -DCMAKE_CXX_STANDARD_REQUIRED=TRUE
 - pkgname: acl
+  pkgtype: exe+lib
   version: 2.3.2
   license: GPL-2.0-or-later
   summary: C library and utilities for Manipulating POSIX Access Control Lists
@@ -61,6 +65,7 @@
   parallel: "1"
   install: configure
 - pkgname: act
+  pkgtype: pie
   version: 0.2.62
   license: MIT
   summary: Run your GitHub Actions locally
@@ -74,6 +79,7 @@
   parallel: "1"
   install: gow -X main.version="$PACKAGE_VERSION" -o act main.go
 - pkgname: actionlint
+  pkgtype: pie
   version: 1.6.27
   license: MIT
   summary: Static checker for GitHub Actions workflow files
@@ -87,6 +93,7 @@
   parallel: "1"
   install: gow -X github.com/rhysd/actionlint.version=$PACKAGE_VERSION ./cmd/actionlint
 - pkgname: adig
+  pkgtype: exe
   version: 1.28.1
   summary: A command-line tool that allows you to perform DNS lookups from the command line
   web-url: https://c-ares.haxx.se
@@ -110,6 +117,7 @@
     rm -rf lib
     rm -rf share/man/man3
 - pkgname: ag
+  pkgtype: exe
   version: 2.2.0
   license: Apache-2.0
   summary: A fast code-searching tool similar to ack
@@ -125,6 +133,7 @@
   parallel: "1"
   install: configure
 - pkgname: age
+  pkgtype: pie
   version: 1.1.1
   license: BSD-3-Clause
   summary: Simple, modern, secure file encryption
@@ -143,6 +152,7 @@
         run install_mans doc/$item.1
     done
 - pkgname: alass
+  pkgtype: exe
   version: 2024.05.15
   license: GPL-3.0-or-later
   summary: Automatic Language-Agnostic Subtitle Synchronization
@@ -155,6 +165,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: algernon
+  pkgtype: pie
   version: 1.16.0
   license: MIT
   summary: Pure Go web server with Lua, Markdown, HTTP/2 and template support
@@ -168,6 +179,7 @@
   parallel: "1"
   install: gow -mod vendor
 - pkgname: antibody
+  pkgtype: pie
   version: 6.1.1
   license: MIT
   summary: Shell plugin manager
@@ -181,6 +193,7 @@
   parallel: "1"
   install: gow -X main.version=$PACKAGE_VERSION
 - pkgname: aom
+  pkgtype: exe+lib
   version: 3.8.2
   license: BSD-2-Clause
   summary: Codec library for encoding and decoding AV1 video streams
@@ -211,6 +224,7 @@
         -DENABLE_EXAMPLES=ON \
         -DCONFIG_RUNTIME_CPU_DETECT=0
 - pkgname: apkeep
+  pkgtype: exe
   version: 0.8.0
   license: MIT
   summary: A command-line tool for downloading APK files from various sources
@@ -225,6 +239,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: aptly
+  pkgtype: pie
   version: 1.5.0
   license: MIT
   summary: Swiss army knife for Debian repository management
@@ -239,6 +254,7 @@
   install: gow -X main.Version=$PACKAGE_VERSION
   dotweak: install_mans $PACKAGE_BSCRIPT_DIR/man/aptly.1
 - pkgname: archiver
+  pkgtype: pie
   version: 3.5.1
   license: MIT
   summary: Cross-platform, multi-format archive utility
@@ -252,6 +268,7 @@
   parallel: "1"
   install: gow ./cmd/arc
 - pkgname: args
+  pkgtype: lib
   version: 6.3.0
   license: MIT
   summary: A simple header-only C++ argument parser library
@@ -268,6 +285,7 @@
         -DARGS_BUILD_EXAMPLE=OFF \
         -DARGS_BUILD_UNITTESTS=OFF
 - pkgname: aria2
+  pkgtype: exe
   version: 1.37.0
   license: GPL-2.0-or-later
   summary: Download with resuming and segmented downloading
@@ -283,6 +301,7 @@
   parallel: "1"
   install: configure --enable-libaria2 LIBS=-ldl
 - pkgname: arping
+  pkgtype: exe
   version: "2.24"
   license: GPL-2.0-or-later
   summary: Utility to check whether MAC addresses are already taken on a LAN
@@ -299,6 +318,7 @@
   prepare: printf 'INPUT(%s -l:libssl.a -l:libcrypto.a -ldl)\n' "$libpcap_LIBRARY_DIR/libpcap.a" > ../lib/libpcap.a
   install: configure
 - pkgname: attr
+  pkgtype: lib
   version: 2.5.2
   license: GPL-2.0-or-later
   summary: C library and utilities for Manipulating Filesystem Extended Attributes
@@ -313,6 +333,7 @@
   parallel: "1"
   install: configure
 - pkgname: awk
+  pkgtype: exe
   version: "20240422"
   license: MIT
   summary: Text processing scripting language
@@ -332,6 +353,7 @@
     install_bins awk
     install_mans awk.1
 - pkgname: axel
+  pkgtype: exe
   version: 2.17.14
   license: GPL-2.0-or-later
   summary: A lightweight download accelerator
@@ -346,6 +368,7 @@
   parallel: "1"
   install: configure
 - pkgname: azcopy
+  pkgtype: pie
   version: 10.24.0
   license: MIT
   summary: Azure Storage data transfer utility
@@ -359,6 +382,7 @@
   parallel: "1"
   install: gow
 - pkgname: b3sum
+  pkgtype: exe
   version: 1.5.1
   license: CC0-1.0
   summary: A command line utility for calculating BLAKE3 hashes
@@ -372,6 +396,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: base16
+  pkgtype: exe
   version: 2024.05.15
   summary: base16 encoder and decoder
   web-url: https://github.com/leleliu008/C-examples
@@ -385,6 +410,7 @@
     rm -rf lib
     rm -rf include
 - pkgname: base64
+  pkgtype: exe
   version: "1.5"
   license: Unlicense
   summary: Encode and decode base64 files
@@ -400,6 +426,7 @@
     run install -d "$PACKAGE_INSTALL_DIR/man/man1"
     configure
 - pkgname: bash
+  pkgtype: exe
   version: 5.2.21
   license: GPL-3.0-or-later
   summary: Bourne-Again SHell, a UNIX command interpreter
@@ -422,6 +449,7 @@
         --enable-select \
         --enable-history
 - pkgname: basis_universal
+  pkgtype: exe
   version: 1.16.4
   license: Apache-2.0
   summary: Basis Universal GPU texture codec command-line compression tool
@@ -438,6 +466,7 @@
     sed_in_place '/set(CMAKE_CXX_FLAGS/c set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")' CMakeLists.txt
   install: cmakew
 - pkgname: bat
+  pkgtype: exe
   version: 0.24.0
   license: Apache-2.0
   summary: Clone of cat(1) with syntax highlighting and Git integration
@@ -468,6 +497,7 @@
     install_completion fish bat target/$RUST_TARGET/release/build/bat-*/out/assets/completions/bat.fish
     install_completion  zsh bat target/$RUST_TARGET/release/build/bat-*/out/assets/completions/bat.zsh
 - pkgname: bc
+  pkgtype: exe
   version: 1.07.1
   license: GPL-3.0-or-later
   summary: Arbitrary precision numeric processing language
@@ -489,6 +519,7 @@
     run touch -t 190001010000 $PACKAGE_BCACHED_DIR/bc/libmath.h
   install: configure --without-libedit --with-readline="$readline_INSTALL_DIR"
 - pkgname: bcrypt
+  pkgtype: exe
   version: "1.1"
   summary: Cross platform file encryption utility using blowfish
   web-url: https://bcrypt.sourceforge.io
@@ -503,6 +534,7 @@
     gmakew clean
     gmakew install CC="$CC" CFLAGS="'$CFLAGS $CPPFLAGS'" LDFLAGS="'$LDFLAGS -lz'" PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: berkeley-db
+  pkgtype: lib
   version: 18.1.40
   license: BSD-3-Clause
   summary: A high-performance key/value database
@@ -525,6 +557,7 @@
         --enable-smallbuild \
         db_cv_atomic=gcc-builtin
 - pkgname: bgrep
+  pkgtype: exe
   version: "0.2"
   license: BSD-2-Clause
   summary: Like grep but for binary strings
@@ -539,6 +572,7 @@
     run $CC $CFLAGS $CPPFLAGS $LDFLAGS -o bgrep bgrep.c
     install_bins bgrep
 - pkgname: binaryen
+  pkgtype: exe
   version: "117"
   license: Apache-2.0
   summary: Compiler infrastructure and toolchain library for WebAssembly
@@ -552,6 +586,7 @@
   parallel: "1"
   install: cmakew -DBUILD_TESTS=OFF -DBUILD_STATIC_LIB=ON
 - pkgname: bind
+  pkgtype: exe
   version: 9.18.26
   license: MPL-2.0
   summary: Implementation of the DNS protocols
@@ -585,6 +620,7 @@
         --with-openssl="$openssl_dev_INSTALL_DIR" \
         ac_cv_search_idn2_to_ascii_lz="'-lidn2 -lunistring -liconv'"
 - pkgname: binocle
+  pkgtype: pie
   version: 0.3.0
   license: Apache-2.0
   summary: A graphical tool to visualize binary data
@@ -598,6 +634,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: bison
+  pkgtype: exe
   version: 3.8.2
   license: GPL-3.0-or-later
   summary: Yacc-compatible Parser generator
@@ -619,6 +656,7 @@
         --disable-gcc-warnings \
         --disable-assert
 - pkgname: bk
+  pkgtype: exe
   version: 0.6.0
   license: MIT
   summary: Terminal Epub reader
@@ -632,6 +670,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: blockhash
+  pkgtype: pie
   version: 0.3.3
   license: MIT
   summary: A perceptual image hash calculation tool based on algorithm descibed in Block Mean Value Based Image Perceptual Hashing by Bian Yang, Fan Gu and Xiamu Niu
@@ -648,6 +687,7 @@
     run python3 ./waf
     run python3 ./waf install
 - pkgname: boost
+  pkgtype: lib
   version: 1.84.0
   license: BSL-1.0
   summary: A collection of portable C++ source libraries
@@ -718,6 +758,7 @@
         architecture="$architecture" \
         abi="$abi"
 - pkgname: boringssl
+  pkgtype: exe+lib
   version: 2024.05.15
   summary: A fork of OpenSSL that is designed to meet Google needs
   web-url: https://boringssl.googlesource.com/boringssl/
@@ -730,6 +771,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_SHARED_LIBS=ON
 - pkgname: boxes
+  pkgtype: exe
   version: 2.3.0
   license: GPL-2.0-only
   summary: Draw boxes around text
@@ -758,6 +800,7 @@
     run install_mans doc/boxes.1
     run install_etcs boxes-config
 - pkgname: brook
+  pkgtype: pie
   version: "20240404"
   license: GPL-3.0-only
   summary: Cross-platform strong encryption and not detectable proxy. Zero-Configuration
@@ -771,6 +814,7 @@
   parallel: "1"
   install: gow ./cli/brook
 - pkgname: broot
+  pkgtype: exe
   version: 1.37.0
   license: MIT
   summary: New way to see and navigate directory trees
@@ -795,6 +839,7 @@
     sed_in_place '/trash/d' Cargo.toml
   install: cargow install --locked
 - pkgname: brotli
+  pkgtype: exe+lib
   version: 1.1.0
   license: MIT
   summary: A generic-purpose lossless compression algorithm by Google
@@ -833,6 +878,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF -DBROTLI_BUILD_TOOLS=ON  -DBROTLI_DISABLE_TESTS=ON
     cmakew -DBUILD_SHARED_LIBS=ON  -DBROTLI_BUILD_TOOLS=OFF -DBROTLI_DISABLE_TESTS=ON
 - pkgname: bsdtar
+  pkgtype: exe
   version: 3.7.4
   license: BSD-2-Clause
   summary: BSD tar
@@ -878,6 +924,7 @@
     run rm -rf share/man/man3
     run rm -rf share/man/man5
 - pkgname: bullet
+  pkgtype: exe
   version: "3.25"
   license: Zlib
   summary: Physics SDK
@@ -898,6 +945,7 @@
         -DINSTALL_LIBS=ON \
         -DINSTALL_EXTRA_LIBS=ON
 - pkgname: byacc
+  pkgtype: exe
   version: "20240109"
   summary: (Arguably) the best yacc variant
   web-url: https://invisible-island.net/byacc/
@@ -909,6 +957,7 @@
   parallel: "1"
   install: configure --program-prefix=b
 - pkgname: bzip2
+  pkgtype: exe
   version: 1.0.8
   license: bzip2-1.0.8
   summary: Burrows–Wheeler-based data compression utilities with high compression ratio
@@ -923,6 +972,7 @@
   developer: Julian Seward <jseward@acm.org>
   install: cmakew -DINSTALL_EXECUTABLES=ON -DINSTALL_LIBRARIES=OFF -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF
 - pkgname: caddy
+  pkgtype: pie
   version: 2.7.6
   license: Apache-2.0
   summary: A powerful, enterprise-ready, open source web server with automatic HTTPS
@@ -936,6 +986,7 @@
   parallel: "1"
   install: gow ./cmd/caddy
 - pkgname: cairo
+  pkgtype: lib
   version: 1.18.0
   license: LGPL-2.1-or-later MPL-1.1
   summary: Vector graphics library with cross-device output support
@@ -959,6 +1010,7 @@
         -Dfreetype=enabled \
         -Dfontconfig=enabled
 - pkgname: cargo-c
+  pkgtype: exe
   version: 0.9.31
   license: MIT
   summary: A helper program to build and install C-ABI compatible dynamic and static libraries
@@ -973,6 +1025,7 @@
   parallel: "1"
   install: cargow install --features=vendored-openssl
 - pkgname: catch2
+  pkgtype: lib
   version: 3.5.4
   license: BSL-1.0
   summary: Modern, C++-native, header-only, test framework
@@ -986,6 +1039,7 @@
   parallel: "1"
   install: cmakew -DCMAKE_CXX_STANDARD=17
 - pkgname: ccache
+  pkgtype: exe
   version: 4.9.1
   license: GPL-3.0-or-later
   summary: Object-file caching compiler wrapper
@@ -1012,6 +1066,7 @@
         -DWARNINGS_AS_ERRORS=OFF \
         -DZSTD_FROM_INTERNET=OFF
 - pkgname: cereal
+  pkgtype: lib
   version: 1.3.2
   license: BSD-3-Clause
   summary: C++11 library for serialization
@@ -1025,6 +1080,7 @@
   parallel: "1"
   install: cmakew -DCEREAL_INSTALL=ON -DJUST_INSTALL_CEREAL=ON
 - pkgname: cfitsio
+  pkgtype: exe
   version: 4.4.0
   license: Unlicense
   summary: C access to FITS data files with optional Fortran wrappers
@@ -1040,6 +1096,7 @@
     export CFLAGS="$CFLAGS $LDFLAGS"
     configure --enable-reentrant
 - pkgname: cflow
+  pkgtype: exe
   version: "1.7"
   license: GPL-3.0-or-later
   summary: A command-line tool to generate call graphs from C code
@@ -1052,6 +1109,7 @@
   parallel: "1"
   install: configure
 - pkgname: cgal
+  pkgtype: lib
   version: 5.6.1
   license: GPL-3.0-or-later
   summary: Computational Geometry Algorithms Library
@@ -1071,6 +1129,7 @@
         -DWITH_demos=OFF \
         -DWITH_tests=OFF
 - pkgname: cheat
+  pkgtype: pie
   version: 4.4.2
   license: MIT
   summary: Create and view interactive cheat sheets for *nix commands
@@ -1084,6 +1143,7 @@
   parallel: "1"
   install: gow -mod vendor ./cmd/cheat
 - pkgname: check
+  pkgtype: lib
   version: 0.15.2
   license: LGPL-2.1-or-later
   summary: A unit testing framework for C
@@ -1100,6 +1160,7 @@
         -DCHECK_ENABLE_GCOV=OFF \
         -DINSTALL_CHECKMK=ON
 - pkgname: chezmoi
+  pkgtype: pie
   version: 2.48.0
   license: MIT
   summary: Manage your dotfiles across multiple diverse machines, securely
@@ -1117,6 +1178,7 @@
         -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
         -X main.builtBy=ndk-pkg
 - pkgname: chinese-calendar
+  pkgtype: lib
   version: 2022.06.24
   license: Apache-2.0
   summary: chinese festival/jieqi algorithm
@@ -1129,6 +1191,7 @@
   developer: leleliu008 <leleliu008@gmail.com>
   install: cmakew
 - pkgname: chisel
+  pkgtype: pie
   version: 1.9.1
   license: MIT
   summary: A fast TCP/UDP tunnel over HTTP
@@ -1142,6 +1205,7 @@
   parallel: "1"
   install: gow -X github.com/jpillora/chisel/share.BuildVersion=$PACKAGE_VERSION
 - pkgname: choose
+  pkgtype: exe
   version: 1.3.1
   license: GPL-3.0-or-later
   summary: Human-friendly and fast alternative to cut and (sometimes) awk
@@ -1155,6 +1219,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: cjson
+  pkgtype: lib
   version: 1.7.17
   license: MIT
   summary: Ultralightweight JSON parser in ANSI C
@@ -1172,6 +1237,7 @@
         -DENABLE_CJSON_TEST=OFF \
         -DBUILD_SHARED_AND_STATIC_LIBS=ON
 - pkgname: cli11
+  pkgtype: lib
   version: 2.4.1
   license: BSD-3-Clause
   summary: Simple and intuitive command-line parser for C++11
@@ -1188,6 +1254,7 @@
         -DCLI11_BUILD_DOCS=OFF \
         -DCLI11_BUILD_TESTS=OFF
 - pkgname: clog
+  pkgtype: exe
   version: 1.3.0
   license: MIT
   summary: Colorized pattern-matching log tail utility
@@ -1202,6 +1269,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: cmake
+  pkgtype: exe
   version: 3.29.2
   license: BSD-3-Clause
   summary: Cross-platform make
@@ -1233,6 +1301,7 @@
         -DCMAKE_USE_SYSTEM_LIBUV=ON \
         -DCMAKE_USE_SYSTEM_ZLIB=ON
 - pkgname: cmark
+  pkgtype: exe
   version: 0.31.0
   license: BSD-2-Clause
   summary: The C reference implementation of CommonMark
@@ -1246,6 +1315,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: cmatrix
+  pkgtype: exe
   version: "2.0"
   license: GPL-3.0-or-later
   summary: A command-line tool for producing a Matrix-style animation
@@ -1265,6 +1335,7 @@
     export ac_cv_file__usr_X11R6_lib_X11_fonts_misc=no
   install: configure
 - pkgname: cmocka
+  pkgtype: lib
   version: 1.1.7
   license: Apache-2.0
   summary: An elegant unit testing framework for C with support for mock objects
@@ -1280,6 +1351,7 @@
     cmakew -DBUILD_SHARED_LIBS=ON  -DWITH_EXAMPLES=OFF -DUNIT_TESTING=OFF
     cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_EXAMPLES=OFF -DUNIT_TESTING=OFF
 - pkgname: coreutils
+  pkgtype: exe
   version: "9.5"
   license: GPL-3.0-or-later
   summary: GNU File, Shell, and Text utilities
@@ -1315,6 +1387,7 @@
         --enable-xattr \
         --enable-threads=posix
 - pkgname: cotp
+  pkgtype: exe
   version: 1.5.0
   license: GPL-3.0-only
   summary: TOTP/HOTP authenticator app with import functionality
@@ -1328,6 +1401,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: cpio
+  pkgtype: exe
   version: "2.15"
   license: GPL-3.0-or-later
   summary: Copies files into or out of a cpio or tar archive
@@ -1341,6 +1415,7 @@
   parallel: "1"
   install: configure --disable-mt
 - pkgname: cpprestsdk
+  pkgtype: lib
   version: 2.10.19
   license: MIT
   summary: A C++ library for cloud-based client-server communication
@@ -1359,6 +1434,7 @@
     export OPENSSL_ROOT_DIR="$openssl_dev_INSTALL_DIR"
     cmakew -DBUILD_TESTS=OFF -DBUILD_SAMPLES=OFF
 - pkgname: cpptoml
+  pkgtype: lib
   version: 0.1.1
   license: MIT
   summary: Header-only library for parsing TOML
@@ -1372,6 +1448,7 @@
   parallel: "1"
   install: cmakew -DCPPTOML_BUILD_EXAMPLES=OFF -DENABLE_LIBCXX=OFF
 - pkgname: cppunit
+  pkgtype: lib
   version: 1.15.1
   license: LGPL-2.1-or-later
   summary: Unit testing framework for C++
@@ -1385,6 +1462,7 @@
   parallel: "1"
   install: configure
 - pkgname: cpu_features
+  pkgtype: lib
   version: 0.9.0
   license: Apache-2.0
   summary: Cross platform C99 library to get cpu features at runtime
@@ -1400,6 +1478,7 @@
     cmakew -DBUILD_PIC=ON -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_PIC=ON -DBUILD_SHARED_LIBS=ON
 - pkgname: cpuid
+  pkgtype: pie
   version: 2.2.7
   license: MIT
   summary: CPU feature identification for Go
@@ -1413,6 +1492,7 @@
   parallel: "1"
   install: gow ./cmd/cpuid
 - pkgname: cpuinfo
+  pkgtype: exe+lib
   version: 2024.05.15
   license: BSD-2-Clause
   summary: CPU INFOrmation library
@@ -1437,6 +1517,7 @@
         -DCPUINFO_BUILD_BENCHMARKS=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: croc
+  pkgtype: pie
   version: 9.6.15
   license: MIT
   summary: A command-line tool that allows you to easily and securely send files from one computer to another
@@ -1450,6 +1531,7 @@
   parallel: "1"
   install: gow
 - pkgname: crosstool-ng
+  pkgtype: exe
   version: 1.26.0
   license: LGPL-2.1-or-later
   summary: A toolchain generator
@@ -1473,6 +1555,7 @@
         PANEL_LIBS="$ncurses_LIBRARY_DIR/libpanel.a" \
         MENU_LIBS="$ncurses_LIBRARY_DIR/libmenu.a"
 - pkgname: crowbook
+  pkgtype: exe
   version: 0.16.1
   license: LGPL-2.1-or-later
   summary: A command-line tool to convert books written in Markdown to HTML, LaTeX/PDF and EPUB
@@ -1487,6 +1570,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: ctop
+  pkgtype: pie
   version: 0.7.7
   license: MIT
   summary: Top-like interface for container metrics
@@ -1500,6 +1584,7 @@
   parallel: "1"
   install: gow -tags release -X main.version=$PACKAGE_VERSION
 - pkgname: cue
+  pkgtype: pie
   version: 0.8.2
   license: Apache-2.0
   summary: Validate and define text-based and dynamic configuration
@@ -1513,6 +1598,7 @@
   parallel: "1"
   install: gow -X cuelang.org/go/cmd/cue/cmd.version=$PACKAGE_VERSION ./cmd/cue
 - pkgname: cunit
+  pkgtype: lib
   version: 2.1.3
   license: LGPL-2.0-or-later
   summary: Lightweight unit testing framework for C
@@ -1539,6 +1625,7 @@
         --enable-memtrace \
         --enable-automated
 - pkgname: curl
+  pkgtype: exe
   version: 8.7.1
   license: curl
   summary: Get a file from an HTTP, HTTPS or FTP server
@@ -1568,6 +1655,7 @@
         --without-librtmp \
         --without-libidn2
 - pkgname: curlie
+  pkgtype: pie
   version: 1.7.2
   license: MIT
   summary: Power of curl, ease of use of httpie
@@ -1581,6 +1669,7 @@
   parallel: "1"
   install: gow
 - pkgname: cxxopts
+  pkgtype: lib
   version: 3.2.1
   license: MIT
   summary: A lightweight C++ command-line option parser
@@ -1597,6 +1686,7 @@
         -DCXXOPTS_BUILD_TESTS=OFF \
         -DCXXOPTS_BUILD_EXAMPLES=OFF
 - pkgname: d2
+  pkgtype: pie
   version: 0.6.5
   license: MPL-2.0
   summary: A modern diagram scripting language that turns text to diagrams
@@ -1612,6 +1702,7 @@
     gow -X oss.terrastruct.com/d2/lib/version.Version=$PACKAGE_VERSION
     install_mans ci/release/template/man/d2.1
 - pkgname: d8
+  pkgtype: exe
   version: 9.9.115.8
   license: BSD-3-Clause
   summary: A high-performance JavaScript and WebAssembly Engine powered by Google
@@ -1677,6 +1768,7 @@
     run install_bins d8
     run install_libs *.so
 - pkgname: darkhttpd
+  pkgtype: exe
   version: "1.16"
   license: ISC
   summary: A small static web server without CGI
@@ -1691,6 +1783,7 @@
     run $CC $CPPFLAGS $CFLAGS $LDFLAGS -o darkhttpd darkhttpd.c
     install_bins darkhttpd
 - pkgname: dasel
+  pkgtype: pie
   version: 2.7.0
   license: MIT
   summary: JSON, YAML, TOML, XML, and CSV query and modification tool
@@ -1704,6 +1797,7 @@
   parallel: "1"
   install: gow -X github.com/tomwright/dasel/internal.Version=$PACKAGE_VERSION ./cmd/dasel
 - pkgname: dash
+  pkgtype: exe
   version: 0.5.12
   license: BSD-3-Clause
   summary: A POSIX-compliant implementation of /bin/sh that aims to be as small as possible
@@ -1725,6 +1819,7 @@
         --enable-lineno \
         --enable-glob
 - pkgname: dav1d
+  pkgtype: exe
   version: 1.4.1
   license: BSD-2-Clause
   summary: AV1 decoder targeted to be small and fast
@@ -1745,6 +1840,7 @@
         -Denable_tests=false \
         -Denable_examples=false
 - pkgname: delta
+  pkgtype: exe
   version: 0.17.0
   license: MIT
   summary: Syntax-highlighting pager for git and diff output
@@ -1760,6 +1856,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: diffutils
+  pkgtype: exe
   version: "3.10"
   license: GPL-3.0-or-later
   summary: A package of several programs related to finding differences between files
@@ -1773,6 +1870,7 @@
   parallel: "1"
   install: configure --with-included-regex --disable-gcc-warnings
 - pkgname: dns2tcp
+  pkgtype: exe
   version: 0.5.2
   license: GPL-2.0-or-later
   summary: TCP over DNS tunnel
@@ -1788,6 +1886,7 @@
     sed_in_place 's|int debug;|int debug __attribute__((common));|' common/includes/debug.h
   install: configure
 - pkgname: dnslookup
+  pkgtype: pie
   version: 1.10.0
   license: GPL-3.0-only
   summary: A simple command line utility to make DNS lookups to the specified server
@@ -1801,6 +1900,7 @@
   parallel: "1"
   install: gow -X main.VersionString="$PACKAGE_VERSION"
 - pkgname: dnsmap
+  pkgtype: exe
   version: "0.36"
   license: GPL-3.0-or-later
   summary: Passive DNS network mapper (a.k.a. subdomains bruteforcer)
@@ -1814,6 +1914,7 @@
   parallel: "1"
   install: configure
 - pkgname: dnsx
+  pkgtype: pie
   version: 1.2.1
   license: MIT
   summary: DNS query and resolution tool
@@ -1827,6 +1928,7 @@
   parallel: "1"
   install: gow ./cmd/dnsx
 - pkgname: dog
+  pkgtype: exe
   version: 0.1.0
   license: EUPL-1.2
   summary: A command-line DNS client
@@ -1841,6 +1943,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: doggo
+  pkgtype: pie
   version: 0.5.7
   license: GPL-3.0-or-later
   summary: A command-line DNS client for humans
@@ -1858,6 +1961,7 @@
         -X main.buildDate="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
         ./cmd/doggo
 - pkgname: dos2unix
+  pkgtype: exe
   version: 7.5.2
   license: BSD-2-Clause
   summary: Convert text between DOS, UNIX, and Mac formats
@@ -1875,6 +1979,7 @@
     gmakew CC="$CC" CPP="'$CPP'" STRIP="$STRIP" CFLAGS_USER="'$CFLAGS'" LDFLAGS_USER="'$LDFLAGS'" D2U_OS=android
     gmakew install prefix="$PACKAGE_INSTALL_DIR"
 - pkgname: dot_static
+  pkgtype: exe
   version: 10.0.1
   license: EPL-1.0
   summary: A command-line tool for drawing graphs
@@ -1894,6 +1999,7 @@
     gmakew -C cmd/dot dot_static
     install_bins cmd/dot/dot_static
 - pkgname: double-conversion
+  pkgtype: lib
   version: 3.3.0
   license: BSD-3-Clause
   summary: Binary-decimal and decimal-binary routines for IEEE doubles
@@ -1907,6 +2013,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: doxygen
+  pkgtype: pie
   version: 1.10.0
   license: GPL-2.0-only
   summary: A command-line tool for generating documentation from annotated programming language source files
@@ -1960,6 +2067,7 @@
     fi
   install: cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: dua
+  pkgtype: exe
   version: 2.29.0
   license: MIT
   summary: A fast disk usage analyzer
@@ -1973,6 +2081,7 @@
   parallel: "1"
   install: cargow install --no-default-features --features tui-crossplatform
 - pkgname: duf
+  pkgtype: pie
   version: 0.8.1
   license: MIT
   summary: A better alternative to df(1)
@@ -1986,6 +2095,7 @@
   parallel: "1"
   install: gow
 - pkgname: dufs
+  pkgtype: exe
   version: 0.40.0
   license: MIT
   summary: A file server that supports static serving, uploading, searching, accessing control, webdav...
@@ -2000,6 +2110,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: duktape
+  pkgtype: exe
   version: 2.7.0
   license: MIT
   summary: An embeddable Javascript engine with a focus on portability and compact footprint
@@ -2016,6 +2127,7 @@
     gmakew -f Makefile.cmdline
     install_bins duk
 - pkgname: dust
+  pkgtype: exe
   version: 1.0.0
   license: Apache-2.0
   summary: A more intuitive version of du(1) in rust
@@ -2030,6 +2142,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: easyutils
+  pkgtype: exe
   version: 2024.05.15
   summary: A collections of easy to use command-line utilities
   web-url: https://github.com/leleliu008/C-examples
@@ -2057,6 +2170,7 @@
     rm -rf "$PACKAGE_INSTALL_DIR/lib"
     rm -rf "$PACKAGE_INSTALL_DIR/include"
 - pkgname: ed
+  pkgtype: exe
   version: 1.20.2
   license: GPL-3.0-or-later
   summary: Classic UNIX line editor
@@ -2069,6 +2183,7 @@
   parallel: "1"
   install: configure CC="'$CC'" CPPFLAGS="'$CPPFLAGS'" CFLAGS="'$CFLAGS'" LDFLAGS="'$LDFLAGS'"
 - pkgname: eigen3
+  pkgtype: lib
   version: 3.4.0
   license: MPL-2.0
   summary: A C++ template library for linear algebra:matrices, vectors, numerical solvers, and related algorithms
@@ -2085,6 +2200,7 @@
     sed_in_place 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt
   install: cmakew
 - pkgname: elvish
+  pkgtype: pie
   version: 0.20.1
   license: BSD-2-Clause
   summary: Friendly and expressive shell
@@ -2098,6 +2214,7 @@
   parallel: "1"
   install: gow ./cmd/elvish
 - pkgname: epsilon
+  pkgtype: exe
   version: 0.9.2
   license: GPL-3.0-or-later
   summary: Powerful wavelet image compressor
@@ -2111,6 +2228,7 @@
   parallel: "1"
   install: configure
 - pkgname: esbuild
+  pkgtype: pie
   version: 0.20.2
   license: MIT
   summary: An extremely fast JavaScript bundler and minifier
@@ -2124,6 +2242,7 @@
   parallel: "1"
   install: gow ./cmd/esbuild
 - pkgname: ethereum
+  pkgtype: pie
   version: 1.13.14
   license: LGPL-3.0-or-later
   summary: Go implementation of the Ethereum protocol
@@ -2141,6 +2260,7 @@
         gow ./cmd/$item
     done
 - pkgname: exa
+  pkgtype: exe
   version: 0.10.1
   license: MIT
   summary: Modern replacement for ls(1)
@@ -2156,6 +2276,7 @@
   parallel: "1"
   install: cargow install --locked
 - pkgname: exhale
+  pkgtype: exe+lib
   version: 1.1.9
   summary: Open source xHE-AAC encoder
   web-url: https://gitlab.com/ecodis/exhale
@@ -2168,6 +2289,7 @@
   parallel: "1"
   install: cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: exiv2
+  pkgtype: exe
   version: 0.28.2
   license: GPL-2.0-or-later
   summary: A command-line utility to read, write, delete and modify Exif, IPTC, XMP and ICC image metadata
@@ -2199,6 +2321,7 @@
         -DEXIV2_BUILD_SAMPLES=OFF \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: eza
+  pkgtype: exe
   version: 0.18.13
   license: MIT
   summary: Modern replacement for ls(1)
@@ -2214,6 +2337,7 @@
   parallel: "1"
   install: cargow install --locked
 - pkgname: faac
+  pkgtype: lib
   version: "1.30"
   license: LGPL-2.1-or-later
   summary: ISO AAC audio encoder
@@ -2228,6 +2352,7 @@
   dopatch: run ./bootstrap
   install: configure
 - pkgname: faad2
+  pkgtype: exe+lib
   version: 2.11.1
   license: GPL-2.0-or-later
   summary: ISO AAC audio decoder
@@ -2241,6 +2366,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: fcp
+  pkgtype: exe
   version: 0.2.1
   license: BSD-3-Clause
   summary: A significantly faster alternative to the classic Unix cp(1) command
@@ -2254,6 +2380,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: fd
+  pkgtype: exe
   version: 9.0.0
   license: Apache-2.0
   summary: A simple, fast and user-friendly alternative to find(1)
@@ -2268,6 +2395,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: fdk-aac
+  pkgtype: lib
   version: 2.0.3
   license: Apache-2.0
   summary: Standalone library of the Fraunhofer FDK AAC code from Android
@@ -2287,6 +2415,7 @@
     EOF
   install: configure
 - pkgname: fdroidcl
+  pkgtype: pie
   version: 0.7.0
   license: BSD-3-Clause
   summary: F-Droid client
@@ -2300,6 +2429,7 @@
   parallel: "1"
   install: gow
 - pkgname: fff
+  pkgtype: exe
   version: "2.2"
   license: MIT
   summary: A simple file manager written in bash
@@ -2314,6 +2444,7 @@
     install_bins fff
     install_mans fff.1
 - pkgname: ffmpeg
+  pkgtype: exe+lib
   version: "7.0"
   license: GPL-2.0-or-later
   summary: A complete, cross-platform solution to record, convert and stream audio and video
@@ -2388,6 +2519,7 @@
         return 1
     fi
 - pkgname: figlet
+  pkgtype: exe
   version: 2.2.5
   license: BSD-3-Clause
   summary: Banner-like program prints strings as ASCII art
@@ -2403,6 +2535,7 @@
     gmakew clean
     gmakew install CC="$CC" LD="$CC" CFLAGS="'$CPPFLAGS $CFLAGS'" LDFLAGS="'$LDFLAGS'" prefix="$PACKAGE_INSTALL_DIR"
 - pkgname: file
+  pkgtype: exe
   version: "5.45"
   license: BSD-2-Clause
   summary: A command-line tool to determine file types
@@ -2419,6 +2552,7 @@
   prepare: export FILE_COMPILE="$NATIVE_INSTALL_DIR/bin/file"
   install: configure --enable-zlib --disable-bzlib --disable-xzlib
 - pkgname: findent
+  pkgtype: exe
   version: 4.3.2
   license: BSD-3-Clause
   summary: Indent and beautify Fortran sources and generate dependency information
@@ -2431,6 +2565,7 @@
   parallel: "1"
   install: configure
 - pkgname: findutils
+  pkgtype: exe
   version: 4.9.0
   license: GPL-3.0-or-later
   summary: A package of several programs related to finding files
@@ -2458,6 +2593,7 @@
         --enable-d_type-optimisation \
         --disable-assert
 - pkgname: fish
+  pkgtype: pie
   version: 3.7.1
   license: GPL-2.0-or-later
   summary: User-friendly command-line shell for UNIX-like operating systems
@@ -2473,6 +2609,7 @@
   parallel: "1"
   install: cmakew -DWITH_GETTEXT=OFF
 - pkgname: flac
+  pkgtype: lib
   version: 1.4.3
   license: GFDL-1.2-or-later
   summary: Free lossless audio codec
@@ -2497,6 +2634,7 @@
         -DINSTALL_PKGCONFIG_MODULES=ON \
         -DINSTALL_CMAKE_CONFIG_MODULE=ON
 - pkgname: flatc
+  pkgtype: exe
   version: 24.3.25
   license: Apache-2.0
   summary: An efficient cross platform serialization library for C++
@@ -2522,6 +2660,7 @@
         -DFLATBUFFERS_BUILD_BENCHMARKS=OFF \
         -DFLATBUFFERS_BUILD_SHAREDLIB=OFF
 - pkgname: flex
+  pkgtype: exe
   version: 2.6.4
   license: BSD-2-Clause
   summary: The Fast Lexical Analyzer, generates Scanners (tokenizers)
@@ -2536,6 +2675,7 @@
   dopatch: sed_in_place '1i \#include<malloc.h>' src/misc.c
   install: configure --enable-warnings LIBS=-lm
 - pkgname: flock
+  pkgtype: exe
   version: 0.4.0
   license: ISC
   summary: flock(1) locks files
@@ -2550,6 +2690,7 @@
   dopatch: sed_in_place 's|%1u|%1ld|' src/flock.c
   install: configure
 - pkgname: fmt
+  pkgtype: lib
   version: 10.2.1
   license: MIT
   summary: An open-source C/C++ library for formatting that provides a fast and safe alternative to C stdio and C++ iostreams
@@ -2569,6 +2710,7 @@
         -DFMT_WERROR=OFF \
         -DFMT_PEDANTIC=OFF
 - pkgname: fontconfig
+  pkgtype: exe+lib
   version: 2.15.0
   license: MIT
   summary: XML-based font configuration tools
@@ -2589,6 +2731,7 @@
         --with-libiconv-prefix="$libiconv_INSTALL_DIR" \
         --with-libintl-prefix="$gettext_dev_INSTALL_DIR"
 - pkgname: fortune
+  pkgtype: exe
   version: 3.18.0
   summary: A command-line tool for displaying a random quotation
   web-url: https://github.com/shlomif/fortune-mod
@@ -2603,6 +2746,7 @@
   do12345: cmakew
   install: cmakew
 - pkgname: fp16
+  pkgtype: lib
   version: 2024.05.15
   license: MIT
   summary: A header-only C/C++ library for conversion to/from half-precision floating point formats
@@ -2617,6 +2761,7 @@
         -DFP16_BUILD_TESTS=OFF \
         -DFP16_BUILD_BENCHMARKS=OFF
 - pkgname: freexl
+  pkgtype: lib
   version: 2.0.0
   license: MPL-1.1
   summary: An open source library to extract data from Excel .xls files
@@ -2631,6 +2776,7 @@
   install: configure LIBS="'-liconv -lz'"
   dotweak: 'printf ''Requires: libiconv, minizip, expat\n'' >> lib/pkgconfig/freexl.pc'
 - pkgname: fribidi
+  pkgtype: exe+lib
   version: 1.0.13
   license: LGPL-2.1-or-later
   summary: Implementation of the Unicode BiDi algorithm
@@ -2644,6 +2790,7 @@
   parallel: "1"
   install: configure
 - pkgname: fselect
+  pkgtype: exe
   version: 0.8.5
   license: MIT
   summary: Find files with SQL-like queries
@@ -2658,6 +2805,7 @@
   parallel: "1"
   install: cargow install --locked
 - pkgname: fsmon
+  pkgtype: exe
   version: 1.8.4
   license: MIT
   summary: Filesystem monitor with fanotify and inotify backends
@@ -2675,6 +2823,7 @@
     gmakew FANOTIFY_CFLAGS="'-DHAVE_FANOTIFY=1 -DHAVE_SYS_FANOTIFY=0'"
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: fswatch
+  pkgtype: exe
   version: 1.17.1
   license: GPL-3.0-or-later
   summary: Monitor a directory for changes and run a shell command
@@ -2688,6 +2837,7 @@
   parallel: "1"
   install: configure
 - pkgname: fxdiv
+  pkgtype: lib
   version: 2024.05.15
   license: MIT
   summary: A header-only library for division via fixed-point multiplication by inverse
@@ -2702,6 +2852,7 @@
         -DFXDIV_BUILD_TESTS=OFF \
         -DFXDIV_BUILD_BENCHMARKS=OFF
 - pkgname: fzf
+  pkgtype: pie
   version: 0.50.0
   license: MIT
   summary: A command-line fuzzy finder written in Go
@@ -2715,6 +2866,7 @@
   parallel: "1"
   install: gow -X main.version=$PACKAGE_VERSION -X main.revision=ndk-pkg
 - pkgname: fzy
+  pkgtype: exe
   version: "1.0"
   license: MIT
   summary: A fast, simple fuzzy text selector with an advanced scoring algorithm
@@ -2730,6 +2882,7 @@
     gmakew clean
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR" LIBS=
 - pkgname: garble
+  pkgtype: pie
   version: 0.12.1
   license: BSD-3-Clause
   summary: Obfuscate Go builds
@@ -2743,6 +2896,7 @@
   parallel: "1"
   install: gow
 - pkgname: gawk
+  pkgtype: exe
   version: 5.3.0
   license: GPL-3.0-or-later
   summary: GNU awk utility
@@ -2767,6 +2921,7 @@
         --disable-pma \
         --disable-builtin-intdiv0
 - pkgname: gbt
+  pkgtype: pie
   version: 2.0.0
   license: MIT
   summary: Highly configurable prompt builder for Bash and ZSH written in Go
@@ -2787,6 +2942,7 @@
         -X main.build=$PACKAGE_GIT_SHA \
         ./cmd/gbt
 - pkgname: gd
+  pkgtype: lib
   version: 2.3.3
   summary: Graphics library to dynamically manipulate images
   web-url: https://libgd.github.io/
@@ -2801,6 +2957,7 @@
   install: configure --without-x --without-xpm
   dotweak: sed_in_place 's|-lgd|-lgd -liconv|' lib/pkgconfig/gdlib.pc
 - pkgname: gdbm
+  pkgtype: lib
   version: "1.23"
   license: GPL-3.0-or-later
   summary: GNU database manager
@@ -2814,6 +2971,7 @@
   parallel: "1"
   install: configure --enable-libgdbm-compat --without-readline
 - pkgname: gdk-pixbuf
+  pkgtype: exe+lib
   version: 2.42.10
   license: LGPL-2.1-or-later
   summary: Toolkit for image loading and pixel buffer manipulation
@@ -2841,6 +2999,7 @@
         -Dbuiltin_loaders=all \
         -Dintrospection=disabled
 - pkgname: gdu
+  pkgtype: pie
   version: 5.27.0
   license: MIT
   summary: A pretty fast disk usage analyzer with console interface written in Go
@@ -2857,6 +3016,7 @@
         -X github.com/dundee/gdu/v5/build.Time=$TIMESTAMP_UNIX \
         ./cmd/gdu
 - pkgname: geographiclib
+  pkgtype: exe+lib
   version: r2.2
   license: MIT
   summary: C++ geography library
@@ -2870,6 +3030,7 @@
   parallel: "1"
   install: cmakew -DBUILD_BOTH_LIBS=ON
 - pkgname: geos
+  pkgtype: lib
   version: 3.12.1
   license: LGPL-2.1-or-later
   summary: Geometry Engine
@@ -2883,6 +3044,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: germanium
+  pkgtype: pie
   version: 1.2.2
   license: MIT
   summary: Generate image from source code
@@ -2896,6 +3058,7 @@
   parallel: "1"
   install: gow ./cmd/germanium
 - pkgname: gettext
+  pkgtype: exe
   version: 0.22.5
   license: GPL-3.0-or-later
   summary: GNU internationalization (i18n) and localization (l10n) library
@@ -2931,6 +3094,7 @@
         --enable-nls \
         --enable-relocatable
 - pkgname: gettext-dev
+  pkgtype: exe+lib
   version: 0.22.5
   license: GPL-3.0-or-later
   summary: GNU internationalization (i18n) and localization (l10n) library
@@ -2969,6 +3133,7 @@
         --enable-relocatable
   dotweak: "run install -d lib/pkgconfig/\ncat >          lib/pkgconfig/libintl.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
 - pkgname: gettext-tools
+  pkgtype: exe
   version: 0.22.5
   license: GPL-3.0-or-later
   summary: GNU internationalization (i18n) and localization (l10n) library
@@ -3007,6 +3172,7 @@
     rm -rf lib
     rm -rf include
 - pkgname: gflags
+  pkgtype: lib
   version: 2.2.2
   license: BSD-3-Clause
   summary: A C++ library for processing command-line flags
@@ -3027,6 +3193,7 @@
         -DGFLAGS_BUILD_TESTING=OFF \
         -DGFLAGS_BUILD_PACKAGING=OFF
 - pkgname: gh
+  pkgtype: pie
   version: 2.48.0
   license: MIT
   summary: A command-line interface that brings github.com functionality to your terminal
@@ -3043,6 +3210,7 @@
         -X github.com/cli/cli/internal/build.Version=$PACKAGE_VERSION \
         ./cmd/gh
 - pkgname: ghostscript
+  pkgtype: exe+lib
   version: 10.03.0
   license: AGPL-3.0-or-later
   summary: Interpreter for PostScript and PDF
@@ -3084,6 +3252,7 @@
     run make soclean
     run make install-so
 - pkgname: giflib
+  pkgtype: lib
   version: 5.2.1
   summary: Library and utilities for processing GIFs
   web-url: https://giflib.sourceforge.io
@@ -3103,6 +3272,7 @@
     gmakew clean
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR" CC="$CC" AR="$AR" CFLAGS="'$CFLAGS'"
 - pkgname: gindent
+  pkgtype: exe
   version: 2.2.13
   license: GPL-3.0-or-later
   summary: C code prettifier
@@ -3118,6 +3288,7 @@
   install: configure --program-prefix=g LIBS="'-lintl -liconv'"
   dotweak: cd bin && ln -s gindent indent
 - pkgname: git
+  pkgtype: exe
   version: 2.44.0
   license: GPL-2.0-only
   summary: A free and open source distributed version control system with speed and efficiency
@@ -3166,6 +3337,7 @@
         --with-libpcre2="$libpcre2_INSTALL_DIR" \
         --without-tcltk
 - pkgname: git-cliff
+  pkgtype: exe
   version: 2.2.0
   license: Apache-2.0 MIT
   summary: A highly customizable Changelog Generator that follows Conventional Commit specifications
@@ -3182,6 +3354,7 @@
     export LIBGIT2_NO_VENDOR=1
     cargow install --path git-cliff
 - pkgname: git-lfs
+  pkgtype: pie
   version: 3.5.1
   license: MIT
   summary: A git extension for versioning large files
@@ -3195,6 +3368,7 @@
   parallel: "1"
   install: gow
 - pkgname: gitui
+  pkgtype: exe
   version: 0.26.1
   license: MIT
   summary: Blazing fast terminal-ui for git written in rust
@@ -3218,6 +3392,7 @@
     export LIBZ_SYS_STATIC=1
   install: cargow install --locked
 - pkgname: gitwatch
+  pkgtype: exe
   version: "0.2"
   license: GPL-3.0-or-later
   summary: Watch a file or folder and automatically commit changes to a git repo easily
@@ -3231,6 +3406,7 @@
   install: install_bins gitwatch.sh
   dotweak: mv bin/gitwatch.sh bin/gitwatch
 - pkgname: glib
+  pkgtype: lib
   version: 2.78.0
   license: LGPL-2.1-or-later
   summary: A general-purpose, portable utility library which provides many useful data types, macros, type conversions, string utilities, file utilities, a mainloop abstraction, and so on
@@ -3266,6 +3442,7 @@
     sed_in_place "s|$NDKPKG_HOME/installed/.*/libintl.so||g"      lib/pkgconfig/*.pc
     sed_in_place '/^Requires.private: /s|$| libintl libffi libz|' lib/pkgconfig/glib-2.0.pc
 - pkgname: glib-tools
+  pkgtype: exe
   version: 2.80.0
   license: LGPL-2.1-or-later
   summary: A collection of tools for glib
@@ -3313,6 +3490,7 @@
     rm -rfv lib
     rm -rfv include
 - pkgname: glog
+  pkgtype: lib
   version: 0.6.0
   license: BSD-3-Clause
   summary: Application-level logging library
@@ -3331,6 +3509,7 @@
         -DWITH_THREADS=ON \
         -DWITH_GFLAGS=ON
 - pkgname: glow
+  pkgtype: pie
   version: 1.5.1
   license: MIT
   summary: A terminal based markdown reader
@@ -3344,6 +3523,7 @@
   parallel: "1"
   install: gow -X main.Version=$PACKAGE_VERSION
 - pkgname: glslang
+  pkgtype: exe
   version: 14.1.0
   license: BSD-3-Clause GPL-3.0-or-later MIT Apache-2.0
   summary: OpenGL and OpenGL ES reference compiler for shading languages
@@ -3357,6 +3537,7 @@
   parallel: "1"
   install: cmakew -DBUILD_EXTERNAL=OFF -DENABLE_CTEST=OFF -DENABLE_OPT=OFF -DBUILD_SHARED_LIBS=OFF
 - pkgname: gm4
+  pkgtype: exe
   version: 1.4.19
   license: GPL-3.0-or-later
   summary: Macro processing language
@@ -3383,6 +3564,7 @@
         --program-prefix=g
   dotweak: cd bin && ln -s gm4 m4
 - pkgname: gmake
+  pkgtype: exe
   version: 4.4.1
   license: GPL-3.0-or-later
   summary: Utility for directing compilation
@@ -3399,6 +3581,7 @@
   install: configure --program-prefix=g --without-guile --without-dmalloc
   dotweak: cd bin && ln -s gmake make
 - pkgname: gn
+  pkgtype: exe
   version: 2024.05.15
   summary: A meta-build system for generating build files for ninja
   web-url: https://gn.googlesource.com/gn
@@ -3414,6 +3597,7 @@
     run ninja -C out/
     run install_bins out/gn
 - pkgname: gnu-barcode
+  pkgtype: exe
   version: "0.99"
   license: GPL-3.0-or-later
   summary: Convert text strings to printed bars
@@ -3429,6 +3613,7 @@
   prepare: export CPPFLAGS="$CPPFLAGS -I$gettext_dev_INSTALL_DIR/share/gettext"
   install: configure
 - pkgname: gnu-which
+  pkgtype: exe
   version: "2.21"
   license: GPL-3.0-or-later
   summary: GNU implementation of which utility
@@ -3442,6 +3627,7 @@
   parallel: "1"
   install: configure --disable-iberty
 - pkgname: gnupg
+  pkgtype: exe
   version: 2.4.5
   license: GPL-3.0-or-later
   summary: GNU Pretty Good Privacy (PGP) package
@@ -3469,6 +3655,7 @@
         --with-readline=$readline_INSTALL_DIR \
         --with-libiconv-prefix=$libincov_INSTALL_DIR LIBS=-lm
 - pkgname: gnutls
+  pkgtype: exe+lib
   version: 3.8.4
   license: LGPL-2.1-or-later GPL-3.0-only
   summary: GNU Transport Layer Security (TLS) Library
@@ -3494,6 +3681,7 @@
         --disable-guile \
         --enable-gcc-warnings LIBS=-ldl
 - pkgname: go-md2man
+  pkgtype: pie
   version: 2.0.4
   license: MIT
   summary: Converts markdown into roff (man pages)
@@ -3507,6 +3695,7 @@
   parallel: "1"
   install: gow
 - pkgname: go-tools
+  pkgtype: pie
   version: 2023.1.3
   license: MIT
   summary: A state-of-the-art linter for the Go programming language
@@ -3525,6 +3714,7 @@
     gow ./cmd/structlayout-pretty
     gow ./cmd/structlayout-optimize
 - pkgname: godu
+  pkgtype: pie
   version: "1.3"
   license: MIT
   summary: A simple utility to discover large files/folders
@@ -3538,6 +3728,7 @@
   parallel: "1"
   install: gow
 - pkgname: gogs
+  pkgtype: pie
   version: 0.13.0
   license: MIT
   summary: Go git service
@@ -3551,6 +3742,7 @@
   parallel: "1"
   install: gow
 - pkgname: golang
+  pkgtype: pie
   version: 1.22.2
   license: BSD-3-Clause
   summary: Open source programming language to build simple/reliable/efficient software
@@ -3565,6 +3757,7 @@
   parallel: "1"
   install: "export GOROOT_BOOTSTRAP=\"$(go env GOROOT)\"\n\nrun ./make.bash\nrun cd ..\nrun rm -rf _\nrun rm bin/go*\nrun mv bin/android_*/* bin/\nrun rm -rf bin/android_*\nrun rm -rf src/debug/elf/testdata\nrun rm -rf src/debug/dwarf/testdata\nrun rm -rf src/runtime/pprof/testdata\nrun rm -rf src/runtime/race/race_linux*.syso\nrun rm -rf src/runtime/race/internal/amd64v1/race_*.syso\nrun rm -rf src/runtime/race/internal/amd64v3/race_*.syso\nrun rm -rf pkg/obj \n\nfor item in $(ls pkg/tool)\ndo\n    case $item in\n        android_*) ;;\n        *)  run rm -rf \"pkg/tool/$item\"\n    esac\ndone\n\nrun cd ..\nrun install -d \"$PACKAGE_INSTALL_DIR/\"\nrun mv src/*   \"$PACKAGE_INSTALL_DIR/\"\n\n# override temporarily\n__check_elf_files() {\n    :\n}"
 - pkgname: gomobile
+  pkgtype: pie
   version: 2024.05.15
   summary: A tool for building and running mobile apps written in Go
   web-url: https://github.com/golang/mobile
@@ -3579,6 +3772,7 @@
         gow ./cmd/$item || return 1
     done
 - pkgname: google-benchmark
+  pkgtype: lib
   version: 1.8.3
   license: Apache-2.0
   summary: A C++ library to benchmark code snippets, similar to unit tests
@@ -3600,6 +3794,7 @@
         -DBENCHMARK_ENABLE_LTO=ON \
         -DBENCHMARK_DOWNLOAD_DEPENDENCIES=OFF
 - pkgname: google-highway
+  pkgtype: lib
   version: 1.0.3
   license: Apache-2.0
   summary: Performance-portable, length-agnostic SIMD with runtime dispatch
@@ -3618,6 +3813,7 @@
         -DHWY_ENABLE_CONTRIB=ON \
         -DHWY_ENABLE_INSTALL=ON
 - pkgname: googletest
+  pkgtype: lib
   version: 1.14.0
   license: BSD-3-Clause
   summary: C++ Testing and Mocking Framework by Google
@@ -3631,6 +3827,7 @@
   parallel: "1"
   install: cmakew -DBUILD_GMOCK=ON -DINSTALL_GTEST=ON
 - pkgname: gopls
+  pkgtype: pie
   version: 0.15.3
   license: BSD-3-Clause
   summary: Language server for the Go language
@@ -3644,6 +3841,7 @@
   parallel: "1"
   install: gow
 - pkgname: goreleaser
+  pkgtype: pie
   version: 1.25.1
   license: MIT
   summary: Deliver Go binaries as fast and easily as possible
@@ -3657,6 +3855,7 @@
   parallel: "1"
   install: gow -X main.version=$PACKAGE_VERSION -X main.commit=$PACKAGE_GIT_SHA -X main.builtBy=ndk-pkg
 - pkgname: gosh
+  pkgtype: pie
   version: 3.4.1
   license: BSD-3-Clause
   summary: A shell parser, formatter, and interpreter with bash support written in golang
@@ -3674,6 +3873,7 @@
         gow ./cmd/$item || return 1
     done
 - pkgname: gotop
+  pkgtype: pie
   version: 4.2.0
   license: BSD-3-Clause
   summary: Terminal based graphical activity monitor inspired by gtop and vtop
@@ -3687,6 +3887,7 @@
   parallel: "1"
   install: gow -X main.Version=v$PACKAGE_VERSION -X main.BuildDate=$(date +%Y%m%dT%H%M%S) ./cmd/gotop
 - pkgname: gotty
+  pkgtype: pie
   version: 1.5.0
   license: MIT
   summary: A simple command-line tool to share your terminal as a web application
@@ -3700,6 +3901,7 @@
   parallel: "1"
   install: gow -X main.Version=$PACKAGE_VERSION
 - pkgname: gox
+  pkgtype: pie
   version: 1.0.1
   license: MPL-2.0
   summary: Go cross compile tool
@@ -3713,6 +3915,7 @@
   parallel: "1"
   install: gow
 - pkgname: gperf
+  pkgtype: exe
   version: "3.1"
   license: GPL-3.0-or-later
   summary: Perfect hash function generator
@@ -3727,6 +3930,7 @@
   parallel: "1"
   install: configure
 - pkgname: gperftools
+  pkgtype: exe
   version: "2.15"
   license: BSD-3-Clause
   summary: A collection of a high-performance multi-threaded malloc() implementation, plus some pretty nifty performance analysis tools
@@ -3742,6 +3946,7 @@
   parallel: "1"
   install: configure LIBS=-ldl
 - pkgname: gping
+  pkgtype: exe
   version: 1.16.1
   license: MIT
   summary: Ping, but with a graph
@@ -3755,6 +3960,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: gpsim
+  pkgtype: exe
   version: 0.32.1
   license: GPL-2.0-or-later
   summary: Simulator for Microchip PIC microcontrollers
@@ -3768,6 +3974,7 @@
   parallel: "1"
   install: configure --disable-gui
 - pkgname: gputils
+  pkgtype: exe
   version: 1.5.2
   license: GPL-2.0-or-later
   summary: GNU PIC Utilities
@@ -3781,6 +3988,7 @@
   parallel: "1"
   install: configure
 - pkgname: graphicsmagick
+  pkgtype: exe
   version: 1.3.43
   license: MIT
   summary: Image processing tools collection
@@ -3805,6 +4013,7 @@
         --without-wmf \
         --with-jxl LIBS=-ldl
 - pkgname: graphviz
+  pkgtype: exe+lib
   version: 11.0.0
   license: EPL-1.0
   summary: An open source graph visualization software
@@ -3828,6 +4037,7 @@
         --without-x
   dotweak: cd lib && ln -s graphviz/lib*.so .
 - pkgname: grep
+  pkgtype: exe
   version: "3.11"
   license: GPL-3.0-or-later
   summary: GNU grep, egrep and fgrep
@@ -3850,6 +4060,7 @@
     sed_in_place 's|bash|sh|' bin/egrep
     sed_in_place 's|bash|sh|' bin/fgrep
 - pkgname: grex
+  pkgtype: exe
   version: 1.4.5
   license: Apache-2.0
   summary: A command-line tool for generating regular expressions from user-provided test cases
@@ -3863,6 +4074,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: gron
+  pkgtype: pie
   version: 0.7.1
   license: MIT
   summary: Make JSON greppable
@@ -3876,6 +4088,7 @@
   parallel: "1"
   install: gow
 - pkgname: grpc
+  pkgtype: lib
   version: 1.62.2
   license: Apache-2.0
   summary: A modern, open source, high-performance remote procedure call (RPC) framework
@@ -3909,6 +4122,7 @@
         -DgRPC_BUILD_GRPC_OBJECTIVE_C_PLUGIN=OFF \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: grpc-plugins
+  pkgtype: pie
   version: 1.62.2
   license: Apache-2.0
   summary: grpc plugins
@@ -3946,6 +4160,7 @@
     rm -rf include
     rm -rf lib
 - pkgname: gsed
+  pkgtype: exe
   version: "4.9"
   license: GPL-3.0-or-later
   summary: GNU implementation of the famous stream editor
@@ -3968,6 +4183,7 @@
         --disable-assert
   dotweak: cd bin && ln -s gsed sed
 - pkgname: gtar
+  pkgtype: exe
   version: "1.35"
   license: GPL-3.0-or-later
   summary: GNU version of the tar archiving utility
@@ -3992,6 +4208,7 @@
         --disable-acl \
         --disable-gcc-warnings
 - pkgname: gzip
+  pkgtype: exe
   version: "1.13"
   license: GPL-3.0-or-later
   summary: A popular data compression program developed by GNU
@@ -4005,6 +4222,7 @@
   parallel: "1"
   install: configure
 - pkgname: halibut
+  pkgtype: exe
   version: "1.3"
   license: MIT
   summary: Yet another free document preparation system
@@ -4018,6 +4236,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: helix
+  pkgtype: exe
   version: "24.03"
   license: MPL-2.0
   summary: A post-modern modal text editor
@@ -4036,6 +4255,7 @@
     install -d -v    "$PACKAGE_INSTALL_DIR/libexec"
     cp -v -r runtime "$PACKAGE_INSTALL_DIR/libexec"
 - pkgname: helm
+  pkgtype: pie
   version: 3.14.4
   license: Apache-2.0
   summary: Kubernetes package manager
@@ -4049,6 +4269,7 @@
   parallel: "1"
   install: gow ./cmd/helm
 - pkgname: hexdump
+  pkgtype: exe
   version: "20181215"
   summary: hexdump library and cli
   web-url: https://www.25thandclement.com/~william/projects/hexdump.c.html
@@ -4066,6 +4287,7 @@
     install_incs hexdump.h
     install_libs libhexdump.a
 - pkgname: hexyl
+  pkgtype: exe
   version: 0.14.0
   license: MIT
   summary: A simple hex viewer for the terminal
@@ -4079,6 +4301,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: htop
+  pkgtype: exe
   version: 3.3.0
   license: GPL-2.0-or-later
   summary: Improved top (interactive process viewer)
@@ -4093,6 +4316,7 @@
   parallel: "1"
   install: configure --disable-static --enable-unicode LIBS="$ncurses_LIBRARY_DIR/libncursesw.a"
 - pkgname: htslib
+  pkgtype: lib
   version: "1.20"
   license: MIT
   summary: A C library for high-throughput sequencing data formats
@@ -4107,6 +4331,7 @@
   parallel: "1"
   install: configure --enable-libcurl LIBS="'$(pkg-config --libs libcurl)'"
 - pkgname: httpx
+  pkgtype: pie
   version: 1.6.0
   license: MIT
   summary: Fast and multi-purpose HTTP toolkit
@@ -4120,6 +4345,7 @@
   parallel: "1"
   install: gow ./cmd/httpx
 - pkgname: hugo
+  pkgtype: pie
   version: 0.125.4
   license: Apache-2.0
   summary: A fast and flexible static site generator
@@ -4138,6 +4364,7 @@
         -X github.com/gohugoio/hugo/common/hugo.vendorInfo=ndk-pkg \
         -tags extended
 - pkgname: hunspell
+  pkgtype: exe
   version: 1.7.2
   license: GPL-2.0-or-later
   summary: A free spell checker and morphological analyzer
@@ -4156,6 +4383,7 @@
         --with-readline \
         --with-warnings
 - pkgname: hurl
+  pkgtype: exe
   version: 4.3.0
   license: Apache-2.0
   summary: Run and Test HTTP Requests with plain text and curl
@@ -4175,6 +4403,7 @@
         install_mans docs/manual/$item.1
     done
 - pkgname: hwloc
+  pkgtype: exe+lib
   version: 2.10.0
   license: BSD-3-Clause
   summary: Portable abstraction of the hierarchical topology of modern architectures
@@ -4189,6 +4418,7 @@
   parallel: "1"
   install: configure --disable-cairo --without-x
 - pkgname: hydroxide
+  pkgtype: pie
   version: 0.2.21
   license: MIT
   summary: A third-party, open-source ProtonMail CardDAV, IMAP and SMTP bridge
@@ -4202,6 +4432,7 @@
   parallel: "1"
   install: gow ./cmd/hydroxide
 - pkgname: hyperfine
+  pkgtype: exe
   version: 1.18.0
   license: Apache-2.0
   summary: A command-line tool for benchmarking
@@ -4215,6 +4446,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: icu4c
+  pkgtype: lib
   version: "74.2"
   license: ICU
   summary: C/C++ and Java libraries for Unicode and globalization
@@ -4241,6 +4473,7 @@
         --disable-tests \
         --disable-samples
 - pkgname: id3lib
+  pkgtype: lib
   version: 3.8.3
   license: LGPL-2.0-or-later
   summary: An open-source library for manipulating ID3v1 and ID3v2 tags
@@ -4260,6 +4493,7 @@
         --enable-ansi=no \
         --enable-debug=no
 - pkgname: ideviceinstaller
+  pkgtype: exe
   version: 1.1.1
   license: GPL-2.0-or-later
   summary: A command-line tool to manage apps on iOS devices
@@ -4277,6 +4511,7 @@
   parallel: "1"
   install: configure LIBS=-lm
 - pkgname: imagemagick
+  pkgtype: exe+lib
   version: 7.1.1.15
   license: ImageMagick
   summary: Tools and libraries to manipulate images in many formats
@@ -4309,6 +4544,7 @@
         --without-fftw \
         --disable-opencl LIBS=-lc++_shared
 - pkgname: imath
+  pkgtype: lib
   version: 3.1.11
   license: BSD-3-Clause
   summary: Library of 2D and 3D vector, matrix, and math operations
@@ -4324,6 +4560,7 @@
     cmakew -DPYTHON=OFF -DDOCS=OFF -DBUILD_SHARED_LIBS=ON
     cmakew -DPYTHON=OFF -DDOCS=OFF -DBUILD_SHARED_LIBS=OFF
 - pkgname: imlib2
+  pkgtype: lib
   version: 1.12.2
   license: Imlib2
   summary: Image loading and rendering library
@@ -4341,6 +4578,7 @@
         --without-id3 \
         --without-x
 - pkgname: inih
+  pkgtype: lib
   version: r58
   license: BSD-3-Clause
   summary: A simple .ini file parser in C
@@ -4355,6 +4593,7 @@
   parallel: "1"
   install: mesonw -Dcpp_std=c++11
 - pkgname: invoice
+  pkgtype: pie
   version: 0.1.0
   license: MIT
   summary: A invoice generator
@@ -4367,6 +4606,7 @@
   parallel: "1"
   install: gow
 - pkgname: isl
+  pkgtype: lib
   version: "0.26"
   license: MIT
   summary: Integer Set Library for the polyhedral model
@@ -4386,6 +4626,7 @@
         --with-gmp=system \
         --with-gmp-prefix="$libgmp_INSTALL_DIR"
 - pkgname: iw
+  pkgtype: exe
   version: "6.7"
   summary: A powerful tool for managing and manipulating wireless devices
   web-url: https://wireless.wiki.kernel.org/en/users/Documentation/iw
@@ -4402,6 +4643,7 @@
     gmakew CC="$CC" CFLAGS="'$CFLAGS $CPPFLAGS'" LDFLAGS="'$LDFLAGS -Wl,-z,nostart-stop-gc'"
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: ixwebsocket
+  pkgtype: exe
   version: 11.3.2
   license: BSD-3-Clause
   summary: WebSocket client and server, and HTTP client command-line tool
@@ -4418,6 +4660,7 @@
     cmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=OFF
     cmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=ON
 - pkgname: jasper
+  pkgtype: exe+lib
   version: 4.2.3
   license: JasPer-2.0
   summary: Library for manipulating JPEG-2000 images
@@ -4438,6 +4681,7 @@
         -DJAS_ENABLE_PROGRAMS=ON \
         -DJAS_STDC_VERSION=$("$CC" -E -dM - < /dev/null | sed -n '/__STDC_VERSION__/p' | cut -d ' ' -f3)
 - pkgname: jbig2dec
+  pkgtype: exe+lib
   version: "0.20"
   license: AGPL-3.0-or-later
   summary: JBIG2 decoder and library (for monochrome documents)
@@ -4453,6 +4697,7 @@
   dopatch: sed_in_place '$d' autogen.sh && ./autogen.sh
   install: configure --with-libpng="$libpng_INSTALL_DIR"
 - pkgname: jfrog-cli
+  pkgtype: pie
   version: 2.56.0
   license: Apache-2.0
   summary: A command-line interface for Jfrog Artifactory and Bintray
@@ -4467,6 +4712,7 @@
   prepare: run go mod tidy
   install: gow -o jfrog
 - pkgname: jj
+  pkgtype: exe
   version: 0.16.0
   license: Apache-2.0
   summary: A git-compatible distributed version control system
@@ -4488,6 +4734,7 @@
     export LIBZ_SYS_STATIC=1
   install: cargow install --no-default-features --path cli --bin jj
 - pkgname: jpeg
+  pkgtype: exe
   version: 9f
   license: IJG
   summary: Image manipulation library
@@ -4500,6 +4747,7 @@
   parallel: "1"
   install: configure
 - pkgname: jq
+  pkgtype: exe
   version: 1.7.1
   license: MIT
   summary: A lightweight and flexible command-line JSON processor
@@ -4514,6 +4762,7 @@
   parallel: "1"
   install: configure --with-oniguruma="$oniguruma_INSTALL_DIR"
 - pkgname: json-c
+  pkgtype: lib
   version: "0.17"
   license: MIT
   summary: A JSON parser for C
@@ -4537,6 +4786,7 @@
         -DENABLE_RDRAND=ON \
         -DENABLE_THREADING=ON
 - pkgname: json-glib
+  pkgtype: lib
   version: 1.8.0
   license: LGPL-2.1-or-later
   summary: Library for JSON, based on GLib
@@ -4557,6 +4807,7 @@
         -Dgtk_doc=disabled \
         -Dintrospection=disabled
 - pkgname: jsoncpp
+  pkgtype: lib
   version: 1.9.5
   license: MIT
   summary: A C++ library for interacting with JSON
@@ -4579,6 +4830,7 @@
         -DJSONCPP_USE_SECURE_MEMORY=ON \
         -DJSONCPP_WITH_STRICT_ISO=ON
 - pkgname: jump
+  pkgtype: pie
   version: 0.51.0
   license: MIT
   summary: Helps you navigate your file system faster by learning your habits
@@ -4592,6 +4844,7 @@
   parallel: "1"
   install: gow && install_mans man/jump.1
 - pkgname: kcp
+  pkgtype: exe
   version: "1.7"
   license: MIT
   summary: A Fast and Reliable ARQ Protocol
@@ -4605,6 +4858,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: kcptun
+  pkgtype: pie
   version: "20240107"
   license: MIT
   summary: Stable & Secure Tunnel based on KCP with N/M multiplexing and FEC
@@ -4621,6 +4875,7 @@
     gow -X main.VERSION=$PACKAGE_VERSION -o kcptun_client ./client
     run install_etcs examples/local.json
 - pkgname: keybase
+  pkgtype: pie
   version: 6.0.1
   license: BSD-3-Clause
   summary: Key directory that maps social media identities to encryption keys
@@ -4638,6 +4893,7 @@
         gow -tags production ./$item || return 1
     done
 - pkgname: ko
+  pkgtype: pie
   version: 0.15.2
   license: Apache-2.0
   summary: A simple, fast container image builder for Go applications
@@ -4651,6 +4907,7 @@
   parallel: "1"
   install: gow -X github.com/google/ko/pkg/commands.Version=$PACKAGE_NAME
 - pkgname: krb5
+  pkgtype: lib
   version: 1.21.2
   summary: Network authentication protocol
   web-url: https://web.mit.edu/kerberos
@@ -4692,6 +4949,7 @@
         ac_cv_lib_readline_main=yes \
         ac_cv_header_ifaddrs_h="$ac_cv_header_ifaddrs_h" LIBS="'-ldb -lncurses'"
 - pkgname: lame
+  pkgtype: exe
   version: "3.100"
   license: LGPL-2.0-or-later
   summary: A high quality MPEG Audio Layer III (MP3) encoder
@@ -4710,6 +4968,7 @@
         --enable-nasm \
         LIBS=-lm
 - pkgname: lazygit
+  pkgtype: pie
   version: 0.41.0
   license: MIT
   summary: A simple terminal UI for git commands
@@ -4728,6 +4987,7 @@
         -X main.version=$PACKAGE_VERSION \
         -X main.buildSource=ndk-pkg
 - pkgname: lcms2
+  pkgtype: lib
   version: "2.16"
   license: MIT
   summary: Color management engine supporting ICC profiles
@@ -4743,6 +5003,7 @@
   dopatch: sed_in_place '/define CMS_NO_REGISTER_KEYWORD 1/c \#define CMS_NO_REGISTER_KEYWORD 1' include/lcms2.h
   install: configure
 - pkgname: lcov
+  pkgtype: exe
   version: "2.0"
   license: GPL-2.0-or-later
   summary: Graphical front-end for GCC coverage testing tool - gcov
@@ -4758,6 +5019,7 @@
     gmakew clean
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: ldns
+  pkgtype: lib
   version: 1.8.3
   license: BSD-3-Clause
   summary: DNS library written in C
@@ -4778,6 +5040,7 @@
         --without-pyldns \
         --disable-dane-verify LIBS="'-lssl -lcrypto'"
 - pkgname: leptonica
+  pkgtype: lib
   version: 1.84.1
   license: BSD-2-Clause
   summary: Image processing and image analysis library
@@ -4792,6 +5055,7 @@
   parallel: "1"
   install: configure LIBS="'-lzstd -llzma'"
 - pkgname: less
+  pkgtype: exe
   version: "643"
   license: GPL-3.0-or-later
   summary: Pager program similar to more
@@ -4806,6 +5070,7 @@
   parallel: "1"
   install: configure --with-regex=pcre2 --with-secure
 - pkgname: lf
+  pkgtype: pie
   version: r26
   license: MIT
   summary: Terminal file manager
@@ -4821,6 +5086,7 @@
     gow -X main.gVersion=$PACKAGE_VERSION
     run install_mans lf.1
 - pkgname: libaec
+  pkgtype: lib
   version: 1.1.3
   license: BSD-2-Clause
   summary: Adaptive Entropy Coding implementing Golomb-Rice algorithm
@@ -4835,6 +5101,7 @@
   dopatch: sed_in_place 's|DESTINATION cmake|DESTINATION lib/cmake/libaec|' CMakeLists.txt
   install: cmakew
 - pkgname: libaio
+  pkgtype: lib
   version: 0.3.113
   license: LGPL-2.1-or-later
   summary: Linux-native asynchronous I/O access library
@@ -4856,6 +5123,7 @@
     install -d "$PACKAGE_INSTALL_DIR/lib"
     gmakew install prefix="$PACKAGE_INSTALL_DIR"
 - pkgname: libao
+  pkgtype: lib
   version: 1.2.2
   license: GPL-2.0-or-later
   summary: A cross-platform audio library
@@ -4869,6 +5137,7 @@
   parallel: "1"
   install: configure
 - pkgname: libarchive
+  pkgtype: lib
   version: 3.7.4
   license: BSD-2-Clause
   summary: Multi-format archive and compression library
@@ -4910,6 +5179,7 @@
     sed_in_place '/Libs: /s|$| -liconv|' lib/pkgconfig/libarchive.pc
     sed_in_place '/Requires.private:/d'  lib/pkgconfig/libarchive.pc
 - pkgname: libargp
+  pkgtype: lib
   version: 1.5.0
   license: LGPL-2.1-or-later
   summary: Standalone version of arguments parsing functions from GLIBC
@@ -4926,6 +5196,7 @@
   parallel: "1"
   install: mesonw
 - pkgname: libasprintf
+  pkgtype: lib
   version: 0.22.5
   license: GPL-3.0-or-later
   summary: C-style formatted output in C++
@@ -4939,6 +5210,7 @@
   parallel: "1"
   install: configure
 - pkgname: libass
+  pkgtype: lib
   version: 0.17.1
   license: ISC
   summary: Subtitle renderer for the ASS/SSA subtitle format
@@ -4953,6 +5225,7 @@
   parallel: "1"
   install: configure --enable-large-tiles
 - pkgname: libassuan
+  pkgtype: lib
   version: 2.5.7
   license: GPL-3.0-or-later
   summary: Assuan IPC Library
@@ -4967,6 +5240,7 @@
   parallel: "1"
   install: configure --with-libgpg-error-prefix=$libgpg_error_INSTALL_DIR
 - pkgname: libasync++
+  pkgtype: lib
   version: "1.1"
   license: MIT
   summary: A lightweight concurrency framework for C++11
@@ -4982,6 +5256,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_SHARED_LIBS=ON
 - pkgname: libatomic_ops
+  pkgtype: lib
   version: 7.8.2
   license: GPL-2.0-or-later
   summary: Implementations for atomic memory update operations
@@ -5000,6 +5275,7 @@
         --disable-werror \
         --disable-assertions
 - pkgname: libavif
+  pkgtype: lib
   version: 1.0.4
   license: BSD-2-Clause
   summary: Library for encoding and decoding .avif files
@@ -5032,6 +5308,7 @@
         -DAVIF_BUILD_EXAMPLES=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libb2
+  pkgtype: lib
   version: 0.98.1
   license: CC0-1.0
   summary: Secure hashing function
@@ -5064,6 +5341,7 @@
         --disable-fat \
         --enable-native
 - pkgname: libb64
+  pkgtype: lib
   version: 1.2.1
   license: CC-PDDC
   summary: Base64 encoding/decoding library
@@ -5080,6 +5358,7 @@
     install_libs src/libb64.a
     run install_incs include/b64/*:b64
 - pkgname: libbcrypt
+  pkgtype: lib
   version: 2024.05.15
   license: CC0-1.0
   summary: A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface
@@ -5091,6 +5370,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libblake3
+  pkgtype: lib
   version: 1.5.1
   license: CC0-1.0
   summary: C implementations of the BLAKE3 cryptographic hash function
@@ -5106,6 +5386,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_SHARED_LIBS=ON
 - pkgname: libbluray
+  pkgtype: lib
   version: 1.3.4
   license: LGPL-2.1-or-later
   summary: Blu-Ray disc playback library for media players like VLC
@@ -5120,6 +5401,7 @@
   parallel: "1"
   install: configure --disable-bdjava-jar
 - pkgname: libbthread
+  pkgtype: lib
   version: "0.2"
   license: LGPL-2.1-or-later
   summary: provide some missing posix threading functions for NDK
@@ -5133,6 +5415,7 @@
   parallel: "1"
   install: configure
 - pkgname: libburn
+  pkgtype: lib
   version: 1.5.2
   license: GPL-2.0-or-later
   summary: Library for writing preformatted data onto optical media (CD, DVD and BD)
@@ -5145,6 +5428,7 @@
   parallel: "1"
   install: configure
 - pkgname: libbz2
+  pkgtype: lib
   version: 1.0.8
   license: bzip2-1.0.8
   summary: Burrows–Wheeler-based data compression library with high compression ratio
@@ -5158,6 +5442,7 @@
   parallel: "1"
   install: cmakew -DINSTALL_EXECUTABLES=OFF -DINSTALL_LIBRARIES=ON -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=ON
 - pkgname: libcaca
+  pkgtype: lib
   version: 0.99.beta20
   license: WTFPL
   summary: Convert pixel information into colored ASCII art
@@ -5186,6 +5471,7 @@
         --disable-x11 \
         --disable-doc
 - pkgname: libcap
+  pkgtype: lib
   version: "2.69"
   license: BSD-3-Clause
   summary: Linux Capability Library
@@ -5219,6 +5505,7 @@
         OBJCOPY="$OBJCOPY"
     cp "$PACKAGE_BSCRIPT_DIR/libcap/_caps_output.gperf" .
 - pkgname: libcap-ng
+  pkgtype: lib
   version: 0.8.5
   license: LGPL-2.1-or-later
   summary: Library making programming with POSIX capabilities easier than traditional libcap
@@ -5238,6 +5525,7 @@
         --without-python \
         --without-python3
 - pkgname: libcares
+  pkgtype: lib
   version: 1.28.1
   summary: Asynchronous DNS library
   web-url: https://c-ares.haxx.se
@@ -5258,6 +5546,7 @@
         -DCARES_BUILD_TESTS=OFF
   dotweak: cd lib && ln -s libcares_static.a libcares.a
 - pkgname: libcbor
+  pkgtype: lib
   version: 0.11.0
   license: MIT
   summary: CBOR protocol implementation for C and others
@@ -5273,6 +5562,7 @@
     cmakew -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF
     cmakew -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON
 - pkgname: libcddb
+  pkgtype: lib
   version: 1.3.2
   license: LGPL-2.0-or-later
   summary: CDDB server access library
@@ -5286,6 +5576,7 @@
   parallel: "1"
   install: configure --with-libiconv-prefix="$libiconv_INSTALL_DIR"
 - pkgname: libcdio
+  pkgtype: lib
   version: 2.1.0
   license: GPL-3.0-or-later
   summary: Compact Disc Input and Control Library
@@ -5304,6 +5595,7 @@
     fi
   install: configure
 - pkgname: libcerf
+  pkgtype: lib
   version: "2.4"
   license: MIT
   summary: Numeric library for complex error functions
@@ -5332,6 +5624,7 @@
         -DCERF_CPP=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libcgif
+  pkgtype: lib
   version: V0.3.0
   license: MIT
   summary: A fast and lightweight GIF encoder written in C
@@ -5346,6 +5639,7 @@
   parallel: "1"
   install: mesonw -Dtests=false
 - pkgname: libcpuinfo
+  pkgtype: lib
   version: 2024.05.15
   license: BSD-2-Clause
   summary: CPU INFOrmation library
@@ -5370,6 +5664,7 @@
         -DCPUINFO_BUILD_BENCHMARKS=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libcrc32c
+  pkgtype: lib
   version: 1.1.2
   license: BSD-3-Clause
   summary: Implementation of CRC32C with CPU-specific acceleration
@@ -5393,6 +5688,7 @@
         -DCRC32C_BUILD_BENCHMARKS=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libcroco
+  pkgtype: lib
   version: 0.6.13
   license: LGPL-2.0-or-later
   summary: CSS parsing and manipulation toolkit for GNOME
@@ -5411,6 +5707,7 @@
         --disable-Bsymbolic \
         --enable-checks LIBS=-lpcre2-8
 - pkgname: libcrypt
+  pkgtype: lib
   version: "1"
   license: Unlicense
   summary: crypt(3) implementation
@@ -5422,6 +5719,7 @@
   parallel: "1"
   install: "cat > crypt.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        char* crypt(char* key, char* salt);\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o crypt.o ../*.c\nrun $AR rsc libcrypt.a crypt.o\nrun install_incs crypt.h\nrun install_libs libcrypt.a"
 - pkgname: libcurl
+  pkgtype: lib
   version: 8.7.1
   license: curl
   summary: A free and easy-to-use client-side URL transfer library
@@ -5455,6 +5753,7 @@
     sed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lnghttp2||g' -e 's|-lzstd||g' -e 's|-lz||g' -e 's|-lbrotlidec||g' -e 's|-lbrotlicommon||g' libcurl.pc
     printf 'Requires: libnghttp2 openssl libzstd libz libbrotlidec\n' >> libcurl.pc
 - pkgname: libdatrie
+  pkgtype: lib
   version: 0.2.13
   license: LGPL-2.1-or-later
   summary: Double-Array Trie Library
@@ -5470,6 +5769,7 @@
   dopatch: sed_in_place '/SUBDIRS = /c SUBDIRS = datrie' Makefile.in
   install: configure LIBS="'-lcharset -liconv'"
 - pkgname: libdav1d
+  pkgtype: lib
   version: 1.4.1
   license: BSD-2-Clause
   summary: AV1 decoder targeted to be small and fast
@@ -5489,6 +5789,7 @@
         -Denable_tests=false \
         -Denable_examples=false
 - pkgname: libde265
+  pkgtype: lib
   version: 1.0.15
   license: LGPL-3.0-or-later
   summary: An open source implementation of the H.265 video codec
@@ -5505,6 +5806,7 @@
         -DENABLE_SDL=OFF \
         -DDISABLE_SSE=ON
 - pkgname: libdeflate
+  pkgtype: lib
   version: "1.20"
   license: MIT
   summary: Heavily optimized DEFLATE/zlib/gzip compression and decompression
@@ -5518,6 +5820,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libduktape
+  pkgtype: lib
   version: 2.7.0
   license: MIT
   summary: An embeddable Javascript engine with a focus on portability and compact footprint
@@ -5531,6 +5834,7 @@
   parallel: "1"
   install: gmakew -f Makefile.sharedlibrary install INSTALL_PREFIX="$PACKAGE_INSTALL_DIR" OS=Android DETECTED_OS=Android
 - pkgname: libedit
+  pkgtype: lib
   version: "3.1"
   license: BSD-3-Clause
   summary: BSD-style licensed readline alternative
@@ -5545,6 +5849,7 @@
   parallel: "1"
   install: configure --disable-examples
 - pkgname: libeigen
+  pkgtype: lib
   version: 3.4.0
   license: MPL-2.0
   summary: C++ template library for linear algebra
@@ -5561,6 +5866,7 @@
     sed_in_place 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt
   install: cmakew
 - pkgname: libev
+  pkgtype: lib
   version: "4.33"
   summary: Asynchronous event library
   web-url: http://software.schmorp.de/pkg/libev.html
@@ -5573,6 +5879,7 @@
   parallel: "1"
   install: configure
 - pkgname: libevent
+  pkgtype: lib
   version: 2.1.12
   license: BSD-3-Clause
   summary: Asynchronous event library
@@ -5599,6 +5906,7 @@
         -DEVENT__LIBRARY_TYPE=BOTH &&
     sed_in_place '/Libs.private: /s|-Ldl|-lssl -lcrypto|' "$PACKAGE_INSTALL_DIR/lib/pkgconfig/libevent_openssl.pc"
 - pkgname: libexecinfo
+  pkgtype: lib
   version: 2024.05.15
   license: 0BSD
   summary: A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc
@@ -5610,6 +5918,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libexhale
+  pkgtype: lib
   version: 1.1.9
   summary: Open source xHE-AAC encoder
   web-url: https://gitlab.com/ecodis/exhale
@@ -5625,6 +5934,7 @@
     cmakew -DBUILD_SHARED_LIBS=ON
     cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: libexif
+  pkgtype: lib
   version: 0.6.24
   license: LGPL-2.1-or-later
   summary: EXIF parsing library
@@ -5645,6 +5955,7 @@
     Marcus Meissner <marcus@jet.franken.de>
   install: configure
 - pkgname: libexiv2
+  pkgtype: lib
   version: 0.28.2
   license: GPL-2.0-or-later
   summary: A C++ library and a command-line utility to read, write, delete and modify Exif, IPTC, XMP and ICC image metadata
@@ -5690,6 +6001,7 @@
         -DEXIV2_BUILD_SAMPLES=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libexpat
+  pkgtype: lib
   version: 2.6.2
   license: MIT
   summary: XML 1.0 parser
@@ -5719,6 +6031,7 @@
         -DEXPAT_BUILD_EXAMPLES=OFF \
         -DEXPAT_SHARED_LIBS=OFF
 - pkgname: libffi
+  pkgtype: lib
   version: 3.4.6
   license: MIT
   summary: A portable Foreign Function Interface library
@@ -5735,6 +6048,7 @@
         --disable-symvers \
         --disable-docs
 - pkgname: libfftw3
+  pkgtype: exe+lib
   version: 3.3.10
   license: GPL-2.0-or-later
   summary: C library for computing the Discrete Fourier Transform
@@ -5748,6 +6062,7 @@
   dopatch: sed_in_place 's|tools m4|m4|' Makefile.in
   install: configure --enable-threads LIBS=-lm
 - pkgname: libflac
+  pkgtype: lib
   version: 1.4.3
   license: GFDL-1.2-or-later
   summary: Free lossless audio codec
@@ -5772,6 +6087,7 @@
         -DINSTALL_PKGCONFIG_MODULES=ON \
         -DINSTALL_CMAKE_CONFIG_MODULE=ON
 - pkgname: libflatbuffers
+  pkgtype: lib
   version: 24.3.25
   license: Apache-2.0
   summary: An efficient cross platform serialization library for C++
@@ -5801,6 +6117,7 @@
         -DFLATBUFFERS_BUILD_BENCHMARKS=OFF \
         -DFLATBUFFERS_BUILD_SHAREDLIB=OFF
 - pkgname: libfontconfig
+  pkgtype: lib
   version: 2.15.0
   license: MIT
   summary: XML-based font configuration library
@@ -5821,6 +6138,7 @@
         -Dtests=disabled \
         -Dtools=disabled
 - pkgname: libfreetype
+  pkgtype: lib
   version: 2.13.2
   license: FTL
   summary: A C library to render fonts
@@ -5843,6 +6161,7 @@
         -Dharfbuzz=disabled \
         -Dtests=disabled
 - pkgname: libgcrypt
+  pkgtype: lib
   version: 1.10.3
   license: LGPL-2.1-or-later
   summary: Cryptographic library based on the code from GnuPG
@@ -5870,6 +6189,7 @@
         ac_cv_path_GPG_ERROR_CONFIG=no \
         ac_cv_path_GPGRT_CONFIG="$libgpg_error_INSTALL_DIR/bin/gpgrt-config"
 - pkgname: libgeotiff
+  pkgtype: lib
   version: 1.7.1
   license: MIT
   summary: Library and tools for dealing with GeoTIFF
@@ -5884,6 +6204,7 @@
   parallel: "1"
   install: configure
 - pkgname: libgetdomainname
+  pkgtype: lib
   version: "1"
   summary: get NIS domain name
   web-url: https://linux.die.net/man/2/getdomainname
@@ -5891,6 +6212,7 @@
   parallel: "1"
   install: "cat > getdomainname.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        int getdomainname(char *name, size_t len);\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\n# https://android.googlesource.com/platform/bionic/+/master/libc/include/unistd.h#313\n# https://android.googlesource.com/platform/bionic/+/master/libc/bionic/getdomainname.cpp\ncat > getdomainname.c <<EOF\n#include <errno.h>\n#include <string.h>\n#include <unistd.h>\n#include <sys/utsname.h>\n\nint getdomainname(char* name, size_t len) {\n    struct utsname uts;\n    if (uname(&uts) == -1) return -1;\n    // Note: getdomainname()'s behavior varies across implementations when len is\n    // too small.  bionic follows the historical libc policy of returning EINVAL,\n    // instead of glibc's policy of copying the first len bytes without a NULL\n    // terminator.\n    if (strlen(uts.domainname) >= len) {\n        errno = EINVAL;\n        return -1;\n    }\n    strncpy(name, uts.domainname, len);\n    return 0;\n}\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o getdomainname.o getdomainname.c\nrun $AR rsc libgetdomainname.a  getdomainname.o\nrun install_incs getdomainname.h\nrun install_libs libgetdomainname.a"
 - pkgname: libgetdtablesize
+  pkgtype: lib
   version: "1"
   summary: get descriptor table size
   web-url: https://linux.die.net/man/2/getdtablesize
@@ -5898,6 +6220,7 @@
   parallel: "1"
   install: "cat > getdtablesize.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        int getdtablesize();\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\n# https://android.googlesource.com/platform/bionic/+/72dc1c22dc6a92dea925398c9e3880364ab29c1c/libc/bionic/getdtablesize.c\ncat > getdtablesize.c <<EOF\n#include <sys/resource.h>\n#include <sys/sysconf.h>\n\nint getdtablesize() {\n    struct rlimit r;\n    if (getrlimit(RLIMIT_NOFILE, &r) < 0) {\n        return sysconf(_SC_OPEN_MAX);\n    }\n    return r.rlim_cur;\n}\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o getdtablesize.o getdtablesize.c\nrun $AR rsc libgetdtablesize.a  getdtablesize.o\nrun install_incs getdtablesize.h\nrun install_libs libgetdtablesize.a"
 - pkgname: libgetloadavg
+  pkgtype: lib
   version: "1"
   summary: get system load averages
   web-url: https://man7.org/linux/man-pages/man3/getloadavg.3.html
@@ -5905,6 +6228,7 @@
   parallel: "1"
   install: "cat > getloadavg.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        int getloadavg(double loadavg[], int nelem);\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\n# https://android.googlesource.com/platform/bionic/+/master/libc/include/stdlib.h#157\n# https://android.googlesource.com/platform/bionic/+/master/libc/bionic/getloadavg.cpp\ncat > getloadavg.c <<EOF\n#include <stdlib.h>\n#include <sys/sysinfo.h>\n\nint getloadavg(double averages[], int n) {\n    if (n < 0) return -1;\n    if (n > 3) n = 3;\n    struct sysinfo si;\n    if (sysinfo(&si) == -1) return -1;\n    for (int i = 0; i < n; ++i) {\n        averages[i] = (double)(si.loads[i]) / (double)(1 << SI_LOAD_SHIFT);\n    }\n    return n;\n}\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o getloadavg.o getloadavg.c\nrun $AR rsc libgetloadavg.a  getloadavg.o\nrun install_incs getloadavg.h\nrun install_libs libgetloadavg.a"
 - pkgname: libgit2
+  pkgtype: lib
   version: 1.7.2
   license: GPL-2.0-only
   summary: C library of Git core methods that is re-entrant and linkable
@@ -5936,6 +6260,7 @@
     sed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lz||g' -e 's|-lssh2||g' lib/pkgconfig/libgit2.pc
     sed -i -e 's|openssl|libssh2|' -e 's|zlib|libiconv|' lib/pkgconfig/libgit2.pc
 - pkgname: libglm
+  pkgtype: lib
   version: 1.0.1
   license: MIT
   summary: C++ mathematics library for graphics software
@@ -5963,6 +6288,7 @@
     Libs: -lglm
     EOF
 - pkgname: libglob
+  pkgtype: lib
   version: 2024.05.15
   summary: glob(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html
@@ -5973,6 +6299,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libgmp
+  pkgtype: lib
   version: 6.3.0
   license: LGPL-3.0-or-later
   summary: GNU multiple precision arithmetic library
@@ -6005,6 +6332,7 @@
         --enable-assembly \
         --enable-fft
 - pkgname: libgpg-error
+  pkgtype: lib
   version: "1.48"
   license: LGPL-2.1-or-later
   summary: Common error values for all GnuPG components
@@ -6034,6 +6362,7 @@
         --enable-threads=posix \
         --enable-install-gpg-error-config
 - pkgname: libgraphene
+  pkgtype: lib
   version: 1.10.8
   license: MIT
   summary: Thin layer of graphic data types
@@ -6049,6 +6378,7 @@
   parallel: "1"
   install: mesonw -Dtests=false -Dgtk_doc=false -Dintrospection=disabled
 - pkgname: libgraphite2
+  pkgtype: lib
   version: 1.3.14
   license: LGPL-2.1-or-later
   summary: Smart font renderer for non-Roman scripts
@@ -6067,6 +6397,7 @@
     cmakew -DGRAPHITE2_NFILEFACE=ON -DBUILD_SHARED_LIBS=OFF
   dotweak: sed_in_place 's|-lgraphite2|-lgraphite2 -lc++|' lib/pkgconfig/graphite2.pc
 - pkgname: libharfbuzz
+  pkgtype: lib
   version: 8.4.0
   license: MIT
   summary: A text shaping engine. It primarily supports OpenType, but also Apple Advanced Typography
@@ -6095,6 +6426,7 @@
         -Dtests=disabled \
         -Dbenchmark=disabled
 - pkgname: libheif
+  pkgtype: lib
   version: 1.17.6
   license: LGPL-3.0-only
   summary: ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
@@ -6109,6 +6441,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libhiredis
+  pkgtype: lib
   version: 1.2.0
   license: BSD-3-Clause
   summary: Minimalistic client for Redis
@@ -6124,6 +6457,7 @@
     cmakew -DDISABLE_TESTS=ON -DBUILD_SHARED_LIBS=OFF
     cmakew -DDISABLE_TESTS=ON -DBUILD_SHARED_LIBS=ON
 - pkgname: libiconv
+  pkgtype: lib
   version: "1.17"
   license: GPL-3.0-or-later LGPL-2.0-or-later
   summary: charset conversion library
@@ -6161,6 +6495,7 @@
     EOF
     done
 - pkgname: libidn
+  pkgtype: lib
   version: "1.42"
   license: GPL-2.0-or-later LGPL-3.0-or-later
   summary: International domain name library
@@ -6178,6 +6513,7 @@
         --enable-gcc-warnings \
         --enable-doc
 - pkgname: libidn2
+  pkgtype: lib
   version: 2.3.7
   license: GPL-2.0-or-later LGPL-3.0-or-later
   summary: International domain name library (IDNA2008, Punycode and TR46)
@@ -6199,6 +6535,7 @@
         --enable-gcc-warnings \
         LIBS=-liconv
 - pkgname: libilbc
+  pkgtype: lib
   version: 3.0.4
   license: BSD-3-Clause
   summary: Packaged version of iLBC codec from the WebRTC project
@@ -6212,6 +6549,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libimagequant
+  pkgtype: lib
   version: 4.3.1
   license: GPL-3.0-or-later
   summary: Palette quantization library extracted from pnquant2
@@ -6225,6 +6563,7 @@
   parallel: "1"
   install: cargow cinstall
 - pkgname: libimobiledevice
+  pkgtype: lib
   version: 1.3.0
   license: LGPL-2.1-or-later
   summary: A C library to communicate with iOS devices natively
@@ -6246,6 +6585,7 @@
     sed_in_place 's|PLIST_FORMAT_BINARY|PLIST_FORMAT_BINARY_|' common/utils.h
   install: configure --without-cython
 - pkgname: libimobiledevice-glue
+  pkgtype: lib
   version: 1.2.0
   license: LGPL-2.1-or-later
   summary: Library with common system API code for libimobiledevice projects
@@ -6261,6 +6601,7 @@
   parallel: "1"
   install: configure
 - pkgname: libintl
+  pkgtype: lib
   version: 0.22.5
   license: GPL-3.0-or-later
   summary: GNU internationalization (i18n) and localization (l10n) library
@@ -6287,6 +6628,7 @@
         --disable-libasprintf
   dotweak: "run install -d lib/pkgconfig/\ncat >          lib/pkgconfig/libintl.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
 - pkgname: libintl-lite
+  pkgtype: lib
   version: 2024.05.15
   license: BSL-1.0
   summary: A simple (but less powerful) GNU gettext libintl replacement
@@ -6298,6 +6640,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libirecovery
+  pkgtype: lib
   version: 1.2.0
   license: LGPL-2.1-only
   summary: Library and utility to talk to iBoot/iBSS via USB
@@ -6314,6 +6657,7 @@
   parallel: "1"
   install: configure
 - pkgname: libisoburn
+  pkgtype: lib
   version: 1.5.2
   license: LGPL-2.1-or-later
   summary: Frontend for libraries libburn and libisofs
@@ -6335,6 +6679,7 @@
         --disable-libedit \
         --disable-libreadline
 - pkgname: libisofs
+  pkgtype: lib
   version: 1.5.6.pl01
   license: LGPL-2.0-or-later
   summary: Library to create an ISO-9660 filesystem with extensions like RockRidge or Joliet
@@ -6354,6 +6699,7 @@
         --disable-libacl \
         --disable-verbose-debug
 - pkgname: libjansson
+  pkgtype: lib
   version: "2.14"
   license: MIT
   summary: C library for encoding, decoding, and manipulating JSON
@@ -6379,6 +6725,7 @@
         -DJANSSON_EXAMPLES=OFF \
         -DJANSSON_WITHOUT_TESTS=ON
 - pkgname: libjpeg-turbo
+  pkgtype: exe+lib
   version: 3.0.2
   license: IJG
   summary: A high-performance JPEG image codec that uses SIMD instructions (MMX, SSE2, AVX2, Neon, AltiVec) to accelerate baseline JPEG compression and decompression
@@ -6397,6 +6744,7 @@
         -DENABLE_STATIC=ON \
         -DENABLE_SHARED=ON
 - pkgname: libjxl
+  pkgtype: lib
   version: 0.10.2
   license: BSD-3-Clause
   summary: New file format for still image compression
@@ -6423,6 +6771,7 @@
         -DJPEGXL_VERSION=$PACKAGE_VERSION \
         -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: libksba
+  pkgtype: lib
   version: 1.6.6
   license: LGPL-3.0-or-later
   summary: X.509 and CMS library
@@ -6442,6 +6791,7 @@
         --disable-valgrind-tests \
         --disable-gcov
 - pkgname: liblanginfo
+  pkgtype: lib
   version: 2024.05.15
   summary: langinfo.h and its implementation from android ndk source code
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html
@@ -6452,6 +6802,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libleveldb
+  pkgtype: lib
   version: "1.23"
   license: BSD-3-Clause
   summary: Key-value storage library with ordered mapping
@@ -6475,6 +6826,7 @@
         -DLEVELDB_BUILD_TESTS=OFF \
         -DLEVELDB_BUILD_BENCHMARKS=OFF
 - pkgname: liblinear
+  pkgtype: lib
   version: "2.47"
   license: BSD-3-Clause
   summary: Library for large linear classification
@@ -6494,6 +6846,7 @@
     install_incs linear.h
     install_libs liblinear.*
 - pkgname: liblmdb
+  pkgtype: lib
   version: 0.9.32
   license: OLDAP-2.8
   summary: An extraordinarily fast, memory-efficient, memory-mapped, key-value database
@@ -6511,6 +6864,7 @@
     install_incs lmdb.h
     install_libs liblmdb.a liblmdb.so
 - pkgname: liblqr
+  pkgtype: lib
   version: 0.4.2
   license: LGPL-3.0-or-later
   summary: C/C++ seam carving library
@@ -6525,6 +6879,7 @@
   parallel: "1"
   install: configure
 - pkgname: liblua
+  pkgtype: lib
   version: 5.4.6
   license: MIT
   summary: Powerful, lightweight programming language
@@ -6542,6 +6897,7 @@
     install_libs liblua.a
     install_incs lua.h luaconf.h lualib.h lauxlib.h lua.hpp
 - pkgname: liblz4
+  pkgtype: lib
   version: 1.9.4
   license: BSD-2-Clause
   summary: Extremely Fast Compression algorithm
@@ -6557,6 +6913,7 @@
     gmakew -C lib clean   TARGET_OS=Linux
     gmakew -C lib install TARGET_OS=Linux PREFIX="$PACKAGE_INSTALL_DIR" CC="$CC" CFLAGS="'$CFLAGS'" LDFLAGS="'$LDFLAGS'" AR="$AR" V=1 BUILD_STATIC=yes BUILD_SHARED=yes
 - pkgname: liblzma
+  pkgtype: lib
   version: 5.4.6
   license: LGPL-2.1-or-later
   summary: A free, general-purpose data compression with a high compression ratio
@@ -6581,6 +6938,7 @@
         --disable-lzma-links \
         --disable-scripts
 - pkgname: liblzo
+  pkgtype: exe+lib
   version: "2.10"
   license: GPL-2.0-or-later
   summary: Real-time data compression library
@@ -6596,6 +6954,7 @@
         -DENABLE_STATIC=ON \
         -DENABLE_SHARED=ON
 - pkgname: libmagic
+  pkgtype: lib
   version: "5.45"
   license: BSD-2-Clause
   summary: A C library to determine file types
@@ -6615,6 +6974,7 @@
     rm -rf bin
     rm -rf share/man/man1
 - pkgname: libmaxminddb
+  pkgtype: lib
   version: 1.9.1
   license: Apache-2.0
   summary: A C library for the MaxMind DB file format
@@ -6628,6 +6988,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libmblen
+  pkgtype: lib
   version: "1"
   summary: get number of bytes in a character
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/mblen.html
@@ -6635,6 +6996,7 @@
   parallel: "1"
   install: "cat > mblen.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        int mblen(const char* s, size_t n);\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\ncat > mblen.c <<EOF\n#include <stdlib.h>\n#include <wchar.h>\n\nint mblen(const char* s, size_t n) {\n    mbstate_t state = {};\n    return mbrlen(s, n, &state);\n}\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o mblen.o mblen.c\nrun $AR rsc libmblen.a  mblen.o\nrun install_incs mblen.h\nrun install_libs libmblen.a"
 - pkgname: libmd
+  pkgtype: lib
   version: 1.1.0
   license: BSD-3-Clause
   summary: library provides message digest functions found on BSD systems
@@ -6648,6 +7010,7 @@
   parallel: "1"
   install: configure
 - pkgname: libmediainfo
+  pkgtype: lib
   version: "24.04"
   license: BSD-2-Clause
   summary: Unified display of technical and tag data for audio/video
@@ -6666,6 +7029,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF -DCURL_INCLUDE_DIRS="$libcurl_INCLUDE_DIR" -DCURL_LIBRARIES="'$CURL_LIBRARIES'"
     cmakew -DBUILD_SHARED_LIBS=ON  -DCURL_INCLUDE_DIRS="$libcurl_INCLUDE_DIR" -DCURL_LIBRARIES="'$CURL_LIBRARIES'"
 - pkgname: libmesalink
+  pkgtype: lib
   version: 2024.05.15
   license: BSD-3-Clause
   summary: memory-safe and OpenSSL-compatible TLS library
@@ -6683,6 +7047,7 @@
     run install_libs target/$RUST_TARGET/release/libmesalink.a
     run install_libs target/$RUST_TARGET/release/libmesalink.so
 - pkgname: libmetalink
+  pkgtype: lib
   version: 0.1.3
   license: MIT
   summary: A C library to parse Metalink XML files
@@ -6702,6 +7067,7 @@
         --with-libexpat=yes \
         --with-xml-prefix="$libexpat_INSTALL_DIR"
 - pkgname: libmhash
+  pkgtype: lib
   version: 0.9.9.9
   summary: A large number of hash algorithms
   web-url: https://mhash.sourceforge.net/
@@ -6713,6 +7079,7 @@
   parallel: "1"
   install: configure
 - pkgname: libmill
+  pkgtype: lib
   version: 2024.05.15
   license: MIT
   summary: Go-style concurrency in C
@@ -6725,6 +7092,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libminiz
+  pkgtype: lib
   version: 2.2.0
   summary: implements the zlib (RFC 1950) and Deflate (RFC 1951) compressed data format specification standards
   web-url: https://github.com/richgel999/miniz
@@ -6740,6 +7108,7 @@
     cmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON
 - pkgname: libminizip
+  pkgtype: lib
   version: 1.3.1
   license: Zlib
   summary: C library for zip/unzip via zLib
@@ -6754,6 +7123,7 @@
   dopatch: sed_in_place 's|__FreeBSD__|__ANDROID__|' ioapi.h
   install: configure
 - pkgname: libmnl
+  pkgtype: lib
   version: 1.0.5
   license: LGPL-2.1-or-later
   summary: Minimalistic Netlink Library based Linux kernel interfaces
@@ -6766,6 +7136,7 @@
   parallel: "1"
   install: configure
 - pkgname: libmp3lame
+  pkgtype: lib
   version: "3.100"
   license: LGPL-2.0-or-later
   summary: A high quality MPEG Audio Layer III (MP3) encoder
@@ -6786,6 +7157,7 @@
         --enable-nasm
   dotweak: rm -rf share/man
 - pkgname: libmpc
+  pkgtype: lib
   version: 1.3.1
   license: LGPL-3.0-or-later
   summary: A C library for the arithmetic of high precision complex numbers
@@ -6805,6 +7177,7 @@
         --disable-valgrind-tests \
         --disable-logging
 - pkgname: libmpfr
+  pkgtype: lib
   version: 4.2.1
   license: LGPL-3.0-or-later
   summary: C library for multiple-precision floating-point computations
@@ -6826,6 +7199,7 @@
         --disable-lto \
         --enable-warnings
 - pkgname: libmpir
+  pkgtype: lib
   version: 3.0.0
   license: GPL-3.0-or-later
   summary: Multiple Precision Integers and Rationals (fork of GMP)
@@ -6865,6 +7239,7 @@
         --enable-fft \
         --enable-gmpcompat
 - pkgname: libnet
+  pkgtype: lib
   version: "1.3"
   license: BSD-2-Clause
   summary: C library for creating IP packets
@@ -6879,6 +7254,7 @@
   parallel: "1"
   install: configure --enable-samples
 - pkgname: libnghttp2
+  pkgtype: lib
   version: 1.61.0
   license: MIT
   summary: HTTP/2 C Library
@@ -6899,6 +7275,7 @@
         -DBUILD_STATIC_LIBS=ON \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libnl
+  pkgtype: lib
   version: 3.9.0
   license: LGPL-2.1-or-later
   summary: Netlink Library based Linux kernel interfaces
@@ -6923,6 +7300,7 @@
         --enable-pthreads \
         --enable-cli
 - pkgname: libnng
+  pkgtype: lib
   version: 1.7.3
   license: MIT
   summary: Nanomsg-next-generation -- light-weight brokerless messaging
@@ -6947,6 +7325,7 @@
         -DNNG_ENABLE_HTTP=ON \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: libobstack
+  pkgtype: lib
   version: 1.2.3
   license: GPL-2.0-or-later
   summary: A standalone library to implement glibc obstack
@@ -6960,6 +7339,7 @@
   parallel: "1"
   install: configure
 - pkgname: libogg
+  pkgtype: lib
   version: 1.3.5
   license: BSD-3-Clause
   summary: Ogg Bitstream Library
@@ -6981,6 +7361,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_SHARED_LIBS=ON
 - pkgname: libopenh264
+  pkgtype: lib
   version: 2.4.1
   license: BSD-2-Clause
   summary: Open Source H.264 Codec
@@ -7005,6 +7386,7 @@
     fi
   install: mesonw -Dtests=disabled
 - pkgname: libopus
+  pkgtype: lib
   version: 1.5.2
   license: BSD-3-Clause
   summary: Audio codec
@@ -7018,6 +7400,7 @@
   parallel: "1"
   install: configure LIBS=-lm
 - pkgname: libpcap
+  pkgtype: lib
   version: 1.10.4
   license: BSD-3-Clause
   summary: Packet(TCP/IP) Capture library
@@ -7044,6 +7427,7 @@
         -DDISABLE_TC=ON \
         -DDISABLE_SNF=ON
 - pkgname: libpcre
+  pkgtype: lib
   version: "8.45"
   license: BSD-3-Clause
   summary: Perl compatible regular expressions library
@@ -7086,6 +7470,7 @@
     EOF
     done
 - pkgname: libpcre2
+  pkgtype: lib
   version: "10.43"
   license: BSD-3-Clause
   summary: Perl compatible regular expressions library with a new API
@@ -7113,6 +7498,7 @@
         -DPCRE2_SUPPORT_VALGRIND=OFF \
         -DPCRE2_SUPPORT_UNICODE=ON
 - pkgname: libphonenumber
+  pkgtype: lib
   version: 8.13.35
   license: Apache-2.0
   summary: A C++ library for parsing, formatting, and validating international phone numbers
@@ -7138,6 +7524,7 @@
         -DBoost_USE_STATIC_LIBS=ON \
         -DUSE_RE2=OFF
 - pkgname: libpipeline
+  pkgtype: lib
   version: 1.5.7
   license: GPL-3.0-or-later
   summary: Library for manipulating pipelines of subprocesses in a flexible and convenient way
@@ -7153,6 +7540,7 @@
         --enable-threads=posix \
         --enable-socketpair-pipe
 - pkgname: libpixman
+  pkgtype: lib
   version: 0.42.2
   license: MIT
   summary: A low-level library for pixel manipulation
@@ -7167,6 +7555,7 @@
   parallel: "1"
   install: mesonw -Dneon=disabled -Darm-simd=disabled -Da64-neon=disabled
 - pkgname: libplist
+  pkgtype: lib
   version: 2.4.0
   license: LGPL-2.1-or-later
   summary: A library to handle Apple Property List format in binary or XML
@@ -7181,6 +7570,7 @@
   install: configure --without-cython LIBS=-lm
   dotweak: sed_in_place 's|-lplist-2.0|-lplist-2.0 -lm|' lib/pkgconfig/libplist-2.0.pc
 - pkgname: libpng
+  pkgtype: lib
   version: 1.6.43
   license: libpng-2.0
   summary: Library for manipulating PNG images
@@ -7195,6 +7585,7 @@
   parallel: "1"
   install: configure --disable-tools
 - pkgname: libpng++
+  pkgtype: lib
   version: 0.2.10
   summary: C++ wrapper for libpng library
   web-url: https://www.nongnu.org/pngpp/
@@ -7207,6 +7598,7 @@
   parallel: "1"
   install: gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: libprotobuf
+  pkgtype: lib
   version: "26.1"
   license: BSD-3-Clause
   summary: Protocol Buffers(data interchange format) compiler and library developed by Google
@@ -7248,6 +7640,7 @@
         -Dprotobuf_JSONCPP_PROVIDER=package \
         -Dprotobuf_BUILD_SHARED_LIBS=ON
 - pkgname: libpsl
+  pkgtype: lib
   version: 0.21.5
   license: MIT
   summary: C library for the Public Suffix List
@@ -7263,6 +7656,7 @@
   parallel: "1"
   install: mesonw -Druntime=libicu -Dbuiltin=true
 - pkgname: libpugixml
+  pkgtype: lib
   version: "1.14"
   license: MIT
   summary: Light-weight C++ XML processing library
@@ -7276,6 +7670,7 @@
   parallel: "1"
   install: cmakew -DBUILD_SHARED_LIBS=ON -DPUGIXML_BUILD_SHARED_AND_STATIC_LIBS=ON
 - pkgname: libqalculate
+  pkgtype: lib
   version: 5.0.0
   license: GPL-2.0-or-later
   summary: Library for Qalculate! program
@@ -7309,6 +7704,7 @@
     bmRpZgogCXJldHVybiAhcnVubmluZzsKIH0KIAo=' | base64 -d | patch -p1
   install: configure
 - pkgname: libqrencode
+  pkgtype: lib
   version: 4.1.1
   license: LGPL-2.1-or-later
   summary: A fast and compact QR Code encoding library
@@ -7333,6 +7729,7 @@
         -DWITHOUT_PNG=OFF \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: libquiche
+  pkgtype: lib
   version: 2024.05.15
   license: BSD-2-Clause
   summary: Savoury implementation of the QUIC transport protocol and HTTP/3
@@ -7348,6 +7745,7 @@
     install_libs target/$RUST_TARGET/release/libquiche.a
     install_libs target/$RUST_TARGET/release/libquiche.so
 - pkgname: libraqm
+  pkgtype: lib
   version: 0.10.1
   license: MIT
   summary: A library for complex text layout
@@ -7364,6 +7762,7 @@
   parallel: "1"
   install: mesonw
 - pkgname: librasterlite
+  pkgtype: lib
   version: 1.1g
   license: MPL-1.1
   summary: An open source library to store and retrieve huge raster coverages
@@ -7378,6 +7777,7 @@
   dopatch: sed_in_place "s|-ltiff|$(pkg-config --libs libtiff-4)|" configure
   install: configure LIBS="'$(pkg-config --libs proj)'"
 - pkgname: librav1e
+  pkgtype: lib
   version: 0.7.1
   license: BSD-2-Clause
   summary: The fastest and safest AV1 video encoder
@@ -7391,6 +7791,7 @@
   parallel: "1"
   install: cargow cinstall
 - pkgname: libraw
+  pkgtype: lib
   version: 0.21.2
   license: LGPL-2.1-only
   summary: Library for reading RAW files from digital photo cameras
@@ -7410,6 +7811,7 @@
         --enable-jasper \
         --enable-examples LIBS=-lc++_shared
 - pkgname: libre
+  pkgtype: lib
   version: 3.11.0
   license: BSD-3-Clause
   summary: Toolkit library for asynchronous network I/O with protocol stacks
@@ -7424,6 +7826,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libre2c
+  pkgtype: lib
   version: "3.1"
   summary: Generate C-based recognizers from regular expressions
   web-url: https://re2c.org/
@@ -7451,6 +7854,7 @@
     rm -rf bin
     rm -rf share/man
 - pkgname: libressl
+  pkgtype: lib
   version: 3.9.1
   license: OpenSSL
   summary: Version of the SSL/TLS protocol forked from OpenSSL
@@ -7464,6 +7868,7 @@
   parallel: "1"
   install: configure
 - pkgname: librtmpdump
+  pkgtype: lib
   version: 2.4.20151223
   license: GPL-2.0-or-later
   summary: A C library for downloading RTMP streaming media
@@ -7483,6 +7888,7 @@
     gmakew -C librtmp         SYS=posix CC="$CC" LD="$LD" AR="$AR" OPT= XCFLAGS="'$CFLAGS $CPPFLAGS'" XLDFLAGS="'$LDFLAGS'"
     gmakew -C librtmp install SYS=posix prefix="$PACKAGE_INSTALL_DIR"
 - pkgname: librttopo
+  pkgtype: lib
   version: 1.1.0
   license: GPL-2.0-or-later
   summary: RT Topology Library
@@ -7497,6 +7903,7 @@
   parallel: "1"
   install: configure --with-geosconfig="$geos_INSTALL_DIR/bin/geos-config" LIBS="'$(pkg-config --libs geos)'" ac_cv_search_GEOSContext_setErrorMessageHandler_r=yes
 - pkgname: libsamplerate
+  pkgtype: lib
   version: 0.2.2
   license: BSD-2-Clause
   summary: Library for sample rate conpackage set version of audio data
@@ -7517,6 +7924,7 @@
         -DBUILD_TESTING=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libsass
+  pkgtype: lib
   version: 3.6.6
   license: MIT
   summary: A C/C++ implementation of a Sass compiler
@@ -7530,6 +7938,7 @@
   parallel: "1"
   install: configure
 - pkgname: libsigsegv
+  pkgtype: lib
   version: "2.14"
   license: GPL-2.0-or-later
   summary: A library for handling page faults in user mode
@@ -7542,6 +7951,7 @@
   parallel: "1"
   install: configure
 - pkgname: libsmi
+  pkgtype: lib
   version: 0.5.0
   license: TCL BSD-3-Clause Beerware
   summary: A library to Access SMI MIB Information
@@ -7556,6 +7966,7 @@
   parallel: "1"
   install: configure
 - pkgname: libsnappy
+  pkgtype: lib
   version: 1.1.10
   license: BSD-3-Clause
   summary: Compression/decompression library aiming for high speed
@@ -7582,6 +7993,7 @@
         -DSNAPPY_INSTALL=ON \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libsndfile
+  pkgtype: lib
   version: 1.2.2
   license: LGPL-2.1-or-later
   summary: C library for files containing sampled sound
@@ -7608,6 +8020,7 @@
         -DENABLE_PACKAGE_CONFIG=ON \
         -DINSTALL_PKGCONFIG_MODULE=ON
 - pkgname: libsodium
+  pkgtype: lib
   version: 1.0.19
   license: ISC
   summary: A modern, portable, easy to use crypto library
@@ -7626,6 +8039,7 @@
     fi
   install: configure
 - pkgname: libspatialite
+  pkgtype: lib
   version: 5.1.0
   license: MPL-1.1
   summary: Adds spatial SQL capabilities to SQLite
@@ -7649,6 +8063,7 @@
         ac_cv_search_GEOSContext_setErrorMessageHandler_r="'$LIBS_GEOS'" \
         ac_cv_search_GEOSFrechetDistance_r="'$LIBS_GEOS'"
 - pkgname: libspectre
+  pkgtype: lib
   version: 0.2.12
   license: GPL-2.0-or-later
   summary: Small library for rendering Postscript documents
@@ -7663,6 +8078,7 @@
   parallel: "1"
   install: configure
 - pkgname: libspeex
+  pkgtype: lib
   version: 1.2.1
   license: BSD-3-Clause
   summary: Audio codec designed for speech
@@ -7677,6 +8093,7 @@
   parallel: "1"
   install: configure --disable-binaries
 - pkgname: libspeexdsp
+  pkgtype: lib
   version: 1.2.1
   license: BSD-3-Clause
   summary: Speex audio processing library
@@ -7691,6 +8108,7 @@
   prepare: export LIBS=-lm
   install: configure
 - pkgname: libspng
+  pkgtype: lib
   version: 0.7.4
   license: BSD-2-Clause
   summary: A C library for reading and writing PNG format files with a focus on security and ease of use.
@@ -7706,6 +8124,7 @@
   parallel: "1"
   install: mesonw
 - pkgname: libsqlite3
+  pkgtype: lib
   version: 3.45.3
   license: blessing
   summary: A small, fast, self-contained, high-reliability, full-featured, SQL database engine written in C
@@ -7738,6 +8157,7 @@
     Libs: -L\${libdir} -lsqlite3 -lm
     EOF
 - pkgname: libsrtp
+  pkgtype: lib
   version: 2.4.2
   license: BSD-3-Clause
   summary: Implementation of the Secure Real-time Transport Protocol
@@ -7752,6 +8172,7 @@
   parallel: "1"
   install: configure
 - pkgname: libssh
+  pkgtype: lib
   version: 0.10.6
   license: LGPL-2.1-or-later
   summary: C library SSHv1/SSHv2 client and server protocols
@@ -7771,6 +8192,7 @@
     cmakew -DWITH_SYMBOL_VERSIONING=OFF -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF
   dotweak: 'printf ''Requires: openssl, libz\n'' >> lib/pkgconfig/libssh.pc'
 - pkgname: libssh2
+  pkgtype: lib
   version: 1.11.0
   license: BSD-3-Clause
   summary: C library implementing the SSH2 protocol
@@ -7793,6 +8215,7 @@
         -DCRYPTO_BACKEND=OpenSSL \
         -DLINT=OFF
 - pkgname: libstrchrnul
+  pkgtype: lib
   version: "1"
   summary: returns a pointer to the first occurrence of the character c in the string s
   web-url: https://linux.die.net/man/3/strchrnul
@@ -7800,6 +8223,7 @@
   parallel: "1"
   install: "cat > strchrnul.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        char* strchrnul(const char *s, int c);\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\n# https://android.googlesource.com/platform/bionic/+/master/libc/bionic/strchrnul.cpp\ncat > strchrnul.c <<EOF\nchar* strchrnul(const char* s, int c) {\n    while (*s && *s != c) {\n        ++s;\n    }\n    return s;\n}\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o strchrnul.o strchrnul.c\nrun $AR rsc libstrchrnul.a  strchrnul.o\nrun install_incs strchrnul.h\nrun install_libs libstrchrnul.a"
 - pkgname: libtasn1
+  pkgtype: lib
   version: 4.19.0
   license: LGPL-2.1-or-later
   summary: ASN.1 structure parser library
@@ -7819,6 +8243,7 @@
         --disable-gtk-doc \
         --enable-gcc-warnings
 - pkgname: libtesseract
+  pkgtype: lib
   version: 5.3.4
   license: Apache-2.0
   summary: OCR (Optical Character Recognition) engine
@@ -7853,6 +8278,7 @@
         -DBUILD_TRAINING_TOOLS=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libtextstyle
+  pkgtype: lib
   version: 0.22.5
   license: GPL-3.0-or-later
   summary: A C library that provides an easy way to add styling to programs that produce output to a console or terminal emulator window
@@ -7875,6 +8301,7 @@
         --with-libncurses-prefix="$ncurses_INSTALL_DIR"
   dotweak: "run install -d lib/pkgconfig/\ncat >          lib/pkgconfig/libtextstyle.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libtextstyle\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -ltextstyle \nRequires: libiconv\nEOF"
 - pkgname: libthai
+  pkgtype: lib
   version: 0.1.28
   license: LGPL-2.1-or-later
   summary: Thai language support library
@@ -7889,6 +8316,7 @@
   parallel: "1"
   install: configure
 - pkgname: libtheora
+  pkgtype: lib
   version: 1.1.1
   license: BSD-3-Clause
   summary: Open video compression format
@@ -7909,6 +8337,7 @@
         --disable-vorbistes \
         --disable-sdltest
 - pkgname: libtiff
+  pkgtype: lib
   version: 4.6.0
   summary: TIFF library
   web-url: https://libtiff.gitlab.io/libtiff
@@ -7950,6 +8379,7 @@
         -Dtiff-contrib=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libtinyxml2
+  pkgtype: lib
   version: 10.0.0
   license: Zlib
   summary: A simple, small, efficient, C++ XML parser library
@@ -7963,6 +8393,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libtirpc
+  pkgtype: lib
   version: 1.3.3
   license: BSD-3-Clause
   summary: Port of Sun Transport-Independent RPC library to Linux
@@ -7986,6 +8417,7 @@
         --enable-authdes \
         --enable-ipv6
 - pkgname: libtool
+  pkgtype: lib
   version: 2.4.7
   license: GPL-2.0-or-later
   summary: Generic library support script
@@ -7999,6 +8431,7 @@
   parallel: "1"
   install: configure --enable-ltdl-install
 - pkgname: libtorrent-rakshasa
+  pkgtype: lib
   version: 0.13.8
   license: GPL-2.0-or-later
   summary: BitTorrent library with a focus on high performance
@@ -8020,6 +8453,7 @@
         --with-zlib="$libz_INSTALL_DIR"
   dotweak: sed_in_place 's|-ltorrent|-ltorrent -lexecinfo|' lib/pkgconfig/libtorrent.pc
 - pkgname: libtorrent-rasterbar
+  pkgtype: lib
   version: 2.0.10
   license: BSD-3-Clause
   summary: An efficient feature complete C++ bittorrent implementation focusing on efficiency and scalability
@@ -8041,6 +8475,7 @@
         -Dbuild_examples=OFF \
         -Dpython-bindings=OFF
 - pkgname: libtwolame
+  pkgtype: lib
   version: 0.4.0
   license: LGPL-2.1
   summary: Optimized MPEG Audio Layer 2 (MP2) encoder
@@ -8055,6 +8490,7 @@
   install: configure
   dotweak: rm -rf share/man
 - pkgname: libunibreak
+  pkgtype: lib
   version: "6.1"
   license: Zlib
   summary: line breaking and word breaking algorithms
@@ -8068,6 +8504,7 @@
   parallel: "1"
   install: configure
 - pkgname: libunistring
+  pkgtype: lib
   version: "1.2"
   license: GPL-2.0-only
   summary: C library for manipulating Unicode strings
@@ -8102,6 +8539,7 @@
     Requires: libiconv
     EOF
 - pkgname: libunwind
+  pkgtype: lib
   version: 1.7.2
   license: MIT
   summary: A portable and efficient C library for determining the call-chain of a program
@@ -8116,6 +8554,7 @@
   parallel: "1"
   install: configure --disable-tests --disable-coredump
 - pkgname: libupnp
+  pkgtype: lib
   version: 1.14.18
   license: BSD-3-Clause
   summary: Portable UPnP development kit
@@ -8131,6 +8570,7 @@
   parallel: "1"
   install: cmakew -Dopen_ssl=ON
 - pkgname: libusb
+  pkgtype: lib
   version: 1.0.27
   license: LGPL-2.1-or-later
   summary: A C library that provides generic access to USB devices
@@ -8147,6 +8587,7 @@
         --disable-udev \
         --enable-examples-build
 - pkgname: libusbmuxd
+  pkgtype: lib
   version: 2.1.0
   license: GPL-2.0-or-later LGPL-2.1-or-later
   summary: USB multiplexor library for iOS devices
@@ -8165,6 +8606,7 @@
     sed_in_place 's|/var/run|/data/local/tmp|' src/libusbmuxd.c
   install: configure
 - pkgname: libusrsctp
+  pkgtype: lib
   version: 0.9.5.0
   license: BSD-3-Clause
   summary: Portable SCTP userland stack
@@ -8183,6 +8625,7 @@
         -Dsctp_debug=false \
         -Dsctp_build_programs=false
 - pkgname: libuuid
+  pkgtype: lib
   version: 2.39.3
   license: GPL-2.0-or-later
   summary: DCE compatible Universally Unique Identifier library
@@ -8216,6 +8659,7 @@
     rm -rf share/man/man5
     rm -rf share/man/man8
 - pkgname: libuv
+  pkgtype: lib
   version: 1.46.0
   license: MIT
   summary: Multi-platform support library with a focus on asynchronous I/O
@@ -8233,6 +8677,7 @@
         -DLIBUV_BUILD_BENCH=OFF \
         -DQEMU=OFF
 - pkgname: libvips
+  pkgtype: lib
   version: 8.15.2
   license: LGPL-2.1-or-later
   summary: A fast image processing library with low memory needs
@@ -8248,6 +8693,7 @@
   parallel: "1"
   install: mesonw
 - pkgname: libvmaf
+  pkgtype: lib
   version: 3.0.0
   license: BSD-2-Clause-Patent
   summary: Perceptual video quality assessment based on multi-method fusion
@@ -8266,6 +8712,7 @@
         -Denable_docs=false \
         -Denable_asm=true
 - pkgname: libvorbis
+  pkgtype: lib
   version: 1.3.7
   license: BSD-3-Clause
   summary: Vorbis General Audio Compression Codec
@@ -8281,6 +8728,7 @@
   dopatch: sed_in_place 's/-mno-ieee-fp//g' configure
   install: configure LIBS=-lm
 - pkgname: libvpx
+  pkgtype: lib
   version: 1.13.1
   license: BSD-3-Clause
   summary: VP8/VP9 video codec
@@ -8313,6 +8761,7 @@
     gmakew
     gmakew install
 - pkgname: libwavpack
+  pkgtype: lib
   version: 5.7.0
   license: BSD-3-Clause
   summary: Hybrid lossless audio compression
@@ -8329,6 +8778,7 @@
     sed_in_place '/fseeko/d' ../include/ndk-pkg-common.h
   install: configure --disable-tests --disable-apps --disable-man
 - pkgname: libwebm
+  pkgtype: lib
   version: 1.0.0.31
   license: BSD-3-Clause
   summary: WebM container
@@ -8346,6 +8796,7 @@
     run install_libs libwebm.*
     run install_bins mkvmuxer_sample mkvparser_sample vttdemux dumpvtt webm2ts webm2pes webm_info
 - pkgname: libwebp
+  pkgtype: lib
   version: 1.3.2
   license: BSD-3-Clause
   summary: Image format providing lossless and lossy compression for web images
@@ -8381,6 +8832,7 @@
         -DWEBP_BUILD_IMG2WEBP=OFF
   dotweak: sed_in_place '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc
 - pkgname: libwebsockets
+  pkgtype: lib
   version: 4.3.3
   license: MIT
   summary: A flexible, lightweight pure C library for implementing modern network protocols easily with a tiny footprint, using a nonblocking event loop.
@@ -8409,6 +8861,7 @@
         -DLWS_OPENSSL_SUPPORT=ON \
         -DLWS_BUILD_HASH=no_hash
 - pkgname: libwordexp
+  pkgtype: lib
   version: 2024.05.15
   summary: wordexp(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html
@@ -8419,6 +8872,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: libx264
+  pkgtype: lib
   version: r3108
   license: GPL-2.0-only
   summary: A free library for encoding video streams into the H.264/MPEG-4 AVC compression format
@@ -8441,6 +8895,7 @@
         --enable-lto \
         --enable-strip
 - pkgname: libx265
+  pkgtype: lib
   version: "3.6"
   license: GPL-2.0-only
   summary: An open-source H.265/HEVC encoder
@@ -8460,6 +8915,7 @@
         -DENABLE_ASSEMBLY=OFF
   dotweak: sed_in_place '/^Libs.private:/s|-l-l||' lib/pkgconfig/x265.pc
 - pkgname: libxcrypt
+  pkgtype: lib
   version: 4.4.36
   license: LGPL-2.1-or-later
   summary: Extended crypt library for descrypt, md5crypt, bcrypt, and others
@@ -8480,6 +8936,7 @@
         --disable-valgrind \
         --disable-werror
 - pkgname: libxml2
+  pkgtype: lib
   version: 2.12.6
   license: MIT
   summary: GNOME XML library
@@ -8508,6 +8965,7 @@
     sed -i -e 's|-liconv||g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc
     printf 'Requires: libiconv libz\n' >>  lib/pkgconfig/libxml-2.0.pc
 - pkgname: libxslt
+  pkgtype: lib
   version: 1.1.39
   license: X11
   summary: C XSLT library for GNOME
@@ -8533,6 +8991,7 @@
         --with-profiler \
         --with-plugins
 - pkgname: libxvid
+  pkgtype: lib
   version: 1.3.7
   license: GPL-2.0-or-later
   summary: A high-performance, high-quality MPEG-4 video library
@@ -8567,6 +9026,7 @@
     Cflags: -I\${includedir}
     EOF
 - pkgname: libyaml
+  pkgtype: lib
   version: 0.2.5
   license: MIT
   summary: A C library for parsing and emitting YAML
@@ -8581,6 +9041,7 @@
   developer: Kirill Simonov <xi@resolvent.net>
   install: configure
 - pkgname: libyuv
+  pkgtype: lib
   version: "1788"
   summary: C library includes YUV conversion and scaling functionality
   web-url: https://chromium.googlesource.com/libyuv/libyuv
@@ -8595,6 +9056,7 @@
   parallel: "1"
   install: cmakew -DTEST=OFF
 - pkgname: libz
+  pkgtype: lib
   version: 1.3.1
   license: Zlib
   summary: A general purpose data compression library
@@ -8615,6 +9077,7 @@
   install: cmakew
   dotweak: cp lib/pkgconfig/zlib.pc lib/pkgconfig/libz.pc
 - pkgname: libz3
+  pkgtype: lib
   version: 4.12.6
   license: MIT
   summary: High-performance theorem prover
@@ -8638,6 +9101,7 @@
         -DZ3_BUILD_TEST_EXECUTABLES=OFF \
         -DZ3_BUILD_EXECUTABLE=OFF
 - pkgname: libzen
+  pkgtype: lib
   version: 0.4.41
   license: BSD-2-Clause
   summary: Unified display of technical and tag data for audio/video
@@ -8653,6 +9117,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_SHARED_LIBS=ON
 - pkgname: libzim
+  pkgtype: lib
   version: 9.2.0
   license: GPL-2.0-or-later
   summary: Reference implementation of the ZIM specification
@@ -8668,6 +9133,7 @@
   parallel: "1"
   install: mesonw
 - pkgname: libzip
+  pkgtype: lib
   version: 1.10.1
   license: BSD-3-Clause
   summary: A C library for reading, creating, and modifying zip archives
@@ -8710,6 +9176,7 @@
         -DBUILD_EXAMPLES=OFF \
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libzlog
+  pkgtype: lib
   version: 1.2.17
   license: LGPL-2.1-or-later
   summary: A reliable, high-performance, thread-safe, flexible, clear-model logging library written in pure C
@@ -8736,6 +9203,7 @@
     install_incs zlog.h
     install_bins zlog-chk-conf
 - pkgname: libzmq
+  pkgtype: lib
   version: 4.3.5
   license: LGPL-3.0-or-later
   summary: An open-source universal messaging library
@@ -8750,6 +9218,7 @@
   parallel: "1"
   install: configure --with-libsodium --disable-libunwind
 - pkgname: libzstd
+  pkgtype: lib
   version: 1.5.6
   license: BSD-3-Clause
   summary: A real-time compression library with high compression ratios
@@ -8770,6 +9239,7 @@
         -DZSTD_BUILD_PROGRAMS=OFF \
         -DZSTD_MULTITHREAD_SUPPORT=ON
 - pkgname: lief
+  pkgtype: exe
   version: 2024.05.15
   license: Apache-2.0
   summary: Library to Instrument Executable Formats
@@ -8787,6 +9257,7 @@
         -DLIEF_EXAMPLES=OFF \
         -DLIEF_COVERAGE=OFF
 - pkgname: lighttpd
+  pkgtype: exe
   version: 1.4.76
   license: BSD-3-Clause
   summary: A secure, fast, compliant, and very flexible web server that has been optimized for high-performance environments
@@ -8807,6 +9278,7 @@
         --with-pcre2 \
         --without-pcre LIBS=-ldl
 - pkgname: livego
+  pkgtype: pie
   version: 0.0.15
   license: MIT
   summary: live video streaming server in golang
@@ -8820,6 +9292,7 @@
   parallel: "1"
   install: gow
 - pkgname: llhttp
+  pkgtype: lib
   version: 6.0.6
   license: MIT
   summary: http_parser replacement
@@ -8833,6 +9306,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: lmdb
+  pkgtype: exe+lib
   version: 0.9.32
   license: OLDAP-2.8
   summary: An extraordinarily fast, memory-efficient, memory-mapped, key-value database
@@ -8849,6 +9323,7 @@
     gmakew CC=$CC XCFLAGS="'$CFLAGS $CPPFLAGS'" LDFLAGS="'$LDFLAGS'" AR=$AR
     gmakew install prefix=$PACKAGE_INSTALL_DIR
 - pkgname: lnd
+  pkgtype: pie
   version: 0.15.0
   license: MIT
   summary: Lightning Network Daemon
@@ -8864,6 +9339,7 @@
     gow -tags linux -X github.com/lightningnetwork/lnd/build.Commit=v$PACKAGE_VERSION ./cmd/lnd
     gow -tags linux -X github.com/lightningnetwork/lnd/build.Commit=v$PACKAGE_VERSION ./cmd/lncli
 - pkgname: lodepng
+  pkgtype: lib
   version: 2024.05.15
   license: Zlib
   summary: PNG encoder and decoder in C and C++
@@ -8879,6 +9355,7 @@
     run $AR crs liblodepng_util.a lodepng_util.o
     run install_libs liblodepng.a liblodepng_util.a
 - pkgname: log4cplus
+  pkgtype: lib
   version: 2.1.1
   license: Apache-2.0
   summary: A simple-to-use, log4j-like logging framework for C++
@@ -8904,6 +9381,7 @@
         -DWITH_UNIT_TESTS=OFF \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: lolcat
+  pkgtype: exe
   version: "1.2"
   summary: Rainbows and unicorns in your console
   web-url: https://github.com/jaseg/lolcat
@@ -8920,6 +9398,7 @@
     run $CC $LDFLAGS -static -o censor censor.c
     run install_bins lolcat censor
 - pkgname: lrzip
+  pkgtype: exe
   version: "0.651"
   license: GPL-2.0-or-later
   summary: Compression program with a very high compression ratio
@@ -8939,6 +9418,7 @@
         --disable-asm \
         ac_cv_lib_pthread_pthread_create=yes
 - pkgname: lsd
+  pkgtype: exe
   version: 1.1.2
   license: Apache-2.0
   summary: A rewrite of GNU ls with lots of added features like colors, icons, tree-view, more formatting options, etc
@@ -8954,6 +9434,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: lsof
+  pkgtype: exe
   version: 4.99.3
   license: Zlib
   summary: A command-line tool to list open files
@@ -8989,6 +9470,7 @@
     run install_bins lsof
     run install_mans Lsof.8
 - pkgname: lua
+  pkgtype: pie
   version: 5.4.6
   license: MIT
   summary: Powerful, lightweight programming language
@@ -9006,6 +9488,7 @@
     gmakew PLAT=generic CC="$CC" CFLAGS="'$CFLAGS -std=c99 -DLUA_COMPAT_5_3 $CPPFLAGS'" AR="'$AR crs'" RANLIB="$RANLIB" MYLDFLAGS="'$LDFLAGS -pie -fPIE'" MYLIBS=-lreadline
     gmakew install INSTALL_TOP="$PACKAGE_INSTALL_DIR"
 - pkgname: luajit
+  pkgtype: lib
   version: 2.1.0
   license: MIT
   summary: Just-In-Time Compiler (JIT) for the Lua programming language
@@ -9060,6 +9543,7 @@
     install_incs lua.h lualib.h lauxlib.h luaconf.h lua.hpp luajit.h
     install_libs libluajit.a libluajit.so
 - pkgname: luau
+  pkgtype: exe
   version: "0.623"
   license: MIT
   summary: A fast, small, safe, gradually typed embeddable scripting language derived from Lua
@@ -9078,6 +9562,7 @@
     install_bins luau luau-analyze luau-ast luau-compile luau-reduce
     #install_libs libLuau.Analysis.a libLuau.Ast.a libLuau.Compiler.a libLuau.VM.a
 - pkgname: lunzip
+  pkgtype: exe
   version: "1.14"
   license: GPL-2.0-or-later
   summary: Decompressor for lzip files
@@ -9090,6 +9575,7 @@
   parallel: "1"
   install: configure
 - pkgname: lychee
+  pkgtype: exe
   version: 0.14.3
   license: MIT
   summary: A fast, async, resource-friendly link checker
@@ -9104,6 +9590,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: lynx
+  pkgtype: exe
   version: 2.8.9rel.1
   license: GPL-2.0-or-later
   summary: A text-based web browser
@@ -9139,6 +9626,7 @@
         --disable-trace \
         ac_cv_func_cuserid=no
 - pkgname: lz4
+  pkgtype: exe
   version: 1.9.4
   license: BSD-2-Clause
   summary: Extremely Fast Compression algorithm
@@ -9155,6 +9643,7 @@
     gmakew -C lib TARGET_OS=Linux CC="$CC" CFLAGS="'$CFLAGS'" LDFLAGS="'$LDFLAGS'" AR="$AR" V=1 BUILD_STATIC=yes BUILD_SHARED=no
     gmakew -C programs install TARGET_OS=Linux PREFIX="$PACKAGE_INSTALL_DIR" CC="$CC" CFLAGS="'$CFLAGS'" LDFLAGS="'$LDFLAGS'" AR="$AR" V=1
 - pkgname: lzip
+  pkgtype: exe
   version: 1.24.1
   license: GPL-2.0-or-later
   summary: LZMA-based compression program similar to gzip or bzip2
@@ -9167,6 +9656,7 @@
   parallel: "0"
   install: configure
 - pkgname: lzlib
+  pkgtype: lib
   version: "1.14"
   license: BSD-2-Clause
   summary: Data compression library
@@ -9183,6 +9673,7 @@
     gmakew
     gmakew install
 - pkgname: lzop
+  pkgtype: exe
   version: "1.04"
   license: GPL-2.0-or-later
   summary: A file compressor
@@ -9201,6 +9692,7 @@
     sed_in_place 's|sysinfo|get_sys_info|' src/djgpp2.c
   install: cmakew
 - pkgname: magic_enum
+  pkgtype: lib
   version: 0.9.5
   license: MIT
   summary: Static reflection for enums (to string, from string, iteration) for modern C++
@@ -9219,6 +9711,7 @@
         -DMAGIC_ENUM_OPT_ENABLE_NONASCII=ON \
         -DMAGIC_ENUM_OPT_INSTALL=ON
 - pkgname: mbedtls
+  pkgtype: exe+lib
   version: 3.6.0
   license: Apache-2.0
   summary: Cryptographic and SSL/TLS library
@@ -9248,6 +9741,7 @@
         -DENABLE_TESTING=OFF \
         -DENABLE_ZLIB_SUPPORT=ON
 - pkgname: mcfly
+  pkgtype: exe
   version: 0.8.4
   license: MIT
   summary: Fly through your shell history
@@ -9261,6 +9755,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: md4c
+  pkgtype: exe
   version: 0.5.2
   license: MIT
   summary: A fast, SAX-like Markdown parser for C
@@ -9274,6 +9769,7 @@
   parallel: "1"
   install: cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: mdbook
+  pkgtype: exe
   version: 0.4.37
   license: MPL-2.0
   summary: A command-line tool to create modern online books from Markdown files
@@ -9287,6 +9783,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: mediainfo
+  pkgtype: exe
   version: "24.04"
   license: BSD-2-Clause
   summary: A convenient unified display of the most relevant technical and tag data for video and audio files
@@ -9301,6 +9798,7 @@
   parallel: "1"
   install: configure
 - pkgname: mimalloc
+  pkgtype: lib
   version: 2.1.2
   license: MIT
   summary: Compact general purpose allocator
@@ -9317,6 +9815,7 @@
         -DMI_BUILD_TESTS=OFF \
         -DMI_INSTALL_TOPLEVEL=ON
 - pkgname: minisign
+  pkgtype: exe
   version: "0.11"
   license: ISC
   summary: A dead simple tool to sign files and verify signatures
@@ -9331,6 +9830,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: minizip-ng
+  pkgtype: lib
   version: 4.0.5
   license: Zlib
   summary: Zip file manipulation library with minizip 1.x compatibility layer
@@ -9347,6 +9847,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_SHARED_LIBS=ON
 - pkgname: mm-wiki
+  pkgtype: pie
   version: 0.2.1
   license: MIT
   summary: wiki manage service
@@ -9360,6 +9861,7 @@
   parallel: "1"
   install: gow
 - pkgname: mold
+  pkgtype: exe
   version: 2.30.0
   license: AGPL-3.0-only
   summary: Modern Linker
@@ -9383,6 +9885,7 @@
         -DBUILD_SHARED_LIBS=OFF \
         -DCMAKE_SKIP_INSTALL_RULES=OFF
 - pkgname: mosh
+  pkgtype: pie
   version: 1.4.0
   license: GPL-3.0-or-later
   summary: Remote terminal application
@@ -9399,6 +9902,7 @@
   parallel: "1"
   install: configure --with-ncurses LIBS=-llog
 - pkgname: mozjpeg
+  pkgtype: exe+lib
   version: 4.1.5
   license: BSD-3-Clause
   summary: Improved JPEG encoder
@@ -9419,6 +9923,7 @@
         -DWITH_JAVA=OFF \
         -DWITH_FUZZ=OFF
 - pkgname: mpdecimal
+  pkgtype: lib
   version: 4.0.0
   license: BSD-2-Clause
   summary: Library for decimal floating point arithmetic
@@ -9434,6 +9939,7 @@
     export LD="$CC"
     configure
 - pkgname: mpg123
+  pkgtype: exe
   version: 1.32.6
   license: LGPL-2.1-only
   summary: MP3 player
@@ -9463,6 +9969,7 @@
         --with-cpu="$CPU" \
         --with-pic
 - pkgname: mruby@3.0.0
+  pkgtype: exe
   version: 3.0.0
   license: MIT
   summary: A lightweight implementation of the Ruby language
@@ -9500,6 +10007,7 @@
     run install_libs build/android/lib/*.a || return 1
     run cp -r build/android/include "$PACKAGE_INSTALL_DIR" || return 1
 - pkgname: mruby@3.2.0
+  pkgtype: exe
   version: 3.2.0
   license: MIT
   summary: A lightweight implementation of the Ruby language
@@ -9607,6 +10115,7 @@
     run install_libs build/android/lib/*.a
     run cp -r build/android/include "$PACKAGE_INSTALL_DIR"
 - pkgname: msgpack-c
+  pkgtype: lib
   version: 6.0.1
   license: BSL-1.0
   summary: Library for a binary-based efficient data interchange format
@@ -9623,6 +10132,7 @@
         -DMSGPACK_BUILD_TESTS=OFF \
         -DMSGPACK_BUILD_EXAMPLES=OFF
 - pkgname: naabu
+  pkgtype: pie
   version: 2.3.0
   license: MIT
   summary: Fast port scanner
@@ -9638,6 +10148,7 @@
   prepare: printf 'INPUT(%s -l:libssl.a -l:libcrypto.a -ldl)\n' "$libpcap_LIBRARY_DIR/libpcap.a" > ../../lib/libpcap.a
   install: gow ./cmd/naabu
 - pkgname: nano
+  pkgtype: exe
   version: "7.2"
   license: GPL-3.0-or-later
   summary: Free (GNU) replacement for the Pico text editor
@@ -9668,6 +10179,7 @@
         --enable-nanorc \
         --enable-multibuffer
 - pkgname: nanomsg
+  pkgtype: exe+lib
   version: "1.2"
   license: MIT
   summary: Socket library in C
@@ -9681,6 +10193,7 @@
   parallel: "1"
   install: cmakew -DNN_TESTS=OFF
 - pkgname: nap
+  pkgtype: pie
   version: 0.1.1
   license: MIT
   summary: A code snippet manager for your terminal
@@ -9694,6 +10207,7 @@
   parallel: "1"
   install: gow
 - pkgname: nasm
+  pkgtype: exe
   version: 2.16.02
   license: BSD-2-Clause
   summary: Netwide Assembler (NASM) is an 80x86 assembler
@@ -9715,6 +10229,7 @@
         --disable-werror \
         --disable-pdf-compression
 - pkgname: navi
+  pkgtype: exe
   version: 2.23.0
   license: Apache-2.0
   summary: Interactive cheatsheet tool for the command-line
@@ -9728,6 +10243,7 @@
   parallel: "1"
   install: cargow install --locked
 - pkgname: ncdu
+  pkgtype: exe
   version: "1.16"
   license: MIT
   summary: NCurses Disk Usage
@@ -9741,6 +10257,7 @@
   parallel: "1"
   install: configure
 - pkgname: ncurses
+  pkgtype: lib
   version: "6.4"
   license: MIT
   summary: Text-based UI library
@@ -9817,6 +10334,7 @@
     cd lib/pkgconfig
     ln -s ncursesw.pc ncurses.pc
 - pkgname: neofetch
+  pkgtype: exe
   version: 7.1.0
   license: MIT
   summary: Fast, highly customisable system info script
@@ -9831,6 +10349,7 @@
     install_bins neofetch
     install_mans neofetch.1
 - pkgname: netcat
+  pkgtype: exe
   version: 0.7.1
   license: GPL-2.0-or-later
   summary: GNU netcat is a GNU rewrite of the classic netcat (aka nc) utility for reading and writing data on TCP and UDP streams
@@ -9843,6 +10362,7 @@
   parallel: "1"
   install: configure
 - pkgname: nethogs
+  pkgtype: exe
   version: 0.8.7
   license: GPL-2.0
   summary: Net top tool grouping bandwidth per process
@@ -9861,6 +10381,7 @@
     gmakew clean
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR" CXX="$CXX" CXXFLAGS="'$CXXFLAGS -std=c++14'" CPPFLAGS="'$CPPFLAGS -Dindex=strchr -Drindex=strrchr -D_GNU_SOURCE -Dquad_t=int64_t -Du_quad_t=uint64_t'"
 - pkgname: netpbm
+  pkgtype: exe
   version: 10.86.40
   license: GPL-3.0-or-later
   summary: A toolkit for manipulation of graphic images, including conversion of images between a variety of different formats
@@ -9911,6 +10432,7 @@
     Requires: jasper libpng libjpeg libtiff-4 libxml-2.0
     EOF
 - pkgname: nettle
+  pkgtype: lib
   version: 3.9.1
   license: GPL-2.0-or-later
   summary: Low-level cryptographic library
@@ -9935,6 +10457,7 @@
         --disable-documentation \
         --enable-assembler
 - pkgname: nghttp2
+  pkgtype: exe+lib
   version: 1.61.0
   license: MIT
   summary: HTTP/2 C Library
@@ -9971,6 +10494,7 @@
         -DWITH_LIBBPF=OFF \
         -DWITH_MRUBY=OFF
 - pkgname: nghttp3
+  pkgtype: exe+lib
   version: 2024.05.15
   license: MIT
   summary: HTTP/3 library written in C
@@ -9987,6 +10511,7 @@
         -DENABLE_ASAN=ON \
         -DENABLE_LIB_ONLY=OFF
 - pkgname: nginx
+  pkgtype: exe
   version: 1.25.4
   license: BSD-2-Clause
   summary: HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server
@@ -10024,6 +10549,7 @@
     sed_in_place '/#if (NGX_HAVE_SCHED_SETAFFINITY)/a #include <sched.h>' src/os/unix/ngx_setaffinity.h
   install: "export NGX_SYSTEM=Linux\nexport NGX_RELEASE=unknown\nexport NGX_MACHINE=$TARGET_PLATFORM_ARCH\n\nif [ \"$TARGET_PLATFORM_NBIT\" -eq '64' ] ; then\n    sed_in_place 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=8/' auto/types/sizeof\nelse\n    sed_in_place 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=4/' auto/types/sizeof\nfi\n\n[ -f Makefile ] && gmakew clean\n\nwrite_NGX_SYS_NERR() {\n    cat >> objs/ngx_auto_config.h <<EOF\n#ifndef NGX_SYS_NERR\n#define NGX_SYS_NERR  107\n#endif\nEOF\n}   \n\nrun ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --crossbuild=Linux:unknown:$TARGET_PLATFORM_ARCH \\\n    --with-cc=\"$CC\" \\\n    --with-cc-opt=\"\\\"$CFLAGS $CPPFLAGS -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE=1 -D__USE_GNU\\\"\" \\\n    --with-ld-opt=\"\\\"$LDFLAGS -lcrypto -lcrypt\\\"\" \\\n    --with-pcre\nwrite_NGX_SYS_NERR\ngmakew install"
 - pkgname: ngtcp2
+  pkgtype: lib
   version: 2024.05.15
   license: MIT
   summary: QUIC library written in C
@@ -10043,6 +10569,7 @@
         -DENABLE_OPENSSL=OFF \
         -DENABLE_LIB_ONLY=OFF
 - pkgname: ninja
+  pkgtype: exe
   version: 1.12.0
   license: Apache-2.0
   summary: A small build system with a focus on speed
@@ -10057,6 +10584,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: nlohmann-json
+  pkgtype: lib
   version: 3.11.3
   license: MIT
   summary: JSON for modern C++
@@ -10073,6 +10601,7 @@
         -DJSON_BuildTests=OFF \
         -DJSON_MultipleHeaders=ON
 - pkgname: nnn
+  pkgtype: exe
   version: "4.9"
   license: BSD-2-Clause
   summary: Tiny, lightning fast, feature-packed file manager
@@ -10091,6 +10620,7 @@
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
     install_mans nnn.1
 - pkgname: npth
+  pkgtype: lib
   version: "1.6"
   license: LGPL-2.1-or-later
   summary: New GNU portable threads library
@@ -10105,6 +10635,7 @@
   parallel: "1"
   install: configure --disable-tests
 - pkgname: nsh
+  pkgtype: exe
   version: 0.4.2
   license: MIT
   summary: Fish-like, POSIX-compatible shell
@@ -10118,6 +10649,7 @@
   parallel: "1"
   install: cargow install --locked
 - pkgname: ntbtls
+  pkgtype: lib
   version: 0.3.2
   license: GPL-3.0-or-later
   summary: Not Too Bad TLS library
@@ -10140,6 +10672,7 @@
         ac_cv_path_GPG_ERROR_CONFIG=no \
         ac_cv_path_GPGRT_CONFIG="$libgpg_error_INSTALL_DIR/bin/gpgrt-config"
 - pkgname: nuclei
+  pkgtype: pie
   version: 3.2.6
   license: MIT
   summary: HTTP/DNS scanner configurable via YAML templates
@@ -10153,6 +10686,7 @@
   parallel: "1"
   install: gow ./cmd/nuclei
 - pkgname: numactl
+  pkgtype: lib
   version: 2.0.18
   license: GPL-2.0-or-later
   summary: NUMA support for Linux
@@ -10167,6 +10701,7 @@
   parallel: "1"
   install: configure
 - pkgname: nushell
+  pkgtype: exe
   version: 0.92.2
   license: MIT
   summary: A new type of shell
@@ -10182,6 +10717,7 @@
   parallel: "1"
   install: cargow install --no-default-features --features=dataframe
 - pkgname: oat++
+  pkgtype: lib
   version: 1.3.0
   license: Apache-2.0
   summary: A light and powerful web framework for C++
@@ -10195,6 +10731,7 @@
   parallel: "1"
   install: cmakew -DOATPP_BUILD_TESTS=OFF
 - pkgname: obfs4proxy
+  pkgtype: pie
   version: 0.0.14
   license: BSD-2-Clause
   summary: Pluggable transport proxy for Tor, implementing obfs4
@@ -10208,6 +10745,7 @@
   parallel: "1"
   install: gow ./obfs4proxy
 - pkgname: oboe
+  pkgtype: lib
   version: 1.8.1
   license: Apache-2.0
   summary: An easy-to-use, high-performance audio library for Android
@@ -10224,6 +10762,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_MP4=ON -DWITH_ASF=ON
     cmakew -DBUILD_SHARED_LIBS=ON  -DWITH_MP4=ON -DWITH_ASF=ON
 - pkgname: oniguruma
+  pkgtype: lib
   version: 6.9.9
   license: BSD-2-Clause
   summary: Regular expressions library
@@ -10237,6 +10776,7 @@
   parallel: "1"
   install: configure
 - pkgname: openal-soft
+  pkgtype: exe+lib
   version: 1.23.1
   license: LGPL-2.0-or-later
   summary: Implementation of the OpenAL 3D audio API
@@ -10256,6 +10796,7 @@
         -DALSOFT_BACKEND_PULSEAUDIO=OFF \
         -DALSOFT_MIDI_FLUIDSYNTH=OFF
 - pkgname: openblas
+  pkgtype: lib
   version: 0.3.26
   license: BSD-3-Clause
   summary: Optimized BLAS library
@@ -10284,6 +10825,7 @@
     gmakew       OSNAME=Android ARCH=$ARCH TARGET=$TARGET HOSTCC="$CC_FOR_BUILD" ONLY_CBLAS=1 ARM_SOFTFP_ABI=$ARM_SOFTFP_ABI CC="$CC" AS="$AS" AR="$AR"
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: opencolorio
+  pkgtype: lib
   version: 2.3.2
   license: BSD-3-Clause
   summary: Color management solution geared towards motion picture production
@@ -10306,6 +10848,7 @@
         -DOCIO_BUILD_PYTHON=OFF \
         -DOCIO_WARNING_AS_ERROR=OFF
 - pkgname: opencv
+  pkgtype: lib
   version: 4.9.0
   license: Apache-2.0
   summary: Open source computer vision library
@@ -10369,6 +10912,7 @@
     run cp -r sdk/native/jni/include ./
     run cp -r sdk/native/*/$TARGET_PLATFORM_ABI lib/
 - pkgname: openexr
+  pkgtype: lib
   version: 3.2.4
   license: BSD-3-Clause
   summary: High dynamic-range image file format
@@ -10396,6 +10940,7 @@
         -DOPENEXR_INSTALL_EXAMPLES=ON \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: openjpeg
+  pkgtype: lib
   version: 2.5.2
   license: BSD-2-Clause
   summary: Library for JPEG-2000 image manipulation
@@ -10428,6 +10973,7 @@
         -DBUILD_LUTS_GENERATOR=OFF \
         -DBUILD_PKGCONFIG_FILES=ON
 - pkgname: openlibm
+  pkgtype: lib
   version: 0.8.2
   license: MIT ISC BSD-2-Clause
   summary: High quality, portable, open source libm implementation
@@ -10459,6 +11005,7 @@
         ARCH="$TARGET_PLATFORM_ARCH" \
         LONG_DOUBLE_NOT_DOUBLE="$LONG_DOUBLE_NOT_DOUBLE"
 - pkgname: openmpi
+  pkgtype: lib
   version: 4.1.6
   license: BSD-3-Clause
   summary: High performance message passing library
@@ -10509,6 +11056,7 @@
         --with-libevent="$libevent_INSTALL_DIR" \
         FC=''
 - pkgname: openssl
+  pkgtype: exe
   version: 3.3.0
   license: Apache-2.0
   summary: Cryptography and SSL/TLS Toolkit
@@ -10555,6 +11103,7 @@
     gmakew CROSS_COMPILE= install
   dotweak: sed_in_place 's|-latomic||g' lib/pkgconfig/libcrypto.pc
 - pkgname: openssl-dev
+  pkgtype: lib
   version: 3.3.0
   license: Apache-2.0
   summary: Cryptography and SSL/TLS Toolkit
@@ -10586,6 +11135,7 @@
   install: "run ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
   dotweak: sed_in_place 's|-latomic||g' lib/pkgconfig/libcrypto.pc
 - pkgname: openssl-fips
+  pkgtype: lib
   version: 2.0.16
   license: OpenSSL
   summary: Cryptography and SSL/TLS Toolkit
@@ -10625,6 +11175,7 @@
     gmakew clean
     gmakew install
 - pkgname: openssl@1.1
+  pkgtype: exe+lib
   version: 1.1.1w
   license: OpenSSL
   summary: Cryptography and SSL/TLS Toolkit
@@ -10645,6 +11196,7 @@
     sed_in_place '/tritools-4.9/d'        Configurations/15-android.conf
   install: "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"\n\nrun ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
 - pkgname: p11-kit
+  pkgtype: lib
   version: 0.24.1
   license: BSD-3-Clause
   summary: Library to load and enumerate PKCS#11 modules
@@ -10669,6 +11221,7 @@
         --disable-strict \
         --disable-doc
 - pkgname: p7zip
+  pkgtype: exe
   version: "17.05"
   license: LGPL-2.1-or-later
   summary: 7-Zip (high compression file archiver) implementation
@@ -10690,6 +11243,7 @@
     echo $?
     gmakew install DEST_HOME="$PACKAGE_INSTALL_DIR"
 - pkgname: packcc
+  pkgtype: exe
   version: 2024.05.15
   license: MIT
   summary: A packrat parser generator for C
@@ -10702,6 +11256,7 @@
     run $CC $CPPFLAGS $CFLAGS $LDFLAGS -static -o packcc $PACKAGE_BSCRIPT_DIR/packcc.c
     install_bins packcc
 - pkgname: pango
+  pkgtype: lib
   version: 1.52.2
   license: LGPL-2.0-or-later
   summary: Framework for layout and rendering of i18n text
@@ -10724,6 +11279,7 @@
         -Dfontconfig=enabled \
         -Dintrospection=disabled
 - pkgname: patch
+  pkgtype: exe
   version: 2.7.6
   license: GPL-3.0-or-later
   summary: Apply a diff file to an original
@@ -10740,6 +11296,7 @@
         --enable-xattr \
         --disable-gcc-warnings
 - pkgname: patchelf
+  pkgtype: exe
   version: 0.18.0
   license: GPL-3.0-or-later
   summary: A small utility to modify ELF files
@@ -10753,6 +11310,7 @@
   parallel: "1"
   install: configure
 - pkgname: pbzip2
+  pkgtype: exe
   version: 1.1.13
   license: bzip2-1.0.6
   summary: Parallel bzip2
@@ -10769,6 +11327,7 @@
     gmakew clean
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR" CXX="$CXX" CXXFLAGS="'$CXXFLAGS $CPPFLAGS'" LDFLAGS="'$LDFLAGS'"
 - pkgname: pcapplusplus
+  pkgtype: lib
   version: "23.09"
   license: Unlicense
   summary: C++ network sniffing, packet parsing and crafting framework
@@ -10788,6 +11347,7 @@
         -DPCAPPP_BUILD_EXAMPLES=OFF \
         -DPCAPPP_BUILD_COVERAGE=OFF
 - pkgname: pcre2
+  pkgtype: exe
   version: "10.43"
   license: BSD-3-Clause
   summary: Perl compatible regular expressions library with a new API
@@ -10817,6 +11377,7 @@
         -DPCRE2_SUPPORT_LIBBZ2=ON \
         -DPCRE2_SUPPORT_LIBREADLINE=ON
 - pkgname: pdfium
+  pkgtype: lib
   version: "1"
   license: BSD-3-Clause
   summary: PDF read/write library by Google
@@ -10889,6 +11450,7 @@
     run install_incs $PACKAGE_BSCRIPT_DIR/public/*.h
     run install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp
 - pkgname: pget
+  pkgtype: pie
   version: 0.2.1
   license: MIT
   summary: The fastest file download client
@@ -10902,6 +11464,7 @@
   parallel: "1"
   install: gow -X main.version=$PACKAGE_VERSION ./cmd/pget
 - pkgname: physfs
+  pkgtype: exe
   version: 3.2.0
   license: Zlib
   summary: Library to provide abstract access to various archives
@@ -10921,6 +11484,7 @@
         -DPHYSFS_BUILD_TEST=OFF \
         -DPHYSFS_BUILD_DOCS=OFF
 - pkgname: pigz
+  pkgtype: exe
   version: "2.8"
   license: Zlib
   summary: A parallel implementation of gzip for modern multi-processor, multi-core machines
@@ -10946,6 +11510,7 @@
     cd share/man/man1
     ln -sf pigz.1 unpigz.1
 - pkgname: pjsip
+  pkgtype: lib
   version: 2.11.1
   license: GPL-2.0-or-later
   summary: A C library for multimedia protocols such as SIP, SDP, RTP and more
@@ -10962,6 +11527,7 @@
     export LD="$CC"
     configure --disable-libwebrtc
 - pkgname: pkg-config
+  pkgtype: exe
   version: 0.29.2
   license: GPL-2.0-or-later
   summary: Manage compile and link flags for libraries
@@ -10992,6 +11558,7 @@
         --cache-file="$PACKAGE_BSCRIPT_DIR/glib/configure.cache"
     # https://www.gnu.org/software/autoconf/manual/autoconf-2.67/html_node/Cache-Files.html
 - pkgname: pkgconf
+  pkgtype: exe
   version: 2.1.1
   license: ISC
   summary: Reimplementation of pkg-config
@@ -11005,6 +11572,7 @@
   parallel: "1"
   install: configure && cd "$PACKAGE_INSTALL_DIR/bin" && ln -s pkgconf pkg-config
 - pkgname: plog
+  pkgtype: lib
   version: 1.1.10
   license: MIT
   summary: A portable, simple and extensible logging library for C++
@@ -11018,6 +11586,7 @@
   parallel: "1"
   install: cmakew -DPLOG_BUILD_SAMPLES=OFF -DPLOG_BUILD_TESTS=OFF -DPLOG_INSTALL=ON
 - pkgname: plzip
+  pkgtype: exe
   version: "1.11"
   license: GPL-2.0-or-later
   summary: A massively parallel (multi-threaded) implementation of lzip, fully compatible with lzip 1.4 or newer
@@ -11031,6 +11600,7 @@
   parallel: "1"
   install: configure CXX="'$CXX'" CXXFLAGS="'$CXXFLAGS'" CPPFLAGS="'$CPPFLAGS'" LDFLAGS="'$LDFLAGS'"
 - pkgname: png
+  pkgtype: exe
   version: 1.6.43
   license: libpng-2.0
   summary: Library for manipulating PNG images
@@ -11045,6 +11615,7 @@
   parallel: "1"
   install: configure
 - pkgname: pngcheck
+  pkgtype: exe
   version: 3.0.3
   license: MIT GPL-2.0-or-later
   summary: Print info and check PNG, JNG, and MNG files
@@ -11060,6 +11631,7 @@
     install_bins pngcheck
     install_mans pngcheck.1
 - pkgname: pngquant
+  pkgtype: exe
   version: 3.0.3.crate
   summary: PNG image optimizing utility
   web-url: https://pngquant.org
@@ -11073,6 +11645,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: pngsplit
+  pkgtype: exe
   version: 3.0.3
   license: GPL-2.0-or-later
   summary: Print info and check PNG, JNG, and MNG files
@@ -11088,6 +11661,7 @@
     install_bins pngsplit
     install_mans pngsplit.1
 - pkgname: poco
+  pkgtype: exe+lib
   version: all
   license: BSL-1.0
   summary: C++ class libraries for building network and internet-based applications
@@ -11107,6 +11681,7 @@
         -DENABLE_DATA_MYSQL=OFF \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: popt
+  pkgtype: lib
   version: "1.19"
   license: MIT
   summary: Library like getopt(3) with a number of enhancements
@@ -11122,6 +11697,7 @@
   parallel: "1"
   install: configure
 - pkgname: ppkg
+  pkgtype: exe
   version: 2024.05.15
   license: Apache-2.0
   summary: A portable package manager for Unix-like systems
@@ -11136,6 +11712,7 @@
   dopatch: PACKAGE_VERSION=$(sed -n '/set(PROJECT_VERSION /p' CMakeLists.txt | sed 's|set(PROJECT_VERSION[[:space:]]*\(.*\))|\1|')
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: procs
+  pkgtype: exe
   version: 0.14.5
   license: MIT
   summary: Modern replacement for ps written by Rust
@@ -11150,6 +11727,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: progress
+  pkgtype: exe
   version: "0.17"
   license: GPL-3.0-or-later
   summary: Coreutils progress viewer
@@ -11167,6 +11745,7 @@
     gmakew CC="$CC" CFLAGS="'$CFLAGS $CPPFLAGS'" LDFLAGS="'$LDFLAGS $libwordexp_LIBRARY_DIR/libwordexp.a'" UNAME=Linux
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: proj
+  pkgtype: lib
   version: 9.4.0
   license: MIT
   summary: Cartographic Projections Library
@@ -11317,6 +11896,7 @@
     EOF
   install: cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_TESTING=OFF
 - pkgname: proj7
+  pkgtype: lib
   version: 7.2.1
   license: MIT
   summary: Cartographic Projections Library
@@ -11483,6 +12063,7 @@
     Cflags: -I\${includedir}
     EOF
 - pkgname: proot2
+  pkgtype: exe
   version: 5.1.107
   license: GPL-2.0-or-later
   summary: A user-space implementation of chroot, mount --bind, and binfmt_misc
@@ -11504,6 +12085,7 @@
     gmakew V=1 CC=$CC LD=$CC STRIP=$STRIP OBJCOPY=$OBJCOPY OBJDUMP=$OBJDUMP CPPFLAGS="'$CPPFLAGS'" CFLAGS="'$CFLAGS'" LDFLAGS="'$LDFLAGS $talloc_LIBRARY_DIR/libtalloc.a'"
     gmakew install PREFIX=$PACKAGE_INSTALL_DIR DESTDIR=
 - pkgname: protobuf
+  pkgtype: exe+lib
   version: "26.1"
   license: BSD-3-Clause
   summary: Protocol Buffers(data interchange format) compiler and library developed by Google
@@ -11535,6 +12117,7 @@
         -Dprotobuf_ABSL_PROVIDER=package \
         -Dprotobuf_JSONCPP_PROVIDER=package
 - pkgname: psimd
+  pkgtype: lib
   version: 2024.05.15
   license: MIT
   summary: Portable 128-bit SIMD intrinsics
@@ -11546,6 +12129,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: pthreadpool
+  pkgtype: lib
   version: 2024.05.15
   license: BSD-2-Clause
   summary: A portable and efficient thread pool implementation
@@ -11565,6 +12149,7 @@
         -DPTHREADPOOL_BUILD_BENCHMARKS=OFF \
         -DPTHREADPOOL_LIBRARY_TYPE=shared
 - pkgname: pup
+  pkgtype: pie
   version: 2024.05.15
   license: MIT
   summary: Parse HTML at the command-line
@@ -11576,6 +12161,7 @@
   parallel: "1"
   install: gow
 - pkgname: putty
+  pkgtype: exe
   version: "0.81"
   license: MIT
   summary: Implementation of Telnet and SSH
@@ -11591,6 +12177,7 @@
   parallel: "1"
   install: cmakew -DPUTTY_GTK_VERSION=NONE
 - pkgname: pybind11
+  pkgtype: lib
   version: 2.12.0
   license: BSD-3-Clause
   summary: Seamless operability between C++11 and Python
@@ -11609,6 +12196,7 @@
         -DPYBIND11_NOPYTHON=ON \
         -DCMAKE_INSTALL_DATAROOTDIR="$PACKAGE_INSTALL_DIR/lib"
 - pkgname: pystring
+  pkgtype: lib
   version: 1.1.4
   summary: C++ functions matching the interface and behavior of python string methods with std::string
   web-url: https://github.com/imageworks/pystring
@@ -11626,6 +12214,7 @@
     run install_incs pystring.h:pystring
     run install_libs libpystring.a
 - pkgname: python3
+  pkgtype: pie
   version: 3.11.7
   license: Python-2.0
   summary: Interpreted, interactive, object-oriented programming language
@@ -11682,6 +12271,7 @@
         ac_cv_little_endian_double=yes \
         ac_cv_posix_semaphores_enabled=no
 - pkgname: q
+  pkgtype: pie
   version: 0.19.1
   license: GPL-3.0
   summary: A tiny command line DNS client with support for UDP, TCP, DoT, DoH, DoQ and ODoH
@@ -11695,6 +12285,7 @@
   parallel: "1"
   install: gow
 - pkgname: qpdf
+  pkgtype: exe
   version: 11.9.0
   license: Apache-2.0
   summary: a command-line tool and C++ library that performs content-preserving transformations on PDF files
@@ -11714,6 +12305,7 @@
         -DUSE_IMPLICIT_CRYPTO=OFF \
         -DREQUIRE_CRYPTO_OPENSSL=ON
 - pkgname: qrencode
+  pkgtype: exe
   version: 4.1.1
   license: LGPL-2.1-or-later
   summary: QR Code generation
@@ -11732,6 +12324,7 @@
         -DWITH_TESTS=OFF \
         -DWITHOUT_PNG=OFF
 - pkgname: quickjs
+  pkgtype: exe
   version: 2024.01.13
   license: MIT
   summary: A small and embeddable JavaScript engine
@@ -11761,6 +12354,7 @@
     gmakew clean
     gmakew install HOST_CC="'$HOST_CC'" CC="'$CC'" "AR=$AR" "STRIP=$STRIP" LDFLAGS=-Wl,-v CROSS_PREFIX=xxx PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: ragel
+  pkgtype: exe
   version: "6.10"
   license: GPL-2.0
   summary: State machine compiler
@@ -11773,6 +12367,7 @@
   parallel: "1"
   install: configure
 - pkgname: rang
+  pkgtype: exe
   version: "3.2"
   license: Unlicense
   summary: A Minimal, Header only Modern c++ library for terminal goodies
@@ -11786,6 +12381,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: rapidjson
+  pkgtype: lib
   version: 1.1.0
   license: MIT
   summary: A fast JSON parser and generator for C++ with SAX and DOM style APIs
@@ -11803,6 +12399,7 @@
         -DRAPIDJSON_BUILD_TESTS=OFF \
         -DRAPIDJSON_BUILD_EXAMPLES=OFF
 - pkgname: rav1e
+  pkgtype: exe
   version: 0.7.1
   license: BSD-2-Clause
   summary: The fastest and safest AV1 video encoder
@@ -11818,6 +12415,7 @@
     cargow  install
     cargow cinstall
 - pkgname: rclone
+  pkgtype: pie
   version: 1.66.0
   license: MIT
   summary: Rsync for cloud storage
@@ -11831,6 +12429,7 @@
   parallel: "1"
   install: gow -X github.com/rclone/rclone/fs.Version=v$PACKAGE_VERSION && run install_mans rclone.1
 - pkgname: re2
+  pkgtype: lib
   version: "20240401"
   license: BSD-3-Clause
   summary: Alternative to backtracking PCRE-style regular expression engines
@@ -11848,6 +12447,7 @@
     cmakew -DRE2_BUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON
   dotweak: sed_in_place '/re2_INCLUDE_DIR/d' lib/cmake/re2/re2Config.cmake
 - pkgname: re2c
+  pkgtype: exe
   version: "3.1"
   summary: Generate C-based recognizers from regular expressions
   web-url: https://re2c.org/
@@ -11866,6 +12466,7 @@
         -DRE2C_BUILD_RE2RUST=ON \
         -DRE2C_REBUILD_DOCS=OFF
 - pkgname: readline
+  pkgtype: readline
   version: 8.2.10
   license: GPL-3.0-or-later
   summary: Library for command-line editing
@@ -11899,6 +12500,7 @@
         patchelf --add-needed libncurses.so lib/libreadline.so
     fi
 - pkgname: restic
+  pkgtype: pie
   version: 0.16.4
   license: BSD-2-Clause
   summary: A fast, efficient and secure backup program
@@ -11912,6 +12514,7 @@
   parallel: "1"
   install: gow -X main.version=$PACKAGE_VERSION ./cmd/restic
 - pkgname: resvg
+  pkgtype: exe
   version: 0.41.0
   license: MPL-2.0
   summary: A command-line tool to convert SVG to PNG
@@ -11926,6 +12529,7 @@
     cargow install --path crates/usvg
     cargow install --path crates/resvg
 - pkgname: rhash
+  pkgtype: rhash
   version: 1.4.4
   license: 0BSD
   summary: Utility for computing and verifying hash sums of files
@@ -11955,6 +12559,7 @@
     gmakew
     gmakew install
 - pkgname: ripgrep
+  pkgtype: exe
   version: 14.1.0
   license: Unlicense
   summary: A command-line tool for searching files for a regex pattern
@@ -11968,6 +12573,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: ripgrep-all
+  pkgtype: exe
   version: 0.10.6
   license: AGPL-3.0
   summary: Wrapper around ripgrep that adds multiple rich file types
@@ -11981,6 +12587,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: rlwrap
+  pkgtype: exe
   version: 0.46.1
   license: GPL-2.0-or-later
   summary: Readline wrapper, adds readline support to tools that lack it
@@ -11995,6 +12602,7 @@
   parallel: "1"
   install: configure
 - pkgname: rsass
+  pkgtype: exe
   version: 0.23.0
   license: MIT
   summary: Sass reimplemented in rust with nom
@@ -12008,6 +12616,7 @@
   parallel: "1"
   install: cargow install --features=commandline
 - pkgname: rsync
+  pkgtype: exe
   version: 3.3.0
   license: GPL-3.0-or-later
   summary: Utility that provides fast incremental file transfer
@@ -12025,6 +12634,7 @@
   dopatch: patch -p1 < ../fix/patches/fileflags.diff
   install: configure --disable-simd --enable-ipv6 --with-included-popt=no --with-included-zlib=no LIBS=-ldl
 - pkgname: rtmpdump
+  pkgtype: exe
   version: 2.4+20151223
   license: GPL-2.0-or-later
   summary: A command-line tool for downloading RTMP streaming media
@@ -12044,6 +12654,7 @@
     gmakew         SYS=posix CC="$CC" LD="$LD" AR="$AR" LIB_RTMP=librtmp/librtmp.a OPT= XCFLAGS="'$CFLAGS $CPPFLAGS'" XLDFLAGS="'$LDFLAGS'"
     gmakew install SYS=posix prefix="$PACKAGE_INSTALL_DIR"
 - pkgname: rtorrent
+  pkgtype: exe
   version: 0.9.8
   license: GPL-2.0-or-later
   summary: Ncurses BitTorrent client based on libtorrent-rakshasa
@@ -12059,6 +12670,7 @@
   parallel: "1"
   install: configure --enable-ipv6
 - pkgname: ruff
+  pkgtype: exe
   version: 0.4.2
   license: MIT
   summary: An extremely fast Python linter, written in Rust
@@ -12072,6 +12684,7 @@
   parallel: "1"
   install: cargow install --no-default-features
 - pkgname: rust-analyzer
+  pkgtype: exe
   version: 2024.01.29
   license: Apache-2.0
   summary: A Rust compiler front-end for IDEs
@@ -12085,6 +12698,7 @@
   parallel: "1"
   install: cargow install --locked
 - pkgname: ruy
+  pkgtype: lib
   version: 2024.05.15
   license: Apache-2.0
   summary: matrix multiplication library
@@ -12102,6 +12716,7 @@
         -DRUY_MINIMAL_BUILD=ON \
         -DRUY_ENABLE_INSTALL=ON
 - pkgname: sassc
+  pkgtype: exe
   version: 3.6.2
   license: MIT
   summary: Wrapper around libsass that helps to create command-line apps
@@ -12116,6 +12731,7 @@
   parallel: "1"
   install: configure --with-libsass="$libsass_INSTALL_DIR"
 - pkgname: scc
+  pkgtype: pie
   version: 3.2.0
   license: MIT
   summary: Fast and accurate code counter with complexity and COCOMO estimates
@@ -12129,6 +12745,7 @@
   parallel: "1"
   install: gow
 - pkgname: sd
+  pkgtype: exe
   version: 1.0.0
   license: MIT
   summary: Intuitive find & replace CLI
@@ -12142,6 +12759,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: sdl2
+  pkgtype: lib
   version: 2.30.2
   license: Zlib
   summary: A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D
@@ -12158,6 +12776,7 @@
     sed_in_place '/fseeko/d' ../include/ndk-pkg-common.h
   install: cmakew -DSDL_STATIC=ON -DSDL_SHARED=ON
 - pkgname: shaderc
+  pkgtype: exe
   version: "2024.0"
   license: Apache-2.0
   summary: A collection of tools, libraries, and tests for Vulkan shader compilation
@@ -12179,6 +12798,7 @@
         -DSHADERC_ENABLE_WERROR_COMPILE=ON \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: shc
+  pkgtype: exe
   version: 4.0.3
   license: GPL-3.0-or-later
   summary: Shell Script Compiler
@@ -12192,6 +12812,7 @@
   parallel: "1"
   install: configure
 - pkgname: shell2http
+  pkgtype: pie
   version: 1.17.0
   license: MIT
   summary: A HTTP server to execute shell commands
@@ -12205,6 +12826,7 @@
   parallel: "1"
   install: gow && run install_mans shell2http.1
 - pkgname: shellharden
+  pkgtype: exe
   version: 4.3.1
   license: MPL-2.0
   summary: A bash syntax highlighter that encourages/fixes variables quoting
@@ -12218,6 +12840,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: shiori
+  pkgtype: pie
   version: 1.5.0
   license: MIT
   summary: Simple bookmark manager built with Go
@@ -12231,6 +12854,7 @@
   parallel: "1"
   install: gow
 - pkgname: silicon
+  pkgtype: pie
   version: 0.5.2
   license: MIT
   summary: A command-line tool to render your source code into a beautiful image
@@ -12251,6 +12875,7 @@
         cargow install
     fi
 - pkgname: simdjson
+  pkgtype: lib
   version: 3.9.1
   license: Apache-2.0
   summary: SIMD-accelerated C++ JSON parser
@@ -12265,6 +12890,7 @@
     cmakew -DBUILD_SHARED_LIBS=ON
     cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: sjpeg
+  pkgtype: exe+lib
   version: 2024.05.15
   license: Apache-2.0
   summary: simple jpeg encoder
@@ -12279,6 +12905,7 @@
     cmakew -DBUILD_SHARED_LIBS=ON  -DSJPEG_BUILD_EXAMPLES=OFF -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
     cmakew -DBUILD_SHARED_LIBS=OFF -DSJPEG_BUILD_EXAMPLES=ON  -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: skcms
+  pkgtype: lib
   version: 2024.05.15
   license: BSD
   summary: SkCMS
@@ -12293,6 +12920,7 @@
     install_libs libskcms.a
     install_incs skcms.h
 - pkgname: skia
+  pkgtype: lib
   version: "1"
   license: BSD-3-Clause
   summary: An open source 2D graphics library
@@ -12363,6 +12991,7 @@
     run install_incs $PACKAGE_BSCRIPT_DIR/public/*.h
     run install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp
 - pkgname: sl
+  pkgtype: exe
   version: "5.02"
   license: MIT
   summary: Prints a steam locomotive if you type sl instead of ls
@@ -12380,6 +13009,7 @@
     run install_bins sl
     run install_mans sl.1
 - pkgname: soundtouch
+  pkgtype: lib
   version: 2.3.1
   license: LGPL-2.1-or-later
   summary: Audio processing library
@@ -12393,6 +13023,7 @@
   parallel: "1"
   install: configure
 - pkgname: spdlog
+  pkgtype: lib
   version: 1.13.0
   license: MIT
   summary: Super fast C++ logging library
@@ -12421,6 +13052,7 @@
         -DSPDLOG_BUILD_EXAMPLE=OFF \
         -DSPDLOG_BUILD_SHARED=OFF
 - pkgname: speex
+  pkgtype: exe
   version: 1.2.1
   license: BSD-3-Clause
   summary: Audio codec designed for speech
@@ -12435,6 +13067,7 @@
   parallel: "1"
   install: configure --enable-binaries LIBS=-lm
 - pkgname: sqlite3
+  pkgtype: exe
   version: 3.45.3
   license: blessing
   summary: A small, fast, self-contained, high-reliability, full-featured, SQL database engine written in C
@@ -12450,6 +13083,7 @@
   dopatch: sed_in_place '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' sqlite3.c
   install: configure --disable-editline --enable-readline --enable-static-shell LIBS=-lm
 - pkgname: starship
+  pkgtype: exe
   version: 1.18.2
   license: ISC
   summary: The minimal, blazing-fast, and infinitely customizable prompt for any shell
@@ -12465,6 +13099,7 @@
   parallel: "1"
   install: cargow install --locked --no-default-features
 - pkgname: stwolame
+  pkgtype: exe
   version: 0.4.0
   license: LGPL-2.1
   summary: Optimized MPEG Audio Layer 2 (MP2) encoder
@@ -12480,6 +13115,7 @@
     configure
     install_bins simplefrontend/stwolame
 - pkgname: stylua
+  pkgtype: exe
   version: 0.20.0
   license: MPL-2.0
   summary: An opinionated Lua code formatter
@@ -12493,6 +13129,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: subfinder
+  pkgtype: pie
   version: 2.6.6
   license: MIT
   summary: Subdomain discovery tool
@@ -12506,6 +13143,7 @@
   parallel: "1"
   install: gow ./cmd/subfinder
 - pkgname: supervisord
+  pkgtype: pie
   version: 0.7.3
   license: MIT
   summary: A go-lang supervisor implementation
@@ -12520,6 +13158,7 @@
   dopatch: sed_in_place '1d' assets_dev.go
   install: gow -tags release
 - pkgname: suricata
+  pkgtype: exe
   version: 7.0.5
   license: GPL-2.0-or-later
   summary: Network IDS, IPS, and security monitoring engine
@@ -12548,6 +13187,7 @@
         ac_cv_lib_jansson_json_dump_callback=yes \
         ac_cv_lib_pcap_pcap_open_dead=yes
 - pkgname: svn-lite
+  pkgtype: exe
   version: "1.09"
   summary: A minimalist svn client to checkout/update Subversion repositories
   web-url: https://github.com/rofl0r/svn-lite
@@ -12563,6 +13203,7 @@
     run $CC $CFLAGS $CPPFLAGS $LDFLAGS -include strings.h -DMAXNAMLEN=512 -I. -lssl -lcrypto -ldl -o svn *.c
     run install_bins svn svn2git.sh
 - pkgname: svt-av1
+  pkgtype: lib
   version: 2.0.0
   license: BSD-3-Clause
   summary: AV1 encoder
@@ -12576,6 +13217,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: swig
+  pkgtype: exe
   version: 4.2.1
   license: GPL-3.0-or-later
   summary: A command-line tool for generating scripting interfaces to C/C++ code
@@ -12615,6 +13257,7 @@
         --without-go \
         PCRE2_CONFIG="$libpcre2_INSTALL_DIR/bin/pcre2-config"
 - pkgname: syncthing
+  pkgtype: pie
   version: 1.27.6
   license: MPL-2.0
   summary: Open source continuous file synchronization application
@@ -12645,6 +13288,7 @@
     run install_bins syncthing
     run install_mans man/*.1 man/*.5 man/*.7
 - pkgname: sysinfo
+  pkgtype: exe
   version: 2024.05.15
   summary: A command-line tool to get your currently running system information
   web-url: https://github.com/leleliu008/C-examples
@@ -12655,6 +13299,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: szip
+  pkgtype: lib
   version: 2.1.1
   summary: Implementation of extended-Rice lossless compression algorithm
   web-url: https://support.hdfgroup.org/HDF5/release/obtain5.html#extlibs
@@ -12666,6 +13311,7 @@
   parallel: "1"
   install: configure
 - pkgname: taglib
+  pkgtype: lib
   version: 1.13.1
   license: LGPL-2.1-or-later
   summary: A library for reading and editing the metadata of several popular audio formats
@@ -12682,6 +13328,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_MP4=ON -DWITH_ASF=ON
     cmakew -DBUILD_SHARED_LIBS=ON  -DWITH_MP4=ON -DWITH_ASF=ON
 - pkgname: talloc
+  pkgtype: lib
   version: 2.4.2
   license: GPL-3.0-or-later
   summary: Hierarchical, reference-counted memory pool with destructors
@@ -12734,6 +13381,7 @@
     $AR rcu libtalloc.a bin/default/talloc*.o
     install_libs libtalloc.a
 - pkgname: tarlz
+  pkgtype: exe
   version: "0.25"
   license: GPL-2.0-or-later
   summary: A massively parallel (multi-threaded) combined implementation of the tar archiver and the lzip compressor
@@ -12747,6 +13395,7 @@
   parallel: "1"
   install: configure CXX="$CXX" CPPFLAGS="'$CPPFLAGS'" CXXFLAGS="'$CXXFLAGS'" LDFLAGS="'$LDFLAGS'"
 - pkgname: tbb
+  pkgtype: lib
   version: 2021.11.0
   license: Apache-2.0
   summary: Rich and complete approach to parallelism in C++
@@ -12767,6 +13416,7 @@
         -DTBB4PY_BUILD=OFF \
         -DTBB_ENABLE_IPO=ON
 - pkgname: tbox
+  pkgtype: lib
   version: 1.7.5
   license: Apache-2.0
   summary: A glib-like multi-platform c library
@@ -12780,6 +13430,7 @@
   parallel: "1"
   install: xmakew --charset=y --small=y --xml=y --demo=n
 - pkgname: tcl
+  pkgtype: exe+lib
   version: 8.6.14
   license: TCL
   summary: Tool Command Language
@@ -12814,6 +13465,7 @@
         $EXTRA_CONFIGURE_FLAGS \
         tcl_cv_sys_version=Linux LIBS=-lm
 - pkgname: tcpdump
+  pkgtype: exe
   version: 4.99.4
   license: BSD-3-Clause
   summary: A command-line tool to analyze packet(TCP/IP)
@@ -12834,6 +13486,7 @@
         -DWITH_CAP_NG=OFF \
         -DENABLE_SMB=OFF
 - pkgname: tdu
+  pkgtype: pie
   version: "1.36"
   license: GPL-2.0-or-later
   summary: Top Disk Usage
@@ -12847,6 +13500,7 @@
   parallel: "1"
   install: gow
 - pkgname: tealdeer
+  pkgtype: exe
   version: 1.6.1
   license: Apache-2.0
   summary: A very fast implementation of tldr in Rust
@@ -12861,6 +13515,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: tectonic
+  pkgtype: exe
   version: 0.15.0
   license: MIT
   summary: Modernized, complete, self-contained TeX/LaTeX engine
@@ -12876,6 +13531,7 @@
   prepare: export CXXSTDLIB='c++_static'
   install: cargow install --features external-harfbuzz
 - pkgname: tengo
+  pkgtype: pie
   version: 2.17.0
   license: MIT
   summary: Fast script language for Go
@@ -12889,6 +13545,7 @@
   parallel: "1"
   install: gow ./cmd/tengo
 - pkgname: tiff
+  pkgtype: exe
   version: 4.6.0
   summary: TIFF library and utilities
   web-url: https://libtiff.gitlab.io/libtiff
@@ -12917,6 +13574,7 @@
         -Dtiff-contrib=ON \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: tig
+  pkgtype: exe
   version: 2.5.9
   license: GPL-2.0-or-later
   summary: Text interface for Git repositories
@@ -12931,6 +13589,7 @@
   parallel: "1"
   install: configure
 - pkgname: tlrc
+  pkgtype: exe
   version: 1.9.1
   license: MIT
   summary: Official tldr client written in Rust
@@ -12944,6 +13603,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: tmux
+  pkgtype: exe
   version: "3.4"
   license: ISC
   summary: Terminal multiplexer
@@ -12967,6 +13627,7 @@
         ac_cv_search_forkpty='-lc' \
         ac_cv_search_utf8proc_charwidth='-lutf8proc'
 - pkgname: tokei
+  pkgtype: exe
   version: 12.1.2
   license: MIT
   summary: Program that allows you to count code, quickly
@@ -12980,6 +13641,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: toml++
+  pkgtype: lib
   version: 3.4.0
   license: MIT
   summary: A header-only C++17 (or later) library for parsing TOML
@@ -12993,6 +13655,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: toml11
+  pkgtype: lib
   version: 3.8.1
   license: MIT
   summary: A header-only C++11 (or later) library for parsing TOML
@@ -13005,6 +13668,7 @@
   parallel: "1"
   install: cmakew -DCMAKE_CXX_STANDARD=11
 - pkgname: tree
+  pkgtype: exe
   version: 2.1.1
   license: GPL-2.0-or-later
   summary: Display directories as trees (with optional color/HTML output)
@@ -13028,6 +13692,7 @@
         CFLAGS="'$CFLAGS $CPPFLAGS -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64'" \
         LDFLAGS="'$LDFLAGS'"
 - pkgname: trietool
+  pkgtype: exe
   version: 0.2.13
   license: LGPL-2.1-or-later
   summary: A command-line tool for manipulating double-array trie data
@@ -13047,6 +13712,7 @@
     gmakew -C tools install
     gmakew -C man   install
 - pkgname: ttyd
+  pkgtype: exe
   version: 1.7.7
   license: MIT
   summary: A simple command-line tool for sharing terminal over the web
@@ -13063,6 +13729,7 @@
   dopatch: sed_in_place '/LINK_LIBS util/d' CMakeLists.txt
   install: cmakew
 - pkgname: ttygif
+  pkgtype: exe
   version: 1.6.0
   license: MIT
   summary: A command-line tool to convert a ttyrec file into gif files
@@ -13080,6 +13747,7 @@
     gmakew UNAME=Linux CC=$CC CFLAGS="'$CFLAGS $CPPFLAGS $LDFLAGS'"
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: ttyrec
+  pkgtype: exe
   version: 1.0.8
   license: BSD-3-Clause
   summary: Terminal interaction recorder and player
@@ -13098,6 +13766,7 @@
     gmakew CC=$CC CFLAGS="'$CFLAGS $CPPFLAGS -Dset_progname=setprogname $LDFLAGS'"
     install_bins ttyrec ttyplay ttytime
 - pkgname: tweego
+  pkgtype: pie
   version: 2.1.1
   license: BSD-2-Clause
   summary: A free command line compiler for Twine/Twee story formats
@@ -13115,6 +13784,7 @@
     run go mod tidy
   install: gow
 - pkgname: typos
+  pkgtype: exe
   version: 1.20.10
   license: MIT
   summary: A source code spell checker
@@ -13128,6 +13798,7 @@
   parallel: "1"
   install: cargow install --path crates/typos-cli
 - pkgname: uctags
+  pkgtype: exe
   version: 2024.05.15
   license: GPL-2.0-or-later
   summary: Maintained ctags implementation
@@ -13141,6 +13812,7 @@
   parallel: "1"
   install: configure --enable-tmpdir=/data/local/tmp
 - pkgname: unbound
+  pkgtype: exe
   version: 1.19.3
   license: BSD-3-Clause
   summary: Validating, recursive, caching DNS resolver
@@ -13168,6 +13840,7 @@
         --with-libnghttp2="$libnghttp2_INSTALL_DIR" \
         ac_cv_prog_AR="$AR"
 - pkgname: unrar
+  pkgtype: exe
   version: 6.0.2
   license: Unlicense
   summary: Extract, view, and test RAR archives
@@ -13190,6 +13863,7 @@
     install -d "$PACKAGE_INSTALL_DIR/lib"
     gmakew -f makefile install-lib   DESTDIR="$PACKAGE_INSTALL_DIR"
 - pkgname: uppm
+  pkgtype: exe
   version: 2024.05.15
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
@@ -13203,6 +13877,7 @@
   dopatch: PACKAGE_VERSION=$(sed -n '/set(PROJECT_VERSION /p' CMakeLists.txt | sed 's|set(PROJECT_VERSION[[:space:]]*\(.*\))|\1|')
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.2
+  pkgtype: exe
   version: 2024.05.15
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
@@ -13217,6 +13892,7 @@
   prepare: PACKAGE_VERSION=$(sed -n '/set(PROJECT_VERSION /p' CMakeLists.txt | sed 's|set(PROJECT_VERSION[[:space:]]*\(.*\))|\1|')
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: usbmuxd
+  pkgtype: exe
   version: 1.1.1
   license: LGPL-2.1-or-later
   summary: A socket daemon to multiplex connections from and to iOS devices
@@ -13235,6 +13911,7 @@
     sed_in_place 's|/var/run|/data/local/tmp|' udev/39-usbmuxd.rules.in
   install: configure --without-preflight --without-systemd
 - pkgname: utf8.h
+  pkgtype: lib
   version: 2024.05.15
   license: Unlicense
   summary: single header utf8 string functions for C and C++
@@ -13245,6 +13922,7 @@
   parallel: "1"
   install: install_incs utf8.h
 - pkgname: utf8proc
+  pkgtype: lib
   version: 2.9.0
   license: MIT
   summary: A small, clean C library for processing UTF-8 Unicode data
@@ -13260,6 +13938,7 @@
     cmakew -DUTF8PROC_INSTALL=ON -DUTF8PROC_ENABLE_TESTING=OFF -DBUILD_SHARED_LIBS=OFF
     cmakew -DUTF8PROC_INSTALL=ON -DUTF8PROC_ENABLE_TESTING=OFF -DBUILD_SHARED_LIBS=ON
 - pkgname: utfcpp
+  pkgtype: lib
   version: 4.0.5
   license: BSL-1.0
   summary: UTF-8 with C++ in a Portable Way
@@ -13277,6 +13956,7 @@
         -DUTF8_SAMPLES=OFF \
         -DUTF8_INSTALL=ON
 - pkgname: uthash
+  pkgtype: lib
   version: 2.3.0
   license: BSD-1-Clause
   summary: C macros for hash tables and more
@@ -13289,6 +13969,7 @@
   parallel: "1"
   install: install_incs src/*.h
 - pkgname: util-linux
+  pkgtype: exe
   version: 2.39.3
   license: GPL-2.0-or-later
   summary: A collection of Linux utilities
@@ -13310,6 +13991,7 @@
         --disable-all-programs \
         --enable-libuuid
 - pkgname: v8
+  pkgtype: lib
   version: 9.9.115.8
   license: BSD-3-Clause
   summary: A high-performance JavaScript and WebAssembly Engine powered by Google
@@ -13365,6 +14047,7 @@
     run install_incs "$PACKAGE_BSCRIPT_DIR"/include/*.h
     run install_libs *.so
 - pkgname: valijson
+  pkgtype: lib
   version: 1.0.2
   license: BSD-2-Clause
   summary: Header-only C++ library for JSON Schema validation
@@ -13379,6 +14062,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: vegeta
+  pkgtype: pie
   version: 12.11.1
   license: MIT
   summary: HTTP load testing tool and library
@@ -13392,6 +14076,7 @@
   parallel: "1"
   install: gow -X main.Version="$PACKAGE_VERSION" -X main.Date="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
 - pkgname: vim
+  pkgtype: exe
   version: 9.1.0300
   license: Vim
   summary: Vi IMproved - enhanced vi editor
@@ -13435,6 +14120,7 @@
         --enable-gui=no \
         --with-lua-prefix=$lua_INSTALL_DIR
 - pkgname: virustotal-cli
+  pkgtype: pie
   version: 1.0.0
   license: Apache-2.0
   summary: command-line interface for VirusTotal
@@ -13448,6 +14134,7 @@
   parallel: "1"
   install: gow -X cmd.Version=$PACKAGE_VERSION ./vt
 - pkgname: vulkan-headers
+  pkgtype: lib
   version: 1.3.283
   license: Apache-2.0
   summary: Vulkan Header files and API registry
@@ -13461,6 +14148,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: wabt
+  pkgtype: exe
   version: 1.0.34
   license: Apache-2.0
   summary: Web Assembly Binary Toolkit
@@ -13474,6 +14162,7 @@
   parallel: "1"
   install: cmakew -DBUILD_TESTS=OFF
 - pkgname: wasm3
+  pkgtype: exe
   version: 0.5.0
   license: MIT
   summary: High performance WebAssembly interpreter
@@ -13487,6 +14176,7 @@
   parallel: "1"
   install: cmakew -DBUILD_NATIVE=OFF && install_bins wasm3
 - pkgname: wasmtime
+  pkgtype: exe
   version: 20.0.0
   license: Apache-2.0
   summary: Standalone JIT-style runtime for WebAssembly, using Cranelift
@@ -13499,6 +14189,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: watchexec
+  pkgtype: exe
   version: 1.25.1
   license: Apache-2.0
   summary: Execute commands when watched files change
@@ -13514,6 +14205,7 @@
     cargow install --locked --path crates/cli
     install_mans doc/watchexec.1
 - pkgname: wavpack
+  pkgtype: exe
   version: 5.7.0
   license: BSD-3-Clause
   summary: Hybrid lossless audio compression
@@ -13530,6 +14222,7 @@
     sed_in_place '/fseeko/d' ../include/ndk-pkg-common.h
   install: configure --disable-tests --enable-apps --disable-man
 - pkgname: webhook
+  pkgtype: pie
   version: 2.8.1
   license: MIT
   summary: A HTTP server to execute shell commands
@@ -13543,6 +14236,7 @@
   parallel: "1"
   install: gow
 - pkgname: webp
+  pkgtype: exe
   version: 1.4.0
   license: BSD-3-Clause
   summary: Image format providing lossless and lossy compression for web images
@@ -13571,6 +14265,7 @@
         -DBUILD_SHARED_LIBS=OFF
   dotweak: sed_in_place '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc
 - pkgname: webrtc
+  pkgtype: lib
   version: "1"
   license: BSD-3-Clause
   summary: Real-Time Communication
@@ -13622,6 +14317,7 @@
     run "$NINJA"
     run install_libs *.so
 - pkgname: websocketpp
+  pkgtype: lib
   version: 0.8.2
   license: BSD-3-Clause
   summary: C++ websocket client/server library
@@ -13635,6 +14331,7 @@
   parallel: "1"
   install: cmakew -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF
 - pkgname: wget
+  pkgtype: exe
   version: 1.24.5
   license: GPL-3.0-or-later
   summary: A free, open-source, command-line tool that is used to download files from web servers using HTTP, HTTPS, FTP protocols
@@ -13659,6 +14356,7 @@
         --with-libidn \
         --without-libpsl
 - pkgname: whois
+  pkgtype: exe
   version: 5.5.22
   license: GPL-2.0-or-later
   summary: Lookup tool for domain names and other internet resources
@@ -13678,6 +14376,7 @@
     install_bins whois
     install_mans whois.1
 - pkgname: wolfssl
+  pkgtype: lib
   version: 5.7.0
   license: GPL-2.0-or-later
   summary: A lightweight, portable SSL library written in C
@@ -13741,6 +14440,7 @@
         --enable-fasthugemath \
         LIBS=-lm
 - pkgname: wuzz
+  pkgtype: pie
   version: 0.5.0
   license: AGPL-3.0
   summary: Interactive cli tool for HTTP inspection
@@ -13758,6 +14458,7 @@
     run go mod tidy
   install: gow
 - pkgname: x264
+  pkgtype: exe
   version: r3108
   license: GPL-2.0-only
   summary: A free library for encoding video streams into the H.264/MPEG-4 AVC compression format
@@ -13780,6 +14481,7 @@
         --enable-lto \
         --enable-strip
 - pkgname: x265
+  pkgtype: exe
   version: "3.6"
   license: GPL-2.0-only
   summary: An open-source H.265/HEVC encoder
@@ -13800,6 +14502,7 @@
         -DENABLE_ASSEMBLY=OFF
   dotweak: sed_in_place '/^Libs.private:/s|-l-l||' lib/pkgconfig/x265.pc
 - pkgname: xapian
+  pkgtype: exe+lib
   version: 1.4.25
   license: GPL-2.0-or-later
   summary: C++ search engine library
@@ -13813,6 +14516,7 @@
   parallel: "1"
   install: configure
 - pkgname: xh
+  pkgtype: exe
   version: 0.22.0
   license: MIT
   summary: A friendly and fast tool for sending HTTP requests
@@ -13827,6 +14531,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: xmake
+  pkgtype: pie
   version: 2.9.1
   license: Apache-2.0
   summary: A cross-platform build utility based on Lua
@@ -13842,6 +14547,7 @@
   parallel: "1"
   install: xmakew
 - pkgname: xmlutils
+  pkgtype: exe
   version: 2.12.6
   license: MIT
   summary: A collections of command-line utilities provided by libxml2
@@ -13877,6 +14583,7 @@
     rm -rfv share/gtk-doc
     rm -rfv share/man/man1/xml2-config.1
 - pkgname: xmlwf
+  pkgtype: exe
   version: 2.6.2
   license: MIT
   summary: XML 1.0 parser
@@ -13901,6 +14608,7 @@
     install_bins xmlwf/xmlwf
     install_mans "$PACKAGE_WORKING_DIR/src/doc/xmlwf.1"
 - pkgname: xnnpack
+  pkgtype: lib
   version: 2024.05.15
   license: BSD-3-Clause
   summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
@@ -13926,6 +14634,7 @@
         -DXNNPACK_BUILD_BENCHMARKS=OFF \
         -DXNNPACK_ENABLE_ARM_BF16=OFF
 - pkgname: xorriso
+  pkgtype: exe
   version: 1.5.6
   license: GPL-2.0-or-later
   summary: ISO9660+RR manipulation tool
@@ -13947,6 +14656,7 @@
         --enable-libcdio \
         --enable-jtethreads
 - pkgname: xpup
+  pkgtype: pie
   version: 2024.05.15
   license: Apache-2.0
   summary: A command line XML parsing tool
@@ -13961,6 +14671,7 @@
     run go mod tidy
   install: gow
 - pkgname: xsltproc
+  pkgtype: exe
   version: 1.1.39
   license: X11
   summary: C XSLT library for GNOME
@@ -13996,6 +14707,7 @@
     rm -rfv share/doc
     rm -rfv share/gtk-doc
 - pkgname: xxd
+  pkgtype: exe
   version: 9.1.0300
   license: Vim
   summary: A command-line tool to create a hex dump of a given file or standard input
@@ -14012,6 +14724,7 @@
     gmakew
     install_bins xxd
 - pkgname: xxhash
+  pkgtype: lib
   version: 0.8.2
   license: BSD-2-Clause
   summary: Extremely fast non-cryptographic hash algorithm
@@ -14027,6 +14740,7 @@
     gmakew clean   UNAME=Linux
     gmakew install UNAME=Linux PREFIX="$PACKAGE_INSTALL_DIR" CC="$CC" CFLAGS="'$CFLAGS'" CPPFLAGS="'$CPPFLAGS'" LDFLAGS="'$LDFLAGS'" SONAME_FLAGS=-shared AR="$AR" V=1
 - pkgname: xz
+  pkgtype: exe
   version: 5.4.6
   license: LGPL-2.1-or-later
   summary: A free, general-purpose data compression with a high compression ratio
@@ -14045,6 +14759,7 @@
         --enable-assembler \
         --enable-threads=posix
 - pkgname: yaml-cpp
+  pkgtype: lib
   version: 0.8.0
   license: MIT
   summary: YAML parser and emitter written in C++ for YAML 1.2 spec
@@ -14061,6 +14776,7 @@
         -DYAML_CPP_BUILD_TESTS=OFF \
         -DYAML_CPP_BUILD_TOOLS=OFF
 - pkgname: yasm
+  pkgtype: exe
   version: 1.3.0
   summary: Yet another assembler, a complete reimplementation of NASM
   web-url: https://yasm.tortall.net
@@ -14080,6 +14796,7 @@
         --disable-python-bindings \
         --without-dmalloc
 - pkgname: youtubedr
+  pkgtype: pie
   version: 2.10.1
   license: MIT
   summary: A command-line tool to download videos from youtube.com
@@ -14093,6 +14810,7 @@
   parallel: "1"
   install: gow -X main.version=$PACKAGE_VERSION -X main.date=$(date -u +'%Y-%m-%dT%H:%M:%SZ') ./cmd/youtubedr
 - pkgname: yq
+  pkgtype: pie
   version: 4.43.1
   license: MIT
   summary: A lightweight and portable command-line YAML processor
@@ -14106,6 +14824,7 @@
   parallel: "1"
   install: gow
 - pkgname: yyjson
+  pkgtype: lib
   version: 0.9.0
   license: MIT
   summary: A high performance JSON library written in ANSI C
@@ -14121,6 +14840,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_SHARED_LIBS=ON
 - pkgname: zlib
+  pkgtype: lib
   version: 1.3.1
   license: Zlib
   summary: A general purpose data compression library
@@ -14140,6 +14860,7 @@
     sed_in_place 's|zlib)|zlibstatic)|' CMakeLists.txt
   install: cmakew
 - pkgname: zlib-ng
+  pkgtype: lib
   version: 2.1.6
   license: Zlib
   summary: Zlib replacement with optimizations for next generation systems
@@ -14155,6 +14876,7 @@
     cmakew -DZLIB_COMPAT=ON -DZLIB_ENABLE_TESTS=OFF -DBUILD_SHARED_LIBS=OFF
     cmakew -DZLIB_COMPAT=ON -DZLIB_ENABLE_TESTS=OFF -DBUILD_SHARED_LIBS=ON
 - pkgname: zola
+  pkgtype: exe
   version: 0.18.0
   license: MIT
   summary: Fast static site generator in a single binary with everything built-in
@@ -14168,6 +14890,7 @@
   parallel: "1"
   install: cargow install --locked
 - pkgname: zopfli
+  pkgtype: exe
   version: 1.0.3
   license: Apache-2.0
   summary: New zlib (gzip, deflate) compatible compressor
@@ -14181,6 +14904,7 @@
   parallel: "1"
   install: cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: zoxide
+  pkgtype: exe
   version: 0.9.4
   license: MIT
   summary: A shell extension to navigate your filesystem faster
@@ -14194,6 +14918,7 @@
   parallel: "1"
   install: cargow install
 - pkgname: zsh
+  pkgtype: exe
   version: "5.9"
   summary: Z Shell
   web-url: https://www.zsh.org
@@ -14213,6 +14938,7 @@
         --enable-unicode9 \
         --enable-zsh-secure-free
 - pkgname: zstd
+  pkgtype: exe
   version: 1.5.6
   license: BSD-3-Clause
   summary: A real-time compression utility with high compression ratios
@@ -14237,6 +14963,7 @@
         -DZSTD_LZMA_SUPPORT=ON \
         -DZSTD_LZ4_SUPPORT=OFF
 - pkgname: zsync
+  pkgtype: exe
   version: 0.6.2
   license: Artistic-2.0
   summary: A file transfer program

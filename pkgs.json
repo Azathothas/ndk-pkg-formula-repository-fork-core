@@ -1,6 +1,7 @@
 [
   {
     "pkgname": "ARM_NEON_2_x86_SSE",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "summary": "The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions",
     "web-url": "https://github.com/intel/ARM_NEON_2_x86_SSE",
@@ -13,6 +14,7 @@
   },
   {
     "pkgname": "aalib",
+    "pkgtype": "lib",
     "version": "1.4rc5",
     "license": "GPL-2.0-or-later",
     "summary": "A portable ASCII art graphics library",
@@ -30,6 +32,7 @@
   },
   {
     "pkgname": "abseil",
+    "pkgtype": "lib",
     "version": "20240116.2",
     "license": "Apache-2.0",
     "summary": "C++ Common Libraries",
@@ -45,6 +48,7 @@
   },
   {
     "pkgname": "acl",
+    "pkgtype": "exe+lib",
     "version": "2.3.2",
     "license": "GPL-2.0-or-later",
     "summary": "C library and utilities for Manipulating POSIX Access Control Lists",
@@ -61,6 +65,7 @@
   },
   {
     "pkgname": "act",
+    "pkgtype": "pie",
     "version": "0.2.62",
     "license": "MIT",
     "summary": "Run your GitHub Actions locally",
@@ -76,6 +81,7 @@
   },
   {
     "pkgname": "actionlint",
+    "pkgtype": "pie",
     "version": "1.6.27",
     "license": "MIT",
     "summary": "Static checker for GitHub Actions workflow files",
@@ -91,6 +97,7 @@
   },
   {
     "pkgname": "adig",
+    "pkgtype": "exe",
     "version": "1.28.1",
     "summary": "A command-line tool that allows you to perform DNS lookups from the command line",
     "web-url": "https://c-ares.haxx.se",
@@ -106,6 +113,7 @@
   },
   {
     "pkgname": "ag",
+    "pkgtype": "exe",
     "version": "2.2.0",
     "license": "Apache-2.0",
     "summary": "A fast code-searching tool similar to ack",
@@ -123,6 +131,7 @@
   },
   {
     "pkgname": "age",
+    "pkgtype": "pie",
     "version": "1.1.1",
     "license": "BSD-3-Clause",
     "summary": "Simple, modern, secure file encryption",
@@ -138,6 +147,7 @@
   },
   {
     "pkgname": "alass",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "license": "GPL-3.0-or-later",
     "summary": "Automatic Language-Agnostic Subtitle Synchronization",
@@ -152,6 +162,7 @@
   },
   {
     "pkgname": "algernon",
+    "pkgtype": "pie",
     "version": "1.16.0",
     "license": "MIT",
     "summary": "Pure Go web server with Lua, Markdown, HTTP/2 and template support",
@@ -167,6 +178,7 @@
   },
   {
     "pkgname": "antibody",
+    "pkgtype": "pie",
     "version": "6.1.1",
     "license": "MIT",
     "summary": "Shell plugin manager",
@@ -182,6 +194,7 @@
   },
   {
     "pkgname": "aom",
+    "pkgtype": "exe+lib",
     "version": "3.8.2",
     "license": "BSD-2-Clause",
     "summary": "Codec library for encoding and decoding AV1 video streams",
@@ -198,6 +211,7 @@
   },
   {
     "pkgname": "apkeep",
+    "pkgtype": "exe",
     "version": "0.8.0",
     "license": "MIT",
     "summary": "A command-line tool for downloading APK files from various sources",
@@ -214,6 +228,7 @@
   },
   {
     "pkgname": "aptly",
+    "pkgtype": "pie",
     "version": "1.5.0",
     "license": "MIT",
     "summary": "Swiss army knife for Debian repository management",
@@ -230,6 +245,7 @@
   },
   {
     "pkgname": "archiver",
+    "pkgtype": "pie",
     "version": "3.5.1",
     "license": "MIT",
     "summary": "Cross-platform, multi-format archive utility",
@@ -245,6 +261,7 @@
   },
   {
     "pkgname": "args",
+    "pkgtype": "lib",
     "version": "6.3.0",
     "license": "MIT",
     "summary": "A simple header-only C++ argument parser library",
@@ -260,6 +277,7 @@
   },
   {
     "pkgname": "aria2",
+    "pkgtype": "exe",
     "version": "1.37.0",
     "license": "GPL-2.0-or-later",
     "summary": "Download with resuming and segmented downloading",
@@ -277,6 +295,7 @@
   },
   {
     "pkgname": "arping",
+    "pkgtype": "exe",
     "version": "2.24",
     "license": "GPL-2.0-or-later",
     "summary": "Utility to check whether MAC addresses are already taken on a LAN",
@@ -295,6 +314,7 @@
   },
   {
     "pkgname": "attr",
+    "pkgtype": "lib",
     "version": "2.5.2",
     "license": "GPL-2.0-or-later",
     "summary": "C library and utilities for Manipulating Filesystem Extended Attributes",
@@ -311,6 +331,7 @@
   },
   {
     "pkgname": "awk",
+    "pkgtype": "exe",
     "version": "20240422",
     "license": "MIT",
     "summary": "Text processing scripting language",
@@ -327,6 +348,7 @@
   },
   {
     "pkgname": "axel",
+    "pkgtype": "exe",
     "version": "2.17.14",
     "license": "GPL-2.0-or-later",
     "summary": "A lightweight download accelerator",
@@ -343,6 +365,7 @@
   },
   {
     "pkgname": "azcopy",
+    "pkgtype": "pie",
     "version": "10.24.0",
     "license": "MIT",
     "summary": "Azure Storage data transfer utility",
@@ -358,6 +381,7 @@
   },
   {
     "pkgname": "b3sum",
+    "pkgtype": "exe",
     "version": "1.5.1",
     "license": "CC0-1.0",
     "summary": "A command line utility for calculating BLAKE3 hashes",
@@ -373,6 +397,7 @@
   },
   {
     "pkgname": "base16",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "summary": "base16 encoder and decoder",
     "web-url": "https://github.com/leleliu008/C-examples",
@@ -386,6 +411,7 @@
   },
   {
     "pkgname": "base64",
+    "pkgtype": "exe",
     "version": "1.5",
     "license": "Unlicense",
     "summary": "Encode and decode base64 files",
@@ -400,6 +426,7 @@
   },
   {
     "pkgname": "bash",
+    "pkgtype": "exe",
     "version": "5.2.21",
     "license": "GPL-3.0-or-later",
     "summary": "Bourne-Again SHell, a UNIX command interpreter",
@@ -417,6 +444,7 @@
   },
   {
     "pkgname": "basis_universal",
+    "pkgtype": "exe",
     "version": "1.16.4",
     "license": "Apache-2.0",
     "summary": "Basis Universal GPU texture codec command-line compression tool",
@@ -433,6 +461,7 @@
   },
   {
     "pkgname": "bat",
+    "pkgtype": "exe",
     "version": "0.24.0",
     "license": "Apache-2.0",
     "summary": "Clone of cat(1) with syntax highlighting and Git integration",
@@ -452,6 +481,7 @@
   },
   {
     "pkgname": "bc",
+    "pkgtype": "exe",
     "version": "1.07.1",
     "license": "GPL-3.0-or-later",
     "summary": "Arbitrary precision numeric processing language",
@@ -469,6 +499,7 @@
   },
   {
     "pkgname": "bcrypt",
+    "pkgtype": "exe",
     "version": "1.1",
     "summary": "Cross platform file encryption utility using blowfish",
     "web-url": "https://bcrypt.sourceforge.io",
@@ -483,6 +514,7 @@
   },
   {
     "pkgname": "berkeley-db",
+    "pkgtype": "lib",
     "version": "18.1.40",
     "license": "BSD-3-Clause",
     "summary": "A high-performance key/value database",
@@ -499,6 +531,7 @@
   },
   {
     "pkgname": "bgrep",
+    "pkgtype": "exe",
     "version": "0.2",
     "license": "BSD-2-Clause",
     "summary": "Like grep but for binary strings",
@@ -513,6 +546,7 @@
   },
   {
     "pkgname": "binaryen",
+    "pkgtype": "exe",
     "version": "117",
     "license": "Apache-2.0",
     "summary": "Compiler infrastructure and toolchain library for WebAssembly",
@@ -528,6 +562,7 @@
   },
   {
     "pkgname": "bind",
+    "pkgtype": "exe",
     "version": "9.18.26",
     "license": "MPL-2.0",
     "summary": "Implementation of the DNS protocols",
@@ -546,6 +581,7 @@
   },
   {
     "pkgname": "binocle",
+    "pkgtype": "pie",
     "version": "0.3.0",
     "license": "Apache-2.0",
     "summary": "A graphical tool to visualize binary data",
@@ -561,6 +597,7 @@
   },
   {
     "pkgname": "bison",
+    "pkgtype": "exe",
     "version": "3.8.2",
     "license": "GPL-3.0-or-later",
     "summary": "Yacc-compatible Parser generator",
@@ -578,6 +615,7 @@
   },
   {
     "pkgname": "bk",
+    "pkgtype": "exe",
     "version": "0.6.0",
     "license": "MIT",
     "summary": "Terminal Epub reader",
@@ -593,6 +631,7 @@
   },
   {
     "pkgname": "blockhash",
+    "pkgtype": "pie",
     "version": "0.3.3",
     "license": "MIT",
     "summary": "A perceptual image hash calculation tool based on algorithm descibed in Block Mean Value Based Image Perceptual Hashing by Bian Yang, Fan Gu and Xiamu Niu",
@@ -608,6 +647,7 @@
   },
   {
     "pkgname": "boost",
+    "pkgtype": "lib",
     "version": "1.84.0",
     "license": "BSL-1.0",
     "summary": "A collection of portable C++ source libraries",
@@ -625,6 +665,7 @@
   },
   {
     "pkgname": "boringssl",
+    "pkgtype": "exe+lib",
     "version": "2024.05.15",
     "summary": "A fork of OpenSSL that is designed to meet Google needs",
     "web-url": "https://boringssl.googlesource.com/boringssl/",
@@ -637,6 +678,7 @@
   },
   {
     "pkgname": "boxes",
+    "pkgtype": "exe",
     "version": "2.3.0",
     "license": "GPL-2.0-only",
     "summary": "Draw boxes around text",
@@ -654,6 +696,7 @@
   },
   {
     "pkgname": "brook",
+    "pkgtype": "pie",
     "version": "20240404",
     "license": "GPL-3.0-only",
     "summary": "Cross-platform strong encryption and not detectable proxy. Zero-Configuration",
@@ -669,6 +712,7 @@
   },
   {
     "pkgname": "broot",
+    "pkgtype": "exe",
     "version": "1.37.0",
     "license": "MIT",
     "summary": "New way to see and navigate directory trees",
@@ -688,6 +732,7 @@
   },
   {
     "pkgname": "brotli",
+    "pkgtype": "exe+lib",
     "version": "1.1.0",
     "license": "MIT",
     "summary": "A generic-purpose lossless compression algorithm by Google",
@@ -704,6 +749,7 @@
   },
   {
     "pkgname": "bsdtar",
+    "pkgtype": "exe",
     "version": "3.7.4",
     "license": "BSD-2-Clause",
     "summary": "BSD tar",
@@ -722,6 +768,7 @@
   },
   {
     "pkgname": "bullet",
+    "pkgtype": "exe",
     "version": "3.25",
     "license": "Zlib",
     "summary": "Physics SDK",
@@ -737,6 +784,7 @@
   },
   {
     "pkgname": "byacc",
+    "pkgtype": "exe",
     "version": "20240109",
     "summary": "(Arguably) the best yacc variant",
     "web-url": "https://invisible-island.net/byacc/",
@@ -750,6 +798,7 @@
   },
   {
     "pkgname": "bzip2",
+    "pkgtype": "exe",
     "version": "1.0.8",
     "license": "bzip2-1.0.8",
     "summary": "Burrows–Wheeler-based data compression utilities with high compression ratio",
@@ -766,6 +815,7 @@
   },
   {
     "pkgname": "caddy",
+    "pkgtype": "pie",
     "version": "2.7.6",
     "license": "Apache-2.0",
     "summary": "A powerful, enterprise-ready, open source web server with automatic HTTPS",
@@ -781,6 +831,7 @@
   },
   {
     "pkgname": "cairo",
+    "pkgtype": "lib",
     "version": "1.18.0",
     "license": "LGPL-2.1-or-later MPL-1.1",
     "summary": "Vector graphics library with cross-device output support",
@@ -798,6 +849,7 @@
   },
   {
     "pkgname": "cargo-c",
+    "pkgtype": "exe",
     "version": "0.9.31",
     "license": "MIT",
     "summary": "A helper program to build and install C-ABI compatible dynamic and static libraries",
@@ -814,6 +866,7 @@
   },
   {
     "pkgname": "catch2",
+    "pkgtype": "lib",
     "version": "3.5.4",
     "license": "BSL-1.0",
     "summary": "Modern, C++-native, header-only, test framework",
@@ -829,6 +882,7 @@
   },
   {
     "pkgname": "ccache",
+    "pkgtype": "exe",
     "version": "4.9.1",
     "license": "GPL-3.0-or-later",
     "summary": "Object-file caching compiler wrapper",
@@ -847,6 +901,7 @@
   },
   {
     "pkgname": "cereal",
+    "pkgtype": "lib",
     "version": "1.3.2",
     "license": "BSD-3-Clause",
     "summary": "C++11 library for serialization",
@@ -862,6 +917,7 @@
   },
   {
     "pkgname": "cfitsio",
+    "pkgtype": "exe",
     "version": "4.4.0",
     "license": "Unlicense",
     "summary": "C access to FITS data files with optional Fortran wrappers",
@@ -877,6 +933,7 @@
   },
   {
     "pkgname": "cflow",
+    "pkgtype": "exe",
     "version": "1.7",
     "license": "GPL-3.0-or-later",
     "summary": "A command-line tool to generate call graphs from C code",
@@ -891,6 +948,7 @@
   },
   {
     "pkgname": "cgal",
+    "pkgtype": "lib",
     "version": "5.6.1",
     "license": "GPL-3.0-or-later",
     "summary": "Computational Geometry Algorithms Library",
@@ -907,6 +965,7 @@
   },
   {
     "pkgname": "cheat",
+    "pkgtype": "pie",
     "version": "4.4.2",
     "license": "MIT",
     "summary": "Create and view interactive cheat sheets for *nix commands",
@@ -922,6 +981,7 @@
   },
   {
     "pkgname": "check",
+    "pkgtype": "lib",
     "version": "0.15.2",
     "license": "LGPL-2.1-or-later",
     "summary": "A unit testing framework for C",
@@ -937,6 +997,7 @@
   },
   {
     "pkgname": "chezmoi",
+    "pkgtype": "pie",
     "version": "2.48.0",
     "license": "MIT",
     "summary": "Manage your dotfiles across multiple diverse machines, securely",
@@ -952,6 +1013,7 @@
   },
   {
     "pkgname": "chinese-calendar",
+    "pkgtype": "lib",
     "version": "2022.06.24",
     "license": "Apache-2.0",
     "summary": "chinese festival/jieqi algorithm",
@@ -966,6 +1028,7 @@
   },
   {
     "pkgname": "chisel",
+    "pkgtype": "pie",
     "version": "1.9.1",
     "license": "MIT",
     "summary": "A fast TCP/UDP tunnel over HTTP",
@@ -981,6 +1044,7 @@
   },
   {
     "pkgname": "choose",
+    "pkgtype": "exe",
     "version": "1.3.1",
     "license": "GPL-3.0-or-later",
     "summary": "Human-friendly and fast alternative to cut and (sometimes) awk",
@@ -996,6 +1060,7 @@
   },
   {
     "pkgname": "cjson",
+    "pkgtype": "lib",
     "version": "1.7.17",
     "license": "MIT",
     "summary": "Ultralightweight JSON parser in ANSI C",
@@ -1011,6 +1076,7 @@
   },
   {
     "pkgname": "cli11",
+    "pkgtype": "lib",
     "version": "2.4.1",
     "license": "BSD-3-Clause",
     "summary": "Simple and intuitive command-line parser for C++11",
@@ -1026,6 +1092,7 @@
   },
   {
     "pkgname": "clog",
+    "pkgtype": "exe",
     "version": "1.3.0",
     "license": "MIT",
     "summary": "Colorized pattern-matching log tail utility",
@@ -1042,6 +1109,7 @@
   },
   {
     "pkgname": "cmake",
+    "pkgtype": "exe",
     "version": "3.29.2",
     "license": "BSD-3-Clause",
     "summary": "Cross-platform make",
@@ -1059,6 +1127,7 @@
   },
   {
     "pkgname": "cmark",
+    "pkgtype": "exe",
     "version": "0.31.0",
     "license": "BSD-2-Clause",
     "summary": "The C reference implementation of CommonMark",
@@ -1074,6 +1143,7 @@
   },
   {
     "pkgname": "cmatrix",
+    "pkgtype": "exe",
     "version": "2.0",
     "license": "GPL-3.0-or-later",
     "summary": "A command-line tool for producing a Matrix-style animation",
@@ -1091,6 +1161,7 @@
   },
   {
     "pkgname": "cmocka",
+    "pkgtype": "lib",
     "version": "1.1.7",
     "license": "Apache-2.0",
     "summary": "An elegant unit testing framework for C with support for mock objects",
@@ -1106,6 +1177,7 @@
   },
   {
     "pkgname": "coreutils",
+    "pkgtype": "exe",
     "version": "9.5",
     "license": "GPL-3.0-or-later",
     "summary": "GNU File, Shell, and Text utilities",
@@ -1123,6 +1195,7 @@
   },
   {
     "pkgname": "cotp",
+    "pkgtype": "exe",
     "version": "1.5.0",
     "license": "GPL-3.0-only",
     "summary": "TOTP/HOTP authenticator app with import functionality",
@@ -1138,6 +1211,7 @@
   },
   {
     "pkgname": "cpio",
+    "pkgtype": "exe",
     "version": "2.15",
     "license": "GPL-3.0-or-later",
     "summary": "Copies files into or out of a cpio or tar archive",
@@ -1153,6 +1227,7 @@
   },
   {
     "pkgname": "cpprestsdk",
+    "pkgtype": "lib",
     "version": "2.10.19",
     "license": "MIT",
     "summary": "A C++ library for cloud-based client-server communication",
@@ -1171,6 +1246,7 @@
   },
   {
     "pkgname": "cpptoml",
+    "pkgtype": "lib",
     "version": "0.1.1",
     "license": "MIT",
     "summary": "Header-only library for parsing TOML",
@@ -1186,6 +1262,7 @@
   },
   {
     "pkgname": "cppunit",
+    "pkgtype": "lib",
     "version": "1.15.1",
     "license": "LGPL-2.1-or-later",
     "summary": "Unit testing framework for C++",
@@ -1201,6 +1278,7 @@
   },
   {
     "pkgname": "cpu_features",
+    "pkgtype": "lib",
     "version": "0.9.0",
     "license": "Apache-2.0",
     "summary": "Cross platform C99 library to get cpu features at runtime",
@@ -1216,6 +1294,7 @@
   },
   {
     "pkgname": "cpuid",
+    "pkgtype": "pie",
     "version": "2.2.7",
     "license": "MIT",
     "summary": "CPU feature identification for Go",
@@ -1231,6 +1310,7 @@
   },
   {
     "pkgname": "cpuinfo",
+    "pkgtype": "exe+lib",
     "version": "2024.05.15",
     "license": "BSD-2-Clause",
     "summary": "CPU INFOrmation library",
@@ -1245,6 +1325,7 @@
   },
   {
     "pkgname": "croc",
+    "pkgtype": "pie",
     "version": "9.6.15",
     "license": "MIT",
     "summary": "A command-line tool that allows you to easily and securely send files from one computer to another",
@@ -1260,6 +1341,7 @@
   },
   {
     "pkgname": "crosstool-ng",
+    "pkgtype": "exe",
     "version": "1.26.0",
     "license": "LGPL-2.1-or-later",
     "summary": "A toolchain generator",
@@ -1276,6 +1358,7 @@
   },
   {
     "pkgname": "crowbook",
+    "pkgtype": "exe",
     "version": "0.16.1",
     "license": "LGPL-2.1-or-later",
     "summary": "A command-line tool to convert books written in Markdown to HTML, LaTeX/PDF and EPUB",
@@ -1292,6 +1375,7 @@
   },
   {
     "pkgname": "ctop",
+    "pkgtype": "pie",
     "version": "0.7.7",
     "license": "MIT",
     "summary": "Top-like interface for container metrics",
@@ -1307,6 +1391,7 @@
   },
   {
     "pkgname": "cue",
+    "pkgtype": "pie",
     "version": "0.8.2",
     "license": "Apache-2.0",
     "summary": "Validate and define text-based and dynamic configuration",
@@ -1322,6 +1407,7 @@
   },
   {
     "pkgname": "cunit",
+    "pkgtype": "lib",
     "version": "2.1.3",
     "license": "LGPL-2.0-or-later",
     "summary": "Lightweight unit testing framework for C",
@@ -1337,6 +1423,7 @@
   },
   {
     "pkgname": "curl",
+    "pkgtype": "exe",
     "version": "8.7.1",
     "license": "curl",
     "summary": "Get a file from an HTTP, HTTPS or FTP server",
@@ -1354,6 +1441,7 @@
   },
   {
     "pkgname": "curlie",
+    "pkgtype": "pie",
     "version": "1.7.2",
     "license": "MIT",
     "summary": "Power of curl, ease of use of httpie",
@@ -1369,6 +1457,7 @@
   },
   {
     "pkgname": "cxxopts",
+    "pkgtype": "lib",
     "version": "3.2.1",
     "license": "MIT",
     "summary": "A lightweight C++ command-line option parser",
@@ -1384,6 +1473,7 @@
   },
   {
     "pkgname": "d2",
+    "pkgtype": "pie",
     "version": "0.6.5",
     "license": "MPL-2.0",
     "summary": "A modern diagram scripting language that turns text to diagrams",
@@ -1399,6 +1489,7 @@
   },
   {
     "pkgname": "d8",
+    "pkgtype": "exe",
     "version": "9.9.115.8",
     "license": "BSD-3-Clause",
     "summary": "A high-performance JavaScript and WebAssembly Engine powered by Google",
@@ -1412,6 +1503,7 @@
   },
   {
     "pkgname": "darkhttpd",
+    "pkgtype": "exe",
     "version": "1.16",
     "license": "ISC",
     "summary": "A small static web server without CGI",
@@ -1426,6 +1518,7 @@
   },
   {
     "pkgname": "dasel",
+    "pkgtype": "pie",
     "version": "2.7.0",
     "license": "MIT",
     "summary": "JSON, YAML, TOML, XML, and CSV query and modification tool",
@@ -1441,6 +1534,7 @@
   },
   {
     "pkgname": "dash",
+    "pkgtype": "exe",
     "version": "0.5.12",
     "license": "BSD-3-Clause",
     "summary": "A POSIX-compliant implementation of /bin/sh that aims to be as small as possible",
@@ -1458,6 +1552,7 @@
   },
   {
     "pkgname": "dav1d",
+    "pkgtype": "exe",
     "version": "1.4.1",
     "license": "BSD-2-Clause",
     "summary": "AV1 decoder targeted to be small and fast",
@@ -1475,6 +1570,7 @@
   },
   {
     "pkgname": "delta",
+    "pkgtype": "exe",
     "version": "0.17.0",
     "license": "MIT",
     "summary": "Syntax-highlighting pager for git and diff output",
@@ -1492,6 +1588,7 @@
   },
   {
     "pkgname": "diffutils",
+    "pkgtype": "exe",
     "version": "3.10",
     "license": "GPL-3.0-or-later",
     "summary": "A package of several programs related to finding differences between files",
@@ -1507,6 +1604,7 @@
   },
   {
     "pkgname": "dns2tcp",
+    "pkgtype": "exe",
     "version": "0.5.2",
     "license": "GPL-2.0-or-later",
     "summary": "TCP over DNS tunnel",
@@ -1522,6 +1620,7 @@
   },
   {
     "pkgname": "dnslookup",
+    "pkgtype": "pie",
     "version": "1.10.0",
     "license": "GPL-3.0-only",
     "summary": "A simple command line utility to make DNS lookups to the specified server",
@@ -1537,6 +1636,7 @@
   },
   {
     "pkgname": "dnsmap",
+    "pkgtype": "exe",
     "version": "0.36",
     "license": "GPL-3.0-or-later",
     "summary": "Passive DNS network mapper (a.k.a. subdomains bruteforcer)",
@@ -1552,6 +1652,7 @@
   },
   {
     "pkgname": "dnsx",
+    "pkgtype": "pie",
     "version": "1.2.1",
     "license": "MIT",
     "summary": "DNS query and resolution tool",
@@ -1567,6 +1668,7 @@
   },
   {
     "pkgname": "dog",
+    "pkgtype": "exe",
     "version": "0.1.0",
     "license": "EUPL-1.2",
     "summary": "A command-line DNS client",
@@ -1583,6 +1685,7 @@
   },
   {
     "pkgname": "doggo",
+    "pkgtype": "pie",
     "version": "0.5.7",
     "license": "GPL-3.0-or-later",
     "summary": "A command-line DNS client for humans",
@@ -1598,6 +1701,7 @@
   },
   {
     "pkgname": "dos2unix",
+    "pkgtype": "exe",
     "version": "7.5.2",
     "license": "BSD-2-Clause",
     "summary": "Convert text between DOS, UNIX, and Mac formats",
@@ -1614,6 +1718,7 @@
   },
   {
     "pkgname": "dot_static",
+    "pkgtype": "exe",
     "version": "10.0.1",
     "license": "EPL-1.0",
     "summary": "A command-line tool for drawing graphs",
@@ -1630,6 +1735,7 @@
   },
   {
     "pkgname": "double-conversion",
+    "pkgtype": "lib",
     "version": "3.3.0",
     "license": "BSD-3-Clause",
     "summary": "Binary-decimal and decimal-binary routines for IEEE doubles",
@@ -1645,6 +1751,7 @@
   },
   {
     "pkgname": "doxygen",
+    "pkgtype": "pie",
     "version": "1.10.0",
     "license": "GPL-2.0-only",
     "summary": "A command-line tool for generating documentation from annotated programming language source files",
@@ -1662,6 +1769,7 @@
   },
   {
     "pkgname": "dua",
+    "pkgtype": "exe",
     "version": "2.29.0",
     "license": "MIT",
     "summary": "A fast disk usage analyzer",
@@ -1677,6 +1785,7 @@
   },
   {
     "pkgname": "duf",
+    "pkgtype": "pie",
     "version": "0.8.1",
     "license": "MIT",
     "summary": "A better alternative to df(1)",
@@ -1692,6 +1801,7 @@
   },
   {
     "pkgname": "dufs",
+    "pkgtype": "exe",
     "version": "0.40.0",
     "license": "MIT",
     "summary": "A file server that supports static serving, uploading, searching, accessing control, webdav...",
@@ -1708,6 +1818,7 @@
   },
   {
     "pkgname": "duktape",
+    "pkgtype": "exe",
     "version": "2.7.0",
     "license": "MIT",
     "summary": "An embeddable Javascript engine with a focus on portability and compact footprint",
@@ -1723,6 +1834,7 @@
   },
   {
     "pkgname": "dust",
+    "pkgtype": "exe",
     "version": "1.0.0",
     "license": "Apache-2.0",
     "summary": "A more intuitive version of du(1) in rust",
@@ -1739,6 +1851,7 @@
   },
   {
     "pkgname": "easyutils",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "summary": "A collections of easy to use command-line utilities",
     "web-url": "https://github.com/leleliu008/C-examples",
@@ -1751,6 +1864,7 @@
   },
   {
     "pkgname": "ed",
+    "pkgtype": "exe",
     "version": "1.20.2",
     "license": "GPL-3.0-or-later",
     "summary": "Classic UNIX line editor",
@@ -1765,6 +1879,7 @@
   },
   {
     "pkgname": "eigen3",
+    "pkgtype": "lib",
     "version": "3.4.0",
     "license": "MPL-2.0",
     "summary": "A C++ template library for linear algebra:matrices, vectors, numerical solvers, and related algorithms",
@@ -1781,6 +1896,7 @@
   },
   {
     "pkgname": "elvish",
+    "pkgtype": "pie",
     "version": "0.20.1",
     "license": "BSD-2-Clause",
     "summary": "Friendly and expressive shell",
@@ -1796,6 +1912,7 @@
   },
   {
     "pkgname": "epsilon",
+    "pkgtype": "exe",
     "version": "0.9.2",
     "license": "GPL-3.0-or-later",
     "summary": "Powerful wavelet image compressor",
@@ -1811,6 +1928,7 @@
   },
   {
     "pkgname": "esbuild",
+    "pkgtype": "pie",
     "version": "0.20.2",
     "license": "MIT",
     "summary": "An extremely fast JavaScript bundler and minifier",
@@ -1826,6 +1944,7 @@
   },
   {
     "pkgname": "ethereum",
+    "pkgtype": "pie",
     "version": "1.13.14",
     "license": "LGPL-3.0-or-later",
     "summary": "Go implementation of the Ethereum protocol",
@@ -1841,6 +1960,7 @@
   },
   {
     "pkgname": "exa",
+    "pkgtype": "exe",
     "version": "0.10.1",
     "license": "MIT",
     "summary": "Modern replacement for ls(1)",
@@ -1858,6 +1978,7 @@
   },
   {
     "pkgname": "exhale",
+    "pkgtype": "exe+lib",
     "version": "1.1.9",
     "summary": "Open source xHE-AAC encoder",
     "web-url": "https://gitlab.com/ecodis/exhale",
@@ -1872,6 +1993,7 @@
   },
   {
     "pkgname": "exiv2",
+    "pkgtype": "exe",
     "version": "0.28.2",
     "license": "GPL-2.0-or-later",
     "summary": "A command-line utility to read, write, delete and modify Exif, IPTC, XMP and ICC image metadata",
@@ -1889,6 +2011,7 @@
   },
   {
     "pkgname": "eza",
+    "pkgtype": "exe",
     "version": "0.18.13",
     "license": "MIT",
     "summary": "Modern replacement for ls(1)",
@@ -1906,6 +2029,7 @@
   },
   {
     "pkgname": "faac",
+    "pkgtype": "lib",
     "version": "1.30",
     "license": "LGPL-2.1-or-later",
     "summary": "ISO AAC audio encoder",
@@ -1922,6 +2046,7 @@
   },
   {
     "pkgname": "faad2",
+    "pkgtype": "exe+lib",
     "version": "2.11.1",
     "license": "GPL-2.0-or-later",
     "summary": "ISO AAC audio decoder",
@@ -1937,6 +2062,7 @@
   },
   {
     "pkgname": "fcp",
+    "pkgtype": "exe",
     "version": "0.2.1",
     "license": "BSD-3-Clause",
     "summary": "A significantly faster alternative to the classic Unix cp(1) command",
@@ -1952,6 +2078,7 @@
   },
   {
     "pkgname": "fd",
+    "pkgtype": "exe",
     "version": "9.0.0",
     "license": "Apache-2.0",
     "summary": "A simple, fast and user-friendly alternative to find(1)",
@@ -1968,6 +2095,7 @@
   },
   {
     "pkgname": "fdk-aac",
+    "pkgtype": "lib",
     "version": "2.0.3",
     "license": "Apache-2.0",
     "summary": "Standalone library of the Fraunhofer FDK AAC code from Android",
@@ -1984,6 +2112,7 @@
   },
   {
     "pkgname": "fdroidcl",
+    "pkgtype": "pie",
     "version": "0.7.0",
     "license": "BSD-3-Clause",
     "summary": "F-Droid client",
@@ -1999,6 +2128,7 @@
   },
   {
     "pkgname": "fff",
+    "pkgtype": "exe",
     "version": "2.2",
     "license": "MIT",
     "summary": "A simple file manager written in bash",
@@ -2013,6 +2143,7 @@
   },
   {
     "pkgname": "ffmpeg",
+    "pkgtype": "exe+lib",
     "version": "7.0",
     "license": "GPL-2.0-or-later",
     "summary": "A complete, cross-platform solution to record, convert and stream audio and video",
@@ -2029,6 +2160,7 @@
   },
   {
     "pkgname": "figlet",
+    "pkgtype": "exe",
     "version": "2.2.5",
     "license": "BSD-3-Clause",
     "summary": "Banner-like program prints strings as ASCII art",
@@ -2044,6 +2176,7 @@
   },
   {
     "pkgname": "file",
+    "pkgtype": "exe",
     "version": "5.45",
     "license": "BSD-2-Clause",
     "summary": "A command-line tool to determine file types",
@@ -2062,6 +2195,7 @@
   },
   {
     "pkgname": "findent",
+    "pkgtype": "exe",
     "version": "4.3.2",
     "license": "BSD-3-Clause",
     "summary": "Indent and beautify Fortran sources and generate dependency information",
@@ -2076,6 +2210,7 @@
   },
   {
     "pkgname": "findutils",
+    "pkgtype": "exe",
     "version": "4.9.0",
     "license": "GPL-3.0-or-later",
     "summary": "A package of several programs related to finding files",
@@ -2093,6 +2228,7 @@
   },
   {
     "pkgname": "fish",
+    "pkgtype": "pie",
     "version": "3.7.1",
     "license": "GPL-2.0-or-later",
     "summary": "User-friendly command-line shell for UNIX-like operating systems",
@@ -2110,6 +2246,7 @@
   },
   {
     "pkgname": "flac",
+    "pkgtype": "lib",
     "version": "1.4.3",
     "license": "GFDL-1.2-or-later",
     "summary": "Free lossless audio codec",
@@ -2126,6 +2263,7 @@
   },
   {
     "pkgname": "flatc",
+    "pkgtype": "exe",
     "version": "24.3.25",
     "license": "Apache-2.0",
     "summary": "An efficient cross platform serialization library for C++",
@@ -2142,6 +2280,7 @@
   },
   {
     "pkgname": "flex",
+    "pkgtype": "exe",
     "version": "2.6.4",
     "license": "BSD-2-Clause",
     "summary": "The Fast Lexical Analyzer, generates Scanners (tokenizers)",
@@ -2158,6 +2297,7 @@
   },
   {
     "pkgname": "flock",
+    "pkgtype": "exe",
     "version": "0.4.0",
     "license": "ISC",
     "summary": "flock(1) locks files",
@@ -2174,6 +2314,7 @@
   },
   {
     "pkgname": "fmt",
+    "pkgtype": "lib",
     "version": "10.2.1",
     "license": "MIT",
     "summary": "An open-source C/C++ library for formatting that provides a fast and safe alternative to C stdio and C++ iostreams",
@@ -2189,6 +2330,7 @@
   },
   {
     "pkgname": "fontconfig",
+    "pkgtype": "exe+lib",
     "version": "2.15.0",
     "license": "MIT",
     "summary": "XML-based font configuration tools",
@@ -2205,6 +2347,7 @@
   },
   {
     "pkgname": "fortune",
+    "pkgtype": "exe",
     "version": "3.18.0",
     "summary": "A command-line tool for displaying a random quotation",
     "web-url": "https://github.com/shlomif/fortune-mod",
@@ -2221,6 +2364,7 @@
   },
   {
     "pkgname": "fp16",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "MIT",
     "summary": "A header-only C/C++ library for conversion to/from half-precision floating point formats",
@@ -2234,6 +2378,7 @@
   },
   {
     "pkgname": "freexl",
+    "pkgtype": "lib",
     "version": "2.0.0",
     "license": "MPL-1.1",
     "summary": "An open source library to extract data from Excel .xls files",
@@ -2250,6 +2395,7 @@
   },
   {
     "pkgname": "fribidi",
+    "pkgtype": "exe+lib",
     "version": "1.0.13",
     "license": "LGPL-2.1-or-later",
     "summary": "Implementation of the Unicode BiDi algorithm",
@@ -2265,6 +2411,7 @@
   },
   {
     "pkgname": "fselect",
+    "pkgtype": "exe",
     "version": "0.8.5",
     "license": "MIT",
     "summary": "Find files with SQL-like queries",
@@ -2281,6 +2428,7 @@
   },
   {
     "pkgname": "fsmon",
+    "pkgtype": "exe",
     "version": "1.8.4",
     "license": "MIT",
     "summary": "Filesystem monitor with fanotify and inotify backends",
@@ -2297,6 +2445,7 @@
   },
   {
     "pkgname": "fswatch",
+    "pkgtype": "exe",
     "version": "1.17.1",
     "license": "GPL-3.0-or-later",
     "summary": "Monitor a directory for changes and run a shell command",
@@ -2312,6 +2461,7 @@
   },
   {
     "pkgname": "fxdiv",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "MIT",
     "summary": "A header-only library for division via fixed-point multiplication by inverse",
@@ -2325,6 +2475,7 @@
   },
   {
     "pkgname": "fzf",
+    "pkgtype": "pie",
     "version": "0.50.0",
     "license": "MIT",
     "summary": "A command-line fuzzy finder written in Go",
@@ -2340,6 +2491,7 @@
   },
   {
     "pkgname": "fzy",
+    "pkgtype": "exe",
     "version": "1.0",
     "license": "MIT",
     "summary": "A fast, simple fuzzy text selector with an advanced scoring algorithm",
@@ -2355,6 +2507,7 @@
   },
   {
     "pkgname": "garble",
+    "pkgtype": "pie",
     "version": "0.12.1",
     "license": "BSD-3-Clause",
     "summary": "Obfuscate Go builds",
@@ -2370,6 +2523,7 @@
   },
   {
     "pkgname": "gawk",
+    "pkgtype": "exe",
     "version": "5.3.0",
     "license": "GPL-3.0-or-later",
     "summary": "GNU awk utility",
@@ -2387,6 +2541,7 @@
   },
   {
     "pkgname": "gbt",
+    "pkgtype": "pie",
     "version": "2.0.0",
     "license": "MIT",
     "summary": "Highly configurable prompt builder for Bash and ZSH written in Go",
@@ -2403,6 +2558,7 @@
   },
   {
     "pkgname": "gd",
+    "pkgtype": "lib",
     "version": "2.3.3",
     "summary": "Graphics library to dynamically manipulate images",
     "web-url": "https://libgd.github.io/",
@@ -2419,6 +2575,7 @@
   },
   {
     "pkgname": "gdbm",
+    "pkgtype": "lib",
     "version": "1.23",
     "license": "GPL-3.0-or-later",
     "summary": "GNU database manager",
@@ -2434,6 +2591,7 @@
   },
   {
     "pkgname": "gdk-pixbuf",
+    "pkgtype": "exe+lib",
     "version": "2.42.10",
     "license": "LGPL-2.1-or-later",
     "summary": "Toolkit for image loading and pixel buffer manipulation",
@@ -2451,6 +2609,7 @@
   },
   {
     "pkgname": "gdu",
+    "pkgtype": "pie",
     "version": "5.27.0",
     "license": "MIT",
     "summary": "A pretty fast disk usage analyzer with console interface written in Go",
@@ -2466,6 +2625,7 @@
   },
   {
     "pkgname": "geographiclib",
+    "pkgtype": "exe+lib",
     "version": "r2.2",
     "license": "MIT",
     "summary": "C++ geography library",
@@ -2481,6 +2641,7 @@
   },
   {
     "pkgname": "geos",
+    "pkgtype": "lib",
     "version": "3.12.1",
     "license": "LGPL-2.1-or-later",
     "summary": "Geometry Engine",
@@ -2496,6 +2657,7 @@
   },
   {
     "pkgname": "germanium",
+    "pkgtype": "pie",
     "version": "1.2.2",
     "license": "MIT",
     "summary": "Generate image from source code",
@@ -2511,6 +2673,7 @@
   },
   {
     "pkgname": "gettext",
+    "pkgtype": "exe",
     "version": "0.22.5",
     "license": "GPL-3.0-or-later",
     "summary": "GNU internationalization (i18n) and localization (l10n) library",
@@ -2528,6 +2691,7 @@
   },
   {
     "pkgname": "gettext-dev",
+    "pkgtype": "exe+lib",
     "version": "0.22.5",
     "license": "GPL-3.0-or-later",
     "summary": "GNU internationalization (i18n) and localization (l10n) library",
@@ -2546,6 +2710,7 @@
   },
   {
     "pkgname": "gettext-tools",
+    "pkgtype": "exe",
     "version": "0.22.5",
     "license": "GPL-3.0-or-later",
     "summary": "GNU internationalization (i18n) and localization (l10n) library",
@@ -2563,6 +2728,7 @@
   },
   {
     "pkgname": "gflags",
+    "pkgtype": "lib",
     "version": "2.2.2",
     "license": "BSD-3-Clause",
     "summary": "A C++ library for processing command-line flags",
@@ -2578,6 +2744,7 @@
   },
   {
     "pkgname": "gh",
+    "pkgtype": "pie",
     "version": "2.48.0",
     "license": "MIT",
     "summary": "A command-line interface that brings github.com functionality to your terminal",
@@ -2593,6 +2760,7 @@
   },
   {
     "pkgname": "ghostscript",
+    "pkgtype": "exe+lib",
     "version": "10.03.0",
     "license": "AGPL-3.0-or-later",
     "summary": "Interpreter for PostScript and PDF",
@@ -2610,6 +2778,7 @@
   },
   {
     "pkgname": "giflib",
+    "pkgtype": "lib",
     "version": "5.2.1",
     "summary": "Library and utilities for processing GIFs",
     "web-url": "https://giflib.sourceforge.io",
@@ -2626,6 +2795,7 @@
   },
   {
     "pkgname": "gindent",
+    "pkgtype": "exe",
     "version": "2.2.13",
     "license": "GPL-3.0-or-later",
     "summary": "C code prettifier",
@@ -2643,6 +2813,7 @@
   },
   {
     "pkgname": "git",
+    "pkgtype": "exe",
     "version": "2.44.0",
     "license": "GPL-2.0-only",
     "summary": "A free and open source distributed version control system with speed and efficiency",
@@ -2659,6 +2830,7 @@
   },
   {
     "pkgname": "git-cliff",
+    "pkgtype": "exe",
     "version": "2.2.0",
     "license": "Apache-2.0 MIT",
     "summary": "A highly customizable Changelog Generator that follows Conventional Commit specifications",
@@ -2675,6 +2847,7 @@
   },
   {
     "pkgname": "git-lfs",
+    "pkgtype": "pie",
     "version": "3.5.1",
     "license": "MIT",
     "summary": "A git extension for versioning large files",
@@ -2690,6 +2863,7 @@
   },
   {
     "pkgname": "gitui",
+    "pkgtype": "exe",
     "version": "0.26.1",
     "license": "MIT",
     "summary": "Blazing fast terminal-ui for git written in rust",
@@ -2709,6 +2883,7 @@
   },
   {
     "pkgname": "gitwatch",
+    "pkgtype": "exe",
     "version": "0.2",
     "license": "GPL-3.0-or-later",
     "summary": "Watch a file or folder and automatically commit changes to a git repo easily",
@@ -2724,6 +2899,7 @@
   },
   {
     "pkgname": "glib",
+    "pkgtype": "lib",
     "version": "2.78.0",
     "license": "LGPL-2.1-or-later",
     "summary": "A general-purpose, portable utility library which provides many useful data types, macros, type conversions, string utilities, file utilities, a mainloop abstraction, and so on",
@@ -2743,6 +2919,7 @@
   },
   {
     "pkgname": "glib-tools",
+    "pkgtype": "exe",
     "version": "2.80.0",
     "license": "LGPL-2.1-or-later",
     "summary": "A collection of tools for glib",
@@ -2763,6 +2940,7 @@
   },
   {
     "pkgname": "glog",
+    "pkgtype": "lib",
     "version": "0.6.0",
     "license": "BSD-3-Clause",
     "summary": "Application-level logging library",
@@ -2779,6 +2957,7 @@
   },
   {
     "pkgname": "glow",
+    "pkgtype": "pie",
     "version": "1.5.1",
     "license": "MIT",
     "summary": "A terminal based markdown reader",
@@ -2794,6 +2973,7 @@
   },
   {
     "pkgname": "glslang",
+    "pkgtype": "exe",
     "version": "14.1.0",
     "license": "BSD-3-Clause GPL-3.0-or-later MIT Apache-2.0",
     "summary": "OpenGL and OpenGL ES reference compiler for shading languages",
@@ -2809,6 +2989,7 @@
   },
   {
     "pkgname": "gm4",
+    "pkgtype": "exe",
     "version": "1.4.19",
     "license": "GPL-3.0-or-later",
     "summary": "Macro processing language",
@@ -2828,6 +3009,7 @@
   },
   {
     "pkgname": "gmake",
+    "pkgtype": "exe",
     "version": "4.4.1",
     "license": "GPL-3.0-or-later",
     "summary": "Utility for directing compilation",
@@ -2846,6 +3028,7 @@
   },
   {
     "pkgname": "gn",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "summary": "A meta-build system for generating build files for ninja",
     "web-url": "https://gn.googlesource.com/gn",
@@ -2860,6 +3043,7 @@
   },
   {
     "pkgname": "gnu-barcode",
+    "pkgtype": "exe",
     "version": "0.99",
     "license": "GPL-3.0-or-later",
     "summary": "Convert text strings to printed bars",
@@ -2877,6 +3061,7 @@
   },
   {
     "pkgname": "gnu-which",
+    "pkgtype": "exe",
     "version": "2.21",
     "license": "GPL-3.0-or-later",
     "summary": "GNU implementation of which utility",
@@ -2892,6 +3077,7 @@
   },
   {
     "pkgname": "gnupg",
+    "pkgtype": "exe",
     "version": "2.4.5",
     "license": "GPL-3.0-or-later",
     "summary": "GNU Pretty Good Privacy (PGP) package",
@@ -2908,6 +3094,7 @@
   },
   {
     "pkgname": "gnutls",
+    "pkgtype": "exe+lib",
     "version": "3.8.4",
     "license": "LGPL-2.1-or-later GPL-3.0-only",
     "summary": "GNU Transport Layer Security (TLS) Library",
@@ -2927,6 +3114,7 @@
   },
   {
     "pkgname": "go-md2man",
+    "pkgtype": "pie",
     "version": "2.0.4",
     "license": "MIT",
     "summary": "Converts markdown into roff (man pages)",
@@ -2942,6 +3130,7 @@
   },
   {
     "pkgname": "go-tools",
+    "pkgtype": "pie",
     "version": "2023.1.3",
     "license": "MIT",
     "summary": "A state-of-the-art linter for the Go programming language",
@@ -2957,6 +3146,7 @@
   },
   {
     "pkgname": "godu",
+    "pkgtype": "pie",
     "version": "1.3",
     "license": "MIT",
     "summary": "A simple utility to discover large files/folders",
@@ -2972,6 +3162,7 @@
   },
   {
     "pkgname": "gogs",
+    "pkgtype": "pie",
     "version": "0.13.0",
     "license": "MIT",
     "summary": "Go git service",
@@ -2987,6 +3178,7 @@
   },
   {
     "pkgname": "golang",
+    "pkgtype": "pie",
     "version": "1.22.2",
     "license": "BSD-3-Clause",
     "summary": "Open source programming language to build simple/reliable/efficient software",
@@ -3003,6 +3195,7 @@
   },
   {
     "pkgname": "gomobile",
+    "pkgtype": "pie",
     "version": "2024.05.15",
     "summary": "A tool for building and running mobile apps written in Go",
     "web-url": "https://github.com/golang/mobile",
@@ -3015,6 +3208,7 @@
   },
   {
     "pkgname": "google-benchmark",
+    "pkgtype": "lib",
     "version": "1.8.3",
     "license": "Apache-2.0",
     "summary": "A C++ library to benchmark code snippets, similar to unit tests",
@@ -3030,6 +3224,7 @@
   },
   {
     "pkgname": "google-highway",
+    "pkgtype": "lib",
     "version": "1.0.3",
     "license": "Apache-2.0",
     "summary": "Performance-portable, length-agnostic SIMD with runtime dispatch",
@@ -3045,6 +3240,7 @@
   },
   {
     "pkgname": "googletest",
+    "pkgtype": "lib",
     "version": "1.14.0",
     "license": "BSD-3-Clause",
     "summary": "C++ Testing and Mocking Framework by Google",
@@ -3060,6 +3256,7 @@
   },
   {
     "pkgname": "gopls",
+    "pkgtype": "pie",
     "version": "0.15.3",
     "license": "BSD-3-Clause",
     "summary": "Language server for the Go language",
@@ -3075,6 +3272,7 @@
   },
   {
     "pkgname": "goreleaser",
+    "pkgtype": "pie",
     "version": "1.25.1",
     "license": "MIT",
     "summary": "Deliver Go binaries as fast and easily as possible",
@@ -3090,6 +3288,7 @@
   },
   {
     "pkgname": "gosh",
+    "pkgtype": "pie",
     "version": "3.4.1",
     "license": "BSD-3-Clause",
     "summary": "A shell parser, formatter, and interpreter with bash support written in golang",
@@ -3105,6 +3304,7 @@
   },
   {
     "pkgname": "gotop",
+    "pkgtype": "pie",
     "version": "4.2.0",
     "license": "BSD-3-Clause",
     "summary": "Terminal based graphical activity monitor inspired by gtop and vtop",
@@ -3120,6 +3320,7 @@
   },
   {
     "pkgname": "gotty",
+    "pkgtype": "pie",
     "version": "1.5.0",
     "license": "MIT",
     "summary": "A simple command-line tool to share your terminal as a web application",
@@ -3135,6 +3336,7 @@
   },
   {
     "pkgname": "gox",
+    "pkgtype": "pie",
     "version": "1.0.1",
     "license": "MPL-2.0",
     "summary": "Go cross compile tool",
@@ -3150,6 +3352,7 @@
   },
   {
     "pkgname": "gperf",
+    "pkgtype": "exe",
     "version": "3.1",
     "license": "GPL-3.0-or-later",
     "summary": "Perfect hash function generator",
@@ -3166,6 +3369,7 @@
   },
   {
     "pkgname": "gperftools",
+    "pkgtype": "exe",
     "version": "2.15",
     "license": "BSD-3-Clause",
     "summary": "A collection of a high-performance multi-threaded malloc() implementation, plus some pretty nifty performance analysis tools",
@@ -3183,6 +3387,7 @@
   },
   {
     "pkgname": "gping",
+    "pkgtype": "exe",
     "version": "1.16.1",
     "license": "MIT",
     "summary": "Ping, but with a graph",
@@ -3198,6 +3403,7 @@
   },
   {
     "pkgname": "gpsim",
+    "pkgtype": "exe",
     "version": "0.32.1",
     "license": "GPL-2.0-or-later",
     "summary": "Simulator for Microchip PIC microcontrollers",
@@ -3213,6 +3419,7 @@
   },
   {
     "pkgname": "gputils",
+    "pkgtype": "exe",
     "version": "1.5.2",
     "license": "GPL-2.0-or-later",
     "summary": "GNU PIC Utilities",
@@ -3228,6 +3435,7 @@
   },
   {
     "pkgname": "graphicsmagick",
+    "pkgtype": "exe",
     "version": "1.3.43",
     "license": "MIT",
     "summary": "Image processing tools collection",
@@ -3243,6 +3451,7 @@
   },
   {
     "pkgname": "graphviz",
+    "pkgtype": "exe+lib",
     "version": "11.0.0",
     "license": "EPL-1.0",
     "summary": "An open source graph visualization software",
@@ -3260,6 +3469,7 @@
   },
   {
     "pkgname": "grep",
+    "pkgtype": "exe",
     "version": "3.11",
     "license": "GPL-3.0-or-later",
     "summary": "GNU grep, egrep and fgrep",
@@ -3277,6 +3487,7 @@
   },
   {
     "pkgname": "grex",
+    "pkgtype": "exe",
     "version": "1.4.5",
     "license": "Apache-2.0",
     "summary": "A command-line tool for generating regular expressions from user-provided test cases",
@@ -3292,6 +3503,7 @@
   },
   {
     "pkgname": "gron",
+    "pkgtype": "pie",
     "version": "0.7.1",
     "license": "MIT",
     "summary": "Make JSON greppable",
@@ -3307,6 +3519,7 @@
   },
   {
     "pkgname": "grpc",
+    "pkgtype": "lib",
     "version": "1.62.2",
     "license": "Apache-2.0",
     "summary": "A modern, open source, high-performance remote procedure call (RPC) framework",
@@ -3323,6 +3536,7 @@
   },
   {
     "pkgname": "grpc-plugins",
+    "pkgtype": "pie",
     "version": "1.62.2",
     "license": "Apache-2.0",
     "summary": "grpc plugins",
@@ -3341,6 +3555,7 @@
   },
   {
     "pkgname": "gsed",
+    "pkgtype": "exe",
     "version": "4.9",
     "license": "GPL-3.0-or-later",
     "summary": "GNU implementation of the famous stream editor",
@@ -3359,6 +3574,7 @@
   },
   {
     "pkgname": "gtar",
+    "pkgtype": "exe",
     "version": "1.35",
     "license": "GPL-3.0-or-later",
     "summary": "GNU version of the tar archiving utility",
@@ -3376,6 +3592,7 @@
   },
   {
     "pkgname": "gzip",
+    "pkgtype": "exe",
     "version": "1.13",
     "license": "GPL-3.0-or-later",
     "summary": "A popular data compression program developed by GNU",
@@ -3391,6 +3608,7 @@
   },
   {
     "pkgname": "halibut",
+    "pkgtype": "exe",
     "version": "1.3",
     "license": "MIT",
     "summary": "Yet another free document preparation system",
@@ -3406,6 +3624,7 @@
   },
   {
     "pkgname": "helix",
+    "pkgtype": "exe",
     "version": "24.03",
     "license": "MPL-2.0",
     "summary": "A post-modern modal text editor",
@@ -3421,6 +3640,7 @@
   },
   {
     "pkgname": "helm",
+    "pkgtype": "pie",
     "version": "3.14.4",
     "license": "Apache-2.0",
     "summary": "Kubernetes package manager",
@@ -3436,6 +3656,7 @@
   },
   {
     "pkgname": "hexdump",
+    "pkgtype": "exe",
     "version": "20181215",
     "summary": "hexdump library and cli",
     "web-url": "https://www.25thandclement.com/~william/projects/hexdump.c.html",
@@ -3449,6 +3670,7 @@
   },
   {
     "pkgname": "hexyl",
+    "pkgtype": "exe",
     "version": "0.14.0",
     "license": "MIT",
     "summary": "A simple hex viewer for the terminal",
@@ -3464,6 +3686,7 @@
   },
   {
     "pkgname": "htop",
+    "pkgtype": "exe",
     "version": "3.3.0",
     "license": "GPL-2.0-or-later",
     "summary": "Improved top (interactive process viewer)",
@@ -3480,6 +3703,7 @@
   },
   {
     "pkgname": "htslib",
+    "pkgtype": "lib",
     "version": "1.20",
     "license": "MIT",
     "summary": "A C library for high-throughput sequencing data formats",
@@ -3496,6 +3720,7 @@
   },
   {
     "pkgname": "httpx",
+    "pkgtype": "pie",
     "version": "1.6.0",
     "license": "MIT",
     "summary": "Fast and multi-purpose HTTP toolkit",
@@ -3511,6 +3736,7 @@
   },
   {
     "pkgname": "hugo",
+    "pkgtype": "pie",
     "version": "0.125.4",
     "license": "Apache-2.0",
     "summary": "A fast and flexible static site generator",
@@ -3526,6 +3752,7 @@
   },
   {
     "pkgname": "hunspell",
+    "pkgtype": "exe",
     "version": "1.7.2",
     "license": "GPL-2.0-or-later",
     "summary": "A free spell checker and morphological analyzer",
@@ -3542,6 +3769,7 @@
   },
   {
     "pkgname": "hurl",
+    "pkgtype": "exe",
     "version": "4.3.0",
     "license": "Apache-2.0",
     "summary": "Run and Test HTTP Requests with plain text and curl",
@@ -3558,6 +3786,7 @@
   },
   {
     "pkgname": "hwloc",
+    "pkgtype": "exe+lib",
     "version": "2.10.0",
     "license": "BSD-3-Clause",
     "summary": "Portable abstraction of the hierarchical topology of modern architectures",
@@ -3574,6 +3803,7 @@
   },
   {
     "pkgname": "hydroxide",
+    "pkgtype": "pie",
     "version": "0.2.21",
     "license": "MIT",
     "summary": "A third-party, open-source ProtonMail CardDAV, IMAP and SMTP bridge",
@@ -3589,6 +3819,7 @@
   },
   {
     "pkgname": "hyperfine",
+    "pkgtype": "exe",
     "version": "1.18.0",
     "license": "Apache-2.0",
     "summary": "A command-line tool for benchmarking",
@@ -3604,6 +3835,7 @@
   },
   {
     "pkgname": "icu4c",
+    "pkgtype": "lib",
     "version": "74.2",
     "license": "ICU",
     "summary": "C/C++ and Java libraries for Unicode and globalization",
@@ -3620,6 +3852,7 @@
   },
   {
     "pkgname": "id3lib",
+    "pkgtype": "lib",
     "version": "3.8.3",
     "license": "LGPL-2.0-or-later",
     "summary": "An open-source library for manipulating ID3v1 and ID3v2 tags",
@@ -3636,6 +3869,7 @@
   },
   {
     "pkgname": "ideviceinstaller",
+    "pkgtype": "exe",
     "version": "1.1.1",
     "license": "GPL-2.0-or-later",
     "summary": "A command-line tool to manage apps on iOS devices",
@@ -3655,6 +3889,7 @@
   },
   {
     "pkgname": "imagemagick",
+    "pkgtype": "exe+lib",
     "version": "7.1.1.15",
     "license": "ImageMagick",
     "summary": "Tools and libraries to manipulate images in many formats",
@@ -3672,6 +3907,7 @@
   },
   {
     "pkgname": "imath",
+    "pkgtype": "lib",
     "version": "3.1.11",
     "license": "BSD-3-Clause",
     "summary": "Library of 2D and 3D vector, matrix, and math operations",
@@ -3687,6 +3923,7 @@
   },
   {
     "pkgname": "imlib2",
+    "pkgtype": "lib",
     "version": "1.12.2",
     "license": "Imlib2",
     "summary": "Image loading and rendering library",
@@ -3702,6 +3939,7 @@
   },
   {
     "pkgname": "inih",
+    "pkgtype": "lib",
     "version": "r58",
     "license": "BSD-3-Clause",
     "summary": "A simple .ini file parser in C",
@@ -3718,6 +3956,7 @@
   },
   {
     "pkgname": "invoice",
+    "pkgtype": "pie",
     "version": "0.1.0",
     "license": "MIT",
     "summary": "A invoice generator",
@@ -3732,6 +3971,7 @@
   },
   {
     "pkgname": "isl",
+    "pkgtype": "lib",
     "version": "0.26",
     "license": "MIT",
     "summary": "Integer Set Library for the polyhedral model",
@@ -3749,6 +3989,7 @@
   },
   {
     "pkgname": "iw",
+    "pkgtype": "exe",
     "version": "6.7",
     "summary": "A powerful tool for managing and manipulating wireless devices",
     "web-url": "https://wireless.wiki.kernel.org/en/users/Documentation/iw",
@@ -3764,6 +4005,7 @@
   },
   {
     "pkgname": "ixwebsocket",
+    "pkgtype": "exe",
     "version": "11.3.2",
     "license": "BSD-3-Clause",
     "summary": "WebSocket client and server, and HTTP client command-line tool",
@@ -3780,6 +4022,7 @@
   },
   {
     "pkgname": "jasper",
+    "pkgtype": "exe+lib",
     "version": "4.2.3",
     "license": "JasPer-2.0",
     "summary": "Library for manipulating JPEG-2000 images",
@@ -3796,6 +4039,7 @@
   },
   {
     "pkgname": "jbig2dec",
+    "pkgtype": "exe+lib",
     "version": "0.20",
     "license": "AGPL-3.0-or-later",
     "summary": "JBIG2 decoder and library (for monochrome documents)",
@@ -3813,6 +4057,7 @@
   },
   {
     "pkgname": "jfrog-cli",
+    "pkgtype": "pie",
     "version": "2.56.0",
     "license": "Apache-2.0",
     "summary": "A command-line interface for Jfrog Artifactory and Bintray",
@@ -3829,6 +4074,7 @@
   },
   {
     "pkgname": "jj",
+    "pkgtype": "exe",
     "version": "0.16.0",
     "license": "Apache-2.0",
     "summary": "A git-compatible distributed version control system",
@@ -3846,6 +4092,7 @@
   },
   {
     "pkgname": "jpeg",
+    "pkgtype": "exe",
     "version": "9f",
     "license": "IJG",
     "summary": "Image manipulation library",
@@ -3860,6 +4107,7 @@
   },
   {
     "pkgname": "jq",
+    "pkgtype": "exe",
     "version": "1.7.1",
     "license": "MIT",
     "summary": "A lightweight and flexible command-line JSON processor",
@@ -3876,6 +4124,7 @@
   },
   {
     "pkgname": "json-c",
+    "pkgtype": "lib",
     "version": "0.17",
     "license": "MIT",
     "summary": "A JSON parser for C",
@@ -3892,6 +4141,7 @@
   },
   {
     "pkgname": "json-glib",
+    "pkgtype": "lib",
     "version": "1.8.0",
     "license": "LGPL-2.1-or-later",
     "summary": "Library for JSON, based on GLib",
@@ -3909,6 +4159,7 @@
   },
   {
     "pkgname": "jsoncpp",
+    "pkgtype": "lib",
     "version": "1.9.5",
     "license": "MIT",
     "summary": "A C++ library for interacting with JSON",
@@ -3924,6 +4175,7 @@
   },
   {
     "pkgname": "jump",
+    "pkgtype": "pie",
     "version": "0.51.0",
     "license": "MIT",
     "summary": "Helps you navigate your file system faster by learning your habits",
@@ -3939,6 +4191,7 @@
   },
   {
     "pkgname": "kcp",
+    "pkgtype": "exe",
     "version": "1.7",
     "license": "MIT",
     "summary": "A Fast and Reliable ARQ Protocol",
@@ -3954,6 +4207,7 @@
   },
   {
     "pkgname": "kcptun",
+    "pkgtype": "pie",
     "version": "20240107",
     "license": "MIT",
     "summary": "Stable & Secure Tunnel based on KCP with N/M multiplexing and FEC",
@@ -3969,6 +4223,7 @@
   },
   {
     "pkgname": "keybase",
+    "pkgtype": "pie",
     "version": "6.0.1",
     "license": "BSD-3-Clause",
     "summary": "Key directory that maps social media identities to encryption keys",
@@ -3984,6 +4239,7 @@
   },
   {
     "pkgname": "ko",
+    "pkgtype": "pie",
     "version": "0.15.2",
     "license": "Apache-2.0",
     "summary": "A simple, fast container image builder for Go applications",
@@ -3999,6 +4255,7 @@
   },
   {
     "pkgname": "krb5",
+    "pkgtype": "lib",
     "version": "1.21.2",
     "summary": "Network authentication protocol",
     "web-url": "https://web.mit.edu/kerberos",
@@ -4016,6 +4273,7 @@
   },
   {
     "pkgname": "lame",
+    "pkgtype": "exe",
     "version": "3.100",
     "license": "LGPL-2.0-or-later",
     "summary": "A high quality MPEG Audio Layer III (MP3) encoder",
@@ -4031,6 +4289,7 @@
   },
   {
     "pkgname": "lazygit",
+    "pkgtype": "pie",
     "version": "0.41.0",
     "license": "MIT",
     "summary": "A simple terminal UI for git commands",
@@ -4046,6 +4305,7 @@
   },
   {
     "pkgname": "lcms2",
+    "pkgtype": "lib",
     "version": "2.16",
     "license": "MIT",
     "summary": "Color management engine supporting ICC profiles",
@@ -4063,6 +4323,7 @@
   },
   {
     "pkgname": "lcov",
+    "pkgtype": "exe",
     "version": "2.0",
     "license": "GPL-2.0-or-later",
     "summary": "Graphical front-end for GCC coverage testing tool - gcov",
@@ -4078,6 +4339,7 @@
   },
   {
     "pkgname": "ldns",
+    "pkgtype": "lib",
     "version": "1.8.3",
     "license": "BSD-3-Clause",
     "summary": "DNS library written in C",
@@ -4094,6 +4356,7 @@
   },
   {
     "pkgname": "leptonica",
+    "pkgtype": "lib",
     "version": "1.84.1",
     "license": "BSD-2-Clause",
     "summary": "Image processing and image analysis library",
@@ -4110,6 +4373,7 @@
   },
   {
     "pkgname": "less",
+    "pkgtype": "exe",
     "version": "643",
     "license": "GPL-3.0-or-later",
     "summary": "Pager program similar to more",
@@ -4126,6 +4390,7 @@
   },
   {
     "pkgname": "lf",
+    "pkgtype": "pie",
     "version": "r26",
     "license": "MIT",
     "summary": "Terminal file manager",
@@ -4141,6 +4406,7 @@
   },
   {
     "pkgname": "libaec",
+    "pkgtype": "lib",
     "version": "1.1.3",
     "license": "BSD-2-Clause",
     "summary": "Adaptive Entropy Coding implementing Golomb-Rice algorithm",
@@ -4157,6 +4423,7 @@
   },
   {
     "pkgname": "libaio",
+    "pkgtype": "lib",
     "version": "0.3.113",
     "license": "LGPL-2.1-or-later",
     "summary": "Linux-native asynchronous I/O access library",
@@ -4172,6 +4439,7 @@
   },
   {
     "pkgname": "libao",
+    "pkgtype": "lib",
     "version": "1.2.2",
     "license": "GPL-2.0-or-later",
     "summary": "A cross-platform audio library",
@@ -4187,6 +4455,7 @@
   },
   {
     "pkgname": "libarchive",
+    "pkgtype": "lib",
     "version": "3.7.4",
     "license": "BSD-2-Clause",
     "summary": "Multi-format archive and compression library",
@@ -4205,6 +4474,7 @@
   },
   {
     "pkgname": "libargp",
+    "pkgtype": "lib",
     "version": "1.5.0",
     "license": "LGPL-2.1-or-later",
     "summary": "Standalone version of arguments parsing functions from GLIBC",
@@ -4223,6 +4493,7 @@
   },
   {
     "pkgname": "libasprintf",
+    "pkgtype": "lib",
     "version": "0.22.5",
     "license": "GPL-3.0-or-later",
     "summary": "C-style formatted output in C++",
@@ -4238,6 +4509,7 @@
   },
   {
     "pkgname": "libass",
+    "pkgtype": "lib",
     "version": "0.17.1",
     "license": "ISC",
     "summary": "Subtitle renderer for the ASS/SSA subtitle format",
@@ -4254,6 +4526,7 @@
   },
   {
     "pkgname": "libassuan",
+    "pkgtype": "lib",
     "version": "2.5.7",
     "license": "GPL-3.0-or-later",
     "summary": "Assuan IPC Library",
@@ -4270,6 +4543,7 @@
   },
   {
     "pkgname": "libasync++",
+    "pkgtype": "lib",
     "version": "1.1",
     "license": "MIT",
     "summary": "A lightweight concurrency framework for C++11",
@@ -4285,6 +4559,7 @@
   },
   {
     "pkgname": "libatomic_ops",
+    "pkgtype": "lib",
     "version": "7.8.2",
     "license": "GPL-2.0-or-later",
     "summary": "Implementations for atomic memory update operations",
@@ -4300,6 +4575,7 @@
   },
   {
     "pkgname": "libavif",
+    "pkgtype": "lib",
     "version": "1.0.4",
     "license": "BSD-2-Clause",
     "summary": "Library for encoding and decoding .avif files",
@@ -4316,6 +4592,7 @@
   },
   {
     "pkgname": "libb2",
+    "pkgtype": "lib",
     "version": "0.98.1",
     "license": "CC0-1.0",
     "summary": "Secure hashing function",
@@ -4332,6 +4609,7 @@
   },
   {
     "pkgname": "libb64",
+    "pkgtype": "lib",
     "version": "1.2.1",
     "license": "CC-PDDC",
     "summary": "Base64 encoding/decoding library",
@@ -4346,6 +4624,7 @@
   },
   {
     "pkgname": "libbcrypt",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "CC0-1.0",
     "summary": "A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface",
@@ -4359,6 +4638,7 @@
   },
   {
     "pkgname": "libblake3",
+    "pkgtype": "lib",
     "version": "1.5.1",
     "license": "CC0-1.0",
     "summary": "C implementations of the BLAKE3 cryptographic hash function",
@@ -4374,6 +4654,7 @@
   },
   {
     "pkgname": "libbluray",
+    "pkgtype": "lib",
     "version": "1.3.4",
     "license": "LGPL-2.1-or-later",
     "summary": "Blu-Ray disc playback library for media players like VLC",
@@ -4390,6 +4671,7 @@
   },
   {
     "pkgname": "libbthread",
+    "pkgtype": "lib",
     "version": "0.2",
     "license": "LGPL-2.1-or-later",
     "summary": "provide some missing posix threading functions for NDK",
@@ -4405,6 +4687,7 @@
   },
   {
     "pkgname": "libburn",
+    "pkgtype": "lib",
     "version": "1.5.2",
     "license": "GPL-2.0-or-later",
     "summary": "Library for writing preformatted data onto optical media (CD, DVD and BD)",
@@ -4419,6 +4702,7 @@
   },
   {
     "pkgname": "libbz2",
+    "pkgtype": "lib",
     "version": "1.0.8",
     "license": "bzip2-1.0.8",
     "summary": "Burrows–Wheeler-based data compression library with high compression ratio",
@@ -4434,6 +4718,7 @@
   },
   {
     "pkgname": "libcaca",
+    "pkgtype": "lib",
     "version": "0.99.beta20",
     "license": "WTFPL",
     "summary": "Convert pixel information into colored ASCII art",
@@ -4453,6 +4738,7 @@
   },
   {
     "pkgname": "libcap",
+    "pkgtype": "lib",
     "version": "2.69",
     "license": "BSD-3-Clause",
     "summary": "Linux Capability Library",
@@ -4469,6 +4755,7 @@
   },
   {
     "pkgname": "libcap-ng",
+    "pkgtype": "lib",
     "version": "0.8.5",
     "license": "LGPL-2.1-or-later",
     "summary": "Library making programming with POSIX capabilities easier than traditional libcap",
@@ -4485,6 +4772,7 @@
   },
   {
     "pkgname": "libcares",
+    "pkgtype": "lib",
     "version": "1.28.1",
     "summary": "Asynchronous DNS library",
     "web-url": "https://c-ares.haxx.se",
@@ -4500,6 +4788,7 @@
   },
   {
     "pkgname": "libcbor",
+    "pkgtype": "lib",
     "version": "0.11.0",
     "license": "MIT",
     "summary": "CBOR protocol implementation for C and others",
@@ -4515,6 +4804,7 @@
   },
   {
     "pkgname": "libcddb",
+    "pkgtype": "lib",
     "version": "1.3.2",
     "license": "LGPL-2.0-or-later",
     "summary": "CDDB server access library",
@@ -4530,6 +4820,7 @@
   },
   {
     "pkgname": "libcdio",
+    "pkgtype": "lib",
     "version": "2.1.0",
     "license": "GPL-3.0-or-later",
     "summary": "Compact Disc Input and Control Library",
@@ -4547,6 +4838,7 @@
   },
   {
     "pkgname": "libcerf",
+    "pkgtype": "lib",
     "version": "2.4",
     "license": "MIT",
     "summary": "Numeric library for complex error functions",
@@ -4563,6 +4855,7 @@
   },
   {
     "pkgname": "libcgif",
+    "pkgtype": "lib",
     "version": "V0.3.0",
     "license": "MIT",
     "summary": "A fast and lightweight GIF encoder written in C",
@@ -4579,6 +4872,7 @@
   },
   {
     "pkgname": "libcpuinfo",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "BSD-2-Clause",
     "summary": "CPU INFOrmation library",
@@ -4593,6 +4887,7 @@
   },
   {
     "pkgname": "libcrc32c",
+    "pkgtype": "lib",
     "version": "1.1.2",
     "license": "BSD-3-Clause",
     "summary": "Implementation of CRC32C with CPU-specific acceleration",
@@ -4608,6 +4903,7 @@
   },
   {
     "pkgname": "libcroco",
+    "pkgtype": "lib",
     "version": "0.6.13",
     "license": "LGPL-2.0-or-later",
     "summary": "CSS parsing and manipulation toolkit for GNOME",
@@ -4624,6 +4920,7 @@
   },
   {
     "pkgname": "libcrypt",
+    "pkgtype": "lib",
     "version": "1",
     "license": "Unlicense",
     "summary": "crypt(3) implementation",
@@ -4637,6 +4934,7 @@
   },
   {
     "pkgname": "libcurl",
+    "pkgtype": "lib",
     "version": "8.7.1",
     "license": "curl",
     "summary": "A free and easy-to-use client-side URL transfer library",
@@ -4655,6 +4953,7 @@
   },
   {
     "pkgname": "libdatrie",
+    "pkgtype": "lib",
     "version": "0.2.13",
     "license": "LGPL-2.1-or-later",
     "summary": "Double-Array Trie Library",
@@ -4672,6 +4971,7 @@
   },
   {
     "pkgname": "libdav1d",
+    "pkgtype": "lib",
     "version": "1.4.1",
     "license": "BSD-2-Clause",
     "summary": "AV1 decoder targeted to be small and fast",
@@ -4688,6 +4988,7 @@
   },
   {
     "pkgname": "libde265",
+    "pkgtype": "lib",
     "version": "1.0.15",
     "license": "LGPL-3.0-or-later",
     "summary": "An open source implementation of the H.265 video codec",
@@ -4703,6 +5004,7 @@
   },
   {
     "pkgname": "libdeflate",
+    "pkgtype": "lib",
     "version": "1.20",
     "license": "MIT",
     "summary": "Heavily optimized DEFLATE/zlib/gzip compression and decompression",
@@ -4718,6 +5020,7 @@
   },
   {
     "pkgname": "libduktape",
+    "pkgtype": "lib",
     "version": "2.7.0",
     "license": "MIT",
     "summary": "An embeddable Javascript engine with a focus on portability and compact footprint",
@@ -4733,6 +5036,7 @@
   },
   {
     "pkgname": "libedit",
+    "pkgtype": "lib",
     "version": "3.1",
     "license": "BSD-3-Clause",
     "summary": "BSD-style licensed readline alternative",
@@ -4749,6 +5053,7 @@
   },
   {
     "pkgname": "libeigen",
+    "pkgtype": "lib",
     "version": "3.4.0",
     "license": "MPL-2.0",
     "summary": "C++ template library for linear algebra",
@@ -4765,6 +5070,7 @@
   },
   {
     "pkgname": "libev",
+    "pkgtype": "lib",
     "version": "4.33",
     "summary": "Asynchronous event library",
     "web-url": "http://software.schmorp.de/pkg/libev.html",
@@ -4779,6 +5085,7 @@
   },
   {
     "pkgname": "libevent",
+    "pkgtype": "lib",
     "version": "2.1.12",
     "license": "BSD-3-Clause",
     "summary": "Asynchronous event library",
@@ -4795,6 +5102,7 @@
   },
   {
     "pkgname": "libexecinfo",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "0BSD",
     "summary": "A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc",
@@ -4808,6 +5116,7 @@
   },
   {
     "pkgname": "libexhale",
+    "pkgtype": "lib",
     "version": "1.1.9",
     "summary": "Open source xHE-AAC encoder",
     "web-url": "https://gitlab.com/ecodis/exhale",
@@ -4823,6 +5132,7 @@
   },
   {
     "pkgname": "libexif",
+    "pkgtype": "lib",
     "version": "0.6.24",
     "license": "LGPL-2.1-or-later",
     "summary": "EXIF parsing library",
@@ -4839,6 +5149,7 @@
   },
   {
     "pkgname": "libexiv2",
+    "pkgtype": "lib",
     "version": "0.28.2",
     "license": "GPL-2.0-or-later",
     "summary": "A C++ library and a command-line utility to read, write, delete and modify Exif, IPTC, XMP and ICC image metadata",
@@ -4856,6 +5167,7 @@
   },
   {
     "pkgname": "libexpat",
+    "pkgtype": "lib",
     "version": "2.6.2",
     "license": "MIT",
     "summary": "XML 1.0 parser",
@@ -4872,6 +5184,7 @@
   },
   {
     "pkgname": "libffi",
+    "pkgtype": "lib",
     "version": "3.4.6",
     "license": "MIT",
     "summary": "A portable Foreign Function Interface library",
@@ -4887,6 +5200,7 @@
   },
   {
     "pkgname": "libfftw3",
+    "pkgtype": "exe+lib",
     "version": "3.3.10",
     "license": "GPL-2.0-or-later",
     "summary": "C library for computing the Discrete Fourier Transform",
@@ -4902,6 +5216,7 @@
   },
   {
     "pkgname": "libflac",
+    "pkgtype": "lib",
     "version": "1.4.3",
     "license": "GFDL-1.2-or-later",
     "summary": "Free lossless audio codec",
@@ -4918,6 +5233,7 @@
   },
   {
     "pkgname": "libflatbuffers",
+    "pkgtype": "lib",
     "version": "24.3.25",
     "license": "Apache-2.0",
     "summary": "An efficient cross platform serialization library for C++",
@@ -4934,6 +5250,7 @@
   },
   {
     "pkgname": "libfontconfig",
+    "pkgtype": "lib",
     "version": "2.15.0",
     "license": "MIT",
     "summary": "XML-based font configuration library",
@@ -4951,6 +5268,7 @@
   },
   {
     "pkgname": "libfreetype",
+    "pkgtype": "lib",
     "version": "2.13.2",
     "license": "FTL",
     "summary": "A C library to render fonts",
@@ -4968,6 +5286,7 @@
   },
   {
     "pkgname": "libgcrypt",
+    "pkgtype": "lib",
     "version": "1.10.3",
     "license": "LGPL-2.1-or-later",
     "summary": "Cryptographic library based on the code from GnuPG",
@@ -4986,6 +5305,7 @@
   },
   {
     "pkgname": "libgeotiff",
+    "pkgtype": "lib",
     "version": "1.7.1",
     "license": "MIT",
     "summary": "Library and tools for dealing with GeoTIFF",
@@ -5002,6 +5322,7 @@
   },
   {
     "pkgname": "libgetdomainname",
+    "pkgtype": "lib",
     "version": "1",
     "summary": "get NIS domain name",
     "web-url": "https://linux.die.net/man/2/getdomainname",
@@ -5011,6 +5332,7 @@
   },
   {
     "pkgname": "libgetdtablesize",
+    "pkgtype": "lib",
     "version": "1",
     "summary": "get descriptor table size",
     "web-url": "https://linux.die.net/man/2/getdtablesize",
@@ -5020,6 +5342,7 @@
   },
   {
     "pkgname": "libgetloadavg",
+    "pkgtype": "lib",
     "version": "1",
     "summary": "get system load averages",
     "web-url": "https://man7.org/linux/man-pages/man3/getloadavg.3.html",
@@ -5029,6 +5352,7 @@
   },
   {
     "pkgname": "libgit2",
+    "pkgtype": "lib",
     "version": "1.7.2",
     "license": "GPL-2.0-only",
     "summary": "C library of Git core methods that is re-entrant and linkable",
@@ -5047,6 +5371,7 @@
   },
   {
     "pkgname": "libglm",
+    "pkgtype": "lib",
     "version": "1.0.1",
     "license": "MIT",
     "summary": "C++ mathematics library for graphics software",
@@ -5063,6 +5388,7 @@
   },
   {
     "pkgname": "libglob",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "summary": "glob(3) implementation",
     "web-url": "https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html",
@@ -5075,6 +5401,7 @@
   },
   {
     "pkgname": "libgmp",
+    "pkgtype": "lib",
     "version": "6.3.0",
     "license": "LGPL-3.0-or-later",
     "summary": "GNU multiple precision arithmetic library",
@@ -5091,6 +5418,7 @@
   },
   {
     "pkgname": "libgpg-error",
+    "pkgtype": "lib",
     "version": "1.48",
     "license": "LGPL-2.1-or-later",
     "summary": "Common error values for all GnuPG components",
@@ -5110,6 +5438,7 @@
   },
   {
     "pkgname": "libgraphene",
+    "pkgtype": "lib",
     "version": "1.10.8",
     "license": "MIT",
     "summary": "Thin layer of graphic data types",
@@ -5127,6 +5456,7 @@
   },
   {
     "pkgname": "libgraphite2",
+    "pkgtype": "lib",
     "version": "1.3.14",
     "license": "LGPL-2.1-or-later",
     "summary": "Smart font renderer for non-Roman scripts",
@@ -5145,6 +5475,7 @@
   },
   {
     "pkgname": "libharfbuzz",
+    "pkgtype": "lib",
     "version": "8.4.0",
     "license": "MIT",
     "summary": "A text shaping engine. It primarily supports OpenType, but also Apple Advanced Typography",
@@ -5163,6 +5494,7 @@
   },
   {
     "pkgname": "libheif",
+    "pkgtype": "lib",
     "version": "1.17.6",
     "license": "LGPL-3.0-only",
     "summary": "ISO/IEC 23008-12:2017 HEIF file format decoder and encoder",
@@ -5179,6 +5511,7 @@
   },
   {
     "pkgname": "libhiredis",
+    "pkgtype": "lib",
     "version": "1.2.0",
     "license": "BSD-3-Clause",
     "summary": "Minimalistic client for Redis",
@@ -5194,6 +5527,7 @@
   },
   {
     "pkgname": "libiconv",
+    "pkgtype": "lib",
     "version": "1.17",
     "license": "GPL-3.0-or-later LGPL-2.0-or-later",
     "summary": "charset conversion library",
@@ -5211,6 +5545,7 @@
   },
   {
     "pkgname": "libidn",
+    "pkgtype": "lib",
     "version": "1.42",
     "license": "GPL-2.0-or-later LGPL-3.0-or-later",
     "summary": "International domain name library",
@@ -5226,6 +5561,7 @@
   },
   {
     "pkgname": "libidn2",
+    "pkgtype": "lib",
     "version": "2.3.7",
     "license": "GPL-2.0-or-later LGPL-3.0-or-later",
     "summary": "International domain name library (IDNA2008, Punycode and TR46)",
@@ -5242,6 +5578,7 @@
   },
   {
     "pkgname": "libilbc",
+    "pkgtype": "lib",
     "version": "3.0.4",
     "license": "BSD-3-Clause",
     "summary": "Packaged version of iLBC codec from the WebRTC project",
@@ -5257,6 +5594,7 @@
   },
   {
     "pkgname": "libimagequant",
+    "pkgtype": "lib",
     "version": "4.3.1",
     "license": "GPL-3.0-or-later",
     "summary": "Palette quantization library extracted from pnquant2",
@@ -5272,6 +5610,7 @@
   },
   {
     "pkgname": "libimobiledevice",
+    "pkgtype": "lib",
     "version": "1.3.0",
     "license": "LGPL-2.1-or-later",
     "summary": "A C library to communicate with iOS devices natively",
@@ -5290,6 +5629,7 @@
   },
   {
     "pkgname": "libimobiledevice-glue",
+    "pkgtype": "lib",
     "version": "1.2.0",
     "license": "LGPL-2.1-or-later",
     "summary": "Library with common system API code for libimobiledevice projects",
@@ -5307,6 +5647,7 @@
   },
   {
     "pkgname": "libintl",
+    "pkgtype": "lib",
     "version": "0.22.5",
     "license": "GPL-3.0-or-later",
     "summary": "GNU internationalization (i18n) and localization (l10n) library",
@@ -5324,6 +5665,7 @@
   },
   {
     "pkgname": "libintl-lite",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "BSL-1.0",
     "summary": "A simple (but less powerful) GNU gettext libintl replacement",
@@ -5337,6 +5679,7 @@
   },
   {
     "pkgname": "libirecovery",
+    "pkgtype": "lib",
     "version": "1.2.0",
     "license": "LGPL-2.1-only",
     "summary": "Library and utility to talk to iBoot/iBSS via USB",
@@ -5355,6 +5698,7 @@
   },
   {
     "pkgname": "libisoburn",
+    "pkgtype": "lib",
     "version": "1.5.2",
     "license": "LGPL-2.1-or-later",
     "summary": "Frontend for libraries libburn and libisofs",
@@ -5370,6 +5714,7 @@
   },
   {
     "pkgname": "libisofs",
+    "pkgtype": "lib",
     "version": "1.5.6.pl01",
     "license": "LGPL-2.0-or-later",
     "summary": "Library to create an ISO-9660 filesystem with extensions like RockRidge or Joliet",
@@ -5386,6 +5731,7 @@
   },
   {
     "pkgname": "libjansson",
+    "pkgtype": "lib",
     "version": "2.14",
     "license": "MIT",
     "summary": "C library for encoding, decoding, and manipulating JSON",
@@ -5401,6 +5747,7 @@
   },
   {
     "pkgname": "libjpeg-turbo",
+    "pkgtype": "exe+lib",
     "version": "3.0.2",
     "license": "IJG",
     "summary": "A high-performance JPEG image codec that uses SIMD instructions (MMX, SSE2, AVX2, Neon, AltiVec) to accelerate baseline JPEG compression and decompression",
@@ -5417,6 +5764,7 @@
   },
   {
     "pkgname": "libjxl",
+    "pkgtype": "lib",
     "version": "0.10.2",
     "license": "BSD-3-Clause",
     "summary": "New file format for still image compression",
@@ -5434,6 +5782,7 @@
   },
   {
     "pkgname": "libksba",
+    "pkgtype": "lib",
     "version": "1.6.6",
     "license": "LGPL-3.0-or-later",
     "summary": "X.509 and CMS library",
@@ -5450,6 +5799,7 @@
   },
   {
     "pkgname": "liblanginfo",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "summary": "langinfo.h and its implementation from android ndk source code",
     "web-url": "https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html",
@@ -5462,6 +5812,7 @@
   },
   {
     "pkgname": "libleveldb",
+    "pkgtype": "lib",
     "version": "1.23",
     "license": "BSD-3-Clause",
     "summary": "Key-value storage library with ordered mapping",
@@ -5479,6 +5830,7 @@
   },
   {
     "pkgname": "liblinear",
+    "pkgtype": "lib",
     "version": "2.47",
     "license": "BSD-3-Clause",
     "summary": "Library for large linear classification",
@@ -5496,6 +5848,7 @@
   },
   {
     "pkgname": "liblmdb",
+    "pkgtype": "lib",
     "version": "0.9.32",
     "license": "OLDAP-2.8",
     "summary": "An extraordinarily fast, memory-efficient, memory-mapped, key-value database",
@@ -5511,6 +5864,7 @@
   },
   {
     "pkgname": "liblqr",
+    "pkgtype": "lib",
     "version": "0.4.2",
     "license": "LGPL-3.0-or-later",
     "summary": "C/C++ seam carving library",
@@ -5527,6 +5881,7 @@
   },
   {
     "pkgname": "liblua",
+    "pkgtype": "lib",
     "version": "5.4.6",
     "license": "MIT",
     "summary": "Powerful, lightweight programming language",
@@ -5542,6 +5897,7 @@
   },
   {
     "pkgname": "liblz4",
+    "pkgtype": "lib",
     "version": "1.9.4",
     "license": "BSD-2-Clause",
     "summary": "Extremely Fast Compression algorithm",
@@ -5557,6 +5913,7 @@
   },
   {
     "pkgname": "liblzma",
+    "pkgtype": "lib",
     "version": "5.4.6",
     "license": "LGPL-2.1-or-later",
     "summary": "A free, general-purpose data compression with a high compression ratio",
@@ -5571,6 +5928,7 @@
   },
   {
     "pkgname": "liblzo",
+    "pkgtype": "exe+lib",
     "version": "2.10",
     "license": "GPL-2.0-or-later",
     "summary": "Real-time data compression library",
@@ -5585,6 +5943,7 @@
   },
   {
     "pkgname": "libmagic",
+    "pkgtype": "lib",
     "version": "5.45",
     "license": "BSD-2-Clause",
     "summary": "A C library to determine file types",
@@ -5604,6 +5963,7 @@
   },
   {
     "pkgname": "libmaxminddb",
+    "pkgtype": "lib",
     "version": "1.9.1",
     "license": "Apache-2.0",
     "summary": "A C library for the MaxMind DB file format",
@@ -5619,6 +5979,7 @@
   },
   {
     "pkgname": "libmblen",
+    "pkgtype": "lib",
     "version": "1",
     "summary": "get number of bytes in a character",
     "web-url": "https://pubs.opengroup.org/onlinepubs/9699919799/functions/mblen.html",
@@ -5628,6 +5989,7 @@
   },
   {
     "pkgname": "libmd",
+    "pkgtype": "lib",
     "version": "1.1.0",
     "license": "BSD-3-Clause",
     "summary": "library provides message digest functions found on BSD systems",
@@ -5643,6 +6005,7 @@
   },
   {
     "pkgname": "libmediainfo",
+    "pkgtype": "lib",
     "version": "24.04",
     "license": "BSD-2-Clause",
     "summary": "Unified display of technical and tag data for audio/video",
@@ -5660,6 +6023,7 @@
   },
   {
     "pkgname": "libmesalink",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "BSD-3-Clause",
     "summary": "memory-safe and OpenSSL-compatible TLS library",
@@ -5673,6 +6037,7 @@
   },
   {
     "pkgname": "libmetalink",
+    "pkgtype": "lib",
     "version": "0.1.3",
     "license": "MIT",
     "summary": "A C library to parse Metalink XML files",
@@ -5689,6 +6054,7 @@
   },
   {
     "pkgname": "libmhash",
+    "pkgtype": "lib",
     "version": "0.9.9.9",
     "summary": "A large number of hash algorithms",
     "web-url": "https://mhash.sourceforge.net/",
@@ -5702,6 +6068,7 @@
   },
   {
     "pkgname": "libmill",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "MIT",
     "summary": "Go-style concurrency in C",
@@ -5716,6 +6083,7 @@
   },
   {
     "pkgname": "libminiz",
+    "pkgtype": "lib",
     "version": "2.2.0",
     "summary": "implements the zlib (RFC 1950) and Deflate (RFC 1951) compressed data format specification standards",
     "web-url": "https://github.com/richgel999/miniz",
@@ -5731,6 +6099,7 @@
   },
   {
     "pkgname": "libminizip",
+    "pkgtype": "lib",
     "version": "1.3.1",
     "license": "Zlib",
     "summary": "C library for zip/unzip via zLib",
@@ -5747,6 +6116,7 @@
   },
   {
     "pkgname": "libmnl",
+    "pkgtype": "lib",
     "version": "1.0.5",
     "license": "LGPL-2.1-or-later",
     "summary": "Minimalistic Netlink Library based Linux kernel interfaces",
@@ -5761,6 +6131,7 @@
   },
   {
     "pkgname": "libmp3lame",
+    "pkgtype": "lib",
     "version": "3.100",
     "license": "LGPL-2.0-or-later",
     "summary": "A high quality MPEG Audio Layer III (MP3) encoder",
@@ -5777,6 +6148,7 @@
   },
   {
     "pkgname": "libmpc",
+    "pkgtype": "lib",
     "version": "1.3.1",
     "license": "LGPL-3.0-or-later",
     "summary": "A C library for the arithmetic of high precision complex numbers",
@@ -5793,6 +6165,7 @@
   },
   {
     "pkgname": "libmpfr",
+    "pkgtype": "lib",
     "version": "4.2.1",
     "license": "LGPL-3.0-or-later",
     "summary": "C library for multiple-precision floating-point computations",
@@ -5809,6 +6182,7 @@
   },
   {
     "pkgname": "libmpir",
+    "pkgtype": "lib",
     "version": "3.0.0",
     "license": "GPL-3.0-or-later",
     "summary": "Multiple Precision Integers and Rationals (fork of GMP)",
@@ -5823,6 +6197,7 @@
   },
   {
     "pkgname": "libnet",
+    "pkgtype": "lib",
     "version": "1.3",
     "license": "BSD-2-Clause",
     "summary": "C library for creating IP packets",
@@ -5839,6 +6214,7 @@
   },
   {
     "pkgname": "libnghttp2",
+    "pkgtype": "lib",
     "version": "1.61.0",
     "license": "MIT",
     "summary": "HTTP/2 C Library",
@@ -5854,6 +6230,7 @@
   },
   {
     "pkgname": "libnl",
+    "pkgtype": "lib",
     "version": "3.9.0",
     "license": "LGPL-2.1-or-later",
     "summary": "Netlink Library based Linux kernel interfaces",
@@ -5872,6 +6249,7 @@
   },
   {
     "pkgname": "libnng",
+    "pkgtype": "lib",
     "version": "1.7.3",
     "license": "MIT",
     "summary": "Nanomsg-next-generation -- light-weight brokerless messaging",
@@ -5888,6 +6266,7 @@
   },
   {
     "pkgname": "libobstack",
+    "pkgtype": "lib",
     "version": "1.2.3",
     "license": "GPL-2.0-or-later",
     "summary": "A standalone library to implement glibc obstack",
@@ -5903,6 +6282,7 @@
   },
   {
     "pkgname": "libogg",
+    "pkgtype": "lib",
     "version": "1.3.5",
     "license": "BSD-3-Clause",
     "summary": "Ogg Bitstream Library",
@@ -5919,6 +6299,7 @@
   },
   {
     "pkgname": "libopenh264",
+    "pkgtype": "lib",
     "version": "2.4.1",
     "license": "BSD-2-Clause",
     "summary": "Open Source H.264 Codec",
@@ -5936,6 +6317,7 @@
   },
   {
     "pkgname": "libopus",
+    "pkgtype": "lib",
     "version": "1.5.2",
     "license": "BSD-3-Clause",
     "summary": "Audio codec",
@@ -5951,6 +6333,7 @@
   },
   {
     "pkgname": "libpcap",
+    "pkgtype": "lib",
     "version": "1.10.4",
     "license": "BSD-3-Clause",
     "summary": "Packet(TCP/IP) Capture library",
@@ -5967,6 +6350,7 @@
   },
   {
     "pkgname": "libpcre",
+    "pkgtype": "lib",
     "version": "8.45",
     "license": "BSD-3-Clause",
     "summary": "Perl compatible regular expressions library",
@@ -5982,6 +6366,7 @@
   },
   {
     "pkgname": "libpcre2",
+    "pkgtype": "lib",
     "version": "10.43",
     "license": "BSD-3-Clause",
     "summary": "Perl compatible regular expressions library with a new API",
@@ -5998,6 +6383,7 @@
   },
   {
     "pkgname": "libphonenumber",
+    "pkgtype": "lib",
     "version": "8.13.35",
     "license": "Apache-2.0",
     "summary": "A C++ library for parsing, formatting, and validating international phone numbers",
@@ -6015,6 +6401,7 @@
   },
   {
     "pkgname": "libpipeline",
+    "pkgtype": "lib",
     "version": "1.5.7",
     "license": "GPL-3.0-or-later",
     "summary": "Library for manipulating pipelines of subprocesses in a flexible and convenient way",
@@ -6029,6 +6416,7 @@
   },
   {
     "pkgname": "libpixman",
+    "pkgtype": "lib",
     "version": "0.42.2",
     "license": "MIT",
     "summary": "A low-level library for pixel manipulation",
@@ -6045,6 +6433,7 @@
   },
   {
     "pkgname": "libplist",
+    "pkgtype": "lib",
     "version": "2.4.0",
     "license": "LGPL-2.1-or-later",
     "summary": "A library to handle Apple Property List format in binary or XML",
@@ -6061,6 +6450,7 @@
   },
   {
     "pkgname": "libpng",
+    "pkgtype": "lib",
     "version": "1.6.43",
     "license": "libpng-2.0",
     "summary": "Library for manipulating PNG images",
@@ -6077,6 +6467,7 @@
   },
   {
     "pkgname": "libpng++",
+    "pkgtype": "lib",
     "version": "0.2.10",
     "summary": "C++ wrapper for libpng library",
     "web-url": "https://www.nongnu.org/pngpp/",
@@ -6091,6 +6482,7 @@
   },
   {
     "pkgname": "libprotobuf",
+    "pkgtype": "lib",
     "version": "26.1",
     "license": "BSD-3-Clause",
     "summary": "Protocol Buffers(data interchange format) compiler and library developed by Google",
@@ -6107,6 +6499,7 @@
   },
   {
     "pkgname": "libpsl",
+    "pkgtype": "lib",
     "version": "0.21.5",
     "license": "MIT",
     "summary": "C library for the Public Suffix List",
@@ -6124,6 +6517,7 @@
   },
   {
     "pkgname": "libpugixml",
+    "pkgtype": "lib",
     "version": "1.14",
     "license": "MIT",
     "summary": "Light-weight C++ XML processing library",
@@ -6139,6 +6533,7 @@
   },
   {
     "pkgname": "libqalculate",
+    "pkgtype": "lib",
     "version": "5.0.0",
     "license": "GPL-2.0-or-later",
     "summary": "Library for Qalculate! program",
@@ -6156,6 +6551,7 @@
   },
   {
     "pkgname": "libqrencode",
+    "pkgtype": "lib",
     "version": "4.1.1",
     "license": "LGPL-2.1-or-later",
     "summary": "A fast and compact QR Code encoding library",
@@ -6172,6 +6568,7 @@
   },
   {
     "pkgname": "libquiche",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "BSD-2-Clause",
     "summary": "Savoury implementation of the QUIC transport protocol and HTTP/3",
@@ -6185,6 +6582,7 @@
   },
   {
     "pkgname": "libraqm",
+    "pkgtype": "lib",
     "version": "0.10.1",
     "license": "MIT",
     "summary": "A library for complex text layout",
@@ -6203,6 +6601,7 @@
   },
   {
     "pkgname": "librasterlite",
+    "pkgtype": "lib",
     "version": "1.1g",
     "license": "MPL-1.1",
     "summary": "An open source library to store and retrieve huge raster coverages",
@@ -6219,6 +6618,7 @@
   },
   {
     "pkgname": "librav1e",
+    "pkgtype": "lib",
     "version": "0.7.1",
     "license": "BSD-2-Clause",
     "summary": "The fastest and safest AV1 video encoder",
@@ -6234,6 +6634,7 @@
   },
   {
     "pkgname": "libraw",
+    "pkgtype": "lib",
     "version": "0.21.2",
     "license": "LGPL-2.1-only",
     "summary": "Library for reading RAW files from digital photo cameras",
@@ -6249,6 +6650,7 @@
   },
   {
     "pkgname": "libre",
+    "pkgtype": "lib",
     "version": "3.11.0",
     "license": "BSD-3-Clause",
     "summary": "Toolkit library for asynchronous network I/O with protocol stacks",
@@ -6265,6 +6667,7 @@
   },
   {
     "pkgname": "libre2c",
+    "pkgtype": "lib",
     "version": "3.1",
     "summary": "Generate C-based recognizers from regular expressions",
     "web-url": "https://re2c.org/",
@@ -6280,6 +6683,7 @@
   },
   {
     "pkgname": "libressl",
+    "pkgtype": "lib",
     "version": "3.9.1",
     "license": "OpenSSL",
     "summary": "Version of the SSL/TLS protocol forked from OpenSSL",
@@ -6295,6 +6699,7 @@
   },
   {
     "pkgname": "librtmpdump",
+    "pkgtype": "lib",
     "version": "2.4.20151223",
     "license": "GPL-2.0-or-later",
     "summary": "A C library for downloading RTMP streaming media",
@@ -6313,6 +6718,7 @@
   },
   {
     "pkgname": "librttopo",
+    "pkgtype": "lib",
     "version": "1.1.0",
     "license": "GPL-2.0-or-later",
     "summary": "RT Topology Library",
@@ -6329,6 +6735,7 @@
   },
   {
     "pkgname": "libsamplerate",
+    "pkgtype": "lib",
     "version": "0.2.2",
     "license": "BSD-2-Clause",
     "summary": "Library for sample rate conpackage set version of audio data",
@@ -6343,6 +6750,7 @@
   },
   {
     "pkgname": "libsass",
+    "pkgtype": "lib",
     "version": "3.6.6",
     "license": "MIT",
     "summary": "A C/C++ implementation of a Sass compiler",
@@ -6358,6 +6766,7 @@
   },
   {
     "pkgname": "libsigsegv",
+    "pkgtype": "lib",
     "version": "2.14",
     "license": "GPL-2.0-or-later",
     "summary": "A library for handling page faults in user mode",
@@ -6372,6 +6781,7 @@
   },
   {
     "pkgname": "libsmi",
+    "pkgtype": "lib",
     "version": "0.5.0",
     "license": "TCL BSD-3-Clause Beerware",
     "summary": "A library to Access SMI MIB Information",
@@ -6388,6 +6798,7 @@
   },
   {
     "pkgname": "libsnappy",
+    "pkgtype": "lib",
     "version": "1.1.10",
     "license": "BSD-3-Clause",
     "summary": "Compression/decompression library aiming for high speed",
@@ -6404,6 +6815,7 @@
   },
   {
     "pkgname": "libsndfile",
+    "pkgtype": "lib",
     "version": "1.2.2",
     "license": "LGPL-2.1-or-later",
     "summary": "C library for files containing sampled sound",
@@ -6420,6 +6832,7 @@
   },
   {
     "pkgname": "libsodium",
+    "pkgtype": "lib",
     "version": "1.0.19",
     "license": "ISC",
     "summary": "A modern, portable, easy to use crypto library",
@@ -6436,6 +6849,7 @@
   },
   {
     "pkgname": "libspatialite",
+    "pkgtype": "lib",
     "version": "5.1.0",
     "license": "MPL-1.1",
     "summary": "Adds spatial SQL capabilities to SQLite",
@@ -6451,6 +6865,7 @@
   },
   {
     "pkgname": "libspectre",
+    "pkgtype": "lib",
     "version": "0.2.12",
     "license": "GPL-2.0-or-later",
     "summary": "Small library for rendering Postscript documents",
@@ -6467,6 +6882,7 @@
   },
   {
     "pkgname": "libspeex",
+    "pkgtype": "lib",
     "version": "1.2.1",
     "license": "BSD-3-Clause",
     "summary": "Audio codec designed for speech",
@@ -6483,6 +6899,7 @@
   },
   {
     "pkgname": "libspeexdsp",
+    "pkgtype": "lib",
     "version": "1.2.1",
     "license": "BSD-3-Clause",
     "summary": "Speex audio processing library",
@@ -6499,6 +6916,7 @@
   },
   {
     "pkgname": "libspng",
+    "pkgtype": "lib",
     "version": "0.7.4",
     "license": "BSD-2-Clause",
     "summary": "A C library for reading and writing PNG format files with a focus on security and ease of use.",
@@ -6516,6 +6934,7 @@
   },
   {
     "pkgname": "libsqlite3",
+    "pkgtype": "lib",
     "version": "3.45.3",
     "license": "blessing",
     "summary": "A small, fast, self-contained, high-reliability, full-featured, SQL database engine written in C",
@@ -6531,6 +6950,7 @@
   },
   {
     "pkgname": "libsrtp",
+    "pkgtype": "lib",
     "version": "2.4.2",
     "license": "BSD-3-Clause",
     "summary": "Implementation of the Secure Real-time Transport Protocol",
@@ -6547,6 +6967,7 @@
   },
   {
     "pkgname": "libssh",
+    "pkgtype": "lib",
     "version": "0.10.6",
     "license": "LGPL-2.1-or-later",
     "summary": "C library SSHv1/SSHv2 client and server protocols",
@@ -6565,6 +6986,7 @@
   },
   {
     "pkgname": "libssh2",
+    "pkgtype": "lib",
     "version": "1.11.0",
     "license": "BSD-3-Clause",
     "summary": "C library implementing the SSH2 protocol",
@@ -6581,6 +7003,7 @@
   },
   {
     "pkgname": "libstrchrnul",
+    "pkgtype": "lib",
     "version": "1",
     "summary": "returns a pointer to the first occurrence of the character c in the string s",
     "web-url": "https://linux.die.net/man/3/strchrnul",
@@ -6590,6 +7013,7 @@
   },
   {
     "pkgname": "libtasn1",
+    "pkgtype": "lib",
     "version": "4.19.0",
     "license": "LGPL-2.1-or-later",
     "summary": "ASN.1 structure parser library",
@@ -6605,6 +7029,7 @@
   },
   {
     "pkgname": "libtesseract",
+    "pkgtype": "lib",
     "version": "5.3.4",
     "license": "Apache-2.0",
     "summary": "OCR (Optical Character Recognition) engine",
@@ -6621,6 +7046,7 @@
   },
   {
     "pkgname": "libtextstyle",
+    "pkgtype": "lib",
     "version": "0.22.5",
     "license": "GPL-3.0-or-later",
     "summary": "A C library that provides an easy way to add styling to programs that produce output to a console or terminal emulator window",
@@ -6638,6 +7064,7 @@
   },
   {
     "pkgname": "libthai",
+    "pkgtype": "lib",
     "version": "0.1.28",
     "license": "LGPL-2.1-or-later",
     "summary": "Thai language support library",
@@ -6654,6 +7081,7 @@
   },
   {
     "pkgname": "libtheora",
+    "pkgtype": "lib",
     "version": "1.1.1",
     "license": "BSD-3-Clause",
     "summary": "Open video compression format",
@@ -6671,6 +7099,7 @@
   },
   {
     "pkgname": "libtiff",
+    "pkgtype": "lib",
     "version": "4.6.0",
     "summary": "TIFF library",
     "web-url": "https://libtiff.gitlab.io/libtiff",
@@ -6686,6 +7115,7 @@
   },
   {
     "pkgname": "libtinyxml2",
+    "pkgtype": "lib",
     "version": "10.0.0",
     "license": "Zlib",
     "summary": "A simple, small, efficient, C++ XML parser library",
@@ -6701,6 +7131,7 @@
   },
   {
     "pkgname": "libtirpc",
+    "pkgtype": "lib",
     "version": "1.3.3",
     "license": "BSD-3-Clause",
     "summary": "Port of Sun Transport-Independent RPC library to Linux",
@@ -6721,6 +7152,7 @@
   },
   {
     "pkgname": "libtool",
+    "pkgtype": "lib",
     "version": "2.4.7",
     "license": "GPL-2.0-or-later",
     "summary": "Generic library support script",
@@ -6736,6 +7168,7 @@
   },
   {
     "pkgname": "libtorrent-rakshasa",
+    "pkgtype": "lib",
     "version": "0.13.8",
     "license": "GPL-2.0-or-later",
     "summary": "BitTorrent library with a focus on high performance",
@@ -6754,6 +7187,7 @@
   },
   {
     "pkgname": "libtorrent-rasterbar",
+    "pkgtype": "lib",
     "version": "2.0.10",
     "license": "BSD-3-Clause",
     "summary": "An efficient feature complete C++ bittorrent implementation focusing on efficiency and scalability",
@@ -6770,6 +7204,7 @@
   },
   {
     "pkgname": "libtwolame",
+    "pkgtype": "lib",
     "version": "0.4.0",
     "license": "LGPL-2.1",
     "summary": "Optimized MPEG Audio Layer 2 (MP2) encoder",
@@ -6786,6 +7221,7 @@
   },
   {
     "pkgname": "libunibreak",
+    "pkgtype": "lib",
     "version": "6.1",
     "license": "Zlib",
     "summary": "line breaking and word breaking algorithms",
@@ -6801,6 +7237,7 @@
   },
   {
     "pkgname": "libunistring",
+    "pkgtype": "lib",
     "version": "1.2",
     "license": "GPL-2.0-only",
     "summary": "C library for manipulating Unicode strings",
@@ -6818,6 +7255,7 @@
   },
   {
     "pkgname": "libunwind",
+    "pkgtype": "lib",
     "version": "1.7.2",
     "license": "MIT",
     "summary": "A portable and efficient C library for determining the call-chain of a program",
@@ -6834,6 +7272,7 @@
   },
   {
     "pkgname": "libupnp",
+    "pkgtype": "lib",
     "version": "1.14.18",
     "license": "BSD-3-Clause",
     "summary": "Portable UPnP development kit",
@@ -6851,6 +7290,7 @@
   },
   {
     "pkgname": "libusb",
+    "pkgtype": "lib",
     "version": "1.0.27",
     "license": "LGPL-2.1-or-later",
     "summary": "A C library that provides generic access to USB devices",
@@ -6866,6 +7306,7 @@
   },
   {
     "pkgname": "libusbmuxd",
+    "pkgtype": "lib",
     "version": "2.1.0",
     "license": "GPL-2.0-or-later LGPL-2.1-or-later",
     "summary": "USB multiplexor library for iOS devices",
@@ -6884,6 +7325,7 @@
   },
   {
     "pkgname": "libusrsctp",
+    "pkgtype": "lib",
     "version": "0.9.5.0",
     "license": "BSD-3-Clause",
     "summary": "Portable SCTP userland stack",
@@ -6901,6 +7343,7 @@
   },
   {
     "pkgname": "libuuid",
+    "pkgtype": "lib",
     "version": "2.39.3",
     "license": "GPL-2.0-or-later",
     "summary": "DCE compatible Universally Unique Identifier library",
@@ -6917,6 +7360,7 @@
   },
   {
     "pkgname": "libuv",
+    "pkgtype": "lib",
     "version": "1.46.0",
     "license": "MIT",
     "summary": "Multi-platform support library with a focus on asynchronous I/O",
@@ -6932,6 +7376,7 @@
   },
   {
     "pkgname": "libvips",
+    "pkgtype": "lib",
     "version": "8.15.2",
     "license": "LGPL-2.1-or-later",
     "summary": "A fast image processing library with low memory needs",
@@ -6949,6 +7394,7 @@
   },
   {
     "pkgname": "libvmaf",
+    "pkgtype": "lib",
     "version": "3.0.0",
     "license": "BSD-2-Clause-Patent",
     "summary": "Perceptual video quality assessment based on multi-method fusion",
@@ -6965,6 +7411,7 @@
   },
   {
     "pkgname": "libvorbis",
+    "pkgtype": "lib",
     "version": "1.3.7",
     "license": "BSD-3-Clause",
     "summary": "Vorbis General Audio Compression Codec",
@@ -6982,6 +7429,7 @@
   },
   {
     "pkgname": "libvpx",
+    "pkgtype": "lib",
     "version": "1.13.1",
     "license": "BSD-3-Clause",
     "summary": "VP8/VP9 video codec",
@@ -6997,6 +7445,7 @@
   },
   {
     "pkgname": "libwavpack",
+    "pkgtype": "lib",
     "version": "5.7.0",
     "license": "BSD-3-Clause",
     "summary": "Hybrid lossless audio compression",
@@ -7013,6 +7462,7 @@
   },
   {
     "pkgname": "libwebm",
+    "pkgtype": "lib",
     "version": "1.0.0.31",
     "license": "BSD-3-Clause",
     "summary": "WebM container",
@@ -7029,6 +7479,7 @@
   },
   {
     "pkgname": "libwebp",
+    "pkgtype": "lib",
     "version": "1.3.2",
     "license": "BSD-3-Clause",
     "summary": "Image format providing lossless and lossy compression for web images",
@@ -7046,6 +7497,7 @@
   },
   {
     "pkgname": "libwebsockets",
+    "pkgtype": "lib",
     "version": "4.3.3",
     "license": "MIT",
     "summary": "A flexible, lightweight pure C library for implementing modern network protocols easily with a tiny footprint, using a nonblocking event loop.",
@@ -7064,6 +7516,7 @@
   },
   {
     "pkgname": "libwordexp",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "summary": "wordexp(3) implementation",
     "web-url": "https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html",
@@ -7076,6 +7529,7 @@
   },
   {
     "pkgname": "libx264",
+    "pkgtype": "lib",
     "version": "r3108",
     "license": "GPL-2.0-only",
     "summary": "A free library for encoding video streams into the H.264/MPEG-4 AVC compression format",
@@ -7091,6 +7545,7 @@
   },
   {
     "pkgname": "libx265",
+    "pkgtype": "lib",
     "version": "3.6",
     "license": "GPL-2.0-only",
     "summary": "An open-source H.265/HEVC encoder",
@@ -7107,6 +7562,7 @@
   },
   {
     "pkgname": "libxcrypt",
+    "pkgtype": "lib",
     "version": "4.4.36",
     "license": "LGPL-2.1-or-later",
     "summary": "Extended crypt library for descrypt, md5crypt, bcrypt, and others",
@@ -7123,6 +7579,7 @@
   },
   {
     "pkgname": "libxml2",
+    "pkgtype": "lib",
     "version": "2.12.6",
     "license": "MIT",
     "summary": "GNOME XML library",
@@ -7141,6 +7598,7 @@
   },
   {
     "pkgname": "libxslt",
+    "pkgtype": "lib",
     "version": "1.1.39",
     "license": "X11",
     "summary": "C XSLT library for GNOME",
@@ -7158,6 +7616,7 @@
   },
   {
     "pkgname": "libxvid",
+    "pkgtype": "lib",
     "version": "1.3.7",
     "license": "GPL-2.0-or-later",
     "summary": "A high-performance, high-quality MPEG-4 video library",
@@ -7173,6 +7632,7 @@
   },
   {
     "pkgname": "libyaml",
+    "pkgtype": "lib",
     "version": "0.2.5",
     "license": "MIT",
     "summary": "A C library for parsing and emitting YAML",
@@ -7189,6 +7649,7 @@
   },
   {
     "pkgname": "libyuv",
+    "pkgtype": "lib",
     "version": "1788",
     "summary": "C library includes YUV conversion and scaling functionality",
     "web-url": "https://chromium.googlesource.com/libyuv/libyuv",
@@ -7205,6 +7666,7 @@
   },
   {
     "pkgname": "libz",
+    "pkgtype": "lib",
     "version": "1.3.1",
     "license": "Zlib",
     "summary": "A general purpose data compression library",
@@ -7223,6 +7685,7 @@
   },
   {
     "pkgname": "libz3",
+    "pkgtype": "lib",
     "version": "4.12.6",
     "license": "MIT",
     "summary": "High-performance theorem prover",
@@ -7238,6 +7701,7 @@
   },
   {
     "pkgname": "libzen",
+    "pkgtype": "lib",
     "version": "0.4.41",
     "license": "BSD-2-Clause",
     "summary": "Unified display of technical and tag data for audio/video",
@@ -7253,6 +7717,7 @@
   },
   {
     "pkgname": "libzim",
+    "pkgtype": "lib",
     "version": "9.2.0",
     "license": "GPL-2.0-or-later",
     "summary": "Reference implementation of the ZIM specification",
@@ -7270,6 +7735,7 @@
   },
   {
     "pkgname": "libzip",
+    "pkgtype": "lib",
     "version": "1.10.1",
     "license": "BSD-3-Clause",
     "summary": "A C library for reading, creating, and modifying zip archives",
@@ -7286,6 +7752,7 @@
   },
   {
     "pkgname": "libzlog",
+    "pkgtype": "lib",
     "version": "1.2.17",
     "license": "LGPL-2.1-or-later",
     "summary": "A reliable, high-performance, thread-safe, flexible, clear-model logging library written in pure C",
@@ -7303,6 +7770,7 @@
   },
   {
     "pkgname": "libzmq",
+    "pkgtype": "lib",
     "version": "4.3.5",
     "license": "LGPL-3.0-or-later",
     "summary": "An open-source universal messaging library",
@@ -7319,6 +7787,7 @@
   },
   {
     "pkgname": "libzstd",
+    "pkgtype": "lib",
     "version": "1.5.6",
     "license": "BSD-3-Clause",
     "summary": "A real-time compression library with high compression ratios",
@@ -7334,6 +7803,7 @@
   },
   {
     "pkgname": "lief",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "license": "Apache-2.0",
     "summary": "Library to Instrument Executable Formats",
@@ -7347,6 +7817,7 @@
   },
   {
     "pkgname": "lighttpd",
+    "pkgtype": "exe",
     "version": "1.4.76",
     "license": "BSD-3-Clause",
     "summary": "A secure, fast, compliant, and very flexible web server that has been optimized for high-performance environments",
@@ -7363,6 +7834,7 @@
   },
   {
     "pkgname": "livego",
+    "pkgtype": "pie",
     "version": "0.0.15",
     "license": "MIT",
     "summary": "live video streaming server in golang",
@@ -7378,6 +7850,7 @@
   },
   {
     "pkgname": "llhttp",
+    "pkgtype": "lib",
     "version": "6.0.6",
     "license": "MIT",
     "summary": "http_parser replacement",
@@ -7393,6 +7866,7 @@
   },
   {
     "pkgname": "lmdb",
+    "pkgtype": "exe+lib",
     "version": "0.9.32",
     "license": "OLDAP-2.8",
     "summary": "An extraordinarily fast, memory-efficient, memory-mapped, key-value database",
@@ -7408,6 +7882,7 @@
   },
   {
     "pkgname": "lnd",
+    "pkgtype": "pie",
     "version": "0.15.0",
     "license": "MIT",
     "summary": "Lightning Network Daemon",
@@ -7423,6 +7898,7 @@
   },
   {
     "pkgname": "lodepng",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "Zlib",
     "summary": "PNG encoder and decoder in C and C++",
@@ -7435,6 +7911,7 @@
   },
   {
     "pkgname": "log4cplus",
+    "pkgtype": "lib",
     "version": "2.1.1",
     "license": "Apache-2.0",
     "summary": "A simple-to-use, log4j-like logging framework for C++",
@@ -7450,6 +7927,7 @@
   },
   {
     "pkgname": "lolcat",
+    "pkgtype": "exe",
     "version": "1.2",
     "summary": "Rainbows and unicorns in your console",
     "web-url": "https://github.com/jaseg/lolcat",
@@ -7463,6 +7941,7 @@
   },
   {
     "pkgname": "lrzip",
+    "pkgtype": "exe",
     "version": "0.651",
     "license": "GPL-2.0-or-later",
     "summary": "Compression program with a very high compression ratio",
@@ -7481,6 +7960,7 @@
   },
   {
     "pkgname": "lsd",
+    "pkgtype": "exe",
     "version": "1.1.2",
     "license": "Apache-2.0",
     "summary": "A rewrite of GNU ls with lots of added features like colors, icons, tree-view, more formatting options, etc",
@@ -7498,6 +7978,7 @@
   },
   {
     "pkgname": "lsof",
+    "pkgtype": "exe",
     "version": "4.99.3",
     "license": "Zlib",
     "summary": "A command-line tool to list open files",
@@ -7515,6 +7996,7 @@
   },
   {
     "pkgname": "lua",
+    "pkgtype": "pie",
     "version": "5.4.6",
     "license": "MIT",
     "summary": "Powerful, lightweight programming language",
@@ -7531,6 +8013,7 @@
   },
   {
     "pkgname": "luajit",
+    "pkgtype": "lib",
     "version": "2.1.0",
     "license": "MIT",
     "summary": "Just-In-Time Compiler (JIT) for the Lua programming language",
@@ -7548,6 +8031,7 @@
   },
   {
     "pkgname": "luau",
+    "pkgtype": "exe",
     "version": "0.623",
     "license": "MIT",
     "summary": "A fast, small, safe, gradually typed embeddable scripting language derived from Lua",
@@ -7563,6 +8047,7 @@
   },
   {
     "pkgname": "lunzip",
+    "pkgtype": "exe",
     "version": "1.14",
     "license": "GPL-2.0-or-later",
     "summary": "Decompressor for lzip files",
@@ -7577,6 +8062,7 @@
   },
   {
     "pkgname": "lychee",
+    "pkgtype": "exe",
     "version": "0.14.3",
     "license": "MIT",
     "summary": "A fast, async, resource-friendly link checker",
@@ -7593,6 +8079,7 @@
   },
   {
     "pkgname": "lynx",
+    "pkgtype": "exe",
     "version": "2.8.9rel.1",
     "license": "GPL-2.0-or-later",
     "summary": "A text-based web browser",
@@ -7609,6 +8096,7 @@
   },
   {
     "pkgname": "lz4",
+    "pkgtype": "exe",
     "version": "1.9.4",
     "license": "BSD-2-Clause",
     "summary": "Extremely Fast Compression algorithm",
@@ -7624,6 +8112,7 @@
   },
   {
     "pkgname": "lzip",
+    "pkgtype": "exe",
     "version": "1.24.1",
     "license": "GPL-2.0-or-later",
     "summary": "LZMA-based compression program similar to gzip or bzip2",
@@ -7638,6 +8127,7 @@
   },
   {
     "pkgname": "lzlib",
+    "pkgtype": "lib",
     "version": "1.14",
     "license": "BSD-2-Clause",
     "summary": "Data compression library",
@@ -7652,6 +8142,7 @@
   },
   {
     "pkgname": "lzop",
+    "pkgtype": "exe",
     "version": "1.04",
     "license": "GPL-2.0-or-later",
     "summary": "A file compressor",
@@ -7668,6 +8159,7 @@
   },
   {
     "pkgname": "magic_enum",
+    "pkgtype": "lib",
     "version": "0.9.5",
     "license": "MIT",
     "summary": "Static reflection for enums (to string, from string, iteration) for modern C++",
@@ -7683,6 +8175,7 @@
   },
   {
     "pkgname": "mbedtls",
+    "pkgtype": "exe+lib",
     "version": "3.6.0",
     "license": "Apache-2.0",
     "summary": "Cryptographic and SSL/TLS library",
@@ -7700,6 +8193,7 @@
   },
   {
     "pkgname": "mcfly",
+    "pkgtype": "exe",
     "version": "0.8.4",
     "license": "MIT",
     "summary": "Fly through your shell history",
@@ -7715,6 +8209,7 @@
   },
   {
     "pkgname": "md4c",
+    "pkgtype": "exe",
     "version": "0.5.2",
     "license": "MIT",
     "summary": "A fast, SAX-like Markdown parser for C",
@@ -7730,6 +8225,7 @@
   },
   {
     "pkgname": "mdbook",
+    "pkgtype": "exe",
     "version": "0.4.37",
     "license": "MPL-2.0",
     "summary": "A command-line tool to create modern online books from Markdown files",
@@ -7745,6 +8241,7 @@
   },
   {
     "pkgname": "mediainfo",
+    "pkgtype": "exe",
     "version": "24.04",
     "license": "BSD-2-Clause",
     "summary": "A convenient unified display of the most relevant technical and tag data for video and audio files",
@@ -7761,6 +8258,7 @@
   },
   {
     "pkgname": "mimalloc",
+    "pkgtype": "lib",
     "version": "2.1.2",
     "license": "MIT",
     "summary": "Compact general purpose allocator",
@@ -7776,6 +8274,7 @@
   },
   {
     "pkgname": "minisign",
+    "pkgtype": "exe",
     "version": "0.11",
     "license": "ISC",
     "summary": "A dead simple tool to sign files and verify signatures",
@@ -7792,6 +8291,7 @@
   },
   {
     "pkgname": "minizip-ng",
+    "pkgtype": "lib",
     "version": "4.0.5",
     "license": "Zlib",
     "summary": "Zip file manipulation library with minizip 1.x compatibility layer",
@@ -7808,6 +8308,7 @@
   },
   {
     "pkgname": "mm-wiki",
+    "pkgtype": "pie",
     "version": "0.2.1",
     "license": "MIT",
     "summary": "wiki manage service",
@@ -7823,6 +8324,7 @@
   },
   {
     "pkgname": "mold",
+    "pkgtype": "exe",
     "version": "2.30.0",
     "license": "AGPL-3.0-only",
     "summary": "Modern Linker",
@@ -7840,6 +8342,7 @@
   },
   {
     "pkgname": "mosh",
+    "pkgtype": "pie",
     "version": "1.4.0",
     "license": "GPL-3.0-or-later",
     "summary": "Remote terminal application",
@@ -7858,6 +8361,7 @@
   },
   {
     "pkgname": "mozjpeg",
+    "pkgtype": "exe+lib",
     "version": "4.1.5",
     "license": "BSD-3-Clause",
     "summary": "Improved JPEG encoder",
@@ -7874,6 +8378,7 @@
   },
   {
     "pkgname": "mpdecimal",
+    "pkgtype": "lib",
     "version": "4.0.0",
     "license": "BSD-2-Clause",
     "summary": "Library for decimal floating point arithmetic",
@@ -7889,6 +8394,7 @@
   },
   {
     "pkgname": "mpg123",
+    "pkgtype": "exe",
     "version": "1.32.6",
     "license": "LGPL-2.1-only",
     "summary": "MP3 player",
@@ -7906,6 +8412,7 @@
   },
   {
     "pkgname": "mruby@3.0.0",
+    "pkgtype": "exe",
     "version": "3.0.0",
     "license": "MIT",
     "summary": "A lightweight implementation of the Ruby language",
@@ -7923,6 +8430,7 @@
   },
   {
     "pkgname": "mruby@3.2.0",
+    "pkgtype": "exe",
     "version": "3.2.0",
     "license": "MIT",
     "summary": "A lightweight implementation of the Ruby language",
@@ -7941,6 +8449,7 @@
   },
   {
     "pkgname": "msgpack-c",
+    "pkgtype": "lib",
     "version": "6.0.1",
     "license": "BSL-1.0",
     "summary": "Library for a binary-based efficient data interchange format",
@@ -7956,6 +8465,7 @@
   },
   {
     "pkgname": "naabu",
+    "pkgtype": "pie",
     "version": "2.3.0",
     "license": "MIT",
     "summary": "Fast port scanner",
@@ -7973,6 +8483,7 @@
   },
   {
     "pkgname": "nano",
+    "pkgtype": "exe",
     "version": "7.2",
     "license": "GPL-3.0-or-later",
     "summary": "Free (GNU) replacement for the Pico text editor",
@@ -7990,6 +8501,7 @@
   },
   {
     "pkgname": "nanomsg",
+    "pkgtype": "exe+lib",
     "version": "1.2",
     "license": "MIT",
     "summary": "Socket library in C",
@@ -8005,6 +8517,7 @@
   },
   {
     "pkgname": "nap",
+    "pkgtype": "pie",
     "version": "0.1.1",
     "license": "MIT",
     "summary": "A code snippet manager for your terminal",
@@ -8020,6 +8533,7 @@
   },
   {
     "pkgname": "nasm",
+    "pkgtype": "exe",
     "version": "2.16.02",
     "license": "BSD-2-Clause",
     "summary": "Netwide Assembler (NASM) is an 80x86 assembler",
@@ -8035,6 +8549,7 @@
   },
   {
     "pkgname": "navi",
+    "pkgtype": "exe",
     "version": "2.23.0",
     "license": "Apache-2.0",
     "summary": "Interactive cheatsheet tool for the command-line",
@@ -8050,6 +8565,7 @@
   },
   {
     "pkgname": "ncdu",
+    "pkgtype": "exe",
     "version": "1.16",
     "license": "MIT",
     "summary": "NCurses Disk Usage",
@@ -8065,6 +8581,7 @@
   },
   {
     "pkgname": "ncurses",
+    "pkgtype": "lib",
     "version": "6.4",
     "license": "MIT",
     "summary": "Text-based UI library",
@@ -8083,6 +8600,7 @@
   },
   {
     "pkgname": "neofetch",
+    "pkgtype": "exe",
     "version": "7.1.0",
     "license": "MIT",
     "summary": "Fast, highly customisable system info script",
@@ -8097,6 +8615,7 @@
   },
   {
     "pkgname": "netcat",
+    "pkgtype": "exe",
     "version": "0.7.1",
     "license": "GPL-2.0-or-later",
     "summary": "GNU netcat is a GNU rewrite of the classic netcat (aka nc) utility for reading and writing data on TCP and UDP streams",
@@ -8111,6 +8630,7 @@
   },
   {
     "pkgname": "nethogs",
+    "pkgtype": "exe",
     "version": "0.8.7",
     "license": "GPL-2.0",
     "summary": "Net top tool grouping bandwidth per process",
@@ -8128,6 +8648,7 @@
   },
   {
     "pkgname": "netpbm",
+    "pkgtype": "exe",
     "version": "10.86.40",
     "license": "GPL-3.0-or-later",
     "summary": "A toolkit for manipulation of graphic images, including conversion of images between a variety of different formats",
@@ -8145,6 +8666,7 @@
   },
   {
     "pkgname": "nettle",
+    "pkgtype": "lib",
     "version": "3.9.1",
     "license": "GPL-2.0-or-later",
     "summary": "Low-level cryptographic library",
@@ -8161,6 +8683,7 @@
   },
   {
     "pkgname": "nghttp2",
+    "pkgtype": "exe+lib",
     "version": "1.61.0",
     "license": "MIT",
     "summary": "HTTP/2 C Library",
@@ -8180,6 +8703,7 @@
   },
   {
     "pkgname": "nghttp3",
+    "pkgtype": "exe+lib",
     "version": "2024.05.15",
     "license": "MIT",
     "summary": "HTTP/3 library written in C",
@@ -8193,6 +8717,7 @@
   },
   {
     "pkgname": "nginx",
+    "pkgtype": "exe",
     "version": "1.25.4",
     "license": "BSD-2-Clause",
     "summary": "HTTP(S) server and reverse proxy, and IMAP/POP3 proxy server",
@@ -8210,6 +8735,7 @@
   },
   {
     "pkgname": "ngtcp2",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "MIT",
     "summary": "QUIC library written in C",
@@ -8224,6 +8750,7 @@
   },
   {
     "pkgname": "ninja",
+    "pkgtype": "exe",
     "version": "1.12.0",
     "license": "Apache-2.0",
     "summary": "A small build system with a focus on speed",
@@ -8240,6 +8767,7 @@
   },
   {
     "pkgname": "nlohmann-json",
+    "pkgtype": "lib",
     "version": "3.11.3",
     "license": "MIT",
     "summary": "JSON for modern C++",
@@ -8255,6 +8783,7 @@
   },
   {
     "pkgname": "nnn",
+    "pkgtype": "exe",
     "version": "4.9",
     "license": "BSD-2-Clause",
     "summary": "Tiny, lightning fast, feature-packed file manager",
@@ -8272,6 +8801,7 @@
   },
   {
     "pkgname": "npth",
+    "pkgtype": "lib",
     "version": "1.6",
     "license": "LGPL-2.1-or-later",
     "summary": "New GNU portable threads library",
@@ -8288,6 +8818,7 @@
   },
   {
     "pkgname": "nsh",
+    "pkgtype": "exe",
     "version": "0.4.2",
     "license": "MIT",
     "summary": "Fish-like, POSIX-compatible shell",
@@ -8303,6 +8834,7 @@
   },
   {
     "pkgname": "ntbtls",
+    "pkgtype": "lib",
     "version": "0.3.2",
     "license": "GPL-3.0-or-later",
     "summary": "Not Too Bad TLS library",
@@ -8319,6 +8851,7 @@
   },
   {
     "pkgname": "nuclei",
+    "pkgtype": "pie",
     "version": "3.2.6",
     "license": "MIT",
     "summary": "HTTP/DNS scanner configurable via YAML templates",
@@ -8334,6 +8867,7 @@
   },
   {
     "pkgname": "numactl",
+    "pkgtype": "lib",
     "version": "2.0.18",
     "license": "GPL-2.0-or-later",
     "summary": "NUMA support for Linux",
@@ -8350,6 +8884,7 @@
   },
   {
     "pkgname": "nushell",
+    "pkgtype": "exe",
     "version": "0.92.2",
     "license": "MIT",
     "summary": "A new type of shell",
@@ -8367,6 +8902,7 @@
   },
   {
     "pkgname": "oat++",
+    "pkgtype": "lib",
     "version": "1.3.0",
     "license": "Apache-2.0",
     "summary": "A light and powerful web framework for C++",
@@ -8382,6 +8918,7 @@
   },
   {
     "pkgname": "obfs4proxy",
+    "pkgtype": "pie",
     "version": "0.0.14",
     "license": "BSD-2-Clause",
     "summary": "Pluggable transport proxy for Tor, implementing obfs4",
@@ -8397,6 +8934,7 @@
   },
   {
     "pkgname": "oboe",
+    "pkgtype": "lib",
     "version": "1.8.1",
     "license": "Apache-2.0",
     "summary": "An easy-to-use, high-performance audio library for Android",
@@ -8413,6 +8951,7 @@
   },
   {
     "pkgname": "oniguruma",
+    "pkgtype": "lib",
     "version": "6.9.9",
     "license": "BSD-2-Clause",
     "summary": "Regular expressions library",
@@ -8428,6 +8967,7 @@
   },
   {
     "pkgname": "openal-soft",
+    "pkgtype": "exe+lib",
     "version": "1.23.1",
     "license": "LGPL-2.0-or-later",
     "summary": "Implementation of the OpenAL 3D audio API",
@@ -8443,6 +8983,7 @@
   },
   {
     "pkgname": "openblas",
+    "pkgtype": "lib",
     "version": "0.3.26",
     "license": "BSD-3-Clause",
     "summary": "Optimized BLAS library",
@@ -8459,6 +9000,7 @@
   },
   {
     "pkgname": "opencolorio",
+    "pkgtype": "lib",
     "version": "2.3.2",
     "license": "BSD-3-Clause",
     "summary": "Color management solution geared towards motion picture production",
@@ -8475,6 +9017,7 @@
   },
   {
     "pkgname": "opencv",
+    "pkgtype": "lib",
     "version": "4.9.0",
     "license": "Apache-2.0",
     "summary": "Open source computer vision library",
@@ -8493,6 +9036,7 @@
   },
   {
     "pkgname": "openexr",
+    "pkgtype": "lib",
     "version": "3.2.4",
     "license": "BSD-3-Clause",
     "summary": "High dynamic-range image file format",
@@ -8510,6 +9054,7 @@
   },
   {
     "pkgname": "openjpeg",
+    "pkgtype": "lib",
     "version": "2.5.2",
     "license": "BSD-2-Clause",
     "summary": "Library for JPEG-2000 image manipulation",
@@ -8527,6 +9072,7 @@
   },
   {
     "pkgname": "openlibm",
+    "pkgtype": "lib",
     "version": "0.8.2",
     "license": "MIT ISC BSD-2-Clause",
     "summary": "High quality, portable, open source libm implementation",
@@ -8544,6 +9090,7 @@
   },
   {
     "pkgname": "openmpi",
+    "pkgtype": "lib",
     "version": "4.1.6",
     "license": "BSD-3-Clause",
     "summary": "High performance message passing library",
@@ -8564,6 +9111,7 @@
   },
   {
     "pkgname": "openssl",
+    "pkgtype": "exe",
     "version": "3.3.0",
     "license": "Apache-2.0",
     "summary": "Cryptography and SSL/TLS Toolkit",
@@ -8582,6 +9130,7 @@
   },
   {
     "pkgname": "openssl-dev",
+    "pkgtype": "lib",
     "version": "3.3.0",
     "license": "Apache-2.0",
     "summary": "Cryptography and SSL/TLS Toolkit",
@@ -8600,6 +9149,7 @@
   },
   {
     "pkgname": "openssl-fips",
+    "pkgtype": "lib",
     "version": "2.0.16",
     "license": "OpenSSL",
     "summary": "Cryptography and SSL/TLS Toolkit",
@@ -8615,6 +9165,7 @@
   },
   {
     "pkgname": "openssl@1.1",
+    "pkgtype": "exe+lib",
     "version": "1.1.1w",
     "license": "OpenSSL",
     "summary": "Cryptography and SSL/TLS Toolkit",
@@ -8631,6 +9182,7 @@
   },
   {
     "pkgname": "p11-kit",
+    "pkgtype": "lib",
     "version": "0.24.1",
     "license": "BSD-3-Clause",
     "summary": "Library to load and enumerate PKCS#11 modules",
@@ -8647,6 +9199,7 @@
   },
   {
     "pkgname": "p7zip",
+    "pkgtype": "exe",
     "version": "17.05",
     "license": "LGPL-2.1-or-later",
     "summary": "7-Zip (high compression file archiver) implementation",
@@ -8664,6 +9217,7 @@
   },
   {
     "pkgname": "packcc",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "license": "MIT",
     "summary": "A packrat parser generator for C",
@@ -8676,6 +9230,7 @@
   },
   {
     "pkgname": "pango",
+    "pkgtype": "lib",
     "version": "1.52.2",
     "license": "LGPL-2.0-or-later",
     "summary": "Framework for layout and rendering of i18n text",
@@ -8693,6 +9248,7 @@
   },
   {
     "pkgname": "patch",
+    "pkgtype": "exe",
     "version": "2.7.6",
     "license": "GPL-3.0-or-later",
     "summary": "Apply a diff file to an original",
@@ -8708,6 +9264,7 @@
   },
   {
     "pkgname": "patchelf",
+    "pkgtype": "exe",
     "version": "0.18.0",
     "license": "GPL-3.0-or-later",
     "summary": "A small utility to modify ELF files",
@@ -8723,6 +9280,7 @@
   },
   {
     "pkgname": "pbzip2",
+    "pkgtype": "exe",
     "version": "1.1.13",
     "license": "bzip2-1.0.6",
     "summary": "Parallel bzip2",
@@ -8739,6 +9297,7 @@
   },
   {
     "pkgname": "pcapplusplus",
+    "pkgtype": "lib",
     "version": "23.09",
     "license": "Unlicense",
     "summary": "C++ network sniffing, packet parsing and crafting framework",
@@ -8755,6 +9314,7 @@
   },
   {
     "pkgname": "pcre2",
+    "pkgtype": "exe",
     "version": "10.43",
     "license": "BSD-3-Clause",
     "summary": "Perl compatible regular expressions library with a new API",
@@ -8772,6 +9332,7 @@
   },
   {
     "pkgname": "pdfium",
+    "pkgtype": "lib",
     "version": "1",
     "license": "BSD-3-Clause",
     "summary": "PDF read/write library by Google",
@@ -8784,6 +9345,7 @@
   },
   {
     "pkgname": "pget",
+    "pkgtype": "pie",
     "version": "0.2.1",
     "license": "MIT",
     "summary": "The fastest file download client",
@@ -8799,6 +9361,7 @@
   },
   {
     "pkgname": "physfs",
+    "pkgtype": "exe",
     "version": "3.2.0",
     "license": "Zlib",
     "summary": "Library to provide abstract access to various archives",
@@ -8815,6 +9378,7 @@
   },
   {
     "pkgname": "pigz",
+    "pkgtype": "exe",
     "version": "2.8",
     "license": "Zlib",
     "summary": "A parallel implementation of gzip for modern multi-processor, multi-core machines",
@@ -8833,6 +9397,7 @@
   },
   {
     "pkgname": "pjsip",
+    "pkgtype": "lib",
     "version": "2.11.1",
     "license": "GPL-2.0-or-later",
     "summary": "A C library for multimedia protocols such as SIP, SDP, RTP and more",
@@ -8849,6 +9414,7 @@
   },
   {
     "pkgname": "pkg-config",
+    "pkgtype": "exe",
     "version": "0.29.2",
     "license": "GPL-2.0-or-later",
     "summary": "Manage compile and link flags for libraries",
@@ -8866,6 +9432,7 @@
   },
   {
     "pkgname": "pkgconf",
+    "pkgtype": "exe",
     "version": "2.1.1",
     "license": "ISC",
     "summary": "Reimplementation of pkg-config",
@@ -8881,6 +9448,7 @@
   },
   {
     "pkgname": "plog",
+    "pkgtype": "lib",
     "version": "1.1.10",
     "license": "MIT",
     "summary": "A portable, simple and extensible logging library for C++",
@@ -8896,6 +9464,7 @@
   },
   {
     "pkgname": "plzip",
+    "pkgtype": "exe",
     "version": "1.11",
     "license": "GPL-2.0-or-later",
     "summary": "A massively parallel (multi-threaded) implementation of lzip, fully compatible with lzip 1.4 or newer",
@@ -8911,6 +9480,7 @@
   },
   {
     "pkgname": "png",
+    "pkgtype": "exe",
     "version": "1.6.43",
     "license": "libpng-2.0",
     "summary": "Library for manipulating PNG images",
@@ -8927,6 +9497,7 @@
   },
   {
     "pkgname": "pngcheck",
+    "pkgtype": "exe",
     "version": "3.0.3",
     "license": "MIT GPL-2.0-or-later",
     "summary": "Print info and check PNG, JNG, and MNG files",
@@ -8941,6 +9512,7 @@
   },
   {
     "pkgname": "pngquant",
+    "pkgtype": "exe",
     "version": "3.0.3.crate",
     "summary": "PNG image optimizing utility",
     "web-url": "https://pngquant.org",
@@ -8956,6 +9528,7 @@
   },
   {
     "pkgname": "pngsplit",
+    "pkgtype": "exe",
     "version": "3.0.3",
     "license": "GPL-2.0-or-later",
     "summary": "Print info and check PNG, JNG, and MNG files",
@@ -8970,6 +9543,7 @@
   },
   {
     "pkgname": "poco",
+    "pkgtype": "exe+lib",
     "version": "all",
     "license": "BSL-1.0",
     "summary": "C++ class libraries for building network and internet-based applications",
@@ -8986,6 +9560,7 @@
   },
   {
     "pkgname": "popt",
+    "pkgtype": "lib",
     "version": "1.19",
     "license": "MIT",
     "summary": "Library like getopt(3) with a number of enhancements",
@@ -9003,6 +9578,7 @@
   },
   {
     "pkgname": "ppkg",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "license": "Apache-2.0",
     "summary": "A portable package manager for Unix-like systems",
@@ -9019,6 +9595,7 @@
   },
   {
     "pkgname": "procs",
+    "pkgtype": "exe",
     "version": "0.14.5",
     "license": "MIT",
     "summary": "Modern replacement for ps written by Rust",
@@ -9035,6 +9612,7 @@
   },
   {
     "pkgname": "progress",
+    "pkgtype": "exe",
     "version": "0.17",
     "license": "GPL-3.0-or-later",
     "summary": "Coreutils progress viewer",
@@ -9051,6 +9629,7 @@
   },
   {
     "pkgname": "proj",
+    "pkgtype": "lib",
     "version": "9.4.0",
     "license": "MIT",
     "summary": "Cartographic Projections Library",
@@ -9068,6 +9647,7 @@
   },
   {
     "pkgname": "proj7",
+    "pkgtype": "lib",
     "version": "7.2.1",
     "license": "MIT",
     "summary": "Cartographic Projections Library",
@@ -9086,6 +9666,7 @@
   },
   {
     "pkgname": "proot2",
+    "pkgtype": "exe",
     "version": "5.1.107",
     "license": "GPL-2.0-or-later",
     "summary": "A user-space implementation of chroot, mount --bind, and binfmt_misc",
@@ -9104,6 +9685,7 @@
   },
   {
     "pkgname": "protobuf",
+    "pkgtype": "exe+lib",
     "version": "26.1",
     "license": "BSD-3-Clause",
     "summary": "Protocol Buffers(data interchange format) compiler and library developed by Google",
@@ -9120,6 +9702,7 @@
   },
   {
     "pkgname": "psimd",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "MIT",
     "summary": "Portable 128-bit SIMD intrinsics",
@@ -9133,6 +9716,7 @@
   },
   {
     "pkgname": "pthreadpool",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "BSD-2-Clause",
     "summary": "A portable and efficient thread pool implementation",
@@ -9146,6 +9730,7 @@
   },
   {
     "pkgname": "pup",
+    "pkgtype": "pie",
     "version": "2024.05.15",
     "license": "MIT",
     "summary": "Parse HTML at the command-line",
@@ -9159,6 +9744,7 @@
   },
   {
     "pkgname": "putty",
+    "pkgtype": "exe",
     "version": "0.81",
     "license": "MIT",
     "summary": "Implementation of Telnet and SSH",
@@ -9176,6 +9762,7 @@
   },
   {
     "pkgname": "pybind11",
+    "pkgtype": "lib",
     "version": "2.12.0",
     "license": "BSD-3-Clause",
     "summary": "Seamless operability between C++11 and Python",
@@ -9191,6 +9778,7 @@
   },
   {
     "pkgname": "pystring",
+    "pkgtype": "lib",
     "version": "1.1.4",
     "summary": "C++ functions matching the interface and behavior of python string methods with std::string",
     "web-url": "https://github.com/imageworks/pystring",
@@ -9204,6 +9792,7 @@
   },
   {
     "pkgname": "python3",
+    "pkgtype": "pie",
     "version": "3.11.7",
     "license": "Python-2.0",
     "summary": "Interpreted, interactive, object-oriented programming language",
@@ -9221,6 +9810,7 @@
   },
   {
     "pkgname": "q",
+    "pkgtype": "pie",
     "version": "0.19.1",
     "license": "GPL-3.0",
     "summary": "A tiny command line DNS client with support for UDP, TCP, DoT, DoH, DoQ and ODoH",
@@ -9236,6 +9826,7 @@
   },
   {
     "pkgname": "qpdf",
+    "pkgtype": "exe",
     "version": "11.9.0",
     "license": "Apache-2.0",
     "summary": "a command-line tool and C++ library that performs content-preserving transformations on PDF files",
@@ -9252,6 +9843,7 @@
   },
   {
     "pkgname": "qrencode",
+    "pkgtype": "exe",
     "version": "4.1.1",
     "license": "LGPL-2.1-or-later",
     "summary": "QR Code generation",
@@ -9268,6 +9860,7 @@
   },
   {
     "pkgname": "quickjs",
+    "pkgtype": "exe",
     "version": "2024.01.13",
     "license": "MIT",
     "summary": "A small and embeddable JavaScript engine",
@@ -9284,6 +9877,7 @@
   },
   {
     "pkgname": "ragel",
+    "pkgtype": "exe",
     "version": "6.10",
     "license": "GPL-2.0",
     "summary": "State machine compiler",
@@ -9298,6 +9892,7 @@
   },
   {
     "pkgname": "rang",
+    "pkgtype": "exe",
     "version": "3.2",
     "license": "Unlicense",
     "summary": "A Minimal, Header only Modern c++ library for terminal goodies",
@@ -9313,6 +9908,7 @@
   },
   {
     "pkgname": "rapidjson",
+    "pkgtype": "lib",
     "version": "1.1.0",
     "license": "MIT",
     "summary": "A fast JSON parser and generator for C++ with SAX and DOM style APIs",
@@ -9328,6 +9924,7 @@
   },
   {
     "pkgname": "rav1e",
+    "pkgtype": "exe",
     "version": "0.7.1",
     "license": "BSD-2-Clause",
     "summary": "The fastest and safest AV1 video encoder",
@@ -9343,6 +9940,7 @@
   },
   {
     "pkgname": "rclone",
+    "pkgtype": "pie",
     "version": "1.66.0",
     "license": "MIT",
     "summary": "Rsync for cloud storage",
@@ -9358,6 +9956,7 @@
   },
   {
     "pkgname": "re2",
+    "pkgtype": "lib",
     "version": "20240401",
     "license": "BSD-3-Clause",
     "summary": "Alternative to backtracking PCRE-style regular expression engines",
@@ -9375,6 +9974,7 @@
   },
   {
     "pkgname": "re2c",
+    "pkgtype": "exe",
     "version": "3.1",
     "summary": "Generate C-based recognizers from regular expressions",
     "web-url": "https://re2c.org/",
@@ -9389,6 +9989,7 @@
   },
   {
     "pkgname": "readline",
+    "pkgtype": "readline",
     "version": "8.2.10",
     "license": "GPL-3.0-or-later",
     "summary": "Library for command-line editing",
@@ -9407,6 +10008,7 @@
   },
   {
     "pkgname": "restic",
+    "pkgtype": "pie",
     "version": "0.16.4",
     "license": "BSD-2-Clause",
     "summary": "A fast, efficient and secure backup program",
@@ -9422,6 +10024,7 @@
   },
   {
     "pkgname": "resvg",
+    "pkgtype": "exe",
     "version": "0.41.0",
     "license": "MPL-2.0",
     "summary": "A command-line tool to convert SVG to PNG",
@@ -9436,6 +10039,7 @@
   },
   {
     "pkgname": "rhash",
+    "pkgtype": "rhash",
     "version": "1.4.4",
     "license": "0BSD",
     "summary": "Utility for computing and verifying hash sums of files",
@@ -9452,6 +10056,7 @@
   },
   {
     "pkgname": "ripgrep",
+    "pkgtype": "exe",
     "version": "14.1.0",
     "license": "Unlicense",
     "summary": "A command-line tool for searching files for a regex pattern",
@@ -9467,6 +10072,7 @@
   },
   {
     "pkgname": "ripgrep-all",
+    "pkgtype": "exe",
     "version": "0.10.6",
     "license": "AGPL-3.0",
     "summary": "Wrapper around ripgrep that adds multiple rich file types",
@@ -9482,6 +10088,7 @@
   },
   {
     "pkgname": "rlwrap",
+    "pkgtype": "exe",
     "version": "0.46.1",
     "license": "GPL-2.0-or-later",
     "summary": "Readline wrapper, adds readline support to tools that lack it",
@@ -9498,6 +10105,7 @@
   },
   {
     "pkgname": "rsass",
+    "pkgtype": "exe",
     "version": "0.23.0",
     "license": "MIT",
     "summary": "Sass reimplemented in rust with nom",
@@ -9513,6 +10121,7 @@
   },
   {
     "pkgname": "rsync",
+    "pkgtype": "exe",
     "version": "3.3.0",
     "license": "GPL-3.0-or-later",
     "summary": "Utility that provides fast incremental file transfer",
@@ -9532,6 +10141,7 @@
   },
   {
     "pkgname": "rtmpdump",
+    "pkgtype": "exe",
     "version": "2.4+20151223",
     "license": "GPL-2.0-or-later",
     "summary": "A command-line tool for downloading RTMP streaming media",
@@ -9550,6 +10160,7 @@
   },
   {
     "pkgname": "rtorrent",
+    "pkgtype": "exe",
     "version": "0.9.8",
     "license": "GPL-2.0-or-later",
     "summary": "Ncurses BitTorrent client based on libtorrent-rakshasa",
@@ -9567,6 +10178,7 @@
   },
   {
     "pkgname": "ruff",
+    "pkgtype": "exe",
     "version": "0.4.2",
     "license": "MIT",
     "summary": "An extremely fast Python linter, written in Rust",
@@ -9582,6 +10194,7 @@
   },
   {
     "pkgname": "rust-analyzer",
+    "pkgtype": "exe",
     "version": "2024.01.29",
     "license": "Apache-2.0",
     "summary": "A Rust compiler front-end for IDEs",
@@ -9597,6 +10210,7 @@
   },
   {
     "pkgname": "ruy",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "Apache-2.0",
     "summary": "matrix multiplication library",
@@ -9611,6 +10225,7 @@
   },
   {
     "pkgname": "sassc",
+    "pkgtype": "exe",
     "version": "3.6.2",
     "license": "MIT",
     "summary": "Wrapper around libsass that helps to create command-line apps",
@@ -9627,6 +10242,7 @@
   },
   {
     "pkgname": "scc",
+    "pkgtype": "pie",
     "version": "3.2.0",
     "license": "MIT",
     "summary": "Fast and accurate code counter with complexity and COCOMO estimates",
@@ -9642,6 +10258,7 @@
   },
   {
     "pkgname": "sd",
+    "pkgtype": "exe",
     "version": "1.0.0",
     "license": "MIT",
     "summary": "Intuitive find & replace CLI",
@@ -9657,6 +10274,7 @@
   },
   {
     "pkgname": "sdl2",
+    "pkgtype": "lib",
     "version": "2.30.2",
     "license": "Zlib",
     "summary": "A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D",
@@ -9673,6 +10291,7 @@
   },
   {
     "pkgname": "shaderc",
+    "pkgtype": "exe",
     "version": "2024.0",
     "license": "Apache-2.0",
     "summary": "A collection of tools, libraries, and tests for Vulkan shader compilation",
@@ -9689,6 +10308,7 @@
   },
   {
     "pkgname": "shc",
+    "pkgtype": "exe",
     "version": "4.0.3",
     "license": "GPL-3.0-or-later",
     "summary": "Shell Script Compiler",
@@ -9704,6 +10324,7 @@
   },
   {
     "pkgname": "shell2http",
+    "pkgtype": "pie",
     "version": "1.17.0",
     "license": "MIT",
     "summary": "A HTTP server to execute shell commands",
@@ -9719,6 +10340,7 @@
   },
   {
     "pkgname": "shellharden",
+    "pkgtype": "exe",
     "version": "4.3.1",
     "license": "MPL-2.0",
     "summary": "A bash syntax highlighter that encourages/fixes variables quoting",
@@ -9734,6 +10356,7 @@
   },
   {
     "pkgname": "shiori",
+    "pkgtype": "pie",
     "version": "1.5.0",
     "license": "MIT",
     "summary": "Simple bookmark manager built with Go",
@@ -9749,6 +10372,7 @@
   },
   {
     "pkgname": "silicon",
+    "pkgtype": "pie",
     "version": "0.5.2",
     "license": "MIT",
     "summary": "A command-line tool to render your source code into a beautiful image",
@@ -9765,6 +10389,7 @@
   },
   {
     "pkgname": "simdjson",
+    "pkgtype": "lib",
     "version": "3.9.1",
     "license": "Apache-2.0",
     "summary": "SIMD-accelerated C++ JSON parser",
@@ -9779,6 +10404,7 @@
   },
   {
     "pkgname": "sjpeg",
+    "pkgtype": "exe+lib",
     "version": "2024.05.15",
     "license": "Apache-2.0",
     "summary": "simple jpeg encoder",
@@ -9793,6 +10419,7 @@
   },
   {
     "pkgname": "skcms",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "BSD",
     "summary": "SkCMS",
@@ -9805,6 +10432,7 @@
   },
   {
     "pkgname": "skia",
+    "pkgtype": "lib",
     "version": "1",
     "license": "BSD-3-Clause",
     "summary": "An open source 2D graphics library",
@@ -9817,6 +10445,7 @@
   },
   {
     "pkgname": "sl",
+    "pkgtype": "exe",
     "version": "5.02",
     "license": "MIT",
     "summary": "Prints a steam locomotive if you type sl instead of ls",
@@ -9832,6 +10461,7 @@
   },
   {
     "pkgname": "soundtouch",
+    "pkgtype": "lib",
     "version": "2.3.1",
     "license": "LGPL-2.1-or-later",
     "summary": "Audio processing library",
@@ -9847,6 +10477,7 @@
   },
   {
     "pkgname": "spdlog",
+    "pkgtype": "lib",
     "version": "1.13.0",
     "license": "MIT",
     "summary": "Super fast C++ logging library",
@@ -9864,6 +10495,7 @@
   },
   {
     "pkgname": "speex",
+    "pkgtype": "exe",
     "version": "1.2.1",
     "license": "BSD-3-Clause",
     "summary": "Audio codec designed for speech",
@@ -9880,6 +10512,7 @@
   },
   {
     "pkgname": "sqlite3",
+    "pkgtype": "exe",
     "version": "3.45.3",
     "license": "blessing",
     "summary": "A small, fast, self-contained, high-reliability, full-featured, SQL database engine written in C",
@@ -9897,6 +10530,7 @@
   },
   {
     "pkgname": "starship",
+    "pkgtype": "exe",
     "version": "1.18.2",
     "license": "ISC",
     "summary": "The minimal, blazing-fast, and infinitely customizable prompt for any shell",
@@ -9914,6 +10548,7 @@
   },
   {
     "pkgname": "stwolame",
+    "pkgtype": "exe",
     "version": "0.4.0",
     "license": "LGPL-2.1",
     "summary": "Optimized MPEG Audio Layer 2 (MP2) encoder",
@@ -9929,6 +10564,7 @@
   },
   {
     "pkgname": "stylua",
+    "pkgtype": "exe",
     "version": "0.20.0",
     "license": "MPL-2.0",
     "summary": "An opinionated Lua code formatter",
@@ -9944,6 +10580,7 @@
   },
   {
     "pkgname": "subfinder",
+    "pkgtype": "pie",
     "version": "2.6.6",
     "license": "MIT",
     "summary": "Subdomain discovery tool",
@@ -9959,6 +10596,7 @@
   },
   {
     "pkgname": "supervisord",
+    "pkgtype": "pie",
     "version": "0.7.3",
     "license": "MIT",
     "summary": "A go-lang supervisor implementation",
@@ -9975,6 +10613,7 @@
   },
   {
     "pkgname": "suricata",
+    "pkgtype": "exe",
     "version": "7.0.5",
     "license": "GPL-2.0-or-later",
     "summary": "Network IDS, IPS, and security monitoring engine",
@@ -9994,6 +10633,7 @@
   },
   {
     "pkgname": "svn-lite",
+    "pkgtype": "exe",
     "version": "1.09",
     "summary": "A minimalist svn client to checkout/update Subversion repositories",
     "web-url": "https://github.com/rofl0r/svn-lite",
@@ -10008,6 +10648,7 @@
   },
   {
     "pkgname": "svt-av1",
+    "pkgtype": "lib",
     "version": "2.0.0",
     "license": "BSD-3-Clause",
     "summary": "AV1 encoder",
@@ -10023,6 +10664,7 @@
   },
   {
     "pkgname": "swig",
+    "pkgtype": "exe",
     "version": "4.2.1",
     "license": "GPL-3.0-or-later",
     "summary": "A command-line tool for generating scripting interfaces to C/C++ code",
@@ -10039,6 +10681,7 @@
   },
   {
     "pkgname": "syncthing",
+    "pkgtype": "pie",
     "version": "1.27.6",
     "license": "MPL-2.0",
     "summary": "Open source continuous file synchronization application",
@@ -10055,6 +10698,7 @@
   },
   {
     "pkgname": "sysinfo",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "summary": "A command-line tool to get your currently running system information",
     "web-url": "https://github.com/leleliu008/C-examples",
@@ -10067,6 +10711,7 @@
   },
   {
     "pkgname": "szip",
+    "pkgtype": "lib",
     "version": "2.1.1",
     "summary": "Implementation of extended-Rice lossless compression algorithm",
     "web-url": "https://support.hdfgroup.org/HDF5/release/obtain5.html#extlibs",
@@ -10080,6 +10725,7 @@
   },
   {
     "pkgname": "taglib",
+    "pkgtype": "lib",
     "version": "1.13.1",
     "license": "LGPL-2.1-or-later",
     "summary": "A library for reading and editing the metadata of several popular audio formats",
@@ -10096,6 +10742,7 @@
   },
   {
     "pkgname": "talloc",
+    "pkgtype": "lib",
     "version": "2.4.2",
     "license": "GPL-3.0-or-later",
     "summary": "Hierarchical, reference-counted memory pool with destructors",
@@ -10111,6 +10758,7 @@
   },
   {
     "pkgname": "tarlz",
+    "pkgtype": "exe",
     "version": "0.25",
     "license": "GPL-2.0-or-later",
     "summary": "A massively parallel (multi-threaded) combined implementation of the tar archiver and the lzip compressor",
@@ -10126,6 +10774,7 @@
   },
   {
     "pkgname": "tbb",
+    "pkgtype": "lib",
     "version": "2021.11.0",
     "license": "Apache-2.0",
     "summary": "Rich and complete approach to parallelism in C++",
@@ -10142,6 +10791,7 @@
   },
   {
     "pkgname": "tbox",
+    "pkgtype": "lib",
     "version": "1.7.5",
     "license": "Apache-2.0",
     "summary": "A glib-like multi-platform c library",
@@ -10157,6 +10807,7 @@
   },
   {
     "pkgname": "tcl",
+    "pkgtype": "exe+lib",
     "version": "8.6.14",
     "license": "TCL",
     "summary": "Tool Command Language",
@@ -10174,6 +10825,7 @@
   },
   {
     "pkgname": "tcpdump",
+    "pkgtype": "exe",
     "version": "4.99.4",
     "license": "BSD-3-Clause",
     "summary": "A command-line tool to analyze packet(TCP/IP)",
@@ -10191,6 +10843,7 @@
   },
   {
     "pkgname": "tdu",
+    "pkgtype": "pie",
     "version": "1.36",
     "license": "GPL-2.0-or-later",
     "summary": "Top Disk Usage",
@@ -10206,6 +10859,7 @@
   },
   {
     "pkgname": "tealdeer",
+    "pkgtype": "exe",
     "version": "1.6.1",
     "license": "Apache-2.0",
     "summary": "A very fast implementation of tldr in Rust",
@@ -10222,6 +10876,7 @@
   },
   {
     "pkgname": "tectonic",
+    "pkgtype": "exe",
     "version": "0.15.0",
     "license": "MIT",
     "summary": "Modernized, complete, self-contained TeX/LaTeX engine",
@@ -10239,6 +10894,7 @@
   },
   {
     "pkgname": "tengo",
+    "pkgtype": "pie",
     "version": "2.17.0",
     "license": "MIT",
     "summary": "Fast script language for Go",
@@ -10254,6 +10910,7 @@
   },
   {
     "pkgname": "tiff",
+    "pkgtype": "exe",
     "version": "4.6.0",
     "summary": "TIFF library and utilities",
     "web-url": "https://libtiff.gitlab.io/libtiff",
@@ -10270,6 +10927,7 @@
   },
   {
     "pkgname": "tig",
+    "pkgtype": "exe",
     "version": "2.5.9",
     "license": "GPL-2.0-or-later",
     "summary": "Text interface for Git repositories",
@@ -10286,6 +10944,7 @@
   },
   {
     "pkgname": "tlrc",
+    "pkgtype": "exe",
     "version": "1.9.1",
     "license": "MIT",
     "summary": "Official tldr client written in Rust",
@@ -10301,6 +10960,7 @@
   },
   {
     "pkgname": "tmux",
+    "pkgtype": "exe",
     "version": "3.4",
     "license": "ISC",
     "summary": "Terminal multiplexer",
@@ -10318,6 +10978,7 @@
   },
   {
     "pkgname": "tokei",
+    "pkgtype": "exe",
     "version": "12.1.2",
     "license": "MIT",
     "summary": "Program that allows you to count code, quickly",
@@ -10333,6 +10994,7 @@
   },
   {
     "pkgname": "toml++",
+    "pkgtype": "lib",
     "version": "3.4.0",
     "license": "MIT",
     "summary": "A header-only C++17 (or later) library for parsing TOML",
@@ -10348,6 +11010,7 @@
   },
   {
     "pkgname": "toml11",
+    "pkgtype": "lib",
     "version": "3.8.1",
     "license": "MIT",
     "summary": "A header-only C++11 (or later) library for parsing TOML",
@@ -10362,6 +11025,7 @@
   },
   {
     "pkgname": "tree",
+    "pkgtype": "exe",
     "version": "2.1.1",
     "license": "GPL-2.0-or-later",
     "summary": "Display directories as trees (with optional color/HTML output)",
@@ -10378,6 +11042,7 @@
   },
   {
     "pkgname": "trietool",
+    "pkgtype": "exe",
     "version": "0.2.13",
     "license": "LGPL-2.1-or-later",
     "summary": "A command-line tool for manipulating double-array trie data",
@@ -10394,6 +11059,7 @@
   },
   {
     "pkgname": "ttyd",
+    "pkgtype": "exe",
     "version": "1.7.7",
     "license": "MIT",
     "summary": "A simple command-line tool for sharing terminal over the web",
@@ -10412,6 +11078,7 @@
   },
   {
     "pkgname": "ttygif",
+    "pkgtype": "exe",
     "version": "1.6.0",
     "license": "MIT",
     "summary": "A command-line tool to convert a ttyrec file into gif files",
@@ -10428,6 +11095,7 @@
   },
   {
     "pkgname": "ttyrec",
+    "pkgtype": "exe",
     "version": "1.0.8",
     "license": "BSD-3-Clause",
     "summary": "Terminal interaction recorder and player",
@@ -10443,6 +11111,7 @@
   },
   {
     "pkgname": "tweego",
+    "pkgtype": "pie",
     "version": "2.1.1",
     "license": "BSD-2-Clause",
     "summary": "A free command line compiler for Twine/Twee story formats",
@@ -10459,6 +11128,7 @@
   },
   {
     "pkgname": "typos",
+    "pkgtype": "exe",
     "version": "1.20.10",
     "license": "MIT",
     "summary": "A source code spell checker",
@@ -10474,6 +11144,7 @@
   },
   {
     "pkgname": "uctags",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "license": "GPL-2.0-or-later",
     "summary": "Maintained ctags implementation",
@@ -10489,6 +11160,7 @@
   },
   {
     "pkgname": "unbound",
+    "pkgtype": "exe",
     "version": "1.19.3",
     "license": "BSD-3-Clause",
     "summary": "Validating, recursive, caching DNS resolver",
@@ -10505,6 +11177,7 @@
   },
   {
     "pkgname": "unrar",
+    "pkgtype": "exe",
     "version": "6.0.2",
     "license": "Unlicense",
     "summary": "Extract, view, and test RAR archives",
@@ -10521,6 +11194,7 @@
   },
   {
     "pkgname": "uppm",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "license": "Apache-2.0",
     "summary": "Universal Prebuild Package Manager",
@@ -10536,6 +11210,7 @@
   },
   {
     "pkgname": "uppm@0.15.2",
+    "pkgtype": "exe",
     "version": "2024.05.15",
     "license": "Apache-2.0",
     "summary": "Universal Prebuild Package Manager",
@@ -10552,6 +11227,7 @@
   },
   {
     "pkgname": "usbmuxd",
+    "pkgtype": "exe",
     "version": "1.1.1",
     "license": "LGPL-2.1-or-later",
     "summary": "A socket daemon to multiplex connections from and to iOS devices",
@@ -10568,6 +11244,7 @@
   },
   {
     "pkgname": "utf8.h",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "Unlicense",
     "summary": "single header utf8 string functions for C and C++",
@@ -10580,6 +11257,7 @@
   },
   {
     "pkgname": "utf8proc",
+    "pkgtype": "lib",
     "version": "2.9.0",
     "license": "MIT",
     "summary": "A small, clean C library for processing UTF-8 Unicode data",
@@ -10595,6 +11273,7 @@
   },
   {
     "pkgname": "utfcpp",
+    "pkgtype": "lib",
     "version": "4.0.5",
     "license": "BSL-1.0",
     "summary": "UTF-8 with C++ in a Portable Way",
@@ -10610,6 +11289,7 @@
   },
   {
     "pkgname": "uthash",
+    "pkgtype": "lib",
     "version": "2.3.0",
     "license": "BSD-1-Clause",
     "summary": "C macros for hash tables and more",
@@ -10624,6 +11304,7 @@
   },
   {
     "pkgname": "util-linux",
+    "pkgtype": "exe",
     "version": "2.39.3",
     "license": "GPL-2.0-or-later",
     "summary": "A collection of Linux utilities",
@@ -10640,6 +11321,7 @@
   },
   {
     "pkgname": "v8",
+    "pkgtype": "lib",
     "version": "9.9.115.8",
     "license": "BSD-3-Clause",
     "summary": "A high-performance JavaScript and WebAssembly Engine powered by Google",
@@ -10652,6 +11334,7 @@
   },
   {
     "pkgname": "valijson",
+    "pkgtype": "lib",
     "version": "1.0.2",
     "license": "BSD-2-Clause",
     "summary": "Header-only C++ library for JSON Schema validation",
@@ -10668,6 +11351,7 @@
   },
   {
     "pkgname": "vegeta",
+    "pkgtype": "pie",
     "version": "12.11.1",
     "license": "MIT",
     "summary": "HTTP load testing tool and library",
@@ -10683,6 +11367,7 @@
   },
   {
     "pkgname": "vim",
+    "pkgtype": "exe",
     "version": "9.1.0300",
     "license": "Vim",
     "summary": "Vi IMproved - enhanced vi editor",
@@ -10701,6 +11386,7 @@
   },
   {
     "pkgname": "virustotal-cli",
+    "pkgtype": "pie",
     "version": "1.0.0",
     "license": "Apache-2.0",
     "summary": "command-line interface for VirusTotal",
@@ -10716,6 +11402,7 @@
   },
   {
     "pkgname": "vulkan-headers",
+    "pkgtype": "lib",
     "version": "1.3.283",
     "license": "Apache-2.0",
     "summary": "Vulkan Header files and API registry",
@@ -10731,6 +11418,7 @@
   },
   {
     "pkgname": "wabt",
+    "pkgtype": "exe",
     "version": "1.0.34",
     "license": "Apache-2.0",
     "summary": "Web Assembly Binary Toolkit",
@@ -10746,6 +11434,7 @@
   },
   {
     "pkgname": "wasm3",
+    "pkgtype": "exe",
     "version": "0.5.0",
     "license": "MIT",
     "summary": "High performance WebAssembly interpreter",
@@ -10761,6 +11450,7 @@
   },
   {
     "pkgname": "wasmtime",
+    "pkgtype": "exe",
     "version": "20.0.0",
     "license": "Apache-2.0",
     "summary": "Standalone JIT-style runtime for WebAssembly, using Cranelift",
@@ -10775,6 +11465,7 @@
   },
   {
     "pkgname": "watchexec",
+    "pkgtype": "exe",
     "version": "1.25.1",
     "license": "Apache-2.0",
     "summary": "Execute commands when watched files change",
@@ -10790,6 +11481,7 @@
   },
   {
     "pkgname": "wavpack",
+    "pkgtype": "exe",
     "version": "5.7.0",
     "license": "BSD-3-Clause",
     "summary": "Hybrid lossless audio compression",
@@ -10806,6 +11498,7 @@
   },
   {
     "pkgname": "webhook",
+    "pkgtype": "pie",
     "version": "2.8.1",
     "license": "MIT",
     "summary": "A HTTP server to execute shell commands",
@@ -10821,6 +11514,7 @@
   },
   {
     "pkgname": "webp",
+    "pkgtype": "exe",
     "version": "1.4.0",
     "license": "BSD-3-Clause",
     "summary": "Image format providing lossless and lossy compression for web images",
@@ -10839,6 +11533,7 @@
   },
   {
     "pkgname": "webrtc",
+    "pkgtype": "lib",
     "version": "1",
     "license": "BSD-3-Clause",
     "summary": "Real-Time Communication",
@@ -10851,6 +11546,7 @@
   },
   {
     "pkgname": "websocketpp",
+    "pkgtype": "lib",
     "version": "0.8.2",
     "license": "BSD-3-Clause",
     "summary": "C++ websocket client/server library",
@@ -10866,6 +11562,7 @@
   },
   {
     "pkgname": "wget",
+    "pkgtype": "exe",
     "version": "1.24.5",
     "license": "GPL-3.0-or-later",
     "summary": "A free, open-source, command-line tool that is used to download files from web servers using HTTP, HTTPS, FTP protocols",
@@ -10883,6 +11580,7 @@
   },
   {
     "pkgname": "whois",
+    "pkgtype": "exe",
     "version": "5.5.22",
     "license": "GPL-2.0-or-later",
     "summary": "Lookup tool for domain names and other internet resources",
@@ -10900,6 +11598,7 @@
   },
   {
     "pkgname": "wolfssl",
+    "pkgtype": "lib",
     "version": "5.7.0",
     "license": "GPL-2.0-or-later",
     "summary": "A lightweight, portable SSL library written in C",
@@ -10915,6 +11614,7 @@
   },
   {
     "pkgname": "wuzz",
+    "pkgtype": "pie",
     "version": "0.5.0",
     "license": "AGPL-3.0",
     "summary": "Interactive cli tool for HTTP inspection",
@@ -10931,6 +11631,7 @@
   },
   {
     "pkgname": "x264",
+    "pkgtype": "exe",
     "version": "r3108",
     "license": "GPL-2.0-only",
     "summary": "A free library for encoding video streams into the H.264/MPEG-4 AVC compression format",
@@ -10946,6 +11647,7 @@
   },
   {
     "pkgname": "x265",
+    "pkgtype": "exe",
     "version": "3.6",
     "license": "GPL-2.0-only",
     "summary": "An open-source H.265/HEVC encoder",
@@ -10963,6 +11665,7 @@
   },
   {
     "pkgname": "xapian",
+    "pkgtype": "exe+lib",
     "version": "1.4.25",
     "license": "GPL-2.0-or-later",
     "summary": "C++ search engine library",
@@ -10978,6 +11681,7 @@
   },
   {
     "pkgname": "xh",
+    "pkgtype": "exe",
     "version": "0.22.0",
     "license": "MIT",
     "summary": "A friendly and fast tool for sending HTTP requests",
@@ -10994,6 +11698,7 @@
   },
   {
     "pkgname": "xmake",
+    "pkgtype": "pie",
     "version": "2.9.1",
     "license": "Apache-2.0",
     "summary": "A cross-platform build utility based on Lua",
@@ -11011,6 +11716,7 @@
   },
   {
     "pkgname": "xmlutils",
+    "pkgtype": "exe",
     "version": "2.12.6",
     "license": "MIT",
     "summary": "A collections of command-line utilities provided by libxml2",
@@ -11029,6 +11735,7 @@
   },
   {
     "pkgname": "xmlwf",
+    "pkgtype": "exe",
     "version": "2.6.2",
     "license": "MIT",
     "summary": "XML 1.0 parser",
@@ -11045,6 +11752,7 @@
   },
   {
     "pkgname": "xnnpack",
+    "pkgtype": "lib",
     "version": "2024.05.15",
     "license": "BSD-3-Clause",
     "summary": "High-efficiency floating-point neural network inference operators for mobile, server, and web",
@@ -11061,6 +11769,7 @@
   },
   {
     "pkgname": "xorriso",
+    "pkgtype": "exe",
     "version": "1.5.6",
     "license": "GPL-2.0-or-later",
     "summary": "ISO9660+RR manipulation tool",
@@ -11077,6 +11786,7 @@
   },
   {
     "pkgname": "xpup",
+    "pkgtype": "pie",
     "version": "2024.05.15",
     "license": "Apache-2.0",
     "summary": "A command line XML parsing tool",
@@ -11091,6 +11801,7 @@
   },
   {
     "pkgname": "xsltproc",
+    "pkgtype": "exe",
     "version": "1.1.39",
     "license": "X11",
     "summary": "C XSLT library for GNOME",
@@ -11109,6 +11820,7 @@
   },
   {
     "pkgname": "xxd",
+    "pkgtype": "exe",
     "version": "9.1.0300",
     "license": "Vim",
     "summary": "A command-line tool to create a hex dump of a given file or standard input",
@@ -11124,6 +11836,7 @@
   },
   {
     "pkgname": "xxhash",
+    "pkgtype": "lib",
     "version": "0.8.2",
     "license": "BSD-2-Clause",
     "summary": "Extremely fast non-cryptographic hash algorithm",
@@ -11139,6 +11852,7 @@
   },
   {
     "pkgname": "xz",
+    "pkgtype": "exe",
     "version": "5.4.6",
     "license": "LGPL-2.1-or-later",
     "summary": "A free, general-purpose data compression with a high compression ratio",
@@ -11153,6 +11867,7 @@
   },
   {
     "pkgname": "yaml-cpp",
+    "pkgtype": "lib",
     "version": "0.8.0",
     "license": "MIT",
     "summary": "YAML parser and emitter written in C++ for YAML 1.2 spec",
@@ -11168,6 +11883,7 @@
   },
   {
     "pkgname": "yasm",
+    "pkgtype": "exe",
     "version": "1.3.0",
     "summary": "Yet another assembler, a complete reimplementation of NASM",
     "web-url": "https://yasm.tortall.net",
@@ -11182,6 +11898,7 @@
   },
   {
     "pkgname": "youtubedr",
+    "pkgtype": "pie",
     "version": "2.10.1",
     "license": "MIT",
     "summary": "A command-line tool to download videos from youtube.com",
@@ -11197,6 +11914,7 @@
   },
   {
     "pkgname": "yq",
+    "pkgtype": "pie",
     "version": "4.43.1",
     "license": "MIT",
     "summary": "A lightweight and portable command-line YAML processor",
@@ -11212,6 +11930,7 @@
   },
   {
     "pkgname": "yyjson",
+    "pkgtype": "lib",
     "version": "0.9.0",
     "license": "MIT",
     "summary": "A high performance JSON library written in ANSI C",
@@ -11227,6 +11946,7 @@
   },
   {
     "pkgname": "zlib",
+    "pkgtype": "lib",
     "version": "1.3.1",
     "license": "Zlib",
     "summary": "A general purpose data compression library",
@@ -11244,6 +11964,7 @@
   },
   {
     "pkgname": "zlib-ng",
+    "pkgtype": "lib",
     "version": "2.1.6",
     "license": "Zlib",
     "summary": "Zlib replacement with optimizations for next generation systems",
@@ -11259,6 +11980,7 @@
   },
   {
     "pkgname": "zola",
+    "pkgtype": "exe",
     "version": "0.18.0",
     "license": "MIT",
     "summary": "Fast static site generator in a single binary with everything built-in",
@@ -11274,6 +11996,7 @@
   },
   {
     "pkgname": "zopfli",
+    "pkgtype": "exe",
     "version": "1.0.3",
     "license": "Apache-2.0",
     "summary": "New zlib (gzip, deflate) compatible compressor",
@@ -11289,6 +12012,7 @@
   },
   {
     "pkgname": "zoxide",
+    "pkgtype": "exe",
     "version": "0.9.4",
     "license": "MIT",
     "summary": "A shell extension to navigate your filesystem faster",
@@ -11304,6 +12028,7 @@
   },
   {
     "pkgname": "zsh",
+    "pkgtype": "exe",
     "version": "5.9",
     "summary": "Z Shell",
     "web-url": "https://www.zsh.org",
@@ -11319,6 +12044,7 @@
   },
   {
     "pkgname": "zstd",
+    "pkgtype": "exe",
     "version": "1.5.6",
     "license": "BSD-3-Clause",
     "summary": "A real-time compression utility with high compression ratios",
@@ -11335,6 +12061,7 @@
   },
   {
     "pkgname": "zsync",
+    "pkgtype": "exe",
     "version": "0.6.2",
     "license": "Artistic-2.0",
     "summary": "A file transfer program",
