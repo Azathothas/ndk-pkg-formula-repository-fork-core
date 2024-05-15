@@ -1,4 +1,4 @@
-name: 💾 Fetch || ⏫ Update NDK Package Formulas 📦
+name: 💾 Fetch || ⏫ Update NDK Package Formulae 📦
 #MAX_RUNTIME: ~ 5-15 mins
 
 on:
@@ -64,47 +64,47 @@ jobs:
           ndk-pkg formula-repo-sync "official-core"
         continue-on-error: true
 
-      - name: Fetch || Update ndk Package Formulas (JSON)
+      - name: Fetch || Update ndk Package Formulae (JSON)
         run: |
           #Presets
           set +x ; set +e
           #--------------#
-          ##Generate json
-          {
-             readarray -t pkgs < <(ndk-pkg ls-available | sort -u)
-             for pkg in "${pkgs[@]}"; do
-                 ndk-pkg info-available "$pkg" --json 2>/dev/null
-             done
-          } | jq -s 'sort_by(.pkgname)' > "/tmp/ndk.pkgs.json"
-          #Maybe change to this later?
-          #ndk-pkg ls-available -v --json | jq -s 'sort_by(.pkgname)' > "/tmp/ndk.pkgs.json"
+          ##Generate json (slow & expensive)
+          #{
+          #   readarray -t pkgs < <(ndk-pkg ls-available | sort -u)
+          #   for pkg in "${pkgs[@]}"; do
+          #       ndk-pkg info-available "$pkg" --json 2>/dev/null
+          #   done
+          #} | jq -s 'sort_by(.pkgname)' > "/tmp/ndk.pkgs.json"
+          ##Generate json (slow & expensive)
+          ndk-pkg ls-available -v --json | jq 'sort_by(.pkgname)' > "/tmp/ndk.pkgs.json"
           ##Post Process
           cat "/tmp/ndk.pkgs.json" > "$GITHUB_WORKSPACE/main/pkgs.json"
         continue-on-error: true
 
-      - name: Fetch || Update ndk Package Formulas (Pretty)
+      - name: Fetch || Update ndk Package Formulae (Pretty)
         run: |
           #Presets
           set +x ; set +e
           #--------------#
-          #Generate yaml
-          ndk-pkg ls-available -v --yaml | ansi2txt > "/tmp/ndk.pkgs.txt"
-          #Post Process
+          ##Generate yaml
+          ndk-pkg ls-available -v | ansi2txt > "/tmp/ndk.pkgs.txt"
+          ##Post Process
           cat "/tmp/ndk.pkgs.txt" > "$GITHUB_WORKSPACE/main/ndk.pkgs"
         continue-on-error: true
 
-      - name: Fetch || Update ndk Package Formulas (YAML)
+      - name: Fetch || Update ndk Package Formulae (YAML)
         run: |
           #Presets
           set +x ; set +e
           #--------------#
-          #Generate yaml
+          ##Generate yaml
           cat "$GITHUB_WORKSPACE/main/pkgs.json" | yj -jy | tee "/tmp/ndk.pkgs.yaml"
-          #Post Process
+          ##Post Process
           cat "/tmp/ndk.pkgs.yaml" > "$GITHUB_WORKSPACE/main/pkgs.yaml"
         continue-on-error: true
 
-      - name: Fetch || Update ndk Package Formulas (README)
+      - name: Fetch || Update ndk Package Formulae (README)
         run: |
           #Presets
           set +x ; set +e
@@ -121,7 +121,7 @@ jobs:
           #       echo "| [**$pkg**](https://github.com/leleliu008/ndk-pkg-formula-repository-official-core/blob/master/formula/$pkg.yml) | $version | $description | $homepage | $git_url |"
           #   done
           #} | tee "/tmp/ndk.pkgs"
-          #Parse from json
+          ##Parse from json
           {
              readarray -t pkgs < <(jq -r '.[].pkgname' "$GITHUB_WORKSPACE/main/pkgs.json")
              for pkg in "${pkgs[@]}"; do
@@ -133,7 +133,7 @@ jobs:
              done
           } > "/tmp/ndk.pkgs"
           ##Post Process
-          #cat "/tmp/ndk.pkgs" > "/tmp/ndk.pkgs.md"
+          cat "/tmp/ndk.pkgs" > "/tmp/ndk.pkgs.md"
         continue-on-error: true
 
       - name: Update README.md
@@ -141,16 +141,16 @@ jobs:
           #Presets
           set +x ; set +e
           #--------------#        
-           cd "$GITHUB_WORKSPACE/main"
-           echo -e "" > "$GITHUB_WORKSPACE/main/README.md"
-           cat "$GITHUB_WORKSPACE/main/INFO.md" 2>/dev/null >> "$GITHUB_WORKSPACE/main/README.md"
-           echo -e "" >> "$GITHUB_WORKSPACE/main/README.md"
-           echo '---' >> "$GITHUB_WORKSPACE/main/README.md"
-           echo "|Package | Version | Description | Homepage | Git |" >> "$GITHUB_WORKSPACE/main/README.md"
-           echo "|--------|---------|-------------|----------|-----|" >> "$GITHUB_WORKSPACE/main/README.md"
-           cat "/tmp/ndk.pkgs.md" >> "$GITHUB_WORKSPACE/main/README.md"
-           echo -e "" >> "$GITHUB_WORKSPACE/main/README.md"
-           echo '---' >> "$GITHUB_WORKSPACE/main/README.md"
+          cd "$GITHUB_WORKSPACE/main"
+          echo -e "" > "$GITHUB_WORKSPACE/main/README.md"
+          cat "$GITHUB_WORKSPACE/main/INFO.md" 2>/dev/null >> "$GITHUB_WORKSPACE/main/README.md"
+          echo -e "" >> "$GITHUB_WORKSPACE/main/README.md"
+          echo '---' >> "$GITHUB_WORKSPACE/main/README.md"
+          echo "|Package | Version | Description | Homepage | Git |" >> "$GITHUB_WORKSPACE/main/README.md"
+          echo "|--------|---------|-------------|----------|-----|" >> "$GITHUB_WORKSPACE/main/README.md"
+          cat "/tmp/ndk.pkgs.md" >> "$GITHUB_WORKSPACE/main/README.md"
+          echo -e "" >> "$GITHUB_WORKSPACE/main/README.md"
+          echo '---' >> "$GITHUB_WORKSPACE/main/README.md"
         continue-on-error: true
 
       - name: Sync "$GITHUB_WORKSPACE/main/formula" <-- "(https://github.com/leleliu008/ndk-pkg-formula-repository-official-core)"
@@ -170,7 +170,9 @@ jobs:
 
       - name: Get DateTime
         run: |
-          # Date Time
+          #Presets
+          set +x ; set +e
+          #--------------#
           NEPALI_TIME=$(TZ='Asia/Kathmandu' date +'%Y-%m-%d (%I:%M:%S %p)')
           echo "NEPALI_TIME=$NEPALI_TIME" >> $GITHUB_ENV
         continue-on-error: true
@@ -186,5 +188,5 @@ jobs:
           repository: ./main
           commit_user_name: Azathothas # defaults to "github-actions[bot]"
           commit_user_email: AjamX101@gmail.com # defaults to "41898282+github-actions[bot]@users.noreply.github.com"
-          commit_message: "✅ Update ndk-pkg Formulas 📦 <-- ${{ env.NEPALI_TIME }} ⌚"
+          commit_message: "✅ Update ndk-pkg Formulae 📦 <-- ${{ env.NEPALI_TIME }} ⌚"
           #push_options: '--force'
