@@ -1,0 +1,17 @@
+pkgtype: pie
+summary: A cross-platform build utility based on Lua
+web-url: https://xmake.io/
+git-url: https://github.com/xmake-io/xmake
+src-url: https://github.com/xmake-io/xmake/releases/download/v2.9.1/xmake-v2.9.1.tar.gz
+src-sha: a31dbef8c303aea1268068b4b1ac1aec142ac4124c7cb7d9c7eeb57c414f8d15
+license: Apache-2.0
+bscript: core
+bsystem: xmake
+ccflags: -Wno-error=unused-but-set-variable
+
+# sys/uio: ssize_t pwritev(int __fd, const struct iovec* __iov, int __count, off_t __offset) __RENAME_IF_FILE_OFFSET64(pwritev64) __INTRODUCED_IN(24);
+# sys/uio: ssize_t preadv(int __fd, const struct iovec* __iov, int __count, off_t __offset) __RENAME_IF_FILE_OFFSET64(preadv64) __INTRODUCED_IN(24);
+#
+# int getifaddrs(struct ifaddrs** __list_ptr) __INTRODUCED_IN(24);
+# void freeifaddrs(struct ifaddrs* __ptr) __INTRODUCED_IN(24);
+api-min: 24

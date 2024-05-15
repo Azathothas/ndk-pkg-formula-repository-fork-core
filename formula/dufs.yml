@@ -1,0 +1,10 @@
+summary: A file server that supports static serving, uploading, searching, accessing control, webdav...
+git-url: https://github.com/sigoden/dufs
+src-url: https://github.com/sigoden/dufs/archive/refs/tags/v0.40.0.tar.gz
+src-sha: da4b64add0df9fca1e38e416a8c265b57dc66e02d6256d1b34db12f9b5d7a962
+license: MIT
+bsystem: cargo
+
+# int getifaddrs(struct ifaddrs** __list_ptr) __INTRODUCED_IN(24);
+# void freeifaddrs(struct ifaddrs* __ptr) __INTRODUCED_IN(24);
+api-min: 24

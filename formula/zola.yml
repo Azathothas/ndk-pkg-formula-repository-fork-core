@@ -1,0 +1,8 @@
+summary: Fast static site generator in a single binary with everything built-in
+web-url: https://www.getzola.org/
+git-url: https://github.com/getzola/zola
+src-url: https://github.com/getzola/zola/archive/refs/tags/v0.18.0.tar.gz
+src-sha: c0e1711a68bc005c2e0ecc76a468f3459739c9e54af34850cb725d04391e19b5
+license: MIT
+dep-upp: openssl
+install: cargow install --locked

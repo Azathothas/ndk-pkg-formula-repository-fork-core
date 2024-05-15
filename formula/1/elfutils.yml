@@ -1,0 +1,16 @@
+summary: utilities and libraries to read, create and modify ELF binary files
+web-url: https://sourceware.org/elfutils
+git-url: git://sourceware.org/git/elfutils.git
+src-url: https://sourceware.org/elfutils/ftp/0.189/elfutils-0.189.tar.bz2
+src-sha: 39bd8f1a338e2b7cd4abc3ff11a0eddc6e690f69578a57478d8179b4148708c8
+license: GPL-2.0-or-later GPL-3.0-or-later LGPL-2.0-only
+dep-pkg: libz libbz2 liblzma libzstd
+install: |
+    configure \
+        --enable-install-elfh \
+        --disable-libdebuginfod \
+        --disable-debuginfod \
+        --with-zlib="$libz_INSTALL_DIR" \
+        --with-lzma="$liblzma_INSTALL_DIR" \
+        --with-zstd="$libzstd_INSTALL_DIR" \
+        --with-bzlib="$libbz2_INSTALL_DIR"

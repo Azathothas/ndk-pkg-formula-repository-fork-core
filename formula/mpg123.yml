@@ -1,0 +1,25 @@
+summary: MP3 player
+git-url: https://github.com/madebr/mpg123
+web-url: https://www.mpg123.de/
+src-url: https://www.mpg123.de/download/mpg123-1.32.6.tar.bz2
+src-sha: ccdd1d0abc31d73d8b435fc658c79049d0a905b30669b6a42a03ad169dc609e6
+license: LGPL-2.1-only
+dep-pkg: sdl2
+
+prepare: |
+    unset CPU
+
+    case $TARGET_PLATFORM_ARCH in
+        armv7a)  CPU=neon   ;;
+        aarch64) CPU=neon64 ;;
+        i686)    CPU=x86    ;;
+        x86_64)  CPU=x86-64 ;;
+    esac
+
+install: |
+    configure \
+        --enable-debug=no \
+        --enable-ipv6=yes \
+        --with-module-suffix=.so \
+        --with-cpu="$CPU" \
+        --with-pic

@@ -1,0 +1,47 @@
+pkgtype: lib
+summary: Cryptography and SSL/TLS Toolkit
+git-url: https://github.com/openssl/openssl
+web-url: https://www.openssl.org/
+src-url: https://www.openssl.org/source/openssl-3.3.0.tar.gz
+src-sha: 53e66b043322a606abf0087e7699a0e033a37fa13feb9742df35c3a33b18fb02
+license: Apache-2.0
+dep-upp: perl
+bsystem: gmake
+
+dopatch: |
+    sed_in_place '/-mandroid/d'           Configurations/15-android.conf
+    sed_in_place '/ndk is invalid/d'      Configurations/15-android.conf
+    sed_in_place '/no NDK $triarch-gcc/d' Configurations/15-android.conf
+    sed_in_place '/-target/d'             Configurations/15-android.conf
+    sed_in_place '/-gcc-toolchain/d'      Configurations/15-android.conf
+    sed_in_place '/tritools-4.9/d'        Configurations/15-android.conf
+
+prepare: |
+    # ./configure LIST | grep android
+    case $TARGET_PLATFORM_ARCH in
+        armv7a)  TARGET='android-arm'    ;;
+        aarch64) TARGET='android-arm64'  ;;
+        i686)    TARGET='android-x86'    ;;
+        x86_64)  TARGET='android-x86_64' ;;
+    esac
+
+    export CROSS_SYSROOT="$SYSROOT"
+
+# https://github.com/openssl/openssl/blob/master/INSTALL.md
+install: |
+    run ./Configure \
+        no-tests \
+        no-ssl2 \
+        no-ssl3 \
+        no-comp \
+        no-asm \
+        -D__ANDROID_API__="$TARGET_PLATFORM_VERS" \
+        --prefix="$PACKAGE_INSTALL_DIR" \
+        --libdir=lib \
+        --openssldir=etc/ssl \
+        "$TARGET"
+    gmakew clean
+    gmakew build_libs  CROSS_COMPILE=
+    gmakew install_dev CROSS_COMPILE= 
+
+dotweak: sed_in_place 's|-latomic||g' lib/pkgconfig/libcrypto.pc

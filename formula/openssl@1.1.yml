@@ -1,0 +1,45 @@
+pkgtype: exe+lib
+summary: Cryptography and SSL/TLS Toolkit
+git-url: https://github.com/openssl/openssl
+web-url: https://www.openssl.org/
+src-url: https://www.openssl.org/source/openssl-1.1.1w.tar.gz
+src-sha: cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8
+license: OpenSSL
+dep-upp: perl
+bsystem: gmake
+
+dopatch: |
+    sed_in_place '/-mandroid/d'           Configurations/15-android.conf
+    sed_in_place '/ndk is invalid/d'      Configurations/15-android.conf
+    sed_in_place '/no NDK $triarch-gcc/d' Configurations/15-android.conf
+    sed_in_place '/-target/d'             Configurations/15-android.conf
+    sed_in_place '/-gcc-toolchain/d'      Configurations/15-android.conf
+    sed_in_place '/tritools-4.9/d'        Configurations/15-android.conf
+
+# 注意：1.0.2以上的openssl不支持openssl-fips，从openssl3.0开始支持新设计的openssl-fips
+# https://github.com/openssl/openssl/issues/7582
+install: |
+    # ./configure LIST | grep android
+    case $TARGET_PLATFORM_ARCH in
+        armv7a)  TARGET='android-arm'    ;;
+        aarch64) TARGET='android-arm64'  ;;
+        i686)    TARGET='android-x86'    ;;
+        x86_64)  TARGET='android-x86_64' ;;
+    esac
+
+    export CROSS_SYSROOT="$SYSROOT"
+
+    run ./Configure \
+        no-tests \
+        no-ssl2 \
+        no-ssl3 \
+        no-comp \
+        no-asm \
+        -D__ANDROID_API__="$TARGET_PLATFORM_VERS" \
+        --prefix="$PACKAGE_INSTALL_DIR" \
+        --libdir=lib \
+        --openssldir=etc/ssl \
+        "$TARGET"
+    gmakew clean
+    gmakew build_libs  CROSS_COMPILE=
+    gmakew install_dev CROSS_COMPILE= 

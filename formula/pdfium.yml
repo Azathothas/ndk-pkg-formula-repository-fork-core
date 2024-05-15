@@ -1,0 +1,72 @@
+pkgtype: lib
+summary: PDF read/write library by Google
+web-url: https://pdfium.googlesource.com/pdfium/
+version: 1
+license: BSD-3-Clause
+dep-upp: git gn ninja python3
+
+prepare: |
+    NINJA="$(command -v ninja)" || abort 1 'command not found: ninja'
+       GN="$(command -v gn)"    || abort 1 'command not found: gn'
+
+    run cd ..
+
+    run git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git
+
+    export PATH="$PWD/depot_tools:$PATH"
+    export DEPOT_TOOLS_UPDATE=0
+
+    cat >> .gclient <<EOF
+    solutions = [
+      { "name"        : 'src',
+        "url"         : 'https://pdfium.googlesource.com/pdfium.git',
+        "deps_file"   : 'DEPS',
+        "managed"     : False,
+        "custom_deps" : {},
+        "custom_vars": {},
+      },
+    ]
+    target_os = ['android']
+    EOF
+
+    run gclient sync --verbose
+
+    run cd -
+
+    sed_in_place '/PNG_USE_READ_MACROS/a "FPDFSDK_EXPORTS",' BUILD.gn
+
+install: |
+    case $TARGET_PLATFORM_ARCH in
+        armv7a)  GN_ARG_TARGET_CPU=arm   ;;
+        aarch64) GN_ARG_TARGET_CPU=arm64 ;;
+        i686)    GN_ARG_TARGET_CPU=x86   ;;
+        x86_64)  GN_ARG_TARGET_CPU=x64   ;;
+    esac
+
+    run $GN gen . --root="$PACKAGE_BSCRIPT_DIR"
+
+    cat >> args.gn <<EOF
+    is_debug=false
+    is_component_build=true
+    symbol_level=1
+    pdf_is_standalone=true
+    pdf_enable_xfa=false
+    pdf_enable_v8=false
+    pdf_use_skia_paths=false
+    pdf_use_skia=false
+    target_os="android"
+    target_cpu="$GN_ARG_TARGET_CPU"
+    EOF
+
+    if [ "$TARGET_PLATFORM_ARCH" = 'armv7a' ] ; then
+        printf '%s\n' 'arm_version=7' >> args.gn
+    fi
+
+    run cat args.gn
+
+    run ninja
+
+    run install_bins pdfium_diff
+    run install_libs *.so
+    run install_incs $PACKAGE_BSCRIPT_DIR/public/*.h
+    run install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp

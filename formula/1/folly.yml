@@ -1,0 +1,23 @@
+summary: A collection of reusable C++ library artifacts developed at Facebook
+git-url: https://github.com/facebook/folly.git
+src-url: https://github.com/facebook/folly/archive/refs/tags/v2023.09.18.00.tar.gz
+src-sha: 92167187103e20b0c8b808c9f263453872caba7edf63410cda1f79e2f98828f8
+license: Apache-2.0
+dep-pkg: boost double-conversion fmt glog libevent liblz4 libsnappy libsodium
+bsystem: cmake
+
+    #-DBoost_DIR="$boost_LIBRARY_DIR/cmake/Boost-1.73.0" \
+    #-Dgflags_DIR="$gflags_LIBRARY_DIR/cmake/gflags" \
+install: |
+    cmakew \
+        -DBOOST_LINK_STATIC=ON \
+        -DHAVE_VSNPRINTF_ERRORS_EXITCODE=0 \
+        -DHAVE_VSNPRINTF_ERRORS_EXITCODE__TRYRUN_OUTPUT=a \
+        -DFOLLY_HAVE_WCHAR_SUPPORT_EXITCODE=0 \
+        -DFOLLY_HAVE_WCHAR_SUPPORT_EXITCODE__TRYRUN_OUTPUT=a \
+        -DFOLLY_HAVE_LINUX_VDSO_EXITCODE=1 \
+        -DFOLLY_HAVE_LINUX_VDSO_EXITCODE__TRYRUN_OUTPUT=a \
+        -DFOLLY_HAVE_UNALIGNED_ACCESS_EXITCODE=0 \
+        -DFOLLY_HAVE_UNALIGNED_ACCESS_EXITCODE__TRYRUN_OUTPUT=a \
+        -DFOLLY_HAVE_WEAK_SYMBOLS_EXITCODE=1 \
+        -DFOLLY_HAVE_WEAK_SYMBOLS_EXITCODE__TRYRUN_OUTPUT=a

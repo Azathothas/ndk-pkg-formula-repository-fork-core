@@ -1,0 +1,31 @@
+summary: A command-line tool for extracting zip-compressed archives(.zip files)
+web-url: https://infozip.sourceforge.io/UnZip.html
+
+src-url: https://downloads.sourceforge.net/project/infozip/UnZip%206.x%20%28latest%29/UnZip%206.0/unzip60.tar.gz
+src-sha: 036d96991646d0449ed0aa952e4fbe21b476ce994abc276e49d30e686708bd37
+
+# https://packages.debian.org/buster/unzip
+fix-url: https://deb.debian.org/debian/pool/main/u/unzip/unzip_6.0-28.debian.tar.xz
+fix-sha: e51364116c84739c591728ecc841113a914fa11358fd10ff0d6813524d811bb9
+
+version: 6.0.28
+license: Info-ZIP
+dep-pkg: libbz2
+
+dopatch: |
+    for patchfile in $(cat ../fix/patches/series)
+    do
+        patch -p1 < ../fix/patches/$patchfile
+    done
+
+install: |
+    gmakew -f unix/Makefile clean
+    gmakew -f unix/Makefile generic \
+        CC="$CC" \
+        AS="$AS" \
+        LD="'$CC'" \
+        STRIP="$STRIP" \
+        LOCAL_UNZIP="'$CFLAGS $CPPFLAGS -DLARGE_FILE_SUPPOR -include time.h -include strings.h $LDFLAGS'" \
+        D_USE_BZ2=-DUSE_BZIP2 \
+        L_BZ2=-lbz2
+    gmakew -f unix/Makefile install prefix="$PACKAGE_INSTALL_DIR"

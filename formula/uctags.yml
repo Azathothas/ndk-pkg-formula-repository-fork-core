@@ -1,0 +1,10 @@
+summary: Maintained ctags implementation
+git-url: https://github.com/universal-ctags/ctags
+license: GPL-2.0-or-later
+dep-pkg: libjansson libyaml libxml2
+dep-upp: pkg-config
+bsystem: autogen
+install: configure --enable-tmpdir=/data/local/tmp
+
+# int fgetpos(FILE* _Nonnull __fp, fpos_t* _Nonnull __pos) __RENAME(fgetpos64) __INTRODUCED_IN(24);
+api-min: 24

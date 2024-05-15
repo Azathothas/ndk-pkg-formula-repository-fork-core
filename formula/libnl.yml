@@ -1,0 +1,24 @@
+summary: Netlink Library based Linux kernel interfaces
+git-url: https://github.com/thom311/libnl
+src-url: https://github.com/thom311/libnl/releases/download/libnl3_9_0/libnl-3.9.0.tar.gz
+src-sha: aed507004d728a5cf11eab48ca4bf9e6e1874444e33939b9d3dfed25018ee9bb
+license: LGPL-2.1-or-later
+dep-upp: flex bison libtool
+bsystem: autotools
+
+ldflags: -Wl,--undefined-version
+
+dopatch: |
+    autoreconf -ivf
+    sed_in_place 's@linux-private/@@g' lib/mpls.c
+    sed_in_place 's@linux-private/@@g' lib/route/link/vrf.c
+    sed_in_place '/linux-private/d' Makefile.in
+    sed_in_place '/linux-private/d' Makefile.am
+
+install: |
+    configure \
+        --enable-pthreads \
+        --enable-cli
+
+# int getsubopt(char** __option, char* const* __tokens, char** __value_ptr) __INTRODUCED_IN(26);
+api-min: 26

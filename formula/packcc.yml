@@ -1,0 +1,7 @@
+summary: A packrat parser generator for C
+git-url: https://github.com/enechaev/packcc
+license: MIT
+
+install: |
+    run $CC $CPPFLAGS $CFLAGS $LDFLAGS -static -o packcc $PACKAGE_BSCRIPT_DIR/packcc.c
+    install_bins packcc

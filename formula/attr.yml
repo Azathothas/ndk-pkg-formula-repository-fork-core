@@ -1,0 +1,12 @@
+pkgtype: lib
+summary: C library and utilities for Manipulating Filesystem Extended Attributes
+web-url: https://savannah.nongnu.org/projects/attr
+git-url: https://git.savannah.nongnu.org/git/attr.git
+src-url: https://download.savannah.nongnu.org/releases/attr/attr-2.5.2.tar.gz
+src-sha: 39bf67452fa41d0948c2197601053f48b3d78a029389734332a6309a680c6c87
+license: GPL-2.0-or-later
+bsystem: configure
+
+# void seekdir(DIR* __dir, long __location) __INTRODUCED_IN(23);
+# long telldir(DIR* __dir) __INTRODUCED_IN(23);
+api-min: 23

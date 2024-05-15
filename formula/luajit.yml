@@ -1,0 +1,54 @@
+pkgtype: lib
+summary: Just-In-Time Compiler (JIT) for the Lua programming language
+web-url: https://luajit.org/
+git-url: https://github.com/LuaJIT/LuaJIT
+git-sha: a91d0d9d3bba1a936669cfac3244509a0f2ac0e3
+version: 2.1.0
+license: MIT
+
+dopatch: |
+    printf '%s\n' 'int main() {return 0;}' > test.c
+
+    cc -m32 test.c 2> /dev/null || {
+        if command -v apt > /dev/null ; then
+            run "$sudo" apt -y update &&
+            run "$sudo" apt -y install gcc-multilib
+        fi
+    }
+
+    if [ "$NATIVE_OS_KIND" = darwin ] ; then
+        export CFLAGS="$CFLAGS -arch=$NATIVE_OS_ARCH"
+    fi
+
+    sed_in_place '/TARGET_SONAME=/c TARGET_SONAME=libluajit.so' src/Makefile
+
+prepare: |
+    if [ -d /usr/include/x86_64-linux-gnu ] ; then
+        export CPPFLAGS_FOR_BUILD="$CPPFLAGS_FOR_BUILD -I/usr/include/x86_64-linux-gnu"
+    fi
+
+install: |
+    gmakew clean all \
+        HOST_SYS=$(uname -s) \
+        HOST_CC="'$CC_FOR_BUILD -m$TARGET_PLATFORM_NBIT'" \
+        HOST_LD="$CC_FOR_BUILD" \
+        HOST_CFLAGS="'$CPPFLAGS_FOR_BUILD $CFLAGS_FOR_BUILD'" \
+        HOST_LDFLAGS="'$LDFLAGS_FOR_BUILD'" \
+        CFLAGS= \
+        LDFLAGS= \
+        TARGET_SYS=Linux \
+        TARGET_CFLAGS="'$CPPFLAGS $CFLAGS'" \
+        TARGET_LDFLAGS="'$LDFLAGS'" \
+        TARGET_CC="$CC" \
+        TARGET_LD="$CC" \
+        TARGET_AR="'$AR rcus'" \
+        TARGET_STRIP="$STRIP" \
+        STATIC_CC="$CC" \
+        DYNAMIC_CC="'$CC -fPIC'" \
+        Q=
+    cd src
+    install_bins luajit
+    install_incs lua.h lualib.h lauxlib.h luaconf.h lua.hpp luajit.h
+    install_libs libluajit.a libluajit.so
+
+developer: Mike Pall <luajit@freelists.org>

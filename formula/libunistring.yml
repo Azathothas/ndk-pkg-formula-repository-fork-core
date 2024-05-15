@@ -1,0 +1,30 @@
+summary: C library for manipulating Unicode strings
+git-url: https://git.savannah.gnu.org/git/libunistring.git
+web-url: https://www.gnu.org/software/libunistring
+src-url: https://ftp.gnu.org/gnu/libunistring/libunistring-1.2.tar.gz
+src-sha: fd6d5662fa706487c48349a758b57bc149ce94ec6c30624ec9fdc473ceabbc8e
+license: GPL-2.0-only
+dep-pkg: libiconv
+
+install: |
+    configure \
+        --with-libiconv-prefix="$libiconv_INSTALL_DIR" \
+        --enable-threads=posix \
+        --enable-relocatable \
+        --enable-namespacing
+
+dotweak: |
+    install -d lib/pkgconfig
+    cat >      lib/pkgconfig/libunistring.pc <<EOF
+    prefix=\${pcfiledir}/../..
+    exec_prefix=\${prefix}
+    libdir=\${exec_prefix}/lib
+    includedir=\${prefix}/include
+
+    Name: libunistring
+    Description: $PACKAGE_SUMMARY
+    Version: $PACKAGE_VERSION
+    Cflags: -I\${includedir}
+    Libs: -L\${libdir} -lunistring
+    Requires: libiconv
+    EOF

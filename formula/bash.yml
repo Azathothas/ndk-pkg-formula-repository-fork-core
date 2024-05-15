@@ -1,0 +1,20 @@
+summary: Bourne-Again SHell, a UNIX command interpreter
+git-url: https://git.savannah.gnu.org/git/bash.git
+web-url: https://www.gnu.org/software/bash
+src-url: https://ftp.gnu.org/gnu/bash/bash-5.2.21.tar.gz
+src-sha: c8e31bdc59b69aaffc5b36509905ba3e5cbb12747091d27b4b977f078560d5b8
+license: GPL-3.0-or-later
+dep-pkg: readline
+
+install: |
+    configure \
+        --with-curses \
+        --without-bash-malloc \
+        --disable-profiling \
+        --enable-readline \
+        --enable-select \
+        --enable-history
+
+# int mblen(const char* __s, size_t __n) __INTRODUCED_IN(26)
+# void endgrent(void) __INTRODUCED_IN(26);
+api-min: 26

@@ -1,0 +1,34 @@
+summary: A command-line tool for generating scripting interfaces to C/C++ code
+web-url: https://www.swig.org/
+git-url: https://github.com/swig/swig
+src-url: https://downloads.sourceforge.net/project/swig/swig/swig-4.2.1/swig-4.2.1.tar.gz
+src-sha: fa045354e2d048b2cddc69579e4256245d4676894858fcf0bab2290ecf59b7d8
+license: GPL-3.0-or-later
+dep-pkg: libpcre2 libz
+
+install: |
+    configure \
+        --enable-ccache \
+        --enable-cpp11-testing \
+        --with-popen \
+        --with-pcre \
+        --without-boost \
+        --without-android \
+        --without-java \
+        --without-javascript \
+        --without-python \
+        --without-perl5 \
+        --without-ruby \
+        --without-php \
+        --without-tcl \
+        --without-guile \
+        --without-octave \
+        --without-scilab \
+        --without-ocaml \
+        --without-mzscheme \
+        --without-csharp \
+        --without-lua \
+        --without-r \
+        --without-d \
+        --without-go \
+        PCRE2_CONFIG="$libpcre2_INSTALL_DIR/bin/pcre2-config"

@@ -1,0 +1,29 @@
+summary: VP8/VP9 video codec
+web-url: https://www.webmproject.org/code/
+git-url: https://github.com/webmproject/libvpx
+src-url: https://github.com/webmproject/libvpx/archive/v1.13.1.tar.gz
+src-sha: 00dae80465567272abd077f59355f95ac91d7809a2d3006f9ace2637dd429d14
+license: BSD-3-Clause
+dep-upp: yasm perl
+bsystem: configure
+
+install: |
+    unset CONFIGURE_EXTRA_ARGS
+
+    case $TARGET_PLATFORM_ARCH in
+        armv7a)  TARGET=armv7-android-gcc  ; export AS="$CC -c" ; CONFIGURE_EXTRA_ARGS=--enable-neon-asm ;;
+        aarch64) TARGET=arm64-android-gcc  ; export AS="$CC -c" ;;
+        i686)    TARGET=x86-android-gcc    ; export AS=yasm ;;
+        x86_64)  TARGET=x86_64-android-gcc ; export AS=yasm ;;
+    esac
+
+    run "$PACKAGE_BSCRIPT_DIR/configure" \
+        --prefix="$PACKAGE_INSTALL_DIR" \
+        --target="$TARGET" \
+        --disable-examples \
+        --disable-unit-tests \
+        --disable-realtime-only \
+        --enable-pic \
+        --enable-vp9-highbitdepth $CONFIGURE_EXTRA_ARGS
+    gmakew
+    gmakew install

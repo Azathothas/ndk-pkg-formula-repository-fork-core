@@ -1,0 +1,31 @@
+summary: Linux Capability Library
+git-url: https://git.kernel.org/pub/scm/libs/libcap/libcap.git
+src-url: https://mirrors.edge.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.69.tar.xz
+src-sha: f311f8f3dad84699d0566d1d6f7ec943a9298b28f714cae3c931dfd57492d7eb
+license: BSD-3-Clause
+dep-upp: gperf
+
+# int getgrnam_r(const char* __name, struct group* __group, char* __buf, size_t __n, struct group** __result) __INTRODUCED_IN(24);
+
+dopatch: |
+    sed_in_place 's/indent -kr/indent -br/'    Make.Rules
+    sed_in_place 's/-i $@/-i".bak" $@/'        libcap/Makefile
+    sed_in_place 's|size_t len/|size_t len/g|' libcap/Makefile
+
+install: |
+    gmakew -C "$PACKAGE_BSCRIPT_DIR/libcap" clean
+    gmakew -C "$PACKAGE_BSCRIPT_DIR/libcap" install \
+        prefix="$PACKAGE_INSTALL_DIR" \
+        lib=lib \
+        PAM_CAP=no \
+        GOLANG=no \
+        SHARED=no \
+        BUILD_CC="$CC_FOR_BUILD" \
+        BUILD_CFLAGS='' \
+        CC="$CC" \
+        CFLAGS="'$CFLAGS $CPPFLAGS'" \
+        LDFLAGS="'$LDFLAGS'" \
+        AR="$AR" \
+        RANLIB="$RANLIB" \
+        OBJCOPY="$OBJCOPY"
+    cp "$PACKAGE_BSCRIPT_DIR/libcap/_caps_output.gperf" .

@@ -1,0 +1,30 @@
+summary: returns a pointer to the first occurrence of the character c in the string s
+web-url: https://linux.die.net/man/3/strchrnul
+version: 1
+install: |
+    cat > strchrnul.h <<EOF
+    #ifdef __cplusplus
+        extern "C" {
+    #endif
+
+            char* strchrnul(const char *s, int c);
+
+    #ifdef __cplusplus
+        }   
+    #endif
+    EOF
+
+    # https://android.googlesource.com/platform/bionic/+/master/libc/bionic/strchrnul.cpp
+    cat > strchrnul.c <<EOF
+    char* strchrnul(const char* s, int c) {
+        while (*s && *s != c) {
+            ++s;
+        }
+        return s;
+    }
+    EOF
+
+    run $CC -c $CFLAGS $CPPFLAGS -o strchrnul.o strchrnul.c
+    run $AR rsc libstrchrnul.a  strchrnul.o
+    run install_incs strchrnul.h
+    run install_libs libstrchrnul.a

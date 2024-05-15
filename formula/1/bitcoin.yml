@@ -1,0 +1,28 @@
+summary: Decentralized, peer to peer payment network
+git-url: https://github.com/bitcoin/bitcoin
+web-url: https://bitcoincore.org/
+src-url: https://bitcoincore.org/bin/bitcoin-core-26.1/bitcoin-26.1.tar.gz
+src-sha: 9164ee5d717b4a20cb09f0496544d9d32f365734814fe399f5cdb4552a9b35ee
+license: MIT
+dep-pkg: libevent libzmq boost
+dep-upp: libtool
+bsystem: autotools
+
+# error: "Cannot compile without assertions!"
+ppflags: -UNDEBUG
+
+prepare: |
+    export ac_cv_path_ac_pt_AR="$TOOLCHAIN_BIND/$AR"
+    export ac_cv_path_ac_pt_RANLIB="$TOOLCHAIN_BIND/$RANLIB"
+    export ac_cv_path_ac_pt_OBJCOPY="$TOOLCHAIN_BIND/$OBJCOPY"
+    export ac_cv_path_ac_pt_STRIP="$TOOLCHAIN_BIND/$STRIP"
+
+install: |
+    configure \
+        --with-boost="$boost_INSTALL_DIR" \
+        --with-daemon \
+        --without-gui \
+        --without-bdb \
+        --enable-fuzz=no \
+        --enable-bench=no \
+        --enable-tests=no

@@ -1,0 +1,34 @@
+pkgtype: exe+lib
+summary: Tool Command Language
+web-url: https://www.tcl-lang.org
+src-url: https://downloads.sourceforge.net/project/tcl/Tcl/8.6.14/tcl8.6.14-src.tar.gz
+src-sha: 5880225babf7954c58d4fb0f5cf6279104ce1cd6aa9b71e9a6322540e1c4de66
+dep-pkg: libz liblanginfo
+version: 8.6.14
+license: TCL
+bscript: unix
+
+dopatch: |
+    sed_in_place 's/test "`uname -s`" = "Darwin"/false/g' configure
+    sed_in_place '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' ../pkgs/sqlite3.44.2/generic/../compat/sqlite3/sqlite3.c
+
+prepare: |
+    if [ "$TARGET_PLATFORM_NBIT" -eq 64 ] ; then
+        EXTRA_CONFIGURE_FLAGS='--enable-64bit'
+    else
+        EXTRA_CONFIGURE_FLAGS='--disable-64bit'
+    fi
+
+install: |
+    configure \
+        --enable-dtrace \
+        --enable-zipfs \
+        --enable-load \
+        --enable-dll-unloading \
+        --enable-threads \
+        --disable-symbols \
+        --disable-corefoundation \
+        --disable-framework \
+        --with-tzdata \
+        $EXTRA_CONFIGURE_FLAGS \
+        tcl_cv_sys_version=Linux LIBS=-lm
