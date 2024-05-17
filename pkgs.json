@@ -8735,7 +8735,7 @@
     "dep-upp": "git",
     "binbstd": "1",
     "parallel": "1",
-    "install": "for file in *.c\ndo\n    OUTFILE=\"${file%.c}\"\n    run \"$CC\" \"$CFLAGS\" \"$CPPFLAGS\" \"$LDFLAGS\" -std=c99 -Oz -flto -Wl,-s -static -o \"$OUTFILE\" \"$file\"\n    install_bins \"$OUTFILE\"\ndone"
+    "install": "for file in *.c\ndo\n    OUTFILE=\"${file%.c}\"\n    run \"$CC\" \"$CFLAGS\" \"$CPPFLAGS\" \"$LDFLAGS\" -std=c99 -Oz -flto -Wl,-s -static -o \"$OUTFILE\" \"$file\"\n    install_bins \"$OUTFILE\"\ndone\n\nmv fonts.conf \"$PACKAGE_INSTALL_DIR/bin/\""
   },
   {
     "pkgname": "neofetch",
@@ -11355,10 +11355,9 @@
     "summary": "Universal Prebuild Package Manager",
     "web-url": "https://github.com/leleliu008/uppm",
     "git-url": "https://github.com/leleliu008/uppm",
-    "git-ref": "refs/heads/0.15.2",
-    "src-url": "dir:///Users/fpliu/uppm",
+    "git-ref": "refs/heads/0.15.3",
     "dep-pkg": "libcurl libgit2 libarchive libyaml libjansson",
-    "dep-upp": "cmake ninja",
+    "dep-upp": "git cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",

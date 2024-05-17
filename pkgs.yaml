@@ -10540,6 +10540,8 @@
         run "$CC" "$CFLAGS" "$CPPFLAGS" "$LDFLAGS" -std=c99 -Oz -flto -Wl,-s -static -o "$OUTFILE" "$file"
         install_bins "$OUTFILE"
     done
+
+    mv fonts.conf "$PACKAGE_INSTALL_DIR/bin/"
 - pkgname: neofetch
   pkgtype: exe
   version: 7.1.0
@@ -14091,10 +14093,9 @@
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
   git-url: https://github.com/leleliu008/uppm
-  git-ref: refs/heads/0.15.2
-  src-url: dir:///Users/fpliu/uppm
+  git-ref: refs/heads/0.15.3
   dep-pkg: libcurl libgit2 libarchive libyaml libjansson
-  dep-upp: cmake ninja
+  dep-upp: git cmake ninja
   bsystem: cmake
   binbstd: "0"
   parallel: "1"

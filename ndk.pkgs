@@ -10414,10 +10414,9 @@ license: Apache-2.0
 summary: Universal Prebuild Package Manager
 web-url: https://github.com/leleliu008/uppm
 git-url: https://github.com/leleliu008/uppm
-git-ref: refs/heads/0.15.2
-src-url: dir:///Users/fpliu/uppm
+git-ref: refs/heads/0.15.3
 dep-pkg: libcurl libgit2 libarchive libyaml libjansson
-dep-upp: cmake ninja
+dep-upp: git cmake ninja
 bsystem: cmake
 binbstd: 0
 parallel: 1
