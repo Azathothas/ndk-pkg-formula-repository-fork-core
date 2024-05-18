@@ -2554,6 +2554,12 @@
   do12345: configure --disable-zlib --disable-bzlib --disable-xzlib
   prepare: export FILE_COMPILE="$NATIVE_INSTALL_DIR/bin/file"
   install: configure --enable-zlib --disable-bzlib --disable-xzlib
+  caveats: |-
+    The following environment variables should be set if you move/copy this software to other location
+
+    FILE_INSTALLED_DIR=/somewhere
+
+    export MAGIC="$FILE_INSTALLED_DIR/share/misc/magic.mgc"
 - pkgname: findent
   pkgtype: exe
   version: 4.3.3
@@ -3344,6 +3350,14 @@
         --with-openssl="$openssl_dev_INSTALL_DIR" \
         --with-libpcre2="$libpcre2_INSTALL_DIR" \
         --without-tcltk
+  caveats: |-
+    The following environment variables should be set if you move/copy this software to other location
+
+    GIT_INSTALLED_DIR=/somewhere
+
+    export GIT_EXEC_PATH="$GIT_INSTALLED_DIR/libexec/git-core"
+    export GIT_TEMPLATE_DIR="$GIT_INSTALLED_DIR/share/git-core/templates"
+    export GIT_CONFIG_NOSYSTEM=1
 - pkgname: git-cliff
   pkgtype: exe
   version: 2.2.1
@@ -4721,7 +4735,7 @@
     export LIBGIT2_SYS_USE_PKG_CONFIG=1
     export LIBSSH2_SYS_USE_PKG_CONFIG=1
     export LIBZ_SYS_STATIC=1
-  install: cargow install --no-default-features --path cli --bin jj
+  install: cargow install --locked --no-default-features --path cli --bin jj
 - pkgname: jq
   pkgtype: exe
   version: 1.7.1
@@ -13056,8 +13070,8 @@
   src-url: https://github.com/Aloxaf/silicon/archive/refs/tags/v0.5.2.tar.gz
   src-sha: 815d41775dd9cd399650addf8056f803f3f57e68438e8b38445ee727a56b4b2d
   dep-pkg: libfontconfig libharfbuzz
-  dep-upp: curl bsdtar
-  bsystem: cargo cmake-gmake
+  dep-upp: curl bsdtar cmake gmake
+  bsystem: cargo cmake+gmake
   binbstd: "1"
   parallel: "1"
   install: |-
@@ -13821,6 +13835,12 @@
         --disable-static \
         ac_cv_search_forkpty='-lc' \
         ac_cv_search_utf8proc_charwidth='-lutf8proc'
+  caveats: |-
+    To get it working on Termux, you might need to run the following instructions
+
+    export TMUX_TMPDIR="$HOME/tmux-tmp-dir"
+    install -d "$TMUX_TMPDIR"
+    ln -s ~/../usr/lib/terminfo ~/.terminfo
 - pkgname: tokei
   pkgtype: exe
   version: 12.1.2

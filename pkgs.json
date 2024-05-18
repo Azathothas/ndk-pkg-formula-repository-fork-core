@@ -2194,7 +2194,8 @@
     "parallel": "1",
     "do12345": "configure --disable-zlib --disable-bzlib --disable-xzlib",
     "prepare": "export FILE_COMPILE=\"$NATIVE_INSTALL_DIR/bin/file\"",
-    "install": "configure --enable-zlib --disable-bzlib --disable-xzlib"
+    "install": "configure --enable-zlib --disable-bzlib --disable-xzlib",
+    "caveats": "The following environment variables should be set if you move/copy this software to other location\n\nFILE_INSTALLED_DIR=/somewhere\n\nexport MAGIC=\"$FILE_INSTALLED_DIR/share/misc/magic.mgc\""
   },
   {
     "pkgname": "findent",
@@ -2830,7 +2831,8 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "install": "printf '%s' '\nLS0tIHJ1bi1jb21tYW5kLmMJMjAyMy0wNi0wMSAxNTowMzowNS4wMDAwMDAwMDAgKzA4MDAKKysr\nIHJ1bi1jb21tYW5kLmNoYW5nZWQJMjAyMy0wNy0yMSAwMToxMToxNy41MjcxNDY0NzcgKzA4MDAK\nQEAgLTUxNyw4ICs1MTcsNiBAQAogI2Vsc2UKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJ\nR19TRVRNQVNLLCAmYWxsLCAmYXMtPm9sZCksCiAJCSJibG9ja2luZyBhbGwgc2lnbmFscyIpOwot\nCUNIRUNLX0JVRyhwdGhyZWFkX3NldGNhbmNlbHN0YXRlKFBUSFJFQURfQ0FOQ0VMX0RJU0FCTEUs\nICZhcy0+Y3MpLAotCQkiZGlzYWJsaW5nIGNhbmNlbGxhdGlvbiIpOwogI2VuZGlmCiB9CiAKQEAg\nLTUyOCw4ICs1MjYsNiBAQAogCWlmIChzaWdwcm9jbWFzayhTSUdfU0VUTUFTSywgJmFzLT5vbGQs\nIE5VTEwpKQogCQlkaWVfZXJybm8oInNpZ3Byb2NtYXNrIik7CiAjZWxzZQotCUNIRUNLX0JVRyhw\ndGhyZWFkX3NldGNhbmNlbHN0YXRlKGFzLT5jcywgTlVMTCksCi0JCSJyZS1lbmFibGluZyBjYW5j\nZWxsYXRpb24iKTsKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJR19TRVRNQVNLLCAmYXMt\nPm9sZCwgTlVMTCksCiAJCSJyZXN0b3Jpbmcgc2lnbmFsIG1hc2siKTsKICNlbmRpZgo=' | base64 -d | patch -p0\n\n# to bypass git error: cannot run test program while cross compiling\nexport ac_cv_fread_reads_directories=yes\nexport ac_cv_header_libintl_h=yes\nexport ac_cv_iconv_omits_bom=no\nexport ac_cv_snprintf_returns_bogus=no\n\nexport ac_cv_lib_curl_curl_global_init=yes\n\nLIBCURL_LIBS=\"$(pkg-config --libs libcurl)\"\nprintf 'LIBCURL_LIBS=%s\\n' \"$LIBCURL_LIBS\"\n\nexport LDFLAGS=\"$LDFLAGS $LIBCURL_LIBS\"\n\nconfigure \\\n    --with-zlib=\"$libz_INSTALL_DIR\" \\\n    --with-curl=\"$libcurl_INSTALL_DIR\" \\\n    --with-expat=\"$libexpat_INSTALL_DIR\" \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-openssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-libpcre2=\"$libpcre2_INSTALL_DIR\" \\\n    --without-tcltk"
+    "install": "printf '%s' '\nLS0tIHJ1bi1jb21tYW5kLmMJMjAyMy0wNi0wMSAxNTowMzowNS4wMDAwMDAwMDAgKzA4MDAKKysr\nIHJ1bi1jb21tYW5kLmNoYW5nZWQJMjAyMy0wNy0yMSAwMToxMToxNy41MjcxNDY0NzcgKzA4MDAK\nQEAgLTUxNyw4ICs1MTcsNiBAQAogI2Vsc2UKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJ\nR19TRVRNQVNLLCAmYWxsLCAmYXMtPm9sZCksCiAJCSJibG9ja2luZyBhbGwgc2lnbmFscyIpOwot\nCUNIRUNLX0JVRyhwdGhyZWFkX3NldGNhbmNlbHN0YXRlKFBUSFJFQURfQ0FOQ0VMX0RJU0FCTEUs\nICZhcy0+Y3MpLAotCQkiZGlzYWJsaW5nIGNhbmNlbGxhdGlvbiIpOwogI2VuZGlmCiB9CiAKQEAg\nLTUyOCw4ICs1MjYsNiBAQAogCWlmIChzaWdwcm9jbWFzayhTSUdfU0VUTUFTSywgJmFzLT5vbGQs\nIE5VTEwpKQogCQlkaWVfZXJybm8oInNpZ3Byb2NtYXNrIik7CiAjZWxzZQotCUNIRUNLX0JVRyhw\ndGhyZWFkX3NldGNhbmNlbHN0YXRlKGFzLT5jcywgTlVMTCksCi0JCSJyZS1lbmFibGluZyBjYW5j\nZWxsYXRpb24iKTsKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJR19TRVRNQVNLLCAmYXMt\nPm9sZCwgTlVMTCksCiAJCSJyZXN0b3Jpbmcgc2lnbmFsIG1hc2siKTsKICNlbmRpZgo=' | base64 -d | patch -p0\n\n# to bypass git error: cannot run test program while cross compiling\nexport ac_cv_fread_reads_directories=yes\nexport ac_cv_header_libintl_h=yes\nexport ac_cv_iconv_omits_bom=no\nexport ac_cv_snprintf_returns_bogus=no\n\nexport ac_cv_lib_curl_curl_global_init=yes\n\nLIBCURL_LIBS=\"$(pkg-config --libs libcurl)\"\nprintf 'LIBCURL_LIBS=%s\\n' \"$LIBCURL_LIBS\"\n\nexport LDFLAGS=\"$LDFLAGS $LIBCURL_LIBS\"\n\nconfigure \\\n    --with-zlib=\"$libz_INSTALL_DIR\" \\\n    --with-curl=\"$libcurl_INSTALL_DIR\" \\\n    --with-expat=\"$libexpat_INSTALL_DIR\" \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-openssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-libpcre2=\"$libpcre2_INSTALL_DIR\" \\\n    --without-tcltk",
+    "caveats": "The following environment variables should be set if you move/copy this software to other location\n\nGIT_INSTALLED_DIR=/somewhere\n\nexport GIT_EXEC_PATH=\"$GIT_INSTALLED_DIR/libexec/git-core\"\nexport GIT_TEMPLATE_DIR=\"$GIT_INSTALLED_DIR/share/git-core/templates\"\nexport GIT_CONFIG_NOSYSTEM=1"
   },
   {
     "pkgname": "git-cliff",
@@ -4076,7 +4078,7 @@
     "binbstd": "1",
     "parallel": "1",
     "prepare": "export LIBGIT2_NO_VENDOR=1\nexport OPENSSL_NO_VENDOR=1\nexport OPENSSL_STATIC=1\nexport LIBGIT2_SYS_USE_PKG_CONFIG=1\nexport LIBSSH2_SYS_USE_PKG_CONFIG=1\nexport LIBZ_SYS_STATIC=1",
-    "install": "cargow install --no-default-features --path cli --bin jj"
+    "install": "cargow install --locked --no-default-features --path cli --bin jj"
   },
   {
     "pkgname": "jq",
@@ -10502,8 +10504,8 @@
     "src-url": "https://github.com/Aloxaf/silicon/archive/refs/tags/v0.5.2.tar.gz",
     "src-sha": "815d41775dd9cd399650addf8056f803f3f57e68438e8b38445ee727a56b4b2d",
     "dep-pkg": "libfontconfig libharfbuzz",
-    "dep-upp": "curl bsdtar",
-    "bsystem": "cargo cmake-gmake",
+    "dep-upp": "curl bsdtar cmake gmake",
+    "bsystem": "cargo cmake+gmake",
     "binbstd": "1",
     "parallel": "1",
     "install": "# https://github.com/servo/libfontconfig/issues/62\nif [ \"$TARGET_PLATFORM_ARCH\" = 'armv7a' ] ; then\n    run install -d \"$PACKAGE_INSTALL_DIR/bin\"\nelse\n    cargow install\nfi"
@@ -11096,7 +11098,8 @@
     "api-min": "23",
     "parallel": "1",
     "dopatch": "sed_in_place '1i int getdtablesize();'   compat/imsg.c\nsed_in_place '1i #include<sys/endian.h>' compat/htonll.c\nsed_in_place '1i #include<sys/endian.h>' compat/ntohll.c",
-    "install": "configure \\\n    --with-TERM=screen-256color \\\n    --enable-utf8proc \\\n    --disable-static \\\n    ac_cv_search_forkpty='-lc' \\\n    ac_cv_search_utf8proc_charwidth='-lutf8proc'"
+    "install": "configure \\\n    --with-TERM=screen-256color \\\n    --enable-utf8proc \\\n    --disable-static \\\n    ac_cv_search_forkpty='-lc' \\\n    ac_cv_search_utf8proc_charwidth='-lutf8proc'",
+    "caveats": "To get it working on Termux, you might need to run the following instructions\n\nexport TMUX_TMPDIR=\"$HOME/tmux-tmp-dir\"\ninstall -d \"$TMUX_TMPDIR\"\nln -s ~/../usr/lib/terminfo ~/.terminfo"
   },
   {
     "pkgname": "tokei",
