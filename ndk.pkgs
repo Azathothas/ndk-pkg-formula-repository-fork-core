@@ -638,13 +638,13 @@ installed: no
 ---
 pkgname: brook
 pkgtype: pie
-version: 20240404
+version: 20240606
 license: GPL-3.0-only
 summary: Cross-platform strong encryption and not detectable proxy. Zero-Configuration
 web-url: https://txthinking.github.io/brook/
 git-url: https://github.com/txthinking/brook
-src-url: https://github.com/txthinking/brook/archive/refs/tags/v20240404.tar.gz
-src-sha: 6eda9a348f9c3555a1c27711e81c0982ea9999bf2878e73cf2eaaee90e8cc2e7
+src-url: https://github.com/txthinking/brook/archive/refs/tags/v20240606.tar.gz
+src-sha: eee1c6173daff3199c23396f4661d7f81d701dc0f4eb1662b39041a6ca10703b
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -916,13 +916,13 @@ installed: no
 ---
 pkgname: chezmoi
 pkgtype: pie
-version: 2.48.0
+version: 2.48.1
 license: MIT
 summary: Manage your dotfiles across multiple diverse machines, securely
 web-url: https://chezmoi.io/
 git-url: https://github.com/twpayne/chezmoi
-src-url: https://github.com/twpayne/chezmoi/archive/refs/tags/v2.48.0.tar.gz
-src-sha: 3034a37ddc21fd19e9a37297dd98a6edbf85e68f112cafef721d2512fbac13e5
+src-url: https://github.com/twpayne/chezmoi/archive/refs/tags/v2.48.1.tar.gz
+src-sha: 6c7647bd42dcda7370a85c3f744018667e4a122a227ac368373443dec694d6e9
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -1098,13 +1098,13 @@ installed: no
 ---
 pkgname: cotp
 pkgtype: exe
-version: 1.5.0
+version: 1.7.0
 license: GPL-3.0-only
 summary: TOTP/HOTP authenticator app with import functionality
 web-url: https://github.com/replydev/cotp
 git-url: https://github.com/replydev/cotp
-src-url: https://github.com/replydev/cotp/archive/refs/tags/v1.5.0.tar.gz
-src-sha: 3a868e3bbb0794a2f9baee571f43fcded4029ed92ddfeccfa2b4ee54e6e0c927
+src-url: https://github.com/replydev/cotp/archive/refs/tags/v1.7.0.tar.gz
+src-sha: 74d4cb39c7c66fd144a400585114e1ba641d5cebb7ba001a56bded5ba71c5933
 dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
@@ -1582,13 +1582,13 @@ installed: no
 ---
 pkgname: dot_static
 pkgtype: exe
-version: 10.0.1
+version: 11.0.0
 license: EPL-1.0
 summary: A command-line tool for drawing graphs
 web-url: https://www.graphviz.org/
 git-url: https://gitlab.com/graphviz/graphviz
-src-url: https://gitlab.com/graphviz/graphviz/-/archive/10.0.1/graphviz-10.0.1.tar.bz2
-src-sha: eaa60fea2b3ad904e3bf6919710c1ba3207ce31b5d7da1687dd3b734de8736f6
+src-url: https://gitlab.com/graphviz/graphviz/-/archive/11.0.0/graphviz-11.0.0.tar.bz2
+src-sha: 95173d21922082b0b2649fb24c1dc4bbc1e39504a92903b88df39804778cbb9d
 dep-pkg: gd pango libglob
 dep-upp: gm4 flex bison gawk git python3 libtool curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autogen
@@ -1777,13 +1777,13 @@ installed: no
 ---
 pkgname: esbuild
 pkgtype: pie
-version: 0.20.2
+version: 0.21.3
 license: MIT
 summary: An extremely fast JavaScript bundler and minifier
 web-url: https://esbuild.github.io
 git-url: https://github.com/evanw/esbuild
-src-url: https://github.com/evanw/esbuild/archive/refs/tags/v0.20.2.tar.gz
-src-sha: f34cd046e067a673b4fe24f794edf4452125cf980fc9dd2fb7361f1505876543
+src-url: https://github.com/evanw/esbuild/archive/refs/tags/v0.21.3.tar.gz
+src-sha: f81cc2add471cab752845a778f23dace9ece17c487fe178202c07481b9a678b5
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -1854,13 +1854,13 @@ installed: no
 ---
 pkgname: eza
 pkgtype: exe
-version: 0.18.15
+version: 0.18.16
 license: MIT
 summary: Modern replacement for ls(1)
 web-url: https://github.com/eza-community/eza
 git-url: https://github.com/eza-community/eza
-src-url: https://github.com/eza-community/eza/archive/refs/tags/v0.18.15.tar.gz
-src-sha: 53c6ea67804dbaa330918f6ce62a1cff866a145b2395c606903c0d128dd8564f
+src-url: https://github.com/eza-community/eza/archive/refs/tags/v0.18.16.tar.gz
+src-sha: dd713474b902568cb2c7c8ea7db8e08db5818617e34908ae7142e9da9cefd17b
 dep-pkg: libz libgit2
 dep-upp: curl bsdtar
 bsystem: cargo
@@ -2220,15 +2220,15 @@ installed: no
 ---
 pkgname: fselect
 pkgtype: exe
-version: 0.8.5
+version: 0.8.6
 license: MIT
 summary: Find files with SQL-like queries
 web-url: https://github.com/jhspetersson/fselect
 git-url: https://github.com/jhspetersson/fselect
-src-url: https://github.com/jhspetersson/fselect/archive/refs/tags/0.8.5.tar.gz
-src-sha: e5742da80606630e310bb1567f2d72d7874f0b2537440e2800507abd786d912d
-dep-upp: curl bsdtar
-bsystem: cargo
+src-url: https://github.com/jhspetersson/fselect/archive/refs/tags/0.8.6.tar.gz
+src-sha: 4b7a6dc5f6f3da39c3242856a1c78734c7b14bd801dc4d7e32bc6f5a1809bc63
+dep-upp: curl bsdtar cmake ninja
+bsystem: cargo cmake
 binbstd: 1
 api-min: 24
 parallel: 1
@@ -2279,13 +2279,13 @@ installed: no
 ---
 pkgname: fzf
 pkgtype: pie
-version: 0.52.0
+version: 0.52.1
 license: MIT
 summary: A command-line fuzzy finder written in Go
 web-url: https://github.com/junegunn/fzf
 git-url: https://github.com/junegunn/fzf
-src-url: https://github.com/junegunn/fzf/archive/refs/tags/0.52.0.tar.gz
-src-sha: d1f2c32b4f095457fdd7c22fe51ac99260ac8d066f49d5dec4f0e097a240dbc0
+src-url: https://github.com/junegunn/fzf/archive/refs/tags/0.52.1.tar.gz
+src-sha: 96848746ca78249c1fdd16f170776ce2f667097b60e4ffbd5ecdbd7dfac72ef9
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -2526,13 +2526,13 @@ installed: no
 ---
 pkgname: gh
 pkgtype: pie
-version: 2.49.1
+version: 2.49.2
 license: MIT
 summary: A command-line interface that brings github.com functionality to your terminal
 web-url: https://github.com/cli/cli
 git-url: https://github.com/cli/cli
-src-url: https://github.com/cli/cli/archive/refs/tags/v2.49.1.tar.gz
-src-sha: e898bcfec71ee1b5eba3bba0816eaca5f735e7443e11864dddbf753f8ecc3cf7
+src-url: https://github.com/cli/cli/archive/refs/tags/v2.49.2.tar.gz
+src-sha: e839ea302ad99b70ce3efcb903f938ecbbb919798e49bc2f2034ad506ae0b0f5
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -2602,13 +2602,13 @@ installed: no
 ---
 pkgname: git-cliff
 pkgtype: exe
-version: 2.2.1
+version: 2.2.2
 license: Apache-2.0 MIT
 summary: A highly customizable Changelog Generator that follows Conventional Commit specifications
 web-url: https://github.com/orhun/git-cliff
 git-url: https://github.com/orhun/git-cliff
-src-url: https://github.com/orhun/git-cliff/archive/refs/tags/v2.2.1.tar.gz
-src-sha: 8573c4dc28fd6d6c1e9be7156193c13d177af093a060ae9e3bd4cd60ff3e05c4
+src-url: https://github.com/orhun/git-cliff/archive/refs/tags/v2.2.2.tar.gz
+src-sha: c47b517907cfede556c50d790fddc07039c7ab477a2a059dde57090c97adfbac
 dep-pkg: libgit2
 dep-upp: curl bsdtar
 bsystem: cargo
@@ -2990,13 +2990,13 @@ installed: no
 ---
 pkgname: goreleaser
 pkgtype: pie
-version: 1.25.1
+version: 1.26.1
 license: MIT
 summary: Deliver Go binaries as fast and easily as possible
 web-url: https://goreleaser.com/
 git-url: https://github.com/goreleaser/goreleaser
-src-url: https://github.com/goreleaser/goreleaser/archive/refs/tags/v1.25.1.tar.gz
-src-sha: 4830e7ef7de0013d96b6817b02ca37af681c20a29a66a5cccc6aedee58a365bd
+src-url: https://github.com/goreleaser/goreleaser/archive/refs/tags/v1.26.1.tar.gz
+src-sha: 3b6274d90656b54a4cdbea8c77a14cc3de6584c03dea0b092d42b47a8f2c4da9
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -3149,7 +3149,7 @@ summary: Image processing tools collection
 web-url: http://www.graphicsmagick.org/
 src-url: https://downloads.sourceforge.net/project/graphicsmagick/graphicsmagick/1.3.43/GraphicsMagick-1.3.43.tar.xz
 src-sha: 2b88580732cd7e409d9e22c6116238bef4ae06fcda11451bf33d259f9cbf399f
-dep-pkg: libtool libfreetype libxml2 jasper libjxl
+dep-pkg: libtool libfreetype libxml2 libjasper libjxl
 dep-upp: libtool curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -3331,13 +3331,13 @@ installed: no
 ---
 pkgname: helm
 pkgtype: pie
-version: 3.14.4
+version: 3.15.0
 license: Apache-2.0
 summary: Kubernetes package manager
 web-url: https://helm.sh/
 git-url: https://github.com/helm/helm
-src-url: https://github.com/helm/helm/archive/refs/tags/v3.14.4.tar.gz
-src-sha: c5d7ad2913e0cadf4350098a856d51d59535f408b2ff0fd7750b513866b46efe
+src-url: https://github.com/helm/helm/archive/refs/tags/v3.15.0.tar.gz
+src-sha: e4a8ec10b6a7ad77792f616be131f40e361da4f034dd3f2ab214e932023146a3
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -3421,13 +3421,13 @@ installed: no
 ---
 pkgname: hugo
 pkgtype: pie
-version: 0.125.7
+version: 0.126.1
 license: Apache-2.0
 summary: A fast and flexible static site generator
 web-url: https://gohugo.io
 git-url: https://github.com/gohugoio/hugo
-src-url: https://github.com/gohugoio/hugo/archive/refs/tags/v0.125.7.tar.gz
-src-sha: 3c931fab3ee9fd2f48d49514d9fbaadafb1609925475aef4012db9cce6bb0dad
+src-url: https://github.com/gohugoio/hugo/archive/refs/tags/v0.126.1.tar.gz
+src-sha: b7e1f393977bdf6275cf33dfff6d1bcd3bab4895e7302c8fd30f05556b13a6ad
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -3679,22 +3679,6 @@ git-url: https://github.com/machinezone/IXWebSocket
 src-url: https://github.com/machinezone/IXWebSocket/archive/refs/tags/v11.3.2.tar.gz
 src-sha: 07d5e9f4cf492069c39c3953fbb3700a9cf8ec8949343998888e54ef37b03223
 dep-pkg: openssl-dev libz
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: jasper
-pkgtype: exe+lib
-version: 4.2.3
-license: JasPer-2.0
-summary: Library for manipulating JPEG-2000 images
-web-url: https://ece.engr.uvic.ca/~frodo/jasper/
-git-url: https://github.com/jasper-software/jasper
-src-url: https://github.com/jasper-software/jasper/releases/download/version-4.2.3/jasper-4.2.3.tar.gz
-src-sha: 68131ddf9f62d6944cc4c58977dd177c283adb0228140b76382a2dbdadadaa4f
-dep-pkg: libjpeg-turbo
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -5295,6 +5279,22 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libjasper
+pkgtype: lib
+version: 4.2.4
+license: JasPer-2.0
+summary: Library for manipulating JPEG-2000 images
+web-url: https://ece.engr.uvic.ca/~frodo/jasper/
+git-url: https://github.com/jasper-software/jasper
+src-url: https://github.com/jasper-software/jasper/releases/download/version-4.2.4/jasper-4.2.4.tar.gz
+src-sha: 6a597613d8d84c500b5b83bf0eec06cd3707c23d19957f70354ac2394c9914e7
+dep-pkg: libjpeg-turbo
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libjpeg
 pkgtype: lib
 version: 9f
@@ -5635,6 +5635,21 @@ api-min: 24
 parallel: 1
 installed: no
 ---
+pkgname: libmimalloc
+pkgtype: lib
+version: 2.1.6
+license: MIT
+summary: Compact general purpose allocator
+web-url: https://github.com/microsoft/mimalloc
+git-url: https://github.com/microsoft/mimalloc
+src-url: https://github.com/microsoft/mimalloc/archive/refs/tags/v2.1.6.tar.gz
+src-sha: 0ec960b656f8623de35012edacb988f8edcc4c90d2ce6c19f1d290fbb4872ccc
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libminiz
 pkgtype: lib
 version: 2.2.0
@@ -5751,6 +5766,20 @@ bsystem: configure
 binbstd: 0
 api-min: 24
 parallel: 1
+installed: no
+---
+pkgname: libnetpbm
+pkgtype: lib
+version: 10.86.41
+license: GPL-3.0-or-later
+summary: A C library for manipulating Netpbm images
+web-url: http://netpbm.sourceforge.net/
+src-url: https://downloads.sourceforge.net/project/netpbm/super_stable/10.86.41/netpbm-10.86.41.tgz
+src-sha: 045f7796224a801512efb5e7d6150a321674cbfb566128b21abf8d4ba65b4513
+dep-upp: gm4 flex perl curl bsdtar gmake
+bsystem: gmake
+binbstd: 1
+parallel: 0
 installed: no
 ---
 pkgname: libnghttp2
@@ -6164,7 +6193,7 @@ web-url: https://www.libraw.org/
 git-url: https://github.com/LibRaw/LibRaw
 src-url: https://www.libraw.org/data/LibRaw-0.21.2.tar.gz
 src-sha: fe7288013206854baf6e4417d0fb63ba4ed7227bf36fff021992671c2dd34b03
-dep-pkg: jasper liblcms2 libz
+dep-pkg: libjasper liblcms2 libz
 dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autotools
 binbstd: 0
@@ -6203,13 +6232,13 @@ installed: no
 ---
 pkgname: libressl
 pkgtype: lib
-version: 3.9.1
+version: 3.9.2
 license: OpenSSL
 summary: Version of the SSL/TLS protocol forked from OpenSSL
 web-url: https://www.libressl.org/
 git-url: https://github.com/libressl-portable/portable
-src-url: https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.9.1.tar.gz
-src-sha: 6da0b954695f7ee62b03f64200a8a4f02af93717b60cce04ab6c8df262c07a51
+src-url: https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-3.9.2.tar.gz
+src-sha: 7b031dac64a59eb6ee3304f7ffb75dad33ab8c9d279c847f92c89fb846068f97
 dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autotools
 binbstd: 0
@@ -7499,13 +7528,13 @@ installed: no
 ---
 pkgname: lychee
 pkgtype: exe
-version: 0.14.3
+version: 0.15.1
 license: MIT
 summary: A fast, async, resource-friendly link checker
 web-url: https://github.com/lycheeverse/lychee
 git-url: https://github.com/lycheeverse/lychee
-src-url: https://github.com/lycheeverse/lychee/archive/refs/tags/v0.14.3.tar.gz
-src-sha: b2ce1bd57040ab9d1719b9540e8c2905327f6a71674a0e5f2297f00bb4410651
+src-url: https://github.com/lycheeverse/lychee/archive/refs/tags/v0.15.1.tar.gz
+src-sha: 21c52aab5eefb0fda578f8192dffc5b776954e585f5692b87079cbb52ac1d89c
 dep-pkg: openssl-dev
 dep-upp: curl bsdtar
 bsystem: cargo
@@ -7620,13 +7649,13 @@ installed: no
 ---
 pkgname: mcfly
 pkgtype: exe
-version: 0.8.4
+version: 0.8.5
 license: MIT
 summary: Fly through your shell history
 web-url: https://github.com/cantino/mcfly
 git-url: https://github.com/cantino/mcfly
-src-url: https://github.com/cantino/mcfly/archive/refs/tags/v0.8.4.tar.gz
-src-sha: 637f50756366604d4d19a6f623cfd490c38e1b971708ec8ccdb39887a0e9c1f1
+src-url: https://github.com/cantino/mcfly/archive/refs/tags/v0.8.5.tar.gz
+src-sha: 110b639b1c814a166faf205deb0714d96049f65c58bd9514189892484ebfd82b
 dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
@@ -7676,21 +7705,6 @@ dep-pkg: libmediainfo
 dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autogen
 binbstd: 1
-parallel: 1
-installed: no
----
-pkgname: mimalloc
-pkgtype: lib
-version: 2.1.2
-license: MIT
-summary: Compact general purpose allocator
-web-url: https://github.com/microsoft/mimalloc
-git-url: https://github.com/microsoft/mimalloc
-src-url: https://github.com/microsoft/mimalloc/archive/refs/tags/v2.1.2.tar.gz
-src-sha: 2b1bff6f717f9725c70bf8d79e4786da13de8a270059e4ba0bdd262ae7be46eb
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -7872,13 +7886,13 @@ installed: no
 ---
 pkgname: naabu
 pkgtype: pie
-version: 2.3.0
+version: 2.3.1
 license: MIT
 summary: Fast port scanner
 web-url: https://github.com/projectdiscovery/naabu
 git-url: https://github.com/projectdiscovery/naabu
-src-url: https://github.com/projectdiscovery/naabu/archive/refs/tags/v2.3.0.tar.gz
-src-sha: 68ffa93f768823a992c602f58ead6018ef1d930eefc5254a2b7ad536f926d0f1
+src-url: https://github.com/projectdiscovery/naabu/archive/refs/tags/v2.3.1.tar.gz
+src-sha: 48d69813363c0236cd3ee24ec71f96bd404e6f11ed09264d37172d9000d5ebb8
 dep-pkg: libpcap
 dep-upp: curl bsdtar golang
 bsystem: go
@@ -8066,13 +8080,13 @@ installed: no
 ---
 pkgname: netpbm
 pkgtype: exe
-version: 10.86.40
+version: 10.86.41
 license: GPL-3.0-or-later
 summary: A toolkit for manipulation of graphic images, including conversion of images between a variety of different formats
 web-url: http://netpbm.sourceforge.net/
-src-url: https://downloads.sourceforge.net/project/netpbm/super_stable/10.86.40/netpbm-10.86.40.tgz
-src-sha: 7098c0926474303c6fe2d17c0dfb88f24622d1b3a590b6d75495d62ea933b324
-dep-pkg: jasper libtiff libpng libjpeg-turbo libxml2
+src-url: https://downloads.sourceforge.net/project/netpbm/super_stable/10.86.41/netpbm-10.86.41.tgz
+src-sha: 045f7796224a801512efb5e7d6150a321674cbfb566128b21abf8d4ba65b4513
+dep-pkg: libjasper libtiff libpng libjpeg-turbo libxml2
 dep-upp: gm4 flex perl curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
@@ -8158,13 +8172,13 @@ installed: no
 ---
 pkgname: ninja
 pkgtype: exe
-version: 1.12.0
+version: 1.12.1
 license: Apache-2.0
 summary: A small build system with a focus on speed
 web-url: https://ninja-build.org
 git-url: https://github.com/ninja-build/ninja
-src-url: https://github.com/ninja-build/ninja/archive/refs/tags/v1.12.0.tar.gz
-src-sha: 8b2c86cd483dc7fcb7975c5ec7329135d210099a89bc7db0590a07b0bbfe49a5
+src-url: https://github.com/ninja-build/ninja/archive/refs/tags/v1.12.1.tar.gz
+src-sha: 821bdff48a3f683bc4bb3b6f0b5fe7b2d647cf65d52aeb63328c91a6c6df285a
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -8253,13 +8267,13 @@ installed: no
 ---
 pkgname: nuclei
 pkgtype: pie
-version: 3.2.6
+version: 3.2.7
 license: MIT
 summary: HTTP/DNS scanner configurable via YAML templates
 web-url: https://nuclei.projectdiscovery.io/
 git-url: https://github.com/projectdiscovery/nuclei
-src-url: https://github.com/projectdiscovery/nuclei/archive/refs/tags/v3.2.6.tar.gz
-src-sha: ac5016e983d65a49da1f7f024e0885738f49c4536edda4e361ffc8c1c442ecf1
+src-url: https://github.com/projectdiscovery/nuclei/archive/refs/tags/v3.2.7.tar.gz
+src-sha: 221a27ec3651efc1c73de4457a13ca73759ba683d197be31548d96fa54a114e4
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -9772,13 +9786,13 @@ installed: no
 ---
 pkgname: starship
 pkgtype: exe
-version: 1.18.2
+version: 1.19.0
 license: ISC
 summary: The minimal, blazing-fast, and infinitely customizable prompt for any shell
 web-url: https://starship.rs
 git-url: https://github.com/starship/starship
-src-url: https://github.com/starship/starship/archive/refs/tags/v1.18.2.tar.gz
-src-sha: 505100002efe93dbff702edd82f814cadc340335487993e76dd6777dba461a7a
+src-url: https://github.com/starship/starship/archive/refs/tags/v1.19.0.tar.gz
+src-sha: cf789791b5c11d6d7a00628590696627bb8f980e3d7c7a0200026787b08aba37
 dep-pkg: openssl-dev libgetloadavg
 dep-upp: curl bsdtar
 bsystem: cargo
@@ -10135,13 +10149,13 @@ installed: no
 ---
 pkgname: tig
 pkgtype: exe
-version: 2.5.9
+version: 2.5.10
 license: GPL-2.0-or-later
 summary: Text interface for Git repositories
 web-url: https://jonas.github.io/tig
 git-url: https://github.com/jonas/tig
-src-url: https://github.com/jonas/tig/releases/download/tig-2.5.9/tig-2.5.9.tar.gz
-src-sha: 0cb4d9e3de00dc92aaa7996e1517845bd9b9a0d4368f3206f618d813e8db8b39
+src-url: https://github.com/jonas/tig/releases/download/tig-2.5.10/tig-2.5.10.tar.gz
+src-sha: f655cc1366fc10058a2bd505bb88ca78e653ff7526c1b81774c44b9d841210e3
 dep-pkg: readline libiconv liblanginfo
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
@@ -10630,12 +10644,12 @@ installed: no
 ---
 pkgname: wasmtime
 pkgtype: exe
-version: 20.0.0
+version: 20.0.2
 license: Apache-2.0
 summary: Standalone JIT-style runtime for WebAssembly, using Cranelift
 web-url: https://wasmtime.dev/
 git-url: https://github.com/bytecodealliance/wasmtime
-git-sha: 9e1084ffac08b1bf9c82de40c0efc1baff14b9ad
+git-sha: 20e50704f3772c5fb200d95e6132f9166360cf8c
 dep-upp: git
 bsystem: cargo
 binbstd: 1
@@ -10747,13 +10761,13 @@ installed: no
 ---
 pkgname: whois
 pkgtype: exe
-version: 5.5.22
+version: 5.5.23
 license: GPL-2.0-or-later
 summary: Lookup tool for domain names and other internet resources
 web-url: https://github.com/rfc1036/whois
 git-url: https://github.com/rfc1036/whois
-src-url: https://github.com/rfc1036/whois/archive/refs/tags/v5.5.22.tar.gz
-src-sha: b7de4288700951b141420e2b4408f0906eaf4e97409cf5043aee80ef4d31e2b4
+src-url: https://github.com/rfc1036/whois/archive/refs/tags/v5.5.23.tar.gz
+src-sha: dcfc08f3362c74ec8ae30691941909ebccf0cb3d27da04236f7e2790dbc7757c
 dep-pkg: libidn2 liblanginfo
 dep-upp: perl curl bsdtar gmake
 bsystem: gmake
@@ -11035,13 +11049,13 @@ installed: no
 ---
 pkgname: yq
 pkgtype: pie
-version: 4.43.1
+version: 4.44.1
 license: MIT
 summary: A lightweight and portable command-line YAML processor
 web-url: https://mikefarah.gitbook.io/yq
 git-url: https://github.com/mikefarah/yq
-src-url: https://github.com/mikefarah/yq/archive/refs/tags/v4.43.1.tar.gz
-src-sha: e5581d28bae2bcdf70501dfd251233c592eb3e39a210956ee74965b784435d63
+src-url: https://github.com/mikefarah/yq/archive/refs/tags/v4.44.1.tar.gz
+src-sha: e66da5ee0c081d7974bae6a59e4791ba354178ee32ea78ab1b95d4dd60b2813d
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
