@@ -292,7 +292,8 @@
     "ldflags": "-liconv",
     "parallel": "1",
     "prepare": "printf 'INPUT(-lc++_static -lc++abi)\\n' > ../lib/libc++.a",
-    "install": "configure --disable-libaria2 --enable-static --disable-shared LIBS=-ldl"
+    "install": "configure --disable-libaria2 --enable-static --disable-shared LIBS=-ldl",
+    "caveats": "If aria2c is a fully statically linked executable, to get it working on Android 8 and later, you need to run aria2c like below\n\naria2c --async-dns=true --async-dns-server=8.8.8.8 https://example.com"
   },
   {
     "pkgname": "arping",
@@ -1416,13 +1417,15 @@
     "git-url": "https://github.com/curl/curl",
     "src-url": "https://curl.haxx.se/download/curl-8.8.0.tar.bz2",
     "src-sha": "40d3792d38cfa244d8f692974a567e9a5f3387c547579f1124e95ea2a1020d0d",
-    "dep-pkg": "libnghttp2 libzstd libz brotli openssl-dev",
+    "dep-pkg": "libnghttp2 libcares libzstd libz brotli openssl-dev",
     "dep-upp": "perl curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "sed_in_place 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure",
-    "install": "configure \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-optimize \\\n    --enable-pthreads \\\n    --with-default-ssl-backend=openssl \\\n    --with-ssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-nghttp2 \\\n    --without-nghttp3 \\\n    --without-ngtcp2 \\\n    --without-quiche \\\n    --without-libpsl \\\n    --without-librtmp \\\n    --without-libidn2"
+    "install": "configure \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-optimize \\\n    --enable-pthreads \\\n    --enable-ares \\\n    --with-default-ssl-backend=openssl \\\n    --with-ssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-nghttp2 \\\n    --without-nghttp3 \\\n    --without-ngtcp2 \\\n    --without-quiche \\\n    --without-libpsl \\\n    --without-librtmp \\\n    --without-libidn2",
+    "dotweak": "rm -rf include\nrm -rf lib\nrm -rf bin/curl-config\nrm -rf share/aclocal\nrm -rf share/man/man3",
+    "caveats": "If curl is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers=<DNS-SERVERS> argument to curl like below\n\ncurl --dns-servers=8.8.8.8 https://example.com"
   },
   {
     "pkgname": "curlie",
@@ -2693,7 +2696,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "export LDFLAGS=\"$LDFLAGS -L$PWD/gettext-tools/gnulib-lib/.libs/\"\nconfigure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=$libiconv_INSTALL_DIR \\\n    --with-libncurses-prefix=$ncurses_INSTALL_DIR \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable",
+    "install": "export am_cv_func_iconv_works=yes\nconfigure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=$libiconv_INSTALL_DIR \\\n    --with-libncurses-prefix=$ncurses_INSTALL_DIR \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable",
     "dotweak": "rm -rf lib\nrm -rf include"
   },
   {
@@ -11748,13 +11751,14 @@
     "git-url": "https://git.savannah.gnu.org/git/wget.git",
     "src-url": "https://ftp.gnu.org/gnu/wget/wget-1.24.5.tar.gz",
     "src-sha": "fa2dc35bab5184ecbc46a9ef83def2aaaa3f4c9f3c97d4bd19dcb07d4da637de",
-    "dep-pkg": "openssl-dev libz libidn2",
+    "dep-pkg": "openssl-dev libcares libidn2 libz",
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h",
-    "install": "configure \\\n    --disable-pcre \\\n    --disable-pcre2 \\\n    --enable-threads=posix \\\n    --with-ssl=openssl \\\n    --with-libidn \\\n    --without-libpsl"
+    "install": "configure \\\n    --disable-pcre \\\n    --disable-pcre2 \\\n    --enable-threads=posix \\\n    --with-ssl=openssl \\\n    --with-cares \\\n    --with-libidn \\\n    --without-libpsl",
+    "caveats": "If wget is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers=<DNS-SERVERS> argument to curl like below\n\nwget --dns-servers=8.8.8.8 https://example.com"
   },
   {
     "pkgname": "whois",

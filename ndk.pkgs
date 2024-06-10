@@ -1300,7 +1300,7 @@ web-url: https://curl.haxx.se/
 git-url: https://github.com/curl/curl
 src-url: https://curl.haxx.se/download/curl-8.8.0.tar.bz2
 src-sha: 40d3792d38cfa244d8f692974a567e9a5f3387c547579f1124e95ea2a1020d0d
-dep-pkg: libnghttp2 libzstd libz brotli openssl-dev
+dep-pkg: libnghttp2 libcares libzstd libz brotli openssl-dev
 dep-upp: perl curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -10766,7 +10766,7 @@ web-url: https://www.gnu.org/software/wget
 git-url: https://git.savannah.gnu.org/git/wget.git
 src-url: https://ftp.gnu.org/gnu/wget/wget-1.24.5.tar.gz
 src-sha: fa2dc35bab5184ecbc46a9ef83def2aaaa3f4c9f3c97d4bd19dcb07d4da637de
-dep-pkg: openssl-dev libz libidn2
+dep-pkg: openssl-dev libcares libidn2 libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
