@@ -3034,6 +3034,7 @@
     sed_in_place '/ftello/d' ../include/ndk-pkg-common.h
     sed_in_place '/fseeko/d' ../include/ndk-pkg-common.h
   install: |-
+    export am_cv_func_iconv_works=yes
     configure \
         --with-included-regex \
         --with-included-libxml \
@@ -15153,13 +15154,12 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: "for patchfile in $(cat ../fix/patches/series)\ndo  \n    patch -p1 < ../fix/patches/$patchfile || return 1\ndone\n\npatch -p1 < ../res/99cb7eeeb6fdb8df700f40bfffbc30516c94774cbf585f725d81c3224a2c530c.diff\n\nsed_in_place 's|$(AS) _match.s|$(AS) -o _match.o _match.s|'          unix/Makefile\nsed_in_place 's|$(AS) _crc_i386.s|$(AS) -o _crc_i386.o _crc_i386.s|' unix/Makefile"
+  dopatch: "for patchfile in $(cat ../fix/patches/series)\ndo  \n    patch -p1 < ../fix/patches/$patchfile\ndone\n\npatch -p1 < ../res/99cb7eeeb6fdb8df700f40bfffbc30516c94774cbf585f725d81c3224a2c530c.diff\n\nsed_in_place 's|$(AS) _match.s|$(AS) -o _match.o _match.s|'          unix/Makefile\nsed_in_place 's|$(AS) _crc_i386.s|$(AS) -o _crc_i386.o _crc_i386.s|' unix/Makefile"
   install: |-
     gmakew -f unix/Makefile clean
     gmakew -f unix/Makefile generic \
         CC="$CC" \
         CPP="'$CPP'" \
-        AS="$AS" \
         AR="$AR" \
         LOCAL_ZIP="'$CFLAGS $CPPFLAGS'" \
         LFLAGS2="'$LDFLAGS'"

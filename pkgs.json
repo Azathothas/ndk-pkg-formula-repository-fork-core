@@ -2657,7 +2657,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h",
-    "install": "configure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --with-libncurses-prefix=\"$ncurses_INSTALL_DIR\" \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable"
+    "install": "export am_cv_func_iconv_works=yes\nconfigure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --with-libncurses-prefix=\"$ncurses_INSTALL_DIR\" \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable"
   },
   {
     "pkgname": "gettext-dev",
@@ -12124,8 +12124,8 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "for patchfile in $(cat ../fix/patches/series)\ndo  \n    patch -p1 < ../fix/patches/$patchfile || return 1\ndone\n\npatch -p1 < ../res/99cb7eeeb6fdb8df700f40bfffbc30516c94774cbf585f725d81c3224a2c530c.diff\n\nsed_in_place 's|$(AS) _match.s|$(AS) -o _match.o _match.s|'          unix/Makefile\nsed_in_place 's|$(AS) _crc_i386.s|$(AS) -o _crc_i386.o _crc_i386.s|' unix/Makefile",
-    "install": "gmakew -f unix/Makefile clean\ngmakew -f unix/Makefile generic \\\n    CC=\"$CC\" \\\n    CPP=\"'$CPP'\" \\\n    AS=\"$AS\" \\\n    AR=\"$AR\" \\\n    LOCAL_ZIP=\"'$CFLAGS $CPPFLAGS'\" \\\n    LFLAGS2=\"'$LDFLAGS'\"\ngmakew -f unix/Makefile install prefix=\"$PACKAGE_INSTALL_DIR\""
+    "dopatch": "for patchfile in $(cat ../fix/patches/series)\ndo  \n    patch -p1 < ../fix/patches/$patchfile\ndone\n\npatch -p1 < ../res/99cb7eeeb6fdb8df700f40bfffbc30516c94774cbf585f725d81c3224a2c530c.diff\n\nsed_in_place 's|$(AS) _match.s|$(AS) -o _match.o _match.s|'          unix/Makefile\nsed_in_place 's|$(AS) _crc_i386.s|$(AS) -o _crc_i386.o _crc_i386.s|' unix/Makefile",
+    "install": "gmakew -f unix/Makefile clean\ngmakew -f unix/Makefile generic \\\n    CC=\"$CC\" \\\n    CPP=\"'$CPP'\" \\\n    AR=\"$AR\" \\\n    LOCAL_ZIP=\"'$CFLAGS $CPPFLAGS'\" \\\n    LFLAGS2=\"'$LDFLAGS'\"\ngmakew -f unix/Makefile install prefix=\"$PACKAGE_INSTALL_DIR\""
   },
   {
     "pkgname": "zlib",
