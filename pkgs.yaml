@@ -1,6 +1,6 @@
 - pkgname: ARM_NEON_2_x86_SSE
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   summary: The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions
   web-url: https://github.com/intel/ARM_NEON_2_x86_SSE
   git-url: https://github.com/intel/ARM_NEON_2_x86_SSE
@@ -153,7 +153,7 @@
     done
 - pkgname: alass
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   license: GPL-3.0-or-later
   summary: Automatic Language-Agnostic Subtitle Synchronization
   web-url: https://github.com/kaegi/alass
@@ -402,7 +402,7 @@
   install: cargow install
 - pkgname: base16
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   summary: base16 encoder and decoder
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -764,7 +764,7 @@
         abi="$abi"
 - pkgname: boringssl
   pkgtype: exe+lib
-  version: 2024.06.10
+  version: 2024.06.11
   summary: A fork of OpenSSL that is designed to meet Google needs
   web-url: https://boringssl.googlesource.com/boringssl/
   git-url: https://github.com/google/boringssl
@@ -1482,7 +1482,7 @@
   install: gow ./cmd/cpuid
 - pkgname: cpuinfo
   pkgtype: exe+lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -2121,7 +2121,7 @@
   install: cargow install
 - pkgname: easyutils
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   summary: A collections of easy to use command-line utilities
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -2656,7 +2656,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sed_in_place '1i \#include<malloc.h>' src/misc.c
+  dopatch: sed_in_place '1i \#include<stdlib.h>' src/misc.c
   install: configure --enable-warnings LIBS=-lm
 - pkgname: flock
   pkgtype: exe
@@ -2731,7 +2731,7 @@
   install: cmakew
 - pkgname: fp16
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: MIT
   summary: A header-only C/C++ library for conversion to/from half-precision floating point formats
   web-url: https://github.com/Maratyszcza/FP16
@@ -2807,7 +2807,7 @@
   install: configure
 - pkgname: fxdiv
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: MIT
   summary: A header-only library for division via fixed-point multiplication by inverse
   web-url: https://github.com/Maratyszcza/FXdiv
@@ -3226,8 +3226,8 @@
         --without-x
     run make soclean
     run make install-so
-- pkgname: giflib
-  pkgtype: lib
+- pkgname: gif
+  pkgtype: exe
   version: 5.2.2
   summary: Library and utilities for processing GIFs
   web-url: https://giflib.sourceforge.io
@@ -3244,8 +3244,8 @@
     Eric Raymond <esr@snark.thyrsus.com>
   dopatch: sed_in_place 's#$(MAKE) -C doc#@mkdir -p doc \&\& ([ -f doc/giflib.1 ] || touch doc/giflib.1)#' Makefile
   install: |-
-    gmakew clean
-    gmakew install PREFIX="$PACKAGE_INSTALL_DIR" CC="$CC" AR="$AR" CFLAGS="'$CFLAGS'"
+    gmakew clean   UNAME=Linux
+    gmakew install UNAME=Linux PREFIX="$PACKAGE_INSTALL_DIR" CC="$CC" AR="$AR" CFLAGS="'$CFLAGS'"
 - pkgname: gindent
   pkgtype: exe
   version: 2.2.13
@@ -3574,7 +3574,7 @@
   dotweak: cd bin && ln -s gmake make
 - pkgname: gn
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   summary: A meta-build system for generating build files for ninja
   web-url: https://gn.googlesource.com/gn
   git-url: https://gn.googlesource.com/gn
@@ -3750,7 +3750,7 @@
   install: "export GOROOT_BOOTSTRAP=\"$(go env GOROOT)\"\n\nrun ./make.bash\nrun cd ..\nrun rm -rf _\nrun rm bin/go*\nrun mv bin/android_*/* bin/\nrun rm -rf bin/android_*\nrun rm -rf src/debug/elf/testdata\nrun rm -rf src/debug/dwarf/testdata\nrun rm -rf src/runtime/pprof/testdata\nrun rm -rf src/runtime/race/race_linux*.syso\nrun rm -rf src/runtime/race/internal/amd64v1/race_*.syso\nrun rm -rf src/runtime/race/internal/amd64v3/race_*.syso\nrun rm -rf pkg/obj \n\nfor item in $(ls pkg/tool)\ndo\n    case $item in\n        android_*) ;;\n        *)  run rm -rf \"pkg/tool/$item\"\n    esac\ndone\n\nrun cd ..\nrun install -d \"$PACKAGE_INSTALL_DIR/\"\nrun mv src/*   \"$PACKAGE_INSTALL_DIR/\"\n\n# override temporarily\n__check_elf_files() {\n    :\n}"
 - pkgname: gomobile
   pkgtype: pie
-  version: 2024.06.10
+  version: 2024.06.11
   summary: A tool for building and running mobile apps written in Go
   web-url: https://github.com/golang/mobile
   git-url: https://github.com/golang/mobile
@@ -5298,7 +5298,7 @@
     run install_incs include/b64/*:b64
 - pkgname: libbcrypt
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: CC0-1.0
   summary: A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface
   web-url: https://www.openwall.com/crypt
@@ -5595,7 +5595,7 @@
   install: mesonw -Dtests=false
 - pkgname: libcpuinfo
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -5675,14 +5675,14 @@
   install: "cat > crypt.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        char* crypt(char* key, char* salt);\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o crypt.o ../*.c\nrun $AR rsc libcrypt.a crypt.o\nrun install_incs crypt.h\nrun install_libs libcrypt.a"
 - pkgname: libcurl
   pkgtype: lib
-  version: 8.7.1
+  version: 8.8.0
   license: curl
   summary: A free and easy-to-use client-side URL transfer library
   web-url: https://curl.haxx.se/
   git-url: https://github.com/curl/curl
-  src-url: https://curl.haxx.se/download/curl-8.7.1.tar.bz2
-  src-sha: 05bbd2b698e9cfbab477c33aa5e99b4975501835a41b7ca6ca71de03d8849e76
-  dep-pkg: libnghttp2 libzstd libz brotli openssl-dev
+  src-url: https://curl.haxx.se/download/curl-8.8.0.tar.bz2
+  src-sha: 40d3792d38cfa244d8f692974a567e9a5f3387c547579f1124e95ea2a1020d0d
+  dep-pkg: libnghttp2 libcares libzstd libz brotli openssl-dev
   dep-upp: perl curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
@@ -5706,7 +5706,7 @@
     rm -rf share/man/man1/curl.1
     cd lib/pkgconfig
     sed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lnghttp2||g' -e 's|-lzstd||g' -e 's|-lz||g' -e 's|-lbrotlidec||g' -e 's|-lbrotlicommon||g' libcurl.pc
-    printf 'Requires: libnghttp2 openssl libzstd libz libbrotlidec\n' >> libcurl.pc
+    printf 'Requires: libnghttp2 libcares libzstd libz libbrotlidec openssl\n' >> libcurl.pc
 - pkgname: libdatrie
   pkgtype: lib
   version: 0.2.13
@@ -5861,7 +5861,7 @@
   dotweak: sed_in_place '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc
 - pkgname: libexecinfo
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: 0BSD
   summary: A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc
   web-url: https://github.com/leleliu008/libexecinfo
@@ -6292,7 +6292,7 @@
     EOF
 - pkgname: libglob
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   summary: glob(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html
   git-url: https://github.com/leleliu008/libglob
@@ -6652,7 +6652,7 @@
   dotweak: "run install -d lib/pkgconfig/\ncat >          lib/pkgconfig/libintl.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
 - pkgname: libintl-lite
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: BSL-1.0
   summary: A simple (but less powerful) GNU gettext libintl replacement
   web-url: https://github.com/j-jorge/libintl-lite
@@ -6859,7 +6859,7 @@
         --disable-gcov
 - pkgname: liblanginfo
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   summary: langinfo.h and its implementation from android ndk source code
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html
   git-url: https://github.com/leleliu008/liblanginfo
@@ -7134,7 +7134,7 @@
     cmakew -DBUILD_SHARED_LIBS=ON  -DCURL_INCLUDE_DIRS="$libcurl_INCLUDE_DIR" -DCURL_LIBRARIES="'$CURL_LIBRARIES'"
 - pkgname: libmesalink
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: BSD-3-Clause
   summary: memory-safe and OpenSSL-compatible TLS library
   web-url: https://mesalink.io
@@ -7184,7 +7184,7 @@
   install: configure
 - pkgname: libmill
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: MIT
   summary: Go-style concurrency in C
   web-url: https://github.com/sustrik/libmill
@@ -7933,7 +7933,7 @@
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libquiche
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: BSD-2-Clause
   summary: Savoury implementation of the QUIC transport protocol and HTTP/3
   web-url: https://github.com/cloudflare/quiche
@@ -9142,7 +9142,7 @@
         -DLWS_BUILD_HASH=no_hash
 - pkgname: libwordexp
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   summary: wordexp(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html
   git-url: https://github.com/leleliu008/libwordexp
@@ -9550,7 +9550,7 @@
         -DZSTD_MULTITHREAD_SUPPORT=ON
 - pkgname: lief
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   license: Apache-2.0
   summary: Library to Instrument Executable Formats
   web-url: https://github.com/lief-project/LIEF
@@ -9650,7 +9650,7 @@
     gow -tags linux -X github.com/lightningnetwork/lnd/build.Commit=v$PACKAGE_VERSION ./cmd/lncli
 - pkgname: lodepng
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: Zlib
   summary: PNG encoder and decoder in C and C++
   web-url: https://github.com/lvandeve/lodepng
@@ -10708,7 +10708,7 @@
     ln -s ncursesw.pc ncurses.pc
 - pkgname: ndk-pkg-core
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   license: Apache-2.0
   summary: core utils for ndk-pkg
   web-url: https://github.com/leleliu008/ndk-pkg
@@ -10887,7 +10887,7 @@
         -DWITH_MRUBY=OFF
 - pkgname: nghttp3
   pkgtype: exe+lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: MIT
   summary: HTTP/3 library written in C
   web-url: https://github.com/ngtcp2/nghttp3
@@ -10942,7 +10942,7 @@
   install: "export NGX_SYSTEM=Linux\nexport NGX_RELEASE=unknown\nexport NGX_MACHINE=$TARGET_PLATFORM_ARCH\n\nif [ \"$TARGET_PLATFORM_NBIT\" -eq '64' ] ; then\n    sed_in_place 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=8/' auto/types/sizeof\nelse\n    sed_in_place 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=4/' auto/types/sizeof\nfi\n\n[ -f Makefile ] && gmakew clean\n\nwrite_NGX_SYS_NERR() {\n    cat >> objs/ngx_auto_config.h <<EOF\n#ifndef NGX_SYS_NERR\n#define NGX_SYS_NERR  107\n#endif\nEOF\n}   \n\nrun ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --crossbuild=Linux:unknown:$TARGET_PLATFORM_ARCH \\\n    --with-cc=\"$CC\" \\\n    --with-cc-opt=\"\\\"$CFLAGS $CPPFLAGS -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE=1 -D__USE_GNU\\\"\" \\\n    --with-ld-opt=\"\\\"$LDFLAGS -lcrypto -lcrypt\\\"\" \\\n    --with-pcre\nwrite_NGX_SYS_NERR\ngmakew install"
 - pkgname: ngtcp2
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: MIT
   summary: QUIC library written in C
   web-url: https://github.com/ngtcp2/ngtcp2
@@ -11636,7 +11636,7 @@
     gmakew install DEST_HOME="$PACKAGE_INSTALL_DIR"
 - pkgname: packcc
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   license: MIT
   summary: A packrat parser generator for C
   web-url: https://github.com/enechaev/packcc
@@ -12054,7 +12054,7 @@
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: ppkg
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   license: Apache-2.0
   summary: A portable package manager for Unix-like systems
   web-url: https://github.com/leleliu008/ppkg
@@ -12474,7 +12474,7 @@
         -Dprotobuf_JSONCPP_PROVIDER=package
 - pkgname: psimd
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: MIT
   summary: Portable 128-bit SIMD intrinsics
   web-url: https://github.com/Maratyszcza/psimd
@@ -12486,7 +12486,7 @@
   install: cmakew
 - pkgname: pthreadpool
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: BSD-2-Clause
   summary: A portable and efficient thread pool implementation
   web-url: https://github.com/Maratyszcza/pthreadpool
@@ -12506,7 +12506,7 @@
         -DPTHREADPOOL_LIBRARY_TYPE=shared
 - pkgname: pup
   pkgtype: pie
-  version: 2024.06.10
+  version: 2024.06.11
   license: MIT
   summary: Parse HTML at the command-line
   web-url: https://github.com/EricChiang/pup
@@ -13053,7 +13053,7 @@
   install: cargow install --locked
 - pkgname: ruy
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: Apache-2.0
   summary: matrix multiplication library
   web-url: https://github.com/google/ruy
@@ -13245,7 +13245,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: sjpeg
   pkgtype: exe+lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: Apache-2.0
   summary: simple jpeg encoder
   web-url: https://github.com/webmproject/sjpeg
@@ -13260,7 +13260,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF -DSJPEG_BUILD_EXAMPLES=ON  -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: skcms
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: BSD
   summary: SkCMS
   web-url: https://skia.googlesource.com/skcms.git
@@ -13643,7 +13643,7 @@
     run install_mans man/*.1 man/*.5 man/*.7
 - pkgname: sysinfo
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   summary: A command-line tool to get your currently running system information
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -14087,7 +14087,7 @@
   install: cargow install --path crates/typos-cli
 - pkgname: uctags
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   license: GPL-2.0-or-later
   summary: Maintained ctags implementation
   web-url: https://github.com/universal-ctags/ctags
@@ -14152,7 +14152,7 @@
     gmakew -f makefile install-lib   DESTDIR="$PACKAGE_INSTALL_DIR"
 - pkgname: uppm
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -14166,7 +14166,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.2
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -14181,7 +14181,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.3
   pkgtype: exe
-  version: 2024.06.10
+  version: 2024.06.11
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -14215,7 +14215,7 @@
   install: configure --without-preflight --without-systemd
 - pkgname: utf8.h
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: Unlicense
   summary: single header utf8 string functions for C and C++
   web-url: https://github.com/sheredom/utf8.h
@@ -14927,7 +14927,7 @@
     install_mans "$PACKAGE_WORKING_DIR/src/doc/xmlwf.1"
 - pkgname: xnnpack
   pkgtype: lib
-  version: 2024.06.10
+  version: 2024.06.11
   license: BSD-3-Clause
   summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
   web-url: https://github.com/google/XNNPACK
@@ -14975,7 +14975,7 @@
         --enable-jtethreads
 - pkgname: xpup
   pkgtype: pie
-  version: 2024.06.10
+  version: 2024.06.11
   license: Apache-2.0
   summary: A command line XML parsing tool
   web-url: https://github.com/ericchiang/xpup
