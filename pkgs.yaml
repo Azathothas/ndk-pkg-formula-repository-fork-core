@@ -10300,8 +10300,9 @@
   bsystem: rake
   binbstd: "1"
   parallel: "1"
-  dopatch: "cat > build_config/android.rb <<EOF\nMRuby::CrossBuild.new('android') do |conf|\n  params = {\n    :arch => ENV['TARGET_PLATFORM_ABI'],\n    :platform => 'android-' + ENV['TARGET_PLATFORM_VERS'],\n    :toolchain => :clang,\n  }\n  toolchain :android, params\n\n  conf.cc.command = ENV['CC_FOR_TARGET'] || 'clang'\n  conf.cc.flags << ENV['CFLAGS_FOR_TARGET'] || ''\n  conf.linker.command = conf.cc.command\n  conf.linker.flags << ENV['LDFLAGS_FOR_TARGET'] || ''\n\n  conf.gembox 'default'\nend\nEOF\n\ncat > patch.patch <<EOF\n--- a/tasks/toolchains/android.rake\n+++ b/tasks/toolchains/android.rake\n@@ -218,7 +218,7 @@\n       end\n     end\n     if Integer(@platform.rpartition('-')[2]) < 21\n-      case arch\n+      case nil\n       when /arm64-v8a/, /x86_64/, /mips64/\n         raise NotImplementedError, \"Platform (#{@platform}) has no implementation for architecture (#{arch})\"\n       end\n@@ -252,7 +252,7 @@\n   def ar\n     case toolchain\n     when :gcc   then bin_gcc('ar')\n-    when :clang then bin_gcc('ar')\n+    when :clang then bin('llvm-ar')\n     end\n   end\n \n@@ -271,7 +271,7 @@\n       when /mips/         then flags += %W(-march=mips32)\n       end\n     when :clang\n-      case arch\n+      case nil\n       when /armeabi-v7a/  then flags += %W(-target armv7-none-linux-androideabi)\n       when /armeabi/      then flags += %W(-target armv5te-none-linux-androideabi)\n       when /arm64-v8a/    then flags += %W(-target aarch64-none-linux-android)\n@@ -282,7 +282,7 @@\n       end\n     end\n \n-    case arch\n+    case nil\n     when /armeabi-v7a/  then flags += %W(-mfpu=#{armeabi_v7a_mfpu} -mfloat-abi=#{armeabi_v7a_mfloat_abi})\n     when /armeabi/      then flags += %W(-mtune=xscale -msoft-float)\n     when /arm64-v8a/    then flags += %W()\n@@ -304,12 +304,12 @@\n       flags += %W(-U_WIN32 -U_WIN64)\n     end\n \n-    flags += %W(-MMD -MP -D__android__ -DANDROID --sysroot=\"#{sysroot}\")\n+    flags += %W(-MMD -MP -D__android__ -DANDROID)\n     flags += ctarget\n     case toolchain\n     when :gcc\n     when :clang\n-      flags += %W(-gcc-toolchain \"#{gcc_toolchain_path}\" -Wno-invalid-command-line-argument -Wno-unused-command-line-argument)\n+      flags += %W(-Wno-invalid-command-line-argument -Wno-unused-command-line-argument)\n     end\n     flags += %W(-fpic -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes)\n \n@@ -319,8 +319,6 @@\n   def ldflags\n     flags = []\n \n-    flags += %W(--sysroot=\"#{sysroot}\")\n-\n     flags\n   end\n \n@@ -333,8 +331,7 @@\n       when /armeabi-v7a/  then flags += %W(-Wl#{no_warn_mismatch})\n       end\n     when :clang\n-      flags += %W(-gcc-toolchain \"#{gcc_toolchain_path.to_s}\")\n-      case arch\n+      case nil\n       when /armeabi-v7a/  then flags += %W(-target armv7-none-linux-androideabi -Wl,--fix-cortex-a8#{no_warn_mismatch})\n       when /armeabi/      then flags += %W(-target armv5te-none-linux-androideabi)\n       when /arm64-v8a/    then flags += %W(-target aarch64-none-linux-android)\nEOF\n\npatch -p1 < patch.patch"
+  dopatch: "cat > build_config/android.rb <<EOF\nMRuby::CrossBuild.new('android') do |conf|\n  params = {\n    :arch => ENV['TARGET_PLATFORM_ABI'],\n    :platform => 'android-' + ENV['TARGET_PLATFORM_VERS'],\n    :toolchain => :clang,\n  }\n  toolchain :android, params\n\n  conf.cc.command = ENV['CC_FOR_TARGET'] || 'clang'\n  conf.cc.flags << ENV['CFLAGS_FOR_TARGET'] || ''\n  conf.linker.command = conf.cc.command\n  conf.linker.flags << ENV['LDFLAGS_FOR_TARGET'] || ''\n  conf.archiver.command = ENV['AR_FOR_TARGET']\n\n  conf.gembox 'default'\nend\nEOF\n\ncat > patch.patch <<EOF\n--- a/tasks/toolchains/android.rake\n+++ b/tasks/toolchains/android.rake\n@@ -218,7 +218,7 @@\n       end\n     end\n     if Integer(@platform.rpartition('-')[2]) < 21\n-      case arch\n+      case nil\n       when /arm64-v8a/, /x86_64/, /mips64/\n         raise NotImplementedError, \"Platform (#{@platform}) has no implementation for architecture (#{arch})\"\n       end\n@@ -252,7 +252,7 @@\n   def ar\n     case toolchain\n     when :gcc   then bin_gcc('ar')\n-    when :clang then bin_gcc('ar')\n+    when :clang then bin('llvm-ar')\n     end\n   end\n \n@@ -271,7 +271,7 @@\n       when /mips/         then flags += %W(-march=mips32)\n       end\n     when :clang\n-      case arch\n+      case nil\n       when /armeabi-v7a/  then flags += %W(-target armv7-none-linux-androideabi)\n       when /armeabi/      then flags += %W(-target armv5te-none-linux-androideabi)\n       when /arm64-v8a/    then flags += %W(-target aarch64-none-linux-android)\n@@ -282,7 +282,7 @@\n       end\n     end\n \n-    case arch\n+    case nil\n     when /armeabi-v7a/  then flags += %W(-mfpu=#{armeabi_v7a_mfpu} -mfloat-abi=#{armeabi_v7a_mfloat_abi})\n     when /armeabi/      then flags += %W(-mtune=xscale -msoft-float)\n     when /arm64-v8a/    then flags += %W()\n@@ -304,12 +304,12 @@\n       flags += %W(-U_WIN32 -U_WIN64)\n     end\n \n-    flags += %W(-MMD -MP -D__android__ -DANDROID --sysroot=\"#{sysroot}\")\n+    flags += %W(-MMD -MP -D__android__ -DANDROID)\n     flags += ctarget\n     case toolchain\n     when :gcc\n     when :clang\n-      flags += %W(-gcc-toolchain \"#{gcc_toolchain_path}\" -Wno-invalid-command-line-argument -Wno-unused-command-line-argument)\n+      flags += %W(-Wno-invalid-command-line-argument -Wno-unused-command-line-argument)\n     end\n     flags += %W(-fpic -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes)\n \n@@ -319,8 +319,6 @@\n   def ldflags\n     flags = []\n \n-    flags += %W(--sysroot=\"#{sysroot}\")\n-\n     flags\n   end\n \n@@ -333,8 +331,7 @@\n       when /armeabi-v7a/  then flags += %W(-Wl#{no_warn_mismatch})\n       end\n     when :clang\n-      flags += %W(-gcc-toolchain \"#{gcc_toolchain_path.to_s}\")\n-      case arch\n+      case nil\n       when /armeabi-v7a/  then flags += %W(-target armv7-none-linux-androideabi -Wl,--fix-cortex-a8#{no_warn_mismatch})\n       when /armeabi/      then flags += %W(-target armv5te-none-linux-androideabi)\n       when /arm64-v8a/    then flags += %W(-target aarch64-none-linux-android)\nEOF\n\npatch -p1 < patch.patch"
   install: |-
+    export      AR_FOR_TARGET="$AR"
     export      CC_FOR_TARGET="$CC"
     export  CFLAGS_FOR_TARGET="$CPPFLAGS $CFLAGS -DMRB_USE_READLINE"
     export LDFLAGS_FOR_TARGET="$LDFLAGS -lncurses -lreadline"
@@ -10353,6 +10354,7 @@
       conf.cc.flags << ENV['CFLAGS_FOR_TARGET'] || ''
       conf.linker.command = conf.cc.command
       conf.linker.flags << ENV['LDFLAGS_FOR_TARGET'] || ''
+      conf.archiver.command = ENV['AR_FOR_TARGET']
 
       conf.gembox 'default'
     end
@@ -10411,6 +10413,7 @@
 
     patch -p1 < patch.diff
   install: |-
+    export      AR_FOR_TARGET="$AR"
     export      CC_FOR_TARGET="$CC"
     export  CFLAGS_FOR_TARGET="$CPPFLAGS $CFLAGS -DMRB_USE_READLINE -DMRB_READLINE_HEADER=\\<readline/readline.h\\> -DMRB_READLINE_HISTORY=\\<readline/history.h\\>"
     export LDFLAGS_FOR_TARGET="$LDFLAGS -lncurses -lreadline"
@@ -11119,20 +11122,20 @@
   install: configure
 - pkgname: nushell
   pkgtype: exe
-  version: 0.93.0
+  version: 0.94.2
   license: MIT
   summary: A new type of shell
   web-url: https://www.nushell.sh
   git-url: https://github.com/nushell/nushell
-  src-url: https://github.com/nushell/nushell/archive/refs/tags/0.93.0.tar.gz
-  src-sha: 00dcd5ab112d8afd683aa0b87b65b2e47a45487857a6d2481ce7eeb0045c2c00
+  src-url: https://github.com/nushell/nushell/archive/refs/tags/0.94.2.tar.gz
+  src-sha: 19b8ccb30f63da7eadbc8d9afa69318d9cbbb40bc162558604a24b8773ccd04a
   dep-pkg: libz openssl-dev
   dep-upp: curl bsdtar
   bsystem: cargo
   binbstd: "1"
   api-min: "26"
   parallel: "1"
-  install: cargow install --no-default-features --features=dataframe
+  install: cargow install --no-default-features --features=default-no-clipboard
 - pkgname: oat++
   pkgtype: lib
   version: 1.3.0
