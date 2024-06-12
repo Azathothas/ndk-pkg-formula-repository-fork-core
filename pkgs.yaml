@@ -3405,6 +3405,7 @@
   web-url: https://developer.gnome.org/glib
   git-url: https://github.com/GNOME/glib
   src-url: https://download.gnome.org/sources/glib/2.78/glib-2.78.0.tar.xz
+  src-uri: https://distfiles.macports.org/glib2/glib-2.78.0.tar.xz
   src-sha: 44eaab8b720877ce303c5540b657b126f12dc94972d9880b52959f43fb537b30
   dep-pkg: libpcre2 libintl libffi libz
   dep-upp: curl bsdtar python3 ninja
@@ -3441,7 +3442,6 @@
   web-url: https://developer.gnome.org/glib
   git-url: https://github.com/GNOME/glib
   src-url: https://download.gnome.org/sources/glib/2.80/glib-2.80.2.tar.xz
-  src-uri: https://distfiles.macports.org/glib2/glib-2.80.2.tar.xz
   src-sha: b9cfb6f7a5bd5b31238fd5d56df226b2dda5ea37611475bf89f6a0f9400fe8bd
   dep-pkg: libpcre2 libintl libffi libz
   dep-upp: python3 curl bsdtar python3 python3 ninja
@@ -4685,6 +4685,26 @@
     export LIBSSH2_SYS_USE_PKG_CONFIG=1
     export LIBZ_SYS_STATIC=1
   install: cargow install --locked --no-default-features --path cli --bin jj
+- pkgname: jpegoptim
+  pkgtype: exe
+  version: 1.5.5
+  license: GPL-3.0-or-later
+  summary: Utility to optimize JPEG files
+  web-url: https://github.com/tjko/jpegoptim
+  git-url: https://github.com/tjko/jpegoptim
+  src-url: https://github.com/tjko/jpegoptim/archive/refs/tags/v1.5.5.tar.gz
+  src-sha: 90a309d1c092de358bb411d702281ac3039b489d03adb0bc3c4ef04cf0067d38
+  dep-pkg: libjpeg-turbo
+  dep-upp: curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "1"
+  parallel: "1"
+  prepare: |-
+    for h in "$libjpeg_turbo_INCLUDE_DIR"/*.h
+    do
+        ln -sv "$h" "$PACKAGE_WORKING_DIR/include/"
+    done
+  install: configure --with-libjpeg="$PACKAGE_WORKING_DIR"
 - pkgname: jq
   pkgtype: exe
   version: 1.7.1
@@ -4899,13 +4919,18 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sed_in_place '/lame_init_old/d' include/libmp3lame.sym
+  dopatch: |-
+    sed_in_place '/lame_init_old/d' include/libmp3lame.sym
+    sed_in_place 's|-mtune=native||g' configure
   install: |-
     configure \
         --without-dmalloc \
         --enable-frontend \
         --enable-nasm \
         LIBS=-lm
+  dotweak: |-
+    rm -rf include
+    rm -rf lib
 - pkgname: lazygit
   pkgtype: pie
   version: 0.42.0
