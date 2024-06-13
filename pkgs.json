@@ -7313,6 +7313,21 @@
     "install": "cmakew \\\n    -Dlzw=ON \\\n    -Dzlib=ON \\\n    -Dzstd=ON \\\n    -Dlzma=ON \\\n    -Dwebp=OFF \\\n    -Djpeg=OFF \\\n    -Djbig=OFF \\\n    -Dlerc=OFF \\\n    -Dtiff-docs=OFF \\\n    -Dtiff-tools=OFF \\\n    -Dtiff-tests=OFF \\\n    -Dtiff-contrib=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -Dlzw=ON \\\n    -Dzlib=ON \\\n    -Dzstd=ON \\\n    -Dlzma=ON \\\n    -Dwebp=OFF \\\n    -Djpeg=OFF \\\n    -Djbig=OFF \\\n    -Dlerc=OFF \\\n    -Dtiff-docs=OFF \\\n    -Dtiff-tools=OFF \\\n    -Dtiff-tests=OFF \\\n    -Dtiff-contrib=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
   },
   {
+    "pkgname": "libtinyalsa",
+    "pkgtype": "lib",
+    "version": "2.0.0",
+    "summary": "A small library to interface with ALSA in the Linux kernel",
+    "web-url": "https://github.com/tinyalsa/tinyalsa",
+    "git-url": "https://github.com/tinyalsa/tinyalsa",
+    "src-url": "https://github.com/tinyalsa/tinyalsa/archive/refs/tags/v2.0.0.tar.gz",
+    "src-sha": "573ae0b2d3480851c1d2a12503ead2beea27f92d44ed47b74b553ba947994ef1",
+    "dep-upp": "curl bsdtar cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DTINYALSA_BUILD_UTILS=OFF \\\n    -DTINYALSA_BUILD_EXAMPLES=OFF \\\n    -DTINYALSA_USES_PLUGINS=ON\ncmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DTINYALSA_BUILD_UTILS=OFF \\\n    -DTINYALSA_BUILD_EXAMPLES=OFF \\\n    -DTINYALSA_USES_PLUGINS=ON"
+  },
+  {
     "pkgname": "libtinyxml2",
     "pkgtype": "lib",
     "version": "10.0.0",
@@ -11122,6 +11137,22 @@
     "install": "configure"
   },
   {
+    "pkgname": "tinyalsa",
+    "pkgtype": "exe",
+    "version": "2.0.0",
+    "summary": "A small library to interface with ALSA in the Linux kernel",
+    "web-url": "https://github.com/tinyalsa/tinyalsa",
+    "git-url": "https://github.com/tinyalsa/tinyalsa",
+    "src-url": "https://github.com/tinyalsa/tinyalsa/archive/refs/tags/v2.0.0.tar.gz",
+    "src-sha": "573ae0b2d3480851c1d2a12503ead2beea27f92d44ed47b74b553ba947994ef1",
+    "dep-upp": "curl bsdtar cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DTINYALSA_BUILD_UTILS=ON \\\n    -DTINYALSA_BUILD_EXAMPLES=OFF \\\n    -DTINYALSA_USES_PLUGINS=ON",
+    "dotweak": "rm -rf include\nrm -rf lib"
+  },
+  {
     "pkgname": "tlrc",
     "pkgtype": "exe",
     "version": "1.9.2",
@@ -11898,6 +11929,24 @@
     "api-min": "24",
     "parallel": "1",
     "install": "xmakew"
+  },
+  {
+    "pkgname": "xmlstarlet",
+    "pkgtype": "exe",
+    "version": "1.6.1",
+    "license": "MIT",
+    "summary": "A set of command line tools to transform, query, validate, and edit XML documents and files",
+    "web-url": "https://xmlstar.sourceforge.net/",
+    "src-url": "https://downloads.sourceforge.net/project/xmlstar/xmlstarlet/1.6.1/xmlstarlet-1.6.1.tar.gz",
+    "src-sha": "15d838c4f3375332fd95554619179b69e4ec91418a3a5296e7c631b7ed19e7ca",
+    "dep-pkg": "libxslt",
+    "dep-upp": "curl bsdtar gmake gmake",
+    "bsystem": "configure",
+    "binbstd": "1",
+    "parallel": "1",
+    "dopatch": "sed_in_place 's|xmlErrorPtr error|const xmlError * error|' src/xmlstar.h\nsed_in_place 's|xmlErrorPtr error|const xmlError * error|' src/xml.c\nsed_in_place 's|xmlChar \\*\\*array;|const xmlChar **array;|' src/xml_elem.c\nsed_in_place 's|xmlChar \\*name)|const xmlChar *name)|'      src/xml_elem.c",
+    "install": "configure --with-libxml-include-prefix=\"$libxml2_INCLUDE_DIR/libxml2\" LIBS=\"'$(pkg-config --libs libxml-2.0)'\"",
+    "dotweak": "cd bin && ln -s xml xmlstarlet"
   },
   {
     "pkgname": "xmlutils",
