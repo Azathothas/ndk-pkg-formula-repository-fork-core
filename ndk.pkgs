@@ -6582,6 +6582,36 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libsvg
+pkgtype: lib
+version: 0.1.4
+license: LGPL-2.1-or-later
+summary: Library for SVG files
+web-url: https://cairographics.org/
+src-url: https://cairographics.org/snapshots/libsvg-0.1.4.tar.gz
+src-sha: 4c3bf9292e676a72b12338691be64d0f38cd7f2ea5e8b67fbbf45f1ed404bc8f
+dep-pkg: libjpeg-turbo libpng libxml2
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+ppflags: -include stdlib.h
+parallel: 1
+installed: no
+---
+pkgname: libsvm
+pkgtype: lib
+version: 3.32
+license: BSD-3-Clause
+summary: Library for support vector machines
+web-url: https://www.csie.ntu.edu.tw/~cjlin/libsvm/
+git-url: https://github.com/cjlin1/libsvm
+src-url: https://www.csie.ntu.edu.tw/~cjlin/libsvm/libsvm-3.32.tar.gz
+src-sha: 8644cc6518ca88bbc50d8c8ead1734f1ab9b6f17017045ef9ae38773aa653dad
+dep-upp: curl bsdtar
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: libtalloc
 pkgtype: lib
 version: 2.4.2
