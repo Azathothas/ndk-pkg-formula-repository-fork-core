@@ -10524,6 +10524,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: uppm@0.15.4
+pkgtype: exe
+version: 2024.06.17
+license: Apache-2.0
+summary: Universal Prebuild Package Manager
+web-url: https://github.com/leleliu008/uppm
+git-url: https://github.com/leleliu008/uppm
+git-ref: refs/heads/0.15.3
+dep-pkg: libcurl libgit2 libarchive libyaml libjansson
+dep-upp: git cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: usbmuxd
 pkgtype: exe
 version: 1.1.1

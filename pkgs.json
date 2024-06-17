@@ -27,7 +27,7 @@
     "binbstd": "0",
     "ppflags": "-include stdlib.h -include string.h",
     "parallel": "1",
-    "dopatch": "sed_in_place '203c return 0;' src/aalinuxkbd.c",
+    "dopatch": "sedInPlace '203c return 0;' src/aalinuxkbd.c",
     "install": "configure --without-x --with-ncurses=\"$ncurses_INSTALL_DIR\""
   },
   {
@@ -345,7 +345,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|$(HOSTCC) $(CFLAGS)|$(HOSTCC) $(HOSTCFLAGS)|' makefile",
+    "dopatch": "sedInPlace 's|$(HOSTCC) $(CFLAGS)|$(HOSTCC) $(HOSTCFLAGS)|' makefile",
     "install": "gmakew clean\ngmakew CC=\"$CC\" CFLAGS=\"'$CFLAGS'\" HOSTCC=\"$CC_FOR_BUILD\" HOSTCFLAGS=\"'$CFLAGS_FOR_BUILD $CPPFLAGS_FOR_BUILD'\"\nmv a.out awk\ninstall_bins awk\ninstall_mans awk.1"
   },
   {
@@ -458,7 +458,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/strip/c message(\"--\")' CMakeLists.txt\nsed_in_place '/set(CMAKE_CXX_FLAGS/c set(CMAKE_CXX_FLAGS \"${CMAKE_CXX_FLAGS} -std=c++11\")' CMakeLists.txt",
+    "dopatch": "sedInPlace '/strip/c message(\"--\")' CMakeLists.txt\nsedInPlace '/set(CMAKE_CXX_FLAGS/c set(CMAKE_CXX_FLAGS \"${CMAKE_CXX_FLAGS} -std=c++11\")' CMakeLists.txt",
     "install": "cmakew"
   },
   {
@@ -528,7 +528,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's| install_docs||' Makefile.in",
+    "dopatch": "sedInPlace 's| install_docs||' Makefile.in",
     "install": "configure \\\n    --enable-cxx=no \\\n    --enable-stl=no \\\n    --enable-dbm \\\n    --enable-hash \\\n    --enable-compat185 \\\n    --enable-smallbuild \\\n    db_cv_atomic=gcc-builtin"
   },
   {
@@ -578,7 +578,7 @@
     "binbstd": "0",
     "api-min": "26",
     "parallel": "1",
-    "dopatch": "for MAKEFILE_AM in $(find lib -name \"Makefile.in\")\ndo\n    sed_in_place 's|-release \"$(PACKAGE_VERSION)\"||' \"$MAKEFILE_AM\"\ndone",
+    "dopatch": "for MAKEFILE_AM in $(find lib -name \"Makefile.in\")\ndo\n    sedInPlace 's|-release \"$(PACKAGE_VERSION)\"||' \"$MAKEFILE_AM\"\ndone",
     "install": "configure \\\n    --disable-linux-caps \\\n    --disable-static \\\n    --enable-shared \\\n    --without-python \\\n    --without-gssapi \\\n    --without-lmdb \\\n    --with-zlib \\\n    --with-json-c \\\n    --with-libxml2 \\\n    --with-libidn2=\"$libidn2_INSTALL_DIR\" \\\n    --with-openssl=\"$openssl_dev_INSTALL_DIR\" \\\n    ac_cv_search_idn2_to_ascii_lz=\"'-lidn2 -lunistring -liconv'\""
   },
   {
@@ -661,8 +661,8 @@
     "dep-upp": "curl bsdtar",
     "binbstd": "1",
     "parallel": "1",
-    "do12345": "sed_in_place '1a set -x' bootstrap.sh\nsed_in_place '1a set -x' tools/build/src/engine/build.sh\nrun ./bootstrap.sh",
-    "dopatch": "# https://stackoverflow.com/questions/32826175/ftello-and-fseeko-android-build-errors\n# https://linux.die.net/man/3/ftello\n# int   fseeko(FILE* __fp, off_t __offset, int __whence) __RENAME(fseeko64) __INTRODUCED_IN(24);\n# off_t ftello(FILE* __fp) __RENAME(ftello64) __INTRODUCED_IN(24);\nif [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    sed_in_place 's|BOOST_NOWIDE_FTELL ftello|BOOST_NOWIDE_FTELL ::ftell|' libs/nowide/src/filebuf.cpp\n    sed_in_place 's|BOOST_NOWIDE_FTELL fseeko|BOOST_NOWIDE_FTELL ::fseek|' libs/nowide/src/filebuf.cpp\nfi",
+    "do12345": "sedInPlace '1a set -x' bootstrap.sh\nsedInPlace '1a set -x' tools/build/src/engine/build.sh\nrun ./bootstrap.sh",
+    "dopatch": "# https://stackoverflow.com/questions/32826175/ftello-and-fseeko-android-build-errors\n# https://linux.die.net/man/3/ftello\n# int   fseeko(FILE* __fp, off_t __offset, int __whence) __RENAME(fseeko64) __INTRODUCED_IN(24);\n# off_t ftello(FILE* __fp) __RENAME(ftello64) __INTRODUCED_IN(24);\nif [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    sedInPlace 's|BOOST_NOWIDE_FTELL ftello|BOOST_NOWIDE_FTELL ::ftell|' libs/nowide/src/filebuf.cpp\n    sedInPlace 's|BOOST_NOWIDE_FTELL fseeko|BOOST_NOWIDE_FTELL ::fseek|' libs/nowide/src/filebuf.cpp\nfi",
     "install": "case $TARGET_PLATFORM_ARCH in\n    armv7a)\n        address_model=32\n        architecture=arm\n        abi=aapcs\n        ;;\n    aarch64)\n        address_model=64\n        architecture=arm\n        abi=aapcs\n        ;;\n    i686)\n        address_model=32\n        architecture=x86\n        abi=sysv\n        ;;\n    x86_64)\n        address_model=64\n        architecture=x86\n        abi=sysv\nesac\n\ncat > project-config.jam <<EOF\nusing clang : $TARGET_PLATFORM_ARCH : $CXX : <compileflags>\"$CXXFLAGS $CPPFLAGS\" <linkflags>\"$LDFLAGS -shared\" <archiver>$AR <ranlib>$RANLIB ;\nEOF\n\nrun ./b2 install \\\n    -q \\\n    -d+2 \\\n    -j$BUILD_NJOBS \\\n    --reconfigure \\\n    --without-python \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    -sICU_PATH=\"$icu4c_INSTALL_DIR\" \\\n    -sICONV_PATH=\"$libiconv_INSTALL_DIR\" \\\n    toolset=clang-$TARGET_PLATFORM_ARCH \\\n    link=static,shared \\\n    variant=release \\\n    threading=multi \\\n    target-os=android \\\n    binary-format=elf \\\n    address-model=\"$address_model\" \\\n    architecture=\"$architecture\" \\\n    abi=\"$abi\""
   },
   {
@@ -693,7 +693,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|STRIP=true||' src/Makefile\n\nrun cd ../lib/\nrun \"$AR\" x \"$libiconv_INSTALL_DIR/lib/libiconv.a\"\nrun \"$AR\" x \"$libunistring_INSTALL_DIR/lib/libunistring.a\"\nrun \"$AR\" crs libunistring.a *.o\nrun rm -f *.o",
+    "dopatch": "sedInPlace 's|STRIP=true||' src/Makefile\n\nrun cd ../lib/\nrun \"$AR\" x \"$libiconv_INSTALL_DIR/lib/libiconv.a\"\nrun \"$AR\" x \"$libunistring_INSTALL_DIR/lib/libunistring.a\"\nrun \"$AR\" crs libunistring.a *.o\nrun rm -f *.o",
     "install": "export CPPFLAGS=\"$CPPFLAGS -I. -I../src\"\ngmakew clean\ngmakew CC=\"$CC\" CFLAGS=\"'$CPPFLAGS $CFLAGS'\" LDFLAGS=\"'$LDFLAGS'\"\nrun install_bins out/boxes\nrun install_mans doc/boxes.1\nrun install_etcs boxes-config"
   },
   {
@@ -727,7 +727,7 @@
     "bsystem": "cargo",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "run cargo fetch --target \"$RUST_TARGET\"\n\nfor f in $CARGO_HOME/registry/src/*/libgit2-sys-*/build.rs ; do\n    sed -i -E 's/\\.range_version\\(([^)]*)\\.\\.[^)]*\\)/.atleast_version(\\1)/g' \"${f}\"\ndone\n\nsed_in_place '/trash/d' Cargo.toml",
+    "dopatch": "run cargo fetch --target \"$RUST_TARGET\"\n\nfor f in $CARGO_HOME/registry/src/*/libgit2-sys-*/build.rs ; do\n    sed -i -E 's/\\.range_version\\(([^)]*)\\.\\.[^)]*\\)/.atleast_version(\\1)/g' \"${f}\"\ndone\n\nsedInPlace '/trash/d' Cargo.toml",
     "install": "cargow install --locked"
   },
   {
@@ -897,7 +897,7 @@
     "binbstd": "0",
     "api-min": "24",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|ifdef HAVE_AVX2|if 0|g'    src/hashutil.cpp\nsed_in_place 's|third_party/blake3/||'     src/Hash.hpp\nsed_in_place '/add_subdirectory(blake3)/d' src/third_party/CMakeLists.txt",
+    "dopatch": "sedInPlace 's|ifdef HAVE_AVX2|if 0|g'    src/hashutil.cpp\nsedInPlace 's|third_party/blake3/||'     src/Hash.hpp\nsedInPlace '/add_subdirectory(blake3)/d' src/third_party/CMakeLists.txt",
     "install": "cmakew \\\n    -DENABLE_COVERAGE=OFF \\\n    -DENABLE_CPPCHECK=OFF \\\n    -DENABLE_IPO=OFF \\\n    -DENABLE_TRACING=OFF \\\n    -DWARNINGS_AS_ERRORS=OFF \\\n    -DZSTD_FROM_INTERNET=OFF"
   },
   {
@@ -1227,7 +1227,7 @@
     "binbstd": "0",
     "ldflags": "-llog",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|ANDROID|XXXX|' Release/cmake/cpprest_find_openssl.cmake",
+    "dopatch": "sedInPlace 's|ANDROID|XXXX|' Release/cmake/cpprest_find_openssl.cmake",
     "install": "export OPENSSL_ROOT_DIR=\"$openssl_dev_INSTALL_DIR\"\ncmakew -DBUILD_TESTS=OFF -DBUILD_SAMPLES=OFF"
   },
   {
@@ -1306,7 +1306,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt",
     "install": "cmakew \\\n    -DCPUINFO_BUILD_TOOLS=ON \\\n    -DCPUINFO_BUILD_UNIT_TESTS=OFF \\\n    -DCPUINFO_BUILD_MOCK_TESTS=OFF \\\n    -DCPUINFO_BUILD_BENCHMARKS=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DCPUINFO_BUILD_TOOLS=OFF \\\n    -DCPUINFO_BUILD_UNIT_TESTS=OFF \\\n    -DCPUINFO_BUILD_MOCK_TESTS=OFF \\\n    -DCPUINFO_BUILD_BENCHMARKS=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
   },
   {
@@ -1404,7 +1404,7 @@
     "bsystem": "autotools",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "rm config.status\nfind . -name \".deps\"    -exec rm -rf {} +\nfind . -name \"Makefile\" -exec rm -rf {} +\nautoreconf -ivf\nsed_in_place 's/install-data-am: install-dochdrDATA/install-data-am: /' doc/headers/Makefile.in",
+    "dopatch": "rm config.status\nfind . -name \".deps\"    -exec rm -rf {} +\nfind . -name \"Makefile\" -exec rm -rf {} +\nautoreconf -ivf\nsedInPlace 's/install-data-am: install-dochdrDATA/install-data-am: /' doc/headers/Makefile.in",
     "install": "configure \\\n    --disable-examples \\\n    --disable-test \\\n    --enable-basic \\\n    --enable-curses \\\n    --enable-console \\\n    --enable-memtrace \\\n    --enable-automated"
   },
   {
@@ -1422,7 +1422,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure",
+    "dopatch": "sedInPlace 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure",
     "install": "configure \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-optimize \\\n    --enable-pthreads \\\n    --enable-ares \\\n    --with-default-ssl-backend=openssl \\\n    --with-ssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-nghttp2 \\\n    --without-nghttp3 \\\n    --without-ngtcp2 \\\n    --without-quiche \\\n    --without-libpsl \\\n    --without-librtmp \\\n    --without-libidn2",
     "dotweak": "rm -rf include\nrm -rf lib\nrm -rf bin/curl-config\nrm -rf share/aclocal\nrm -rf share/man/man3",
     "caveats": "If curl is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers=<DNS-SERVERS> argument to curl like below\n\ncurl --dns-servers=8.8.8.8 https://example.com"
@@ -1553,7 +1553,7 @@
     "bsystem": "meson",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|libdav1d|libdav1d.get_static_lib()|' tools/meson.build",
+    "dopatch": "sedInPlace 's|libdav1d|libdav1d.get_static_lib()|' tools/meson.build",
     "install": "mesonw \\\n    -Denable_asm=true \\\n    -Denable_tools=true \\\n    -Denable_tests=false \\\n    -Denable_examples=false"
   },
   {
@@ -1603,7 +1603,7 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "# https://github.com/android/ndk/issues/1409\nsed_in_place 's|int debug;|int debug __attribute__((common));|' common/includes/debug.h",
+    "dopatch": "# https://github.com/android/ndk/issues/1409\nsedInPlace 's|int debug;|int debug __attribute__((common));|' common/includes/debug.h",
     "install": "configure"
   },
   {
@@ -1701,7 +1701,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place '/^ENABLE_NLS/d' Makefile",
+    "dopatch": "sedInPlace '/^ENABLE_NLS/d' Makefile",
     "install": "gmakew clean\ngmakew CC=\"$CC\" CPP=\"'$CPP'\" STRIP=\"$STRIP\" CFLAGS_USER=\"'$CFLAGS'\" LDFLAGS_USER=\"'$LDFLAGS'\" D2U_OS=android\ngmakew install prefix=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -1879,7 +1879,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|'       CMakeLists.txt\nsed_in_place 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|'       CMakeLists.txt\nsedInPlace 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt",
     "install": "cmakew"
   },
   {
@@ -1994,7 +1994,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "CURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl)\"\nsed_in_place \"s|\\${CURL_LIBRARIES}|$CURL_LIBRARIES|\" src/CMakeLists.txt",
+    "dopatch": "CURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl)\"\nsedInPlace \"s|\\${CURL_LIBRARIES}|$CURL_LIBRARIES|\" src/CMakeLists.txt",
     "install": "cmakew \\\n    -DEXIV2_ENABLE_NLS=OFF \\\n    -DEXIV2_ENABLE_XMP=ON \\\n    -DEXIV2_ENABLE_PNG=ON \\\n    -DEXIV2_ENABLE_SSH=ON \\\n    -DEXIV2_ENABLE_CURL=ON \\\n    -DEXIV2_ENABLE_BMFF=ON \\\n    -DEXIV2_ENABLE_VIDEO=ON \\\n    -DEXIV2_ENABLE_LENSDATA=ON \\\n    -DEXIV2_ENABLE_WEBREADY=ON \\\n    -DEXIV2_ENABLE_PRINTUCS2=ON \\\n    -DEXIV2_BUILD_EXIV2_COMMAND=ON \\\n    -DEXIV2_BUILD_SAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF"
   },
   {
@@ -2144,7 +2144,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "install": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac\n\nsed_in_place 's|-lxvidcore|-lxvidcore -lm|' configure\nsed_in_place \"s|SDL2_CONFIG=|SDL2_CONFIG='$sdl2_INSTALL_DIR/bin/sdl2-config'|\" configure\n\nif run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --enable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --disable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
+    "install": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac\n\nsedInPlace 's|-lxvidcore|-lxvidcore -lm|' configure\nsedInPlace \"s|SDL2_CONFIG=|SDL2_CONFIG='$sdl2_INSTALL_DIR/bin/sdl2-config'|\" configure\n\nif run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --enable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --disable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
   },
   {
     "pkgname": "figlet",
@@ -2212,7 +2212,7 @@
     "binbstd": "0",
     "api-min": "26",
     "parallel": "1",
-    "dopatch": "sed_in_place 's/ret = strerror_r (errnum, buf, buflen);/strerror_r (errnum, buf, buflen); ret = errno;/g' gl/lib/strerror_r.c\nsed_in_place 's/strerror_r (errnum, stackbuf, sizeof stackbuf) == ERANGE/errno == ERANGE/g' gl/lib/strerror_r.c\nsed_in_place '/if (errno == ERANGE)/i strerror_r (errnum, stackbuf, sizeof stackbuf);'      gl/lib/strerror_r.c\nsed_in_place 's/find.texi\\ //' doc/Makefile.am\nsed_in_place 's/find.texi\\ //' doc/Makefile.in",
+    "dopatch": "sedInPlace 's/ret = strerror_r (errnum, buf, buflen);/strerror_r (errnum, buf, buflen); ret = errno;/g' gl/lib/strerror_r.c\nsedInPlace 's/strerror_r (errnum, stackbuf, sizeof stackbuf) == ERANGE/errno == ERANGE/g' gl/lib/strerror_r.c\nsedInPlace '/if (errno == ERANGE)/i strerror_r (errnum, stackbuf, sizeof stackbuf);'      gl/lib/strerror_r.c\nsedInPlace 's/find.texi\\ //' doc/Makefile.am\nsedInPlace 's/find.texi\\ //' doc/Makefile.in",
     "install": "configure \\\n    --without-selinux \\\n    --with-included-regex \\\n    --enable-threads=posix \\\n    --enable-leaf-optimisation \\\n    --enable-d_type-optimisation \\\n    --disable-assert"
   },
   {
@@ -2281,7 +2281,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '1i \\#include<stdlib.h>' src/misc.c",
+    "dopatch": "sedInPlace '1i \\#include<stdlib.h>' src/misc.c",
     "install": "configure --enable-warnings LIBS=-lm"
   },
   {
@@ -2298,7 +2298,7 @@
     "bsystem": "autotools",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|%1u|%1ld|' src/flock.c",
+    "dopatch": "sedInPlace 's|%1u|%1ld|' src/flock.c",
     "install": "configure"
   },
   {
@@ -2412,7 +2412,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|$(shell uname)|Linux|' Makefile",
+    "dopatch": "sedInPlace 's|$(shell uname)|Linux|' Makefile",
     "install": "gmakew clean\ngmakew FANOTIFY_CFLAGS=\"'-DHAVE_FANOTIFY=1 -DHAVE_SYS_FANOTIFY=0'\"\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -2544,7 +2544,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure --without-x --without-xpm",
-    "dotweak": "sed_in_place 's|-lgd|-lgd -liconv|' lib/pkgconfig/gdlib.pc"
+    "dotweak": "sedInPlace 's|-lgd|-lgd -liconv|' lib/pkgconfig/gdlib.pc"
   },
   {
     "pkgname": "gdk-pixbuf",
@@ -2659,7 +2659,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "sedInPlace '/ftello/d' ../include/ndk-pkg-common.h\nsedInPlace '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "export am_cv_func_iconv_works=yes\nconfigure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --with-libncurses-prefix=\"$ncurses_INSTALL_DIR\" \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable"
   },
   {
@@ -2677,7 +2677,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/SUBDIRS =/s|gettext-tools||g' Makefile.in\nsed_in_place '/SUBDIRS =/s|gnulib-tests||g' gettext-tools/Makefile.in",
+    "dopatch": "sedInPlace '/SUBDIRS =/s|gettext-tools||g' Makefile.in\nsedInPlace '/SUBDIRS =/s|gnulib-tests||g' gettext-tools/Makefile.in",
     "install": "configure \\\n    --with-included-glib \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libcroco \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --with-libncurses-prefix=\"$ncurses_INSTALL_DIR\" \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable",
     "dotweak": "run install -d lib/pkgconfig/\ncat >          lib/pkgconfig/libintl.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
   },
@@ -2763,7 +2763,7 @@
     "binbstd": "1",
     "parallel": "0",
     "developer": "Gershon Elber <gershon@cs.technion.sc.il>\nToshio Kuratomi <toshio@tiki-lounge.com>\nEric Raymond <esr@snark.thyrsus.com>",
-    "dopatch": "sed_in_place 's#$(MAKE) -C doc#@mkdir -p doc \\&\\& ([ -f doc/giflib.1 ] || touch doc/giflib.1)#' Makefile",
+    "dopatch": "sedInPlace 's#$(MAKE) -C doc#@mkdir -p doc \\&\\& ([ -f doc/giflib.1 ] || touch doc/giflib.1)#' Makefile",
     "install": "gmakew clean   UNAME=Linux\ngmakew install UNAME=Linux PREFIX=\"$PACKAGE_INSTALL_DIR\" CC=\"$CC\" AR=\"$AR\" CFLAGS=\"'$CFLAGS'\""
   },
   {
@@ -2799,7 +2799,7 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "printf '%s' '\nLS0tIHJ1bi1jb21tYW5kLmMJMjAyMy0wNi0wMSAxNTowMzowNS4wMDAwMDAwMDAgKzA4MDAKKysr\nIHJ1bi1jb21tYW5kLmNoYW5nZWQJMjAyMy0wNy0yMSAwMToxMToxNy41MjcxNDY0NzcgKzA4MDAK\nQEAgLTUxNyw4ICs1MTcsNiBAQAogI2Vsc2UKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJ\nR19TRVRNQVNLLCAmYWxsLCAmYXMtPm9sZCksCiAJCSJibG9ja2luZyBhbGwgc2lnbmFscyIpOwot\nCUNIRUNLX0JVRyhwdGhyZWFkX3NldGNhbmNlbHN0YXRlKFBUSFJFQURfQ0FOQ0VMX0RJU0FCTEUs\nICZhcy0+Y3MpLAotCQkiZGlzYWJsaW5nIGNhbmNlbGxhdGlvbiIpOwogI2VuZGlmCiB9CiAKQEAg\nLTUyOCw4ICs1MjYsNiBAQAogCWlmIChzaWdwcm9jbWFzayhTSUdfU0VUTUFTSywgJmFzLT5vbGQs\nIE5VTEwpKQogCQlkaWVfZXJybm8oInNpZ3Byb2NtYXNrIik7CiAjZWxzZQotCUNIRUNLX0JVRyhw\ndGhyZWFkX3NldGNhbmNlbHN0YXRlKGFzLT5jcywgTlVMTCksCi0JCSJyZS1lbmFibGluZyBjYW5j\nZWxsYXRpb24iKTsKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJR19TRVRNQVNLLCAmYXMt\nPm9sZCwgTlVMTCksCiAJCSJyZXN0b3Jpbmcgc2lnbmFsIG1hc2siKTsKICNlbmRpZgo=' | base64 -d | patch -p0\n\nsed_in_place '/uname_S := /c uname_S := Linux' config.mak.uname\nsed_in_place \"/uname_N := /c uname_M := $TARGET_PLATFORM_ARCH\" config.mak.uname",
+    "dopatch": "printf '%s' '\nLS0tIHJ1bi1jb21tYW5kLmMJMjAyMy0wNi0wMSAxNTowMzowNS4wMDAwMDAwMDAgKzA4MDAKKysr\nIHJ1bi1jb21tYW5kLmNoYW5nZWQJMjAyMy0wNy0yMSAwMToxMToxNy41MjcxNDY0NzcgKzA4MDAK\nQEAgLTUxNyw4ICs1MTcsNiBAQAogI2Vsc2UKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJ\nR19TRVRNQVNLLCAmYWxsLCAmYXMtPm9sZCksCiAJCSJibG9ja2luZyBhbGwgc2lnbmFscyIpOwot\nCUNIRUNLX0JVRyhwdGhyZWFkX3NldGNhbmNlbHN0YXRlKFBUSFJFQURfQ0FOQ0VMX0RJU0FCTEUs\nICZhcy0+Y3MpLAotCQkiZGlzYWJsaW5nIGNhbmNlbGxhdGlvbiIpOwogI2VuZGlmCiB9CiAKQEAg\nLTUyOCw4ICs1MjYsNiBAQAogCWlmIChzaWdwcm9jbWFzayhTSUdfU0VUTUFTSywgJmFzLT5vbGQs\nIE5VTEwpKQogCQlkaWVfZXJybm8oInNpZ3Byb2NtYXNrIik7CiAjZWxzZQotCUNIRUNLX0JVRyhw\ndGhyZWFkX3NldGNhbmNlbHN0YXRlKGFzLT5jcywgTlVMTCksCi0JCSJyZS1lbmFibGluZyBjYW5j\nZWxsYXRpb24iKTsKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJR19TRVRNQVNLLCAmYXMt\nPm9sZCwgTlVMTCksCiAJCSJyZXN0b3Jpbmcgc2lnbmFsIG1hc2siKTsKICNlbmRpZgo=' | base64 -d | patch -p0\n\nsedInPlace '/uname_S := /c uname_S := Linux' config.mak.uname\nsedInPlace \"/uname_N := /c uname_M := $TARGET_PLATFORM_ARCH\" config.mak.uname",
     "prepare": "# to bypass git error: cannot run test program while cross compiling\nexport ac_cv_fread_reads_directories=yes\nexport ac_cv_header_libintl_h=no\nexport ac_cv_iconv_omits_bom=no\nexport ac_cv_snprintf_returns_bogus=no\n\nexport ac_cv_lib_curl_curl_global_init=yes\n\nexport ac_cv_prog_CURL_CONFIG=\"$libcurl_INSTALL_DIR/bin/curl-config\"\n\nLIBCURL_LIBS=\"$(pkg-config --libs libcurl)\"\nprintf 'LIBCURL_LIBS=%s\\n' \"$LIBCURL_LIBS\"\n\nexport LDFLAGS=\"$LDFLAGS $LIBCURL_LIBS\"\n\nexport NO_NSEC=1\nexport NO_GETTEXT=1\nexport NO_INSTALL_HARDLINKS=1",
     "install": "configure \\\n    --with-zlib=\"$libz_INSTALL_DIR\" \\\n    --with-curl=\"$libcurl_INSTALL_DIR\" \\\n    --with-expat=\"$libexpat_INSTALL_DIR\" \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-openssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-libpcre2=\"$libpcre2_INSTALL_DIR\" \\\n    --without-tcltk",
     "caveats": "The following environment variables should be set if you move/copy this software to other location\n\nGIT_INSTALLED_DIR=/somewhere\n\nexport GIT_EXEC_PATH=\"$GIT_INSTALLED_DIR/libexec/git-core\"\nexport GIT_TEMPLATE_DIR=\"$GIT_INSTALLED_DIR/share/git-core/templates\"\nexport GIT_CONFIG_NOSYSTEM=1"
@@ -2890,9 +2890,9 @@
     "bsystem": "meson",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place \"/libiconv =/c libiconv = dependency('libiconv', method : 'pkg-config')\" meson.build\nsed_in_place \"s|dependency('zlib')|cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])|\" meson.build\nsed_in_place '2139,2165d'  meson.build\nsed_in_place \"2139a libintl = cc.find_library('intl',  dirs: ['$libintl_LIBRARY_DIR'])\" meson.build\nsed_in_place '2140a libintl_deps = [libintl, libiconv]' meson.build",
+    "dopatch": "sedInPlace \"/libiconv =/c libiconv = dependency('libiconv', method : 'pkg-config')\" meson.build\nsedInPlace \"s|dependency('zlib')|cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])|\" meson.build\nsedInPlace '2139,2165d'  meson.build\nsedInPlace \"2139a libintl = cc.find_library('intl',  dirs: ['$libintl_LIBRARY_DIR'])\" meson.build\nsedInPlace '2140a libintl_deps = [libintl, libiconv]' meson.build",
     "install": "mesonw \\\n    -Dnls=disabled \\\n    -Dman=false \\\n    -Dgtk_doc=false \\\n    -Ddtrace=false \\\n    -Dglib_debug=disabled \\\n    -Dglib_assert=false \\\n    -Dtests=false \\\n    -Dinstalled_tests=false \\\n    -Dbsymbolic_functions=false",
-    "dotweak": "sed_in_place \"s|$NDKPKG_HOME/installed/.*/libz.a||g\"          lib/pkgconfig/*.pc\nsed_in_place \"s|$NDKPKG_HOME/installed/.*/libintl.so||g\"      lib/pkgconfig/*.pc\nsed_in_place '/^Requires.private: /s|$| libintl libffi libz|' lib/pkgconfig/glib-2.0.pc"
+    "dotweak": "sedInPlace 's|libiconv|libintl libffi libz|' lib/pkgconfig/glib-2.0.pc"
   },
   {
     "pkgname": "glib-tools",
@@ -2910,7 +2910,7 @@
     "bsystem": "meson",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place \"s|link_with : libgio|link_with : libgio.get_static_lib()|\" gio/meson.build\nsed_in_place \"s|link_with : libglib|link_with : libglib.get_static_lib()|\" glib/meson.build\nsed_in_place \"s|link_with : libgobject|link_with : libgobject.get_static_lib()|\" gobject/meson.build\nsed_in_place \"s|link_with : libgmodule|link_with : libgmodule.get_static_lib()|\" gmodule/meson.build\nsed_in_place \"s|link_with : libgthread|link_with : libgthread.get_static_lib()|\" gthread/meson.build\nsed_in_place \"s|link_with: libgirepository,|link_with: libgirepository.get_static_lib(),|\" girepository/meson.build\n\nsed_in_place \"s|cc.find_library('resolv')|declare_dependency(link_args : ['-lresolv'])|\" gio/meson.build\n\nsed_in_place \"/libffi_dep =/c libffi_dep = cc.find_library('ffi', static : true, dirs: ['$libffi_LIBRARY_DIR'])\" meson.build\nsed_in_place \"/libiconv =/c libiconv = cc.find_library('iconv', static : true, dirs: ['$libiconv_LIBRARY_DIR'])\" meson.build\nsed_in_place \"/libz_dep =/c libz_dep = cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])\" meson.build\n\nsed_in_place '2228,2254d'  meson.build\nsed_in_place \"2228a libintl = cc.find_library('intl', static : true, dirs: ['$libintl_LIBRARY_DIR'])\" meson.build\nsed_in_place '2229a libintl_deps = [libintl, libiconv]' meson.build",
+    "dopatch": "sedInPlace \"s|link_with : libgio|link_with : libgio.get_static_lib()|\" gio/meson.build\nsedInPlace \"s|link_with : libglib|link_with : libglib.get_static_lib()|\" glib/meson.build\nsedInPlace \"s|link_with : libgobject|link_with : libgobject.get_static_lib()|\" gobject/meson.build\nsedInPlace \"s|link_with : libgmodule|link_with : libgmodule.get_static_lib()|\" gmodule/meson.build\nsedInPlace \"s|link_with : libgthread|link_with : libgthread.get_static_lib()|\" gthread/meson.build\nsedInPlace \"s|link_with: libgirepository,|link_with: libgirepository.get_static_lib(),|\" girepository/meson.build\n\nsedInPlace \"s|cc.find_library('resolv')|declare_dependency(link_args : ['-lresolv'])|\" gio/meson.build\n\nsedInPlace \"/libffi_dep =/c libffi_dep = cc.find_library('ffi', static : true, dirs: ['$libffi_LIBRARY_DIR'])\" meson.build\nsedInPlace \"/libiconv =/c libiconv = cc.find_library('iconv', static : true, dirs: ['$libiconv_LIBRARY_DIR'])\" meson.build\nsedInPlace \"/libz_dep =/c libz_dep = cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])\" meson.build\n\nsedInPlace '2228,2254d'  meson.build\nsedInPlace \"2228a libintl = cc.find_library('intl', static : true, dirs: ['$libintl_LIBRARY_DIR'])\" meson.build\nsedInPlace '2229a libintl_deps = [libintl, libiconv]' meson.build",
     "install": "mesonw \\\n    -Dintrospection=disabled \\\n    -Ddocumentation=false \\\n    -Dman-pages=disabled \\\n    -Dnls=disabled \\\n    -Ddtrace=false \\\n    -Dglib_debug=disabled \\\n    -Dglib_assert=false \\\n    -Dtests=false \\\n    -Dinstalled_tests=false \\\n    -Dbsymbolic_functions=false",
     "dotweak": "rm -rfv lib\nrm -rfv include"
   },
@@ -3031,7 +3031,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|int streaming;|int streaming __attribute__((common));|' barcode.h",
+    "dopatch": "sedInPlace 's|int streaming;|int streaming __attribute__((common));|' barcode.h",
     "prepare": "export CPPFLAGS=\"$CPPFLAGS -I$gettext_dev_INSTALL_DIR/share/gettext\"",
     "install": "configure"
   },
@@ -3443,7 +3443,7 @@
     "api-min": "23",
     "parallel": "1",
     "install": "configure \\\n    --enable-threads=posix \\\n    --disable-assert \\\n    --disable-gcc-warnings \\\n    --with-included-regex",
-    "dotweak": "sed_in_place 's|bash|sh|' bin/egrep\nsed_in_place 's|bash|sh|' bin/fgrep"
+    "dotweak": "sedInPlace 's|bash|sh|' bin/egrep\nsedInPlace 's|bash|sh|' bin/fgrep"
   },
   {
     "pkgname": "grex",
@@ -3742,7 +3742,7 @@
     "bsystem": "cargo",
     "binbstd": "1",
     "parallel": "1",
-    "install": "for item in hurl hurlfmt\ndo\n    cargow install --path packages/$item\n    install_mans docs/manual/$item.1\ndone"
+    "install": "export RUSTUP_TOOLCHAIN=1.78\n\nfor item in hurl hurlfmt\ndo\n    cargow install --locked --path packages/$item\n    install_mans docs/manual/$item.1\ndone"
   },
   {
     "pkgname": "hwloc",
@@ -3824,7 +3824,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's/iomanip.h/iomanip/g' configure\n\nfor item in $(grep -l \"unsigned int argc\" examples/*)\ndo\n    sed_in_place 's/int main( unsigned int argc,/int main(int argc,/g' \"$item\" \ndone",
+    "dopatch": "sedInPlace 's/iomanip.h/iomanip/g' configure\n\nfor item in $(grep -l \"unsigned int argc\" examples/*)\ndo\n    sedInPlace 's/int main( unsigned int argc,/int main(int argc,/g' \"$item\" \ndone",
     "install": "configure \\\n    --enable-cxx-warnings=no \\\n    --enable-iso-cxx=no \\\n    --enable-ansi=no \\\n    --enable-debug=no"
   },
   {
@@ -3862,7 +3862,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "sedInPlace '/ftello/d' ../include/ndk-pkg-common.h\nsedInPlace '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "configure \\\n    --with-freetype=yes \\\n    --with-gvc=no \\\n    --with-modules \\\n    --with-openjp2 \\\n    --with-openexr \\\n    --with-webp=yes \\\n    --with-heic=yes \\\n    --with-gslib \\\n    --with-pango \\\n    --with-lqr \\\n    --without-x \\\n    --without-wmf \\\n    --without-fftw \\\n    --disable-opencl LIBS=-lc++_shared"
   },
   {
@@ -3995,7 +3995,7 @@
     "bsystem": "autogen",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '$d' autogen.sh && ./autogen.sh",
+    "dopatch": "sedInPlace '$d' autogen.sh && ./autogen.sh",
     "install": "configure --with-libpng=\"$libpng_INSTALL_DIR\""
   },
   {
@@ -4082,7 +4082,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|set(APPS_LINK_LIBS \"${PROJECT_NAME}\")|set(APPS_LINK_LIBS \"${PROJECT_NAME}-static\")|' apps/CMakeLists.txt",
+    "dopatch": "sedInPlace 's|set(APPS_LINK_LIBS \"${PROJECT_NAME}\")|set(APPS_LINK_LIBS \"${PROJECT_NAME}-static\")|' apps/CMakeLists.txt",
     "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DBUILD_STATIC_LIBS=ON \\\n    -DBUILD_TESTING=OFF \\\n    -DDISABLE_BSYMBOLIC=OFF \\\n    -DDISABLE_THREAD_LOCAL_STORAGE=OFF \\\n    -DDISABLE_WERROR=ON \\\n    -DENABLE_RDRAND=ON \\\n    -DENABLE_THREADING=ON"
   },
   {
@@ -4213,7 +4213,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/search_paths_first\"/d' configure\n\nfor item in $(grep '<db.h>' -rl plugins/kdb/db2)\ndo\n    sed_in_place 's|<db.h>|<db_185.h>|g' \"$item\" || return 1\ndone",
+    "dopatch": "sedInPlace '/search_paths_first\"/d' configure\n\nfor item in $(grep '<db.h>' -rl plugins/kdb/db2)\ndo\n    sedInPlace 's|<db.h>|<db_185.h>|g' \"$item\" || return 1\ndone",
     "prepare": "# int getifaddrs(struct ifaddrs** __list_ptr) __INTRODUCED_IN(24);\nif [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    ac_cv_header_ifaddrs_h=no\nelse\n    ac_cv_header_ifaddrs_h=yes\nfi",
     "install": "configure \\\n    --enable-dns-for-realm \\\n    --without-system-verto \\\n    --with-readline \\\n    --with-netlib=-lc \\\n    --with-size-optimizations \\\n    --with-system-db \\\n    --enable-static \\\n    --disable-shared \\\n    krb5_cv_attr_constructor_destructor='yes,yes' \\\n    ac_cv_func_regcomp=yes \\\n    ac_cv_printf_positional=yes \\\n    ac_cv_lib_readline_main=yes \\\n    ac_cv_header_ifaddrs_h=\"$ac_cv_header_ifaddrs_h\" LIBS=\"'-ldb -lncurses'\""
   },
@@ -4230,7 +4230,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/lame_init_old/d' include/libmp3lame.sym\nsed_in_place 's|-mtune=native||g' configure",
+    "dopatch": "sedInPlace '/lame_init_old/d' include/libmp3lame.sym\nsedInPlace 's|-mtune=native||g' configure",
     "install": "configure \\\n    --without-dmalloc \\\n    --enable-frontend \\\n    --enable-nasm \\\n    LIBS=-lm",
     "dotweak": "rm -rf include\nrm -rf lib"
   },
@@ -4265,7 +4265,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/define CMS_NO_REGISTER_KEYWORD 1/c \\#define CMS_NO_REGISTER_KEYWORD 1' include/lcms2.h",
+    "dopatch": "sedInPlace '/define CMS_NO_REGISTER_KEYWORD 1/c \\#define CMS_NO_REGISTER_KEYWORD 1' include/lcms2.h",
     "install": "configure"
   },
   {
@@ -4365,7 +4365,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|DESTINATION cmake|DESTINATION lib/cmake/libaec|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|DESTINATION cmake|DESTINATION lib/cmake/libaec|' CMakeLists.txt",
     "install": "cmakew"
   },
   {
@@ -4381,7 +4381,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "# on macOS, some fs is non-case-sensitive. In this case, gmake install will always say make: 'install' is up to date.\nmv INSTALL INSTALL.txt\nsed_in_place 's|install -D|install|g' src/Makefile",
+    "dopatch": "# on macOS, some fs is non-case-sensitive. In this case, gmake install will always say make: 'install' is up to date.\nmv INSTALL INSTALL.txt\nsedInPlace 's|install -D|install|g' src/Makefile",
     "install": "gmakew clean\ngmakew default CFLAGS=\"'$CFLAGS $CPPFLAGS $LDFLAGS -I$PACKAGE_BSCRIPT_DIR/src'\" AR=\"$AR\" RANLIB=\"$RANLIB\"\ninstall -d \"$PACKAGE_INSTALL_DIR/include\"\ninstall -d \"$PACKAGE_INSTALL_DIR/lib\"\ngmakew install prefix=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -4417,7 +4417,7 @@
     "parallel": "1",
     "prepare": "export ac_cv_sizeof_wchar_t=\"$($CC -E -dM - < /dev/null | sed -n '/__SIZEOF_WCHAR_T__/p' | cut -d ' ' -f3)\"\nexport CPPFLAGS=\"$CPPFLAGS -I$PACKAGE_BSCRIPT_DIR/contrib/android/include\"",
     "install": "configure \\\n    --enable-xattr \\\n    --enable-acl \\\n    --enable-bsdtar=static \\\n    --enable-bsdcat=static \\\n    --enable-bsdcpio=static \\\n    --enable-bsdunzip=static \\\n    --without-mbedtls \\\n    --without-nettle \\\n    --without-libb2 \\\n    --without-xml2 \\\n    --without-cng \\\n    --with-openssl \\\n    --with-expat \\\n    --with-zlib \\\n    --with-lzma \\\n    --with-bz2lib \\\n    --with-lz4 \\\n    --with-lzo2 \\\n    --with-zstd \\\n    --with-iconv",
-    "dotweak": "sed_in_place '/Libs: /s|$| -liconv|' lib/pkgconfig/libarchive.pc\nsed_in_place '/Requires.private:/d'  lib/pkgconfig/libarchive.pc"
+    "dotweak": "sedInPlace '/Libs: /s|$| -liconv|' lib/pkgconfig/libarchive.pc\nsedInPlace '/Requires:/d'          lib/pkgconfig/libarchive.pc"
   },
   {
     "pkgname": "libargp",
@@ -4680,7 +4680,7 @@
     "ppflags": "-DX_DISPLAY_MISSING",
     "ldflags": "-lbz2 -lz -lm -lbrotlidec -lbrotlicommon -lpng -lfreetype",
     "parallel": "1",
-    "dopatch": "if [ \"$TARGET_PLATFORM_ARCH\" = 'x86_64' ] ; then\n    sed_in_place '/HAVE_FLDLN2/d' configure\nfi",
+    "dopatch": "if [ \"$TARGET_PLATFORM_ARCH\" = 'x86_64' ] ; then\n    sedInPlace '/HAVE_FLDLN2/d' configure\nfi",
     "install": "configure \\\n    --disable-csharp \\\n    --disable-python \\\n    --disable-slang \\\n    --disable-java \\\n    --disable-ruby \\\n    --disable-x11 \\\n    --disable-doc"
   },
   {
@@ -4697,7 +4697,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's/indent -kr/indent -br/'    Make.Rules\nsed_in_place 's/-i $@/-i\".bak\" $@/'        libcap/Makefile\nsed_in_place 's|size_t len/|size_t len/g|' libcap/Makefile",
+    "dopatch": "sedInPlace 's/indent -kr/indent -br/'    Make.Rules\nsedInPlace 's/-i $@/-i\".bak\" $@/'        libcap/Makefile\nsedInPlace 's|size_t len/|size_t len/g|' libcap/Makefile",
     "install": "gmakew -C \"$PACKAGE_BSCRIPT_DIR/libcap\" clean\ngmakew -C \"$PACKAGE_BSCRIPT_DIR/libcap\" install \\\n    prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    lib=lib \\\n    PAM_CAP=no \\\n    GOLANG=no \\\n    SHARED=no \\\n    BUILD_CC=\"$CC_FOR_BUILD\" \\\n    BUILD_CFLAGS='' \\\n    CC=\"$CC\" \\\n    CFLAGS=\"'$CFLAGS $CPPFLAGS'\" \\\n    LDFLAGS=\"'$LDFLAGS'\" \\\n    AR=\"$AR\" \\\n    RANLIB=\"$RANLIB\" \\\n    OBJCOPY=\"$OBJCOPY\"\ncp \"$PACKAGE_BSCRIPT_DIR/libcap/_caps_output.gperf\" ."
   },
   {
@@ -4780,7 +4780,7 @@
     "binbstd": "0",
     "ldflags": "-Wl,--undefined-version",
     "parallel": "1",
-    "dopatch": "if [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    sed_in_place 's|define CDIO_FSEEK fseeko|define CDIO_FSEEK fseek|' lib/driver/_cdio_stdio.c\nfi",
+    "dopatch": "if [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    sedInPlace 's|define CDIO_FSEEK fseeko|define CDIO_FSEEK fseek|' lib/driver/_cdio_stdio.c\nfi",
     "install": "configure"
   },
   {
@@ -4845,7 +4845,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt",
     "install": "cmakew \\\n    -DCPUINFO_BUILD_TOOLS=OFF \\\n    -DCPUINFO_BUILD_UNIT_TESTS=OFF \\\n    -DCPUINFO_BUILD_MOCK_TESTS=OFF \\\n    -DCPUINFO_BUILD_BENCHMARKS=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DCPUINFO_BUILD_TOOLS=OFF \\\n    -DCPUINFO_BUILD_UNIT_TESTS=OFF \\\n    -DCPUINFO_BUILD_MOCK_TESTS=OFF \\\n    -DCPUINFO_BUILD_BENCHMARKS=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
   },
   {
@@ -4910,7 +4910,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure",
+    "dopatch": "sedInPlace 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure",
     "install": "configure \\\n    --enable-optimize \\\n    --enable-pthreads \\\n    --with-default-ssl-backend=openssl \\\n    --with-ssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-nghttp2 \\\n    --without-nghttp3 \\\n    --without-ngtcp2 \\\n    --without-quiche \\\n    --without-libpsl \\\n    --without-librtmp \\\n    --without-libidn2",
     "dotweak": "rm -rf bin/curl\nrm -rf share/man/man1/curl.1\ncd lib/pkgconfig\nsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lnghttp2||g' -e 's|-lzstd||g' -e 's|-lz||g' -e 's|-lbrotlidec||g' -e 's|-lbrotlicommon||g' libcurl.pc\nprintf 'Requires: libnghttp2 libcares libzstd libz libbrotlidec openssl\\n' >> libcurl.pc"
   },
@@ -4929,7 +4929,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/SUBDIRS = /c SUBDIRS = datrie' Makefile.in",
+    "dopatch": "sedInPlace '/SUBDIRS = /c SUBDIRS = datrie' Makefile.in",
     "install": "configure LIBS=\"'-lcharset -liconv'\""
   },
   {
@@ -5028,7 +5028,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|'       CMakeLists.txt\nsed_in_place 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|'       CMakeLists.txt\nsedInPlace 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt",
     "install": "cmakew"
   },
   {
@@ -5062,7 +5062,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DEVENT__DISABLE_DEBUG_MODE=ON \\\n    -DEVENT__DISABLE_TESTS=ON \\\n    -DEVENT__DISABLE_REGRESS=ON \\\n    -DEVENT__DISABLE_BENCHMARK=ON \\\n    -DEVENT__DISABLE_SAMPLES=ON \\\n    -DEVENT__DISABLE_OPENSSL=OFF \\\n    -DEVENT__DOXYGEN=OFF \\\n    -DEVENT__COVERAGE=OFF \\\n    -DEVENT__LIBRARY_TYPE=BOTH",
-    "dotweak": "sed_in_place '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc"
+    "dotweak": "sedInPlace '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc"
   },
   {
     "pkgname": "libexecinfo",
@@ -5091,7 +5091,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/add_subdirectory(src\\/app)/d' CMakeLists.txt",
+    "dopatch": "sedInPlace '/add_subdirectory(src\\/app)/d' CMakeLists.txt",
     "install": "cmakew -DBUILD_SHARED_LIBS=ON\ncmakew -DBUILD_SHARED_LIBS=OFF"
   },
   {
@@ -5126,7 +5126,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "CURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl)\"\nsed_in_place \"s|\\${CURL_LIBRARIES}|$CURL_LIBRARIES|\" src/CMakeLists.txt",
+    "dopatch": "CURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl)\"\nsedInPlace \"s|\\${CURL_LIBRARIES}|$CURL_LIBRARIES|\" src/CMakeLists.txt",
     "install": "cmakew \\\n    -DEXIV2_ENABLE_NLS=OFF \\\n    -DEXIV2_ENABLE_XMP=ON \\\n    -DEXIV2_ENABLE_PNG=ON \\\n    -DEXIV2_ENABLE_SSH=ON \\\n    -DEXIV2_ENABLE_CURL=ON \\\n    -DEXIV2_ENABLE_BMFF=ON \\\n    -DEXIV2_ENABLE_VIDEO=ON \\\n    -DEXIV2_ENABLE_LENSDATA=ON \\\n    -DEXIV2_ENABLE_WEBREADY=ON \\\n    -DEXIV2_ENABLE_PRINTUCS2=ON \\\n    -DEXIV2_BUILD_EXIV2_COMMAND=OFF \\\n    -DEXIV2_BUILD_SAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DEXIV2_ENABLE_NLS=OFF \\\n    -DEXIV2_ENABLE_XMP=ON \\\n    -DEXIV2_ENABLE_PNG=ON \\\n    -DEXIV2_ENABLE_SSH=ON \\\n    -DEXIV2_ENABLE_CURL=ON \\\n    -DEXIV2_ENABLE_BMFF=ON \\\n    -DEXIV2_ENABLE_VIDEO=ON \\\n    -DEXIV2_ENABLE_LENSDATA=ON \\\n    -DEXIV2_ENABLE_WEBREADY=ON \\\n    -DEXIV2_ENABLE_PRINTUCS2=ON \\\n    -DEXIV2_BUILD_EXIV2_COMMAND=OFF \\\n    -DEXIV2_BUILD_SAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
   },
   {
@@ -5175,7 +5175,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|tools m4|m4|' Makefile.in",
+    "dopatch": "sedInPlace 's|tools m4|m4|' Makefile.in",
     "install": "configure --enable-threads LIBS=-lm"
   },
   {
@@ -5298,7 +5298,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|src tools|src|' Makefile.in",
+    "dopatch": "sedInPlace 's|src tools|src|' Makefile.in",
     "install": "configure --enable-libgdbm-compat --without-readline",
     "dotweak": "rm -rf share/info\nrm -rf share/man/man1"
   },
@@ -5483,9 +5483,9 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/add_subdirectory(tests)/d' CMakeLists.txt",
+    "dopatch": "sedInPlace '/add_subdirectory(tests)/d' CMakeLists.txt",
     "install": "cmakew -DGRAPHITE2_NFILEFACE=ON -DBUILD_SHARED_LIBS=ON\ncmakew -DGRAPHITE2_NFILEFACE=ON -DBUILD_SHARED_LIBS=OFF",
-    "dotweak": "sed_in_place 's|-lgraphite2|-lgraphite2 -lc++|' lib/pkgconfig/graphite2.pc"
+    "dotweak": "sedInPlace 's|-lgraphite2|-lgraphite2 -lc++|' lib/pkgconfig/graphite2.pc"
   },
   {
     "pkgname": "libharfbuzz",
@@ -5503,7 +5503,7 @@
     "bsystem": "meson",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place \"/subdir('util')/d\" meson.build",
+    "dopatch": "sedInPlace \"/subdir('util')/d\" meson.build",
     "install": "mesonw \\\n    -Dicu=enabled \\\n    -Dglib=enabled \\\n    -Dcairo=disabled \\\n    -Dfreetype=enabled \\\n    -Dgraphite=disabled \\\n    -Dgraphite2=enabled \\\n    -Dgobject=disabled \\\n    -Dintrospection=disabled \\\n    -Ddocs=disabled \\\n    -Dtests=disabled \\\n    -Dbenchmark=disabled"
   },
   {
@@ -5569,7 +5569,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "if [ \"$TARGET_PLATFORM_VERS\" -lt 30 ] ; then\n    sed_in_place '1i void* mempcpy(void* dst, const void* src, size_t n) {return memcpy(dst, src, n) + n;}' srclib/canonicalize-lgpl.c\n    sed_in_place '1i #include <string.h>' srclib/canonicalize-lgpl.c\nfi",
+    "dopatch": "if [ \"$TARGET_PLATFORM_VERS\" -lt 30 ] ; then\n    sedInPlace '1i void* mempcpy(void* dst, const void* src, size_t n) {return memcpy(dst, src, n) + n;}' srclib/canonicalize-lgpl.c\n    sedInPlace '1i #include <string.h>' srclib/canonicalize-lgpl.c\nfi",
     "install": "configure --enable-extra-encodings",
     "dotweak": "install -d lib/pkgconfig\n        cd lib/pkgconfig\n\nfor item in iconv charset\ndo\n    cat > \"lib$item.pc\" <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: lib$item\nURL: ${PACKAGE_WEB_URL}\nDescription: ${PACKAGE_SUMMARY}\nVersion: ${PACKAGE_VERSION}\nLibs: -L\\${libdir} -l$item\nCflags: -I\\${includedir}\nEOF\ndone"
   },
@@ -5654,7 +5654,7 @@
     "binbstd": "0",
     "api-min": "24",
     "parallel": "1",
-    "dopatch": "sed_in_place 's/@echo/echo/g' common/Makefile.in\nsed_in_place 's/@echo/echo/g' tools/Makefile.in\nsed_in_place 's/@echo/echo/g' src/Makefile.in\nsed_in_place 's|PLIST_FORMAT_XML|PLIST_FORMAT_XML_|' common/utils.h\nsed_in_place 's|PLIST_FORMAT_BINARY|PLIST_FORMAT_BINARY_|' common/utils.h",
+    "dopatch": "sedInPlace 's/@echo/echo/g' common/Makefile.in\nsedInPlace 's/@echo/echo/g' tools/Makefile.in\nsedInPlace 's/@echo/echo/g' src/Makefile.in\nsedInPlace 's|PLIST_FORMAT_XML|PLIST_FORMAT_XML_|' common/utils.h\nsedInPlace 's|PLIST_FORMAT_BINARY|PLIST_FORMAT_BINARY_|' common/utils.h",
     "install": "configure --without-cython"
   },
   {
@@ -5887,7 +5887,7 @@
     "bsystem": "meson",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/define CMS_NO_REGISTER_KEYWORD 1/c \\#define CMS_NO_REGISTER_KEYWORD 1' include/lcms2.h",
+    "dopatch": "sedInPlace '/define CMS_NO_REGISTER_KEYWORD 1/c \\#define CMS_NO_REGISTER_KEYWORD 1' include/lcms2.h",
     "install": "mesonw"
   },
   {
@@ -6115,7 +6115,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|find_package(CURL)|find_package(CURL CONFIG)|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|find_package(CURL)|find_package(CURL CONFIG)|' CMakeLists.txt",
     "install": "CURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl | tr ' ' ';')\"\ncmakew -DBUILD_SHARED_LIBS=OFF -DCURL_INCLUDE_DIRS=\"$libcurl_INCLUDE_DIR\" -DCURL_LIBRARIES=\"'$CURL_LIBRARIES'\"\ncmakew -DBUILD_SHARED_LIBS=ON  -DCURL_INCLUDE_DIRS=\"$libcurl_INCLUDE_DIR\" -DCURL_LIBRARIES=\"'$CURL_LIBRARIES'\""
   },
   {
@@ -6207,7 +6207,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|' CMakeLists.txt",
     "install": "cmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON"
   },
   {
@@ -6224,7 +6224,7 @@
     "bsystem": "autotools",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|__FreeBSD__|__ANDROID__|' ioapi.h",
+    "dopatch": "sedInPlace 's|__FreeBSD__|__ANDROID__|' ioapi.h",
     "install": "configure"
   },
   {
@@ -6255,7 +6255,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/lame_init_old/d' include/libmp3lame.sym\nsed_in_place 's|-mtune=native||g' configure",
+    "dopatch": "sedInPlace '/lame_init_old/d' include/libmp3lame.sym\nsedInPlace 's|-mtune=native||g' configure",
     "install": "configure \\\n    --without-dmalloc \\\n    --disable-frontend \\\n    --enable-nasm",
     "dotweak": "rm -rf share/man"
   },
@@ -6338,7 +6338,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "0",
-    "dopatch": "# https://stackoverflow.com/questions/9168150/implicit-declaration-using-std-c99\nsed_in_place 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile\nsed_in_place '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in\nsed_in_place '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in\nsed_in_place '/^INSTALL =/c INSTALL = install' config.mk.in\nsed_in_place '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in\nsed_in_place 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile\nrun cp config.mk.in config.mk",
+    "dopatch": "# https://stackoverflow.com/questions/9168150/implicit-declaration-using-std-c99\nsedInPlace 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile\nsedInPlace '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in\nsedInPlace '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in\nsedInPlace '/^INSTALL =/c INSTALL = install' config.mk.in\nsedInPlace '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in\nsedInPlace 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile\nrun cp config.mk.in config.mk",
     "install": "gmakew clean\ngmakew lib/util/all CC=\"$CC\" AR=\"$AR\" RANLIB=\"$RANLIB\" CC_FOR_BUILD=\"$CC_FOR_BUILD\" LD_FOR_BUILD=\"$CC_FOR_BUILD\" CFLAGS_FOR_BUILD=\"'$CFLAGS_FOR_BUILD $CPPFLAGS_FOR_BUILD'\" LDFLAGS_FOR_BUILD=\"'$LDFLAGS_FOR_BUILD'\" STATICLIB_TOO=Y\ngmakew -C lib libnetpbm libnetpbm.a  STATICLIB_TOO=Y CC=\"$CC\" AR=\"$AR\" RANLIB=\"$RANLIB\" CC_FOR_BUILD=\"$CC_FOR_BUILD\" LD_FOR_BUILD=\"$CC_FOR_BUILD\" CFLAGS_FOR_BUILD=\"'$CFLAGS_FOR_BUILD $CPPFLAGS_FOR_BUILD'\" LDFLAGS_FOR_BUILD=\"'$LDFLAGS_FOR_BUILD'\"\ngmakew install-dev pkgdir=$PACKAGE_INSTALL_DIR SONAME=libnetpbm.so STATICLIB_TOO=Y",
     "dotweak": "run mv staticlink/libnetpbm.a lib/\nrun rm -rf staticlink\nrun rm -rf sharedlink\n\nrun install -d lib/pkgconfig\n\ncat > lib/pkgconfig/netpbm.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: Netpbm\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lnetpbm\nRequires: jasper libpng libjpeg libtiff-4 libxml-2.0\nEOF"
   },
@@ -6374,7 +6374,7 @@
     "ldflags": "-Wl,--undefined-version",
     "api-min": "26",
     "parallel": "1",
-    "dopatch": "autoreconf -ivf\nsed_in_place 's@linux-private/@@g' lib/mpls.c\nsed_in_place 's@linux-private/@@g' lib/route/link/vrf.c\nsed_in_place '/linux-private/d' Makefile.in\nsed_in_place '/linux-private/d' Makefile.am",
+    "dopatch": "autoreconf -ivf\nsedInPlace 's@linux-private/@@g' lib/mpls.c\nsedInPlace 's@linux-private/@@g' lib/route/link/vrf.c\nsedInPlace '/linux-private/d' Makefile.in\nsedInPlace '/linux-private/d' Makefile.am",
     "install": "configure \\\n    --enable-pthreads \\\n    --enable-cli"
   },
   {
@@ -6508,7 +6508,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|DESTINATION cmake|DESTINATION lib/cmake|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|DESTINATION cmake|DESTINATION lib/cmake|' CMakeLists.txt",
     "install": "cmakew \\\n    -DCMAKE_C_STANDARD=99 \\\n    -DCMAKE_C_STANDARD_REQUIRED=ON \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DBUILD_STATIC_LIBS=ON \\\n    -DPCRE2_BUILD_PCRE2_8=ON \\\n    -DPCRE2_BUILD_PCRE2_16=ON \\\n    -DPCRE2_BUILD_PCRE2_32=ON \\\n    -DPCRE2_BUILD_PCRE2GREP=OFF \\\n    -DPCRE2_BUILD_TESTS=OFF \\\n    -DPCRE2_DEBUG=OFF \\\n    -DPCRE2_SUPPORT_VALGRIND=OFF \\\n    -DPCRE2_SUPPORT_UNICODE=ON"
   },
   {
@@ -6593,7 +6593,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure --without-cython LIBS=-lm",
-    "dotweak": "sed_in_place 's|-lplist-2.0|-lplist-2.0 -lm|' lib/pkgconfig/libplist-2.0.pc"
+    "dotweak": "sedInPlace 's|-lplist-2.0|-lplist-2.0 -lm|' lib/pkgconfig/libplist-2.0.pc"
   },
   {
     "pkgname": "libpng",
@@ -6778,7 +6778,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place \"s|-ltiff|$(pkg-config --libs libtiff-4)|\" configure",
+    "dopatch": "sedInPlace \"s|-ltiff|$(pkg-config --libs libtiff-4)|\" configure",
     "install": "configure LIBS=\"'$(pkg-config --libs proj)'\""
   },
   {
@@ -7192,7 +7192,7 @@
     "binbstd": "0",
     "ppflags": "-include stdlib.h",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|png_set_gray_1_2_4_to_8|png_set_expand_gray_1_2_4_to_8|' src/svg_image.c",
+    "dopatch": "sedInPlace 's|png_set_gray_1_2_4_to_8|png_set_expand_gray_1_2_4_to_8|' src/svg_image.c",
     "install": "configure"
   },
   {
@@ -7223,7 +7223,7 @@
     "binbstd": "1",
     "api-min": "23",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|defined(HAVE_MEMSET_EXPLICIT)|0|' lib/replace/replace.c\n\nsed_in_place 's|echo -n|printf|' buildtools/wafsamba/samba_cross.py\n\ncat > cross-answers.txt <<EOF\nChecking uname sysname type: \"Linux\"\nChecking uname machine type: \"dontcare\"\nChecking uname release type: \"dontcare\"\nChecking uname version type: \"dontcare\"\nChecking simple C program: OK\nbuilding library support: OK\nChecking for large file support: OK\nChecking for -D_FILE_OFFSET_BITS=64: OK\nChecking for WORDS_BIGENDIAN: OK\nChecking for C99 vsnprintf: OK\nChecking for HAVE_SECURE_MKSTEMP: OK\nrpath library support: OK\n-Wl,--version-script support: FAIL\nChecking correct behavior of strtoll: OK\nChecking correct behavior of strptime: OK\nChecking for HAVE_IFACE_GETIFADDRS: OK\nChecking for HAVE_IFACE_IFCONF: OK\nChecking for HAVE_IFACE_IFREQ: OK\nChecking getconf LFS_CFLAGS: OK\nChecking for large file support without additional flags: OK\nChecking for working strptime: OK\nChecking for HAVE_SHARED_MMAP: OK\nChecking for HAVE_MREMAP: OK\nChecking for HAVE_INCOHERENT_MMAP: OK\nChecking getconf large file support flags work: OK\nEOF",
+    "dopatch": "sedInPlace 's|defined(HAVE_MEMSET_EXPLICIT)|0|' lib/replace/replace.c\n\nsedInPlace 's|echo -n|printf|' buildtools/wafsamba/samba_cross.py\n\ncat > cross-answers.txt <<EOF\nChecking uname sysname type: \"Linux\"\nChecking uname machine type: \"dontcare\"\nChecking uname release type: \"dontcare\"\nChecking uname version type: \"dontcare\"\nChecking simple C program: OK\nbuilding library support: OK\nChecking for large file support: OK\nChecking for -D_FILE_OFFSET_BITS=64: OK\nChecking for WORDS_BIGENDIAN: OK\nChecking for C99 vsnprintf: OK\nChecking for HAVE_SECURE_MKSTEMP: OK\nrpath library support: OK\n-Wl,--version-script support: FAIL\nChecking correct behavior of strtoll: OK\nChecking correct behavior of strptime: OK\nChecking for HAVE_IFACE_GETIFADDRS: OK\nChecking for HAVE_IFACE_IFCONF: OK\nChecking for HAVE_IFACE_IFREQ: OK\nChecking getconf LFS_CFLAGS: OK\nChecking for large file support without additional flags: OK\nChecking for working strptime: OK\nChecking for HAVE_SHARED_MMAP: OK\nChecking for HAVE_MREMAP: OK\nChecking for HAVE_INCOHERENT_MMAP: OK\nChecking getconf large file support flags work: OK\nEOF",
     "install": "run ./configure install \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --disable-rpath \\\n    --disable-python \\\n    --cross-compile \\\n    --cross-answers=cross-answers.txt -v\n$AR rcu libtalloc.a bin/default/talloc*.o\ninstall_libs libtalloc.a"
   },
   {
@@ -7326,7 +7326,7 @@
     "bsystem": "autogen",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '$d' autogen.sh",
+    "dopatch": "sedInPlace '$d' autogen.sh",
     "install": "configure \\\n    --with-ogg=$libogg_INSTALL_DIR \\\n    --disable-examples \\\n    --disable-vorbistes \\\n    --disable-sdltest"
   },
   {
@@ -7430,7 +7430,7 @@
     "xxflags": "-std=c++11",
     "parallel": "1",
     "install": "configure \\\n    --disable-largefile \\\n    --enable-aligned=true \\\n    --without-fastcgi \\\n    --with-zlib=\"$libz_INSTALL_DIR\"",
-    "dotweak": "sed_in_place 's|-ltorrent|-ltorrent -lexecinfo|' lib/pkgconfig/libtorrent.pc"
+    "dotweak": "sedInPlace 's|-ltorrent|-ltorrent -lexecinfo|' lib/pkgconfig/libtorrent.pc"
   },
   {
     "pkgname": "libtorrent-rasterbar",
@@ -7567,7 +7567,7 @@
     "binbstd": "0",
     "api-min": "24",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|/var/run|/data/local/tmp|' include/usbmuxd-proto.h\nsed_in_place 's|/var/run|/data/local/tmp|' src/libusbmuxd.c",
+    "dopatch": "sedInPlace 's|/var/run|/data/local/tmp|' include/usbmuxd-proto.h\nsedInPlace 's|/var/run|/data/local/tmp|' src/libusbmuxd.c",
     "install": "configure"
   },
   {
@@ -7671,7 +7671,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's/-mno-ieee-fp//g' configure",
+    "dopatch": "sedInPlace 's/-mno-ieee-fp//g' configure",
     "install": "configure LIBS=-lm"
   },
   {
@@ -7704,7 +7704,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "sedInPlace '/ftello/d' ../include/ndk-pkg-common.h\nsedInPlace '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "configure --disable-tests --disable-apps --disable-man"
   },
   {
@@ -7738,9 +7738,9 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt",
     "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DWEBP_BUILD_EXTRAS=OFF \\\n    -DWEBP_BUILD_CWEBP=OFF \\\n    -DWEBP_BUILD_DWEBP=OFF \\\n    -DWEBP_BUILD_VWEBP=OFF \\\n    -DWEBP_BUILD_WEBPMUX=OFF \\\n    -DWEBP_BUILD_WEBPINFO=OFF \\\n    -DWEBP_BUILD_GIF2WEBP=OFF \\\n    -DWEBP_BUILD_IMG2WEBP=OFF \\\n    -DWEBP_BUILD_ANIM_UTILS=OFF\ncmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DWEBP_BUILD_EXTRAS=OFF \\\n    -DWEBP_BUILD_CWEBP=OFF \\\n    -DWEBP_BUILD_DWEBP=OFF \\\n    -DWEBP_BUILD_VWEBP=OFF \\\n    -DWEBP_BUILD_WEBPMUX=OFF \\\n    -DWEBP_BUILD_WEBPINFO=OFF \\\n    -DWEBP_BUILD_GIF2WEBP=OFF \\\n    -DWEBP_BUILD_IMG2WEBP=OFF \\\n    -DWEBP_BUILD_ANIM_UTILS=OFF",
-    "dotweak": "sed_in_place '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc"
+    "dotweak": "sedInPlace '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc"
   },
   {
     "pkgname": "libwebsockets",
@@ -7758,7 +7758,7 @@
     "binbstd": "0",
     "ccflags": "-Wno-unused-but-set-variable",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|include(LwsCheckRequirements)|include(${LWS_CMAKE_DIR}/LwsCheckRequirements.cmake)|' cmake/libwebsockets-config.cmake.in",
+    "dopatch": "sedInPlace 's|include(LwsCheckRequirements)|include(${LWS_CMAKE_DIR}/LwsCheckRequirements.cmake)|' cmake/libwebsockets-config.cmake.in",
     "install": "cmakew \\\n    -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=OFF \\\n    -DLWS_IPV6=ON \\\n    -DLWS_UNIX_SOCK=ON \\\n    -DLWS_WITH_HTTP2=ON \\\n    -DLWS_WITH_LIBUV=ON \\\n    -DLWS_WITH_MBEDTLS=OFF \\\n    -DLWS_WITH_LIBEVENT=ON \\\n    -DLWS_WITH_PLUGINS=ON \\\n    -DLWS_WITHOUT_TESTAPPS=ON \\\n    -DLWS_OPENSSL_SUPPORT=ON \\\n    -DLWS_BUILD_HASH=no_hash"
   },
   {
@@ -7787,7 +7787,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "if [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    sed_in_place 's|fseeko|fseekoxxxxxxxxxx|g' configure\nfi",
+    "dopatch": "if [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    sedInPlace 's|fseeko|fseekoxxxxxxxxxx|g' configure\nfi",
     "install": "configure \\\n    --disable-asm \\\n    --disable-cli \\\n    --enable-pic \\\n    --enable-lto \\\n    --enable-strip"
   },
   {
@@ -7805,7 +7805,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DENABLE_CLI=OFF \\\n    -DENABLE_PIC=ON \\\n    -DENABLE_SHARED=ON \\\n    -DENABLE_ASSEMBLY=OFF",
-    "dotweak": "sed_in_place '/^Libs.private:/s|-l-l||' lib/pkgconfig/x265.pc"
+    "dotweak": "sedInPlace '/^Libs:/s|-l-l||' lib/pkgconfig/x265.pc"
   },
   {
     "pkgname": "libxapian",
@@ -7874,7 +7874,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.am\nsed_in_place 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.in",
+    "dopatch": "sedInPlace 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.am\nsedInPlace 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.in",
     "install": "configure \\\n    --without-debug \\\n    --without-mem-debug \\\n    --without-debugger \\\n    --without-crypto \\\n    --without-python \\\n    --with-profiler \\\n    --with-plugins"
   },
   {
@@ -7958,7 +7958,7 @@
     "binbstd": "0",
     "parallel": "1",
     "developer": "Jean-loup Gailly <jloup@gailly.net>\nMark Adler <madler@alumni.caltech.edu>",
-    "dopatch": "sed_in_place 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt\nsed_in_place 's|zlib)|zlibstatic)|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt\nsedInPlace 's|zlib)|zlibstatic)|' CMakeLists.txt",
     "install": "cmakew",
     "dotweak": "cp lib/pkgconfig/zlib.pc lib/pkgconfig/libz.pc"
   },
@@ -8044,7 +8044,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place '/cp -f/d' makefile",
+    "dopatch": "sedInPlace '/cp -f/d' makefile",
     "install": "gmakew clean\ngmakew all \\\n    CC=\"$CC\" \\\n    REAL_CFLAGS=\"'$CPPFLAGS $CFLAGS'\" \\\n    REAL_LDFLAGS=\"'$LDFLAGS'\" \\\n    DYLIB_MINOR_NAME=libzlog.so \\\n    DYLIB_MAJOR_NAME=libzlog.so \\\n    STLIB_MAKE_CMD=\"'$AR rcs libzlog.a'\"\ninstall_libs libzlog.a libzlog.so\ninstall_incs zlog.h\ninstall_bins zlog-chk-conf"
   },
   {
@@ -8108,7 +8108,7 @@
     "bsystem": "autogen",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/define MAX_WRITE_LIMIT/a \\#include<linux/fs.h>' src/chunk.h",
+    "dopatch": "sedInPlace '/define MAX_WRITE_LIMIT/a \\#include<linux/fs.h>' src/chunk.h",
     "install": "configure \\\n    --with-openssl \\\n    --with-zlib \\\n    --with-bzip2 \\\n    --with-pcre2 \\\n    --without-pcre LIBS=-ldl"
   },
   {
@@ -8234,7 +8234,7 @@
     "binbstd": "0",
     "api-min": "23",
     "parallel": "1",
-    "dopatch": "sed_in_place 's/PAGE_SIZE/XXXXXXXXXXXXXXXXXXXXXX/' lrzip_private.h util.c",
+    "dopatch": "sedInPlace 's/PAGE_SIZE/XXXXXXXXXXXXXXXXXXXXXX/' lrzip_private.h util.c",
     "install": "configure \\\n    --disable-asm \\\n    ac_cv_lib_pthread_pthread_create=yes"
   },
   {
@@ -8304,7 +8304,7 @@
     "binbstd": "1",
     "parallel": "1",
     "developer": "Mike Pall <luajit@freelists.org>",
-    "dopatch": "printf '%s\\n' 'int main() {return 0;}' > test.c\n\ncc -m32 test.c 2> /dev/null || {\n    if command -v apt > /dev/null ; then\n        run \"$sudo\" apt -y update &&\n        run \"$sudo\" apt -y install gcc-multilib\n    fi\n}\n\nif [ \"$NATIVE_OS_KIND\" = darwin ] ; then\n    export CFLAGS=\"$CFLAGS -arch=$NATIVE_OS_ARCH\"\nfi\n\nsed_in_place '/TARGET_SONAME=/c TARGET_SONAME=libluajit.so' src/Makefile",
+    "dopatch": "printf '%s\\n' 'int main() {return 0;}' > test.c\n\ncc -m32 test.c 2> /dev/null || {\n    if command -v apt > /dev/null ; then\n        run \"$sudo\" apt -y update &&\n        run \"$sudo\" apt -y install gcc-multilib\n    fi\n}\n\nif [ \"$NATIVE_OS_KIND\" = darwin ] ; then\n    export CFLAGS=\"$CFLAGS -arch=$NATIVE_OS_ARCH\"\nfi\n\nsedInPlace '/TARGET_SONAME=/c TARGET_SONAME=libluajit.so' src/Makefile",
     "prepare": "if [ -d /usr/include/x86_64-linux-gnu ] ; then\n    export CPPFLAGS_FOR_BUILD=\"$CPPFLAGS_FOR_BUILD -I/usr/include/x86_64-linux-gnu\"\nfi",
     "install": "gmakew clean all \\\n    HOST_SYS=$(uname -s) \\\n    HOST_CC=\"'$CC_FOR_BUILD -m$TARGET_PLATFORM_NBIT'\" \\\n    HOST_LD=\"$CC_FOR_BUILD\" \\\n    HOST_CFLAGS=\"'$CPPFLAGS_FOR_BUILD $CFLAGS_FOR_BUILD'\" \\\n    HOST_LDFLAGS=\"'$LDFLAGS_FOR_BUILD'\" \\\n    CFLAGS= \\\n    LDFLAGS= \\\n    TARGET_SYS=Linux \\\n    TARGET_CFLAGS=\"'$CPPFLAGS $CFLAGS'\" \\\n    TARGET_LDFLAGS=\"'$LDFLAGS'\" \\\n    TARGET_CC=\"$CC\" \\\n    TARGET_LD=\"$CC\" \\\n    TARGET_AR=\"'$AR rcus'\" \\\n    TARGET_STRIP=\"$STRIP\" \\\n    STATIC_CC=\"$CC\" \\\n    DYNAMIC_CC=\"'$CC -fPIC'\" \\\n    Q=\ncd src\ninstall_bins luajit\ninstall_incs lua.h lualib.h lauxlib.h luaconf.h lua.hpp luajit.h\ninstall_libs libluajit.a libluajit.so"
   },
@@ -8417,7 +8417,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "install": "sed_in_place 's|$(progname_shared)|lib$(libname).so.$(pkgversion)|' Makefile.in\nrun ./configure --enable-static --enable-shared --disable-ldconfig --prefix=\"$PACKAGE_INSTALL_DIR\" CC=\"$CC\" CFLAGS=\"'$CFLAGS'\" CPPFLAGS=\"'$CPPFLAGS'\" LDFLAGS=\"'$LDFLAGS'\" AR=\"$AR\"\ngmakew\ngmakew install"
+    "install": "sedInPlace 's|$(progname_shared)|lib$(libname).so.$(pkgversion)|' Makefile.in\nrun ./configure --enable-static --enable-shared --disable-ldconfig --prefix=\"$PACKAGE_INSTALL_DIR\" CC=\"$CC\" CFLAGS=\"'$CFLAGS'\" CPPFLAGS=\"'$CPPFLAGS'\" LDFLAGS=\"'$LDFLAGS'\" AR=\"$AR\"\ngmakew\ngmakew install"
   },
   {
     "pkgname": "lzop",
@@ -8433,7 +8433,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|sysinfo|get_sys_info|' src/conf.h\nsed_in_place 's|sysinfo|get_sys_info|' src/help.c\nsed_in_place 's|sysinfo|get_sys_info|' src/lzop.c\nsed_in_place 's|sysinfo|get_sys_info|' src/djgpp2.c",
+    "dopatch": "sedInPlace 's|sysinfo|get_sys_info|' src/conf.h\nsedInPlace 's|sysinfo|get_sys_info|' src/help.c\nsedInPlace 's|sysinfo|get_sys_info|' src/lzop.c\nsedInPlace 's|sysinfo|get_sys_info|' src/djgpp2.c",
     "install": "cmakew"
   },
   {
@@ -8467,7 +8467,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "# https://github.com/Mbed-TLS/mbedtls/issues/8832\nif [ \"$TARGET_PLATFORM_ARCH\" = i686 ] ; then\n    sed_in_place '/#define MBEDTLS_AESNI_C/d' include/mbedtls/mbedtls_config.h\nfi",
+    "dopatch": "# https://github.com/Mbed-TLS/mbedtls/issues/8832\nif [ \"$TARGET_PLATFORM_ARCH\" = i686 ] ; then\n    sedInPlace '/#define MBEDTLS_AESNI_C/d' include/mbedtls/mbedtls_config.h\nfi",
     "install": "cmakew \\\n    -DUSE_STATIC_MBEDTLS_LIBRARY=ON \\\n    -DUSE_SHARED_MBEDTLS_LIBRARY=ON \\\n    -DUSE_PKCS11_HELPER_LIBRARY=OFF \\\n    -DUNSAFE_BUILD=OFF \\\n    -DMBEDTLS_FATAL_WARNINGS=OFF \\\n    -DINSTALL_MBEDTLS_HEADERS=ON \\\n    -DENABLE_PROGRAMS=ON \\\n    -DENABLE_TESTING=OFF \\\n    -DENABLE_ZLIB_SUPPORT=ON"
   },
   {
@@ -8652,7 +8652,7 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|ac_sys_system=`uname -s`|ac_sys_system=$host|' configure",
+    "dopatch": "sedInPlace 's|ac_sys_system=`uname -s`|ac_sys_system=$host|' configure",
     "install": "export LD=\"$CC\"\nconfigure"
   },
   {
@@ -8857,7 +8857,7 @@
     "binbstd": "0",
     "parallel": "1",
     "do12345": "{\n    # https://github.com/termux/termux-packages/issues/4487\n    if command -v tic > /dev/null ; then\n        run tic -V\n        [ '6.2.20200212' != \"$(printf '%s\\n' '6.2.20200212' \"$(tic -V | cut -d' ' -f2)\" | sort -V | head -n 1)\" ]\n    else\n        warn 'tic command not found. we need build it now.'\n    fi\n} || return 0\n\nunset TERMINFO\nconfigure \\\n    --with-pkg-config-libdir=\"$NATIVE_INSTALL_DIR/lib/pkgconfig\" \\\n    ac_cv_header_fcntl_h=yes \\\n    ac_cv_header_unistd_h=yes \\\n    ac_cv_header_sys_time_h=yes",
-    "dopatch": "sed_in_place 's|cf_ok_build_cc=unknown|cf_ok_build_cc=yes|' configure",
+    "dopatch": "sedInPlace 's|cf_ok_build_cc=unknown|cf_ok_build_cc=yes|' configure",
     "install": "export BUILD_CC=\"$CC_FOR_BUILD\"\nexport BUILD_CFLAGS=\"$CFLAGS_FOR_BUILD\"\nexport BUILD_CPPFLAGS=\"$CPPFLAGS_FOR_BUILD\"\nexport BUILD_LDFLAGS=\"$LDFLAGS_FOR_BUILD\"\nunset  BUILD_LIBS\nunset  TERMINFO\nconfigure \\\n    --with-pkg-config-libdir=\"$PACKAGE_INSTALL_DIR/lib/pkgconfig\" \\\n    --with-cxx-shared \\\n    --with-shared \\\n    --without-ada \\\n    --without-tests \\\n    --without-debug \\\n    --without-valgrind \\\n    --enable-const \\\n    --enable-widec \\\n    --enable-termcap \\\n    --enable-warnings \\\n    --enable-pc-files \\\n    --enable-ext-mouse \\\n    --enable-ext-colors \\\n    --disable-stripping \\\n    --disable-assertions \\\n    --disable-gnat-projects \\\n    --disable-echo",
     "dotweak": "cd include\n\nfor item in curses.h ncurses.h form.h menu.h panel.h term.h termcap.h\ndo\n    ln -s \"ncursesw/$item\" \"$item\"\ndone\n\ncd -\ncd lib\n\nfor item in libncurses libpanel libmenu libform\ndo\n    ln -s \"${item}w.a\"  \"${item}.a\"\n    ln -s \"${item}w.so\" \"${item}.so\"\ndone\n\ncd -\ncd lib/pkgconfig\nln -s ncursesw.pc ncurses.pc"
   },
@@ -8876,7 +8876,7 @@
     "binbstd": "0",
     "parallel": "1",
     "do12345": "{\n    # https://github.com/termux/termux-packages/issues/4487\n    if command -v tic > /dev/null ; then\n        run tic -V\n        [ '6.2.20200212' != \"$(printf '%s\\n' '6.2.20200212' \"$(tic -V | cut -d' ' -f2)\" | sort -V | head -n 1)\" ]\n    else\n        warn 'tic command not found. we need build it now.'\n    fi\n} || return 0\n\nunset TERMINFO\nconfigure \\\n    --with-pkg-config-libdir=\"$NATIVE_INSTALL_DIR/lib/pkgconfig\" \\\n    ac_cv_header_fcntl_h=yes \\\n    ac_cv_header_unistd_h=yes \\\n    ac_cv_header_sys_time_h=yes",
-    "dopatch": "sed_in_place 's|cf_ok_build_cc=unknown|cf_ok_build_cc=yes|' configure",
+    "dopatch": "sedInPlace 's|cf_ok_build_cc=unknown|cf_ok_build_cc=yes|' configure",
     "install": "export BUILD_CC=\"$CC_FOR_BUILD\"\nexport BUILD_CFLAGS=\"$CFLAGS_FOR_BUILD\"\nexport BUILD_CPPFLAGS=\"$CPPFLAGS_FOR_BUILD\"\nexport BUILD_LDFLAGS=\"$LDFLAGS_FOR_BUILD\"\nunset  BUILD_LIBS\nunset  TERMINFO\nconfigure \\\n    --with-pkg-config-libdir=\"$PACKAGE_INSTALL_DIR/lib/pkgconfig\" \\\n    --with-cxx-shared \\\n    --with-shared \\\n    --without-ada \\\n    --without-tests \\\n    --without-debug \\\n    --without-valgrind \\\n    --enable-const \\\n    --enable-widec \\\n    --enable-termcap \\\n    --enable-warnings \\\n    --enable-pc-files \\\n    --enable-ext-mouse \\\n    --enable-ext-colors \\\n    --disable-stripping \\\n    --disable-assertions \\\n    --disable-gnat-projects \\\n    --disable-echo",
     "dotweak": "cd include\n\nfor item in curses.h ncurses.h form.h menu.h panel.h term.h termcap.h\ndo\n    ln -s \"ncursesw/$item\" \"$item\"\ndone\n\ncd -\ncd lib\n\nfor item in libncurses libpanel libmenu libform\ndo\n    ln -s \"${item}w.a\"  \"${item}.a\"\n    ln -s \"${item}w.so\" \"${item}.so\"\ndone\n\ncd -\ncd lib/pkgconfig\nln -s ncursesw.pc ncurses.pc"
   },
@@ -8939,7 +8939,7 @@
     "binbstd": "1",
     "api-min": "26",
     "parallel": "1",
-    "install": "sed_in_place 's|-lpcap|-l:libpcap.a -l:libssl.a -l:libcrypto.a -ldl|' src/MakeApp.mk\ngmakew clean\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\" CXX=\"$CXX\" CXXFLAGS=\"'$CXXFLAGS -std=c++14'\" CPPFLAGS=\"'$CPPFLAGS -Dindex=strchr -Drindex=strrchr -D_GNU_SOURCE -Dquad_t=int64_t -Du_quad_t=uint64_t'\""
+    "install": "sedInPlace 's|-lpcap|-l:libpcap.a -l:libssl.a -l:libcrypto.a -ldl|' src/MakeApp.mk\ngmakew clean\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\" CXX=\"$CXX\" CXXFLAGS=\"'$CXXFLAGS -std=c++14'\" CPPFLAGS=\"'$CPPFLAGS -Dindex=strchr -Drindex=strrchr -D_GNU_SOURCE -Dquad_t=int64_t -Du_quad_t=uint64_t'\""
   },
   {
     "pkgname": "netpbm",
@@ -8955,7 +8955,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "0",
-    "dopatch": "# https://stackoverflow.com/questions/9168150/implicit-declaration-using-std-c99\nsed_in_place 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile\nsed_in_place '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in\nsed_in_place '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in\nsed_in_place '/^INSTALL =/c INSTALL = install' config.mk.in\nsed_in_place '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in\nsed_in_place 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile\nrun cp config.mk.in config.mk",
+    "dopatch": "# https://stackoverflow.com/questions/9168150/implicit-declaration-using-std-c99\nsedInPlace 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile\nsedInPlace '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in\nsedInPlace '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in\nsedInPlace '/^INSTALL =/c INSTALL = install' config.mk.in\nsedInPlace '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in\nsedInPlace 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile\nrun cp config.mk.in config.mk",
     "install": "gmakew clean\ngmakew CC=\"$CC\" AR=\"$AR\" RANLIB=\"$RANLIB\" CC_FOR_BUILD=\"$CC_FOR_BUILD\" LD_FOR_BUILD=\"$CC_FOR_BUILD\" CFLAGS_FOR_BUILD=\"'$CFLAGS_FOR_BUILD $CPPFLAGS_FOR_BUILD'\" LDFLAGS_FOR_BUILD=\"'$LDFLAGS_FOR_BUILD'\" TIFFLIB=\"'-ltiff -lzstd -llzma'\" JPEGLIB=-ljpeg PNGLIB=-lpng ZLIB=-lz JASPERLIB=\"'$(pkg-config --libs-only-l jasper)'\" JASPERHDR_DIR=\"$libjasper_INCLUDE_DIR/jasper\"\ngmakew package pkgdir=$PACKAGE_INSTALL_DIR SONAME=libnetpbm.so",
     "dotweak": "run mv staticlink/libnetpbm.a lib/\nrun rm -rf staticlink\nrun rm -rf sharedlink\nrun rm pkgconfig_template\nrun rm config_template\nrun rm README\nrun rm VERSION\nrun rm pkginfo\n\nrun install -d lib/pkgconfig\n\ncat > lib/pkgconfig/netpbm.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: Netpbm\nDescription: A toolkit for manipulation of graphic images\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lnetpbm\nRequires: jasper libpng libjpeg libtiff-4 libxml-2.0\nEOF"
   },
@@ -8993,7 +8993,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/find_package(LibXml2/c find_package(LibXml2 CONFIG)' CMakeLists.txt",
+    "dopatch": "sedInPlace '/find_package(LibXml2/c find_package(LibXml2 CONFIG)' CMakeLists.txt",
     "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DBUILD_STATIC_LIBS=OFF \\\n    -DENABLE_DEBUG=OFF \\\n    -DENABLE_WERROR=OFF \\\n    -DENABLE_THREADS=ON \\\n    -DENABLE_APP=ON \\\n    -DENABLE_HTTP3=OFF \\\n    -DENABLE_EXAMPLES=OFF \\\n    -DENABLE_HPACK_TOOLS=ON \\\n    -DENABLE_ASIO_LIB=OFF \\\n    -DENABLE_LIB_ONLY=OFF \\\n    -DENABLE_PYTHON_BINDINGS=OFF \\\n    -DENABLE_FAILMALLOC=ON \\\n    -DWITH_LIBXML2=ON \\\n    -DWITH_JEMALLOC=OFF \\\n    -DWITH_NEVERBLEED=OFF \\\n    -DWITH_LIBBPF=OFF \\\n    -DWITH_MRUBY=OFF"
   },
   {
@@ -9025,8 +9025,8 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "trace_configure() {\n    for item in $(ls $1)\n    do\n        if [ -f \"$1/$item\" ] ; then\n            if [ \"$XTRACE\" = yes ] ; then\n                sed_in_place '1i set -x' \"$1/$item\"\n            fi\n            sed_in_place 's/ngx_feature_run=yes/ngx_feature_run=no/g' \"$1/$item\"\n        elif [ -d \"$1/$item\" ] ; then\n            trace_configure \"$1/$item\"\n        fi\n    done\n}\n\ntrace_configure auto\nif [ \"$XTRACE\" = yes ] ; then\n    sed_in_place '1i set -x' configure\nfi\n\nsed_in_place 's/#if (NGX_READ_EVENT != EPOLLIN|EPOLLRDHUP)/#if 1/' src/event/modules/ngx_epoll_module.c\nsed_in_place 's/#if (NGX_WRITE_EVENT != EPOLLOUT)/#if 1/'          src/event/modules/ngx_epoll_module.c\nsed_in_place '/#if (NGX_HAVE_SCHED_SETAFFINITY)/a #include <sched.h>' src/os/unix/ngx_setaffinity.h",
-    "install": "export NGX_SYSTEM=Linux\nexport NGX_RELEASE=unknown\nexport NGX_MACHINE=$TARGET_PLATFORM_ARCH\n\nif [ \"$TARGET_PLATFORM_NBIT\" -eq '64' ] ; then\n    sed_in_place 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=8/' auto/types/sizeof\nelse\n    sed_in_place 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=4/' auto/types/sizeof\nfi\n\n[ -f Makefile ] && gmakew clean\n\nwrite_NGX_SYS_NERR() {\n    cat >> objs/ngx_auto_config.h <<EOF\n#ifndef NGX_SYS_NERR\n#define NGX_SYS_NERR  107\n#endif\nEOF\n}   \n\nrun ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --crossbuild=Linux:unknown:$TARGET_PLATFORM_ARCH \\\n    --with-cc=\"$CC\" \\\n    --with-cc-opt=\"\\\"$CFLAGS $CPPFLAGS -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE=1 -D__USE_GNU\\\"\" \\\n    --with-ld-opt=\"\\\"$LDFLAGS -lcrypto -lcrypt\\\"\" \\\n    --with-pcre\nwrite_NGX_SYS_NERR\ngmakew install"
+    "dopatch": "trace_configure() {\n    for item in $(ls $1)\n    do\n        if [ -f \"$1/$item\" ] ; then\n            if [ \"$XTRACE\" = yes ] ; then\n                sedInPlace '1i set -x' \"$1/$item\"\n            fi\n            sedInPlace 's/ngx_feature_run=yes/ngx_feature_run=no/g' \"$1/$item\"\n        elif [ -d \"$1/$item\" ] ; then\n            trace_configure \"$1/$item\"\n        fi\n    done\n}\n\ntrace_configure auto\nif [ \"$XTRACE\" = yes ] ; then\n    sedInPlace '1i set -x' configure\nfi\n\nsedInPlace 's/#if (NGX_READ_EVENT != EPOLLIN|EPOLLRDHUP)/#if 1/' src/event/modules/ngx_epoll_module.c\nsedInPlace 's/#if (NGX_WRITE_EVENT != EPOLLOUT)/#if 1/'          src/event/modules/ngx_epoll_module.c\nsedInPlace '/#if (NGX_HAVE_SCHED_SETAFFINITY)/a #include <sched.h>' src/os/unix/ngx_setaffinity.h",
+    "install": "export NGX_SYSTEM=Linux\nexport NGX_RELEASE=unknown\nexport NGX_MACHINE=$TARGET_PLATFORM_ARCH\n\nif [ \"$TARGET_PLATFORM_NBIT\" -eq '64' ] ; then\n    sedInPlace 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=8/' auto/types/sizeof\nelse\n    sedInPlace 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=4/' auto/types/sizeof\nfi\n\n[ -f Makefile ] && gmakew clean\n\nwrite_NGX_SYS_NERR() {\n    cat >> objs/ngx_auto_config.h <<EOF\n#ifndef NGX_SYS_NERR\n#define NGX_SYS_NERR  107\n#endif\nEOF\n}   \n\nrun ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --crossbuild=Linux:unknown:$TARGET_PLATFORM_ARCH \\\n    --with-cc=\"$CC\" \\\n    --with-cc-opt=\"\\\"$CFLAGS $CPPFLAGS -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE=1 -D__USE_GNU\\\"\" \\\n    --with-ld-opt=\"\\\"$LDFLAGS -lcrypto -lcrypt\\\"\" \\\n    --with-pcre\nwrite_NGX_SYS_NERR\ngmakew install"
   },
   {
     "pkgname": "ngtcp2",
@@ -9241,7 +9241,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|/${ANDROID_ABI}||' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|/${ANDROID_ABI}||' CMakeLists.txt",
     "install": "cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_MP4=ON -DWITH_ASF=ON\ncmakew -DBUILD_SHARED_LIBS=ON  -DWITH_MP4=ON -DWITH_ASF=ON"
   },
   {
@@ -9290,7 +9290,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "prepare": "sed_in_place '/LIBDLLNAME   =/i LIBNAME = $(LIBPREFIX).$(LIBSUFFIX)' Makefile.system\nsed_in_place '/ln -fs $(LIBSONAME)/d' Makefile\nsed_in_place 's|ln -fs|true|g' Makefile.install\n\n# https://github.com/xianyi/OpenBLAS/wiki/How-to-build-OpenBLAS-for-Android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  ARCH=arm   ; TARGET='ARMV7' ; BINARY=32 ; ARM_SOFTFP_ABI=1 ;;\n    aarch64) ARCH=arm64 ; TARGET='ARMV8' ; BINARY=64 ; ARM_SOFTFP_ABI=1 ;;\n    i686)    ARCH=x86   ; TARGET='ATOM'  ; BINARY=32 ; ARM_SOFTFP_ABI=1 ;;\n    x86_64)  ARCH=x86_64; TARGET='ATOM'  ; BINARY=64 ; ARM_SOFTFP_ABI=1 ;;\nesac",
+    "prepare": "sedInPlace '/LIBDLLNAME   =/i LIBNAME = $(LIBPREFIX).$(LIBSUFFIX)' Makefile.system\nsedInPlace '/ln -fs $(LIBSONAME)/d' Makefile\nsedInPlace 's|ln -fs|true|g' Makefile.install\n\n# https://github.com/xianyi/OpenBLAS/wiki/How-to-build-OpenBLAS-for-Android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  ARCH=arm   ; TARGET='ARMV7' ; BINARY=32 ; ARM_SOFTFP_ABI=1 ;;\n    aarch64) ARCH=arm64 ; TARGET='ARMV8' ; BINARY=64 ; ARM_SOFTFP_ABI=1 ;;\n    i686)    ARCH=x86   ; TARGET='ATOM'  ; BINARY=32 ; ARM_SOFTFP_ABI=1 ;;\n    x86_64)  ARCH=x86_64; TARGET='ATOM'  ; BINARY=64 ; ARM_SOFTFP_ABI=1 ;;\nesac",
     "install": "gmakew clean OSNAME=Android ARCH=$ARCH TARGET=$TARGET HOSTCC=\"$CC_FOR_BUILD\"\ngmakew       OSNAME=Android ARCH=$ARCH TARGET=$TARGET HOSTCC=\"$CC_FOR_BUILD\" ONLY_CBLAS=1 ARM_SOFTFP_ABI=$ARM_SOFTFP_ABI CC=\"$CC\" AS=\"$AS\" AR=\"$AR\"\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -9344,7 +9344,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/find_library(OPENEXR_EXTRA_MATH_LIB m)/c set(OPENEXR_EXTRA_MATH_LIB -lm)' cmake/CMakeLists.txt",
+    "dopatch": "sedInPlace '/find_library(OPENEXR_EXTRA_MATH_LIB m)/c set(OPENEXR_EXTRA_MATH_LIB -lm)' cmake/CMakeLists.txt",
     "install": "cmakew \\\n    -DDOCS=OFF \\\n    -DOPENEXR_INSTALL=ON \\\n    -DOPENEXR_INSTALL_TOOLS=OFF \\\n    -DOPENEXR_INSTALL_EXAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=ON\ncmakew \\\n    -DDOCS=OFF \\\n    -DOPENEXR_INSTALL=ON \\\n    -DOPENEXR_INSTALL_TOOLS=ON \\\n    -DOPENEXR_INSTALL_EXAMPLES=ON \\\n    -DBUILD_SHARED_LIBS=OFF"
   },
   {
@@ -9362,7 +9362,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h\nsed_in_place 's|TIFF_LIBRARIES|PC_TIFF_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt\nsed_in_place 's|LCMS2_LIBRARIES|PC_LCMS2_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt\nsed_in_place 's|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}_static|' src/bin/jp2/CMakeLists.txt",
+    "dopatch": "sedInPlace '/ftello/d' ../include/ndk-pkg-common.h\nsedInPlace '/fseeko/d' ../include/ndk-pkg-common.h\nsedInPlace 's|TIFF_LIBRARIES|PC_TIFF_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt\nsedInPlace 's|LCMS2_LIBRARIES|PC_LCMS2_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt\nsedInPlace 's|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}_static|' src/bin/jp2/CMakeLists.txt",
     "install": "cmakew \\\n    -DBUILD_DOC=OFF \\\n    -DBUILD_JAVA=OFF \\\n    -DBUILD_JPIP=OFF \\\n    -DBUILD_JPIP_SERVER=OFF \\\n    -DBUILD_CODEC=ON \\\n    -DBUILD_VIEWER=OFF \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DBUILD_STATIC_LIBS=ON \\\n    -DBUILD_UNIT_TESTS=OFF \\\n    -DBUILD_LUTS_GENERATOR=OFF \\\n    -DBUILD_PKGCONFIG_FILES=ON"
   },
   {
@@ -9379,7 +9379,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|-mhard-float||g' Make.inc",
+    "dopatch": "sedInPlace 's|-mhard-float||g' Make.inc",
     "prepare": "if [ \"$TARGET_PLATFORM_ARCH\" = 'x86_64' ] ; then\n    LONG_DOUBLE_NOT_DOUBLE=1\nelse\n    LONG_DOUBLE_NOT_DOUBLE=0\nfi",
     "install": "gmakew clean\ngmakew install \\\n    prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    CC=\"$CC\" \\\n    CFLAGS=\"'$CFLAGS'\" \\\n    CPPFLAGS=\"'$CPPFLAGS'\" \\\n    LDFLAGS=\"'$LDFLAGS'\" \\\n    AR=\"$AR\" \\\n    OS=Linux \\\n    ARCH=\"$TARGET_PLATFORM_ARCH\" \\\n    LONG_DOUBLE_NOT_DOUBLE=\"$LONG_DOUBLE_NOT_DOUBLE\""
   },
@@ -9401,7 +9401,7 @@
     "ppflags": "-DPOSIX_MADV_DONTNEED=MADV_DONTNEED",
     "api-min": "26",
     "parallel": "1",
-    "dopatch": "sed_in_place 's/#define HAS_SHMDT/#define XXXXXXXXX/' opal/mca/memory/patcher/memory_patcher_component.c\nsed_in_place 's/#define HAS_SHMAT/#define YYYYYYYYY/' opal/mca/memory/patcher/memory_patcher_component.c\nsed_in_place 's/HAS_SHMDT/(defined(SYS_shmdt) || (defined(IPCOP_shmdt) \\&\\& defined(SYS_ipc)))/' opal/mca/memory/patcher/memory_patcher_component.c\nsed_in_place 's/HAS_SHMAT/(defined(SYS_shmat) || (defined(IPCOP_shmat) \\&\\& defined(SYS_ipc)))/' opal/mca/memory/patcher/memory_patcher_component.c\nsed_in_place '/#include <stdlib.h>/a #include \"../include/opal_config.h\"' opal/util/malloc.h\nsed_in_place 's/rindex(/strrchr(/g' orte/mca/plm/rsh/plm_rsh_module.c\nsed_in_place 's/rindex(/strrchr(/g' oshmem/mca/memheap/base/memheap_base_static.c\nsed_in_place 's/bcmp(/memcmp(/g'    ompi/mca/topo/treematch/treematch/tm_malloc.c\nsed_in_place '1i static int getdtablesize(void);' orte/mca/state/base/state_base_fns.c\ncat >> orte/mca/state/base/state_base_fns.c <<EOF\n#include <sys/cdefs.h>\n#include <sys/resource.h>\n#include <linux/kernel.h>\nstatic int getdtablesize(void) {\n    struct rlimit r;\n    if (getrlimit(RLIMIT_NOFILE, &r) < 0) {\n        return sysconf(_SC_OPEN_MAX);\n    }\n    return r.rlim_cur;\n}\nEOF",
+    "dopatch": "sedInPlace 's/#define HAS_SHMDT/#define XXXXXXXXX/' opal/mca/memory/patcher/memory_patcher_component.c\nsedInPlace 's/#define HAS_SHMAT/#define YYYYYYYYY/' opal/mca/memory/patcher/memory_patcher_component.c\nsedInPlace 's/HAS_SHMDT/(defined(SYS_shmdt) || (defined(IPCOP_shmdt) \\&\\& defined(SYS_ipc)))/' opal/mca/memory/patcher/memory_patcher_component.c\nsedInPlace 's/HAS_SHMAT/(defined(SYS_shmat) || (defined(IPCOP_shmat) \\&\\& defined(SYS_ipc)))/' opal/mca/memory/patcher/memory_patcher_component.c\nsedInPlace '/#include <stdlib.h>/a #include \"../include/opal_config.h\"' opal/util/malloc.h\nsedInPlace 's/rindex(/strrchr(/g' orte/mca/plm/rsh/plm_rsh_module.c\nsedInPlace 's/rindex(/strrchr(/g' oshmem/mca/memheap/base/memheap_base_static.c\nsedInPlace 's/bcmp(/memcmp(/g'    ompi/mca/topo/treematch/treematch/tm_malloc.c\nsedInPlace '1i static int getdtablesize(void);' orte/mca/state/base/state_base_fns.c\ncat >> orte/mca/state/base/state_base_fns.c <<EOF\n#include <sys/cdefs.h>\n#include <sys/resource.h>\n#include <linux/kernel.h>\nstatic int getdtablesize(void) {\n    struct rlimit r;\n    if (getrlimit(RLIMIT_NOFILE, &r) < 0) {\n        return sysconf(_SC_OPEN_MAX);\n    }\n    return r.rlim_cur;\n}\nEOF",
     "install": "configure \\\n    --disable-coverage \\\n    --disable-mpi-fortran \\\n    --disable-mpi-java \\\n    --disable-oshmem-fortran \\\n    --disable-builtin-atomics \\\n    --enable-sysv-shmem=no \\\n    --enable-sysv-sshmem=no \\\n    --enable-binaries \\\n    --with-libevent=\"$libevent_INSTALL_DIR\" \\\n    FC=''"
   },
   {
@@ -9418,10 +9418,10 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place '/-mandroid/d'           Configurations/15-android.conf\nsed_in_place '/ndk is invalid/d'      Configurations/15-android.conf\nsed_in_place '/no NDK $triarch-gcc/d' Configurations/15-android.conf\nsed_in_place '/-target/d'             Configurations/15-android.conf\nsed_in_place '/-gcc-toolchain/d'      Configurations/15-android.conf\nsed_in_place '/tritools-4.9/d'        Configurations/15-android.conf",
+    "dopatch": "sedInPlace '/-mandroid/d'           Configurations/15-android.conf\nsedInPlace '/ndk is invalid/d'      Configurations/15-android.conf\nsedInPlace '/no NDK $triarch-gcc/d' Configurations/15-android.conf\nsedInPlace '/-target/d'             Configurations/15-android.conf\nsedInPlace '/-gcc-toolchain/d'      Configurations/15-android.conf\nsedInPlace '/tritools-4.9/d'        Configurations/15-android.conf",
     "prepare": "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"",
     "install": "run ./Configure \\\n    no-shared \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew CROSS_COMPILE=\ngmakew CROSS_COMPILE= install",
-    "dotweak": "sed_in_place 's|-latomic||g' lib/pkgconfig/libcrypto.pc"
+    "dotweak": "sedInPlace 's|-latomic||g' lib/pkgconfig/libcrypto.pc"
   },
   {
     "pkgname": "openssl-dev",
@@ -9437,10 +9437,10 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place '/-mandroid/d'           Configurations/15-android.conf\nsed_in_place '/ndk is invalid/d'      Configurations/15-android.conf\nsed_in_place '/no NDK $triarch-gcc/d' Configurations/15-android.conf\nsed_in_place '/-target/d'             Configurations/15-android.conf\nsed_in_place '/-gcc-toolchain/d'      Configurations/15-android.conf\nsed_in_place '/tritools-4.9/d'        Configurations/15-android.conf",
+    "dopatch": "sedInPlace '/-mandroid/d'           Configurations/15-android.conf\nsedInPlace '/ndk is invalid/d'      Configurations/15-android.conf\nsedInPlace '/no NDK $triarch-gcc/d' Configurations/15-android.conf\nsedInPlace '/-target/d'             Configurations/15-android.conf\nsedInPlace '/-gcc-toolchain/d'      Configurations/15-android.conf\nsedInPlace '/tritools-4.9/d'        Configurations/15-android.conf",
     "prepare": "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"",
     "install": "run ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= ",
-    "dotweak": "sed_in_place 's|-latomic||g' lib/pkgconfig/libcrypto.pc"
+    "dotweak": "sedInPlace 's|-latomic||g' lib/pkgconfig/libcrypto.pc"
   },
   {
     "pkgname": "openssl-fips",
@@ -9455,7 +9455,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "0",
-    "dopatch": "export LC_COLLATE='C'\nexport LC_CTYPE='C'\nsed_in_place 's/-mandroid//g' Configure\nsed_in_place 's|./fips_standalone_sha1$(EXE_EXT) fipscanister.o > fipscanister.o.sha1||g' fips/Makefile",
+    "dopatch": "export LC_COLLATE='C'\nexport LC_CTYPE='C'\nsedInPlace 's/-mandroid//g' Configure\nsedInPlace 's|./fips_standalone_sha1$(EXE_EXT) fipscanister.o > fipscanister.o.sha1||g' fips/Makefile",
     "install": "get_os_compiler() {\n    case $TARGET_PLATFORM_ARCH in\n        armv7a)  echo \"android-armv7\"     ;;\n        aarch64) echo \"android64-aarch64\" ;;\n        i686)    echo \"android-x86\"       ;;\n        *)       echo \"android\"           ;;\n    esac\n}\n\nrun perl Configure \\\n    shared \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-hw \\\n    no-engine \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    \"$(get_os_compiler)\"\ngmakew clean\ngmakew install"
   },
   {
@@ -9472,7 +9472,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place '/-mandroid/d'           Configurations/15-android.conf\nsed_in_place '/ndk is invalid/d'      Configurations/15-android.conf\nsed_in_place '/no NDK $triarch-gcc/d' Configurations/15-android.conf\nsed_in_place '/-target/d'             Configurations/15-android.conf\nsed_in_place '/-gcc-toolchain/d'      Configurations/15-android.conf\nsed_in_place '/tritools-4.9/d'        Configurations/15-android.conf",
+    "dopatch": "sedInPlace '/-mandroid/d'           Configurations/15-android.conf\nsedInPlace '/ndk is invalid/d'      Configurations/15-android.conf\nsedInPlace '/no NDK $triarch-gcc/d' Configurations/15-android.conf\nsedInPlace '/-target/d'             Configurations/15-android.conf\nsedInPlace '/-gcc-toolchain/d'      Configurations/15-android.conf\nsedInPlace '/tritools-4.9/d'        Configurations/15-android.conf",
     "install": "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"\n\nrun ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
   },
   {
@@ -9489,7 +9489,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "# p11-kit cannot be used as a static library\nsed_in_place 's/if test \"$enable_static\" = \"yes\"; then/if false ; then/' configure",
+    "dopatch": "# p11-kit cannot be used as a static library\nsedInPlace 's/if test \"$enable_static\" = \"yes\"; then/if false ; then/' configure",
     "install": "configure \\\n    --without-systemd \\\n    --without-libtasn1 \\\n    --without-libffi \\\n    --with-bash-completion \\\n    --disable-coverage \\\n    --disable-strict \\\n    --disable-doc"
   },
   {
@@ -9507,7 +9507,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "run mv makefile.linux_any_cpu makefile.machine\nsed_in_place 's|getpass(\"\")|\"\"|g' CPP/7zip/UI/Console/UserInputUtils.cpp\nprintf 'INPUT(%s)\\n' '-liconv' > ../lib/libpthread.a",
+    "dopatch": "run mv makefile.linux_any_cpu makefile.machine\nsedInPlace 's|getpass(\"\")|\"\"|g' CPP/7zip/UI/Console/UserInputUtils.cpp\nprintf 'INPUT(%s)\\n' '-liconv' > ../lib/libpthread.a",
     "install": "gmakew all3 CC=\"'$CC $CFLAGS -DANDROID_NDK -D_UINT64_T_DECLARED $CPPFLAGS $LDFLAGS'\" CXX=\"'$CXX $CXXFLAGS -DANDROID_NDK -D_UINT64_T_DECLARED $CPPFLAGS $LDFLAGS'\"\necho $?\ngmakew install DEST_HOME=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -9622,7 +9622,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|DESTINATION cmake|DESTINATION lib/cmake|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|DESTINATION cmake|DESTINATION lib/cmake|' CMakeLists.txt",
     "install": "cmakew \\\n    -DCMAKE_C_STANDARD=99 \\\n    -DCMAKE_C_STANDARD_REQUIRED=ON \\\n    -DPCRE2_BUILD_PCRE2_8=ON \\\n    -DPCRE2_BUILD_PCRE2_16=ON \\\n    -DPCRE2_BUILD_PCRE2_32=ON \\\n    -DPCRE2_BUILD_PCRE2GREP=ON \\\n    -DPCRE2_BUILD_TESTS=OFF \\\n    -DPCRE2_DEBUG=OFF \\\n    -DPCRE2_SUPPORT_VALGRIND=OFF \\\n    -DPCRE2_SUPPORT_UNICODE=ON \\\n    -DPCRE2_SUPPORT_LIBZ=ON \\\n    -DPCRE2_SUPPORT_LIBBZ2=ON \\\n    -DPCRE2_SUPPORT_LIBREADLINE=ON"
   },
   {
@@ -9635,7 +9635,7 @@
     "dep-upp": "git gn ninja python3",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "NINJA=\"$(command -v ninja)\" || abort 1 'command not found: ninja'\n   GN=\"$(command -v gn)\"    || abort 1 'command not found: gn'\n\nrun cd ..\n\nrun git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git\n\nexport PATH=\"$PWD/depot_tools:$PATH\"\nexport DEPOT_TOOLS_UPDATE=0\n\ncat >> .gclient <<EOF\nsolutions = [\n  { \"name\"        : 'src',\n    \"url\"         : 'https://pdfium.googlesource.com/pdfium.git',\n    \"deps_file\"   : 'DEPS',\n    \"managed\"     : False,\n    \"custom_deps\" : {},\n    \"custom_vars\": {},\n  },\n]\ntarget_os = ['android']\nEOF\n\nrun gclient sync --verbose\n\nrun cd -\n\nsed_in_place '/PNG_USE_READ_MACROS/a \"FPDFSDK_EXPORTS\",' BUILD.gn",
+    "prepare": "NINJA=\"$(command -v ninja)\" || abort 1 'command not found: ninja'\n   GN=\"$(command -v gn)\"    || abort 1 'command not found: gn'\n\nrun cd ..\n\nrun git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git\n\nexport PATH=\"$PWD/depot_tools:$PATH\"\nexport DEPOT_TOOLS_UPDATE=0\n\ncat >> .gclient <<EOF\nsolutions = [\n  { \"name\"        : 'src',\n    \"url\"         : 'https://pdfium.googlesource.com/pdfium.git',\n    \"deps_file\"   : 'DEPS',\n    \"managed\"     : False,\n    \"custom_deps\" : {},\n    \"custom_vars\": {},\n  },\n]\ntarget_os = ['android']\nEOF\n\nrun gclient sync --verbose\n\nrun cd -\n\nsedInPlace '/PNG_USE_READ_MACROS/a \"FPDFSDK_EXPORTS\",' BUILD.gn",
     "install": "case $TARGET_PLATFORM_ARCH in\n    armv7a)  GN_ARG_TARGET_CPU=arm   ;;\n    aarch64) GN_ARG_TARGET_CPU=arm64 ;;\n    i686)    GN_ARG_TARGET_CPU=x86   ;;\n    x86_64)  GN_ARG_TARGET_CPU=x64   ;;\nesac\n\nrun $GN gen . --root=\"$PACKAGE_BSCRIPT_DIR\"\n\ncat >> args.gn <<EOF\nis_debug=false\nis_component_build=true\nsymbol_level=1\npdf_is_standalone=true\npdf_enable_xfa=false\npdf_enable_v8=false\npdf_use_skia_paths=false\npdf_use_skia=false\ntarget_os=\"android\"\ntarget_cpu=\"$GN_ARG_TARGET_CPU\"\nEOF\n\nif [ \"$TARGET_PLATFORM_ARCH\" = 'armv7a' ] ; then\n    printf '%s\\n' 'arm_version=7' >> args.gn\nfi\n\nrun cat args.gn\n\nrun ninja\n\nrun install_bins pdfium_diff\nrun install_libs *.so\nrun install_incs $PACKAGE_BSCRIPT_DIR/public/*.h\nrun install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp"
   },
   {
@@ -9669,7 +9669,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|ln -f|ln -sf|' Makefile",
+    "dopatch": "sedInPlace 's|ln -f|ln -sf|' Makefile",
     "install": "gmakew clean\ngmakew CC=$CC CFLAGS=\"'$CFLAGS'\" LDFLAGS=\"'$LDFLAGS'\"\ninstall_bins pigz\ninstall_mans pigz.1",
     "dotweak": "cd bin\nln -sf pigz unpigz\ncd -\ncd share/man/man1\nln -sf pigz.1 unpigz.1"
   },
@@ -9705,7 +9705,7 @@
     "binbstd": "0",
     "ccflags": "-Wno-int-conversion",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|with_libiconv=maybe|with_libiconv=gnu|g' glib/configure\nsed_in_place '/HAVE_PTHREAD_COND_TIMEDWAIT_MONOTONIC/d'  glib/configure\n\ncat > glib/configure.cache <<EOF\nglib_cv_stack_grows=no\nglib_cv_working_bcopy=no\nglib_cv_uscore=no\nac_cv_func_posix_getpwuid_r=no\nac_cv_func_posix_getgrgid_r=no\nEOF",
+    "dopatch": "sedInPlace 's|with_libiconv=maybe|with_libiconv=gnu|g' glib/configure\nsedInPlace '/HAVE_PTHREAD_COND_TIMEDWAIT_MONOTONIC/d'  glib/configure\n\ncat > glib/configure.cache <<EOF\nglib_cv_stack_grows=no\nglib_cv_working_bcopy=no\nglib_cv_uscore=no\nac_cv_func_posix_getpwuid_r=no\nac_cv_func_posix_getgrgid_r=no\nEOF",
     "install": "configure \\\n    --with-internal-glib \\\n    --disable-host-tool \\\n    --cache-file=\"$PACKAGE_BSCRIPT_DIR/glib/configure.cache\"\n# https://www.gnu.org/software/autoconf/manual/autoconf-2.67/html_node/Cache-Files.html"
   },
   {
@@ -9920,7 +9920,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "# https://cmake.org/cmake/help/latest/module/FindCURL.html\nprintf '%s\\n' '\nif (CURL_INCLUDE_DIRS AND CURL_LIBRARIES)\n    set(CURL_FOUND TRUE)\nelse()\n    pkg_check_modules(PKG_CONFIG_CURL QUIET libcurl)\n\n    message(\"PKG_CONFIG_CURL_FOUND=${PKG_CONFIG_CURL_FOUND}\")\n    message(\"PKG_CONFIG_CURL_INCLUDE_DIRS=${PKG_CONFIG_CURL_INCLUDE_DIRS}\")\n    message(\"PKG_CONFIG_CURL_LIBRARY_DIRS=${PKG_CONFIG_CURL_LIBRARY_DIRS}\")\n    message(\"PKG_CONFIG_CURL_INCLUDEDIR=${PKG_CONFIG_CURL_INCLUDEDIR}\")\n    message(\"PKG_CONFIG_CURL_LIBDIR=${PKG_CONFIG_CURL_LIBDIR}\")\n    message(\"PKG_CONFIG_CURL_VERSION=${PKG_CONFIG_CURL_VERSION}\")\n    message(\"PKG_CONFIG_CURL_LIBRARIES=${PKG_CONFIG_CURL_LIBRARIES}\")\n    message(\"PKG_CONFIG_CURL_LINK_LIBRARIES=${PKG_CONFIG_CURL_LINK_LIBRARIES}\")\n\n    if (PKG_CONFIG_CURL_FOUND)\n        if (PKG_CONFIG_CURL_INCLUDE_DIRS)\n            set(CURL_INCLUDE_DIRS \"${PKG_CONFIG_CURL_INCLUDE_DIRS}\")\n        elseif (PKG_CONFIG_CURL_INCLUDEDIR)\n            set(CURL_INCLUDE_DIRS \"${PKG_CONFIG_CURL_INCLUDEDIR}\")\n        else()\n            find_path(CURL_INCLUDE_DIRS curl/curl.h)\n        endif()\n\n        # https://sourceware.org/bugzilla/show_bug.cgi?id=21264\n\n        set(CURL_LIBRARIES )\n\n        foreach(item ${PKG_CONFIG_CURL_LINK_LIBRARIES})\n                if(item MATCHES \"/.*libm\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-lm\")\n            elseif(item MATCHES \"/.*libdl\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-ldl\")\n            elseif(item MATCHES \"/.*librt\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-lrt\")\n            elseif(item MATCHES \"/.*libpthread\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-lpthread\")\n            elseif(item MATCHES \"/.*\\\\.framework\")\n                get_filename_component(LIBRARY_FILENAME_PREFIX ${item} NAME_WLE)\n                message(STATUS \"${LIBRARY_FILENAME_PREFIX}\")\n                list(APPEND CURL_LIBRARIES \"-framework ${LIBRARY_FILENAME_PREFIX}\")\n            elseif(item MATCHES \"-framework .*\")\n                list(APPEND CURL_LIBRARIES \"${item}\")\n            elseif(item MATCHES \"/.*\")\n                get_filename_component(LIBRARY_FILENAME ${item} NAME)\n\n                message(STATUS \"${LIBRARY_FILENAME}\")\n\n                if (NOT TARGET  CURL::${LIBRARY_FILENAME})\n                    add_library(CURL::${LIBRARY_FILENAME} UNKNOWN IMPORTED)\n                    set_target_properties(CURL::${LIBRARY_FILENAME} PROPERTIES IMPORTED_LOCATION \"${item}\")\n                endif()\n\n                list(APPEND CURL_LIBRARIES CURL::${LIBRARY_FILENAME})\n            endif()\n        endforeach()\n\n        if (NOT TARGET  CURL::libcurl)\n            add_library(CURL::libcurl INTERFACE IMPORTED)\n            set_target_properties(CURL::libcurl PROPERTIES\n                INTERFACE_INCLUDE_DIRECTORIES \"${CURL_INCLUDE_DIRS}\"\n                INTERFACE_LINK_LIBRARIES      \"${CURL_LIBRARIES}\"\n            )\n        endif()\n\n        if (PKG_CONFIG_CURL_VERSION)\n            set(CURL_VERSION_STRING ${PKG_CONFIG_CURL_VERSION})\n        endif()\n    endif()\nendif()\n\ninclude(FindPackageHandleStandardArgs)\nfind_package_handle_standard_args(CURL REQUIRED_VARS CURL_LIBRARIES CURL_INCLUDE_DIRS VERSION_VAR CURL_VERSION)\n\nmark_as_advanced(CURL_INCLUDE_DIRS CURL_LIBRARIES)\n' > cmake/FindCURL.cmake\n\n# https://cmake.org/cmake/help/latest/module/FindTIFF.html\ncat > cmake/FindTIFF.cmake <<EOF\nif (TIFF_INCLUDE_DIRS AND TIFF_LIBRARIES)\n    set(TIFF_FOUND TRUE)\nelse()\n    include(FindPkgConfig)\n    pkg_check_modules(PKG_CONFIG_TIFF QUIET libtiff-4)\n\n    if (PKG_CONFIG_TIFF_FOUND)\n        if (PKG_CONFIG_TIFF_INCLUDE_DIRS)\n            set(TIFF_INCLUDE_DIRS \"\\${PKG_CONFIG_TIFF_INCLUDE_DIRS}\")\n        elseif (PKG_CONFIG_TIFF_INCLUDEDIR)\n            set(TIFF_INCLUDE_DIRS \"\\${PKG_CONFIG_TIFF_INCLUDEDIR}\")\n        else()\n            find_path(TIFF_INCLUDE_DIRS tiff.h)\n        endif()\n\n        set(TIFF_LIBRARIES )\n\n        foreach(item \\${PKG_CONFIG_TIFF_LINK_LIBRARIES})\n            # https://sourceware.org/bugzilla/show_bug.cgi?id=21264\n                if(item MATCHES \".*libm\\\\.a\")\n            elseif(item MATCHES \".*libpthread\\\\.a\")\n            elseif(item MATCHES \"/.*\")\n                get_filename_component(LIBRARY_FILENAME \\${item} NAME)\n\n                if (NOT TARGET  TIFF::\\${LIBRARY_FILENAME})\n                    add_library(TIFF::\\${LIBRARY_FILENAME} UNKNOWN IMPORTED)\n                    set_target_properties(TIFF::\\${LIBRARY_FILENAME} PROPERTIES IMPORTED_LOCATION \"\\${item}\")\n                endif()\n\n                list(APPEND TIFF_LIBRARIES TIFF::\\${LIBRARY_FILENAME})\n            endif()\n        endforeach()\n\n        if (NOT TARGET  TIFF::TIFF)\n            add_library(TIFF::TIFF INTERFACE IMPORTED)\n            set_target_properties(TIFF::TIFF PROPERTIES\n                INTERFACE_INCLUDE_DIRECTORIES \"\\${TIFF_INCLUDE_DIRS}\"\n                INTERFACE_LINK_LIBRARIES      \"\\${TIFF_LIBRARIES}\"\n            )\n        endif()\n\n        if (PKG_CONFIG_TIFF_VERSION)\n            set(TIFF_VERSION \\${PKG_CONFIG_TIFF_VERSION})\n        endif()\n    endif()\nendif()\n\ninclude(FindPackageHandleStandardArgs)\nfind_package_handle_standard_args(TIFF REQUIRED_VARS TIFF_LIBRARIES TIFF_INCLUDE_DIRS VERSION_VAR TIFF_VERSION)\n\nmark_as_advanced(TIFF_INCLUDE_DIRS TIFF_LIBRARIES)\nEOF\n\nsed_in_place 's|${TIFF_LIBRARY}|TIFF::TIFF|' src/lib_proj.cmake\nsed_in_place 's|${CURL_LIBRARY}|CURL::libcurl|' src/lib_proj.cmake",
+    "dopatch": "# https://cmake.org/cmake/help/latest/module/FindCURL.html\nprintf '%s\\n' '\nif (CURL_INCLUDE_DIRS AND CURL_LIBRARIES)\n    set(CURL_FOUND TRUE)\nelse()\n    pkg_check_modules(PKG_CONFIG_CURL QUIET libcurl)\n\n    message(\"PKG_CONFIG_CURL_FOUND=${PKG_CONFIG_CURL_FOUND}\")\n    message(\"PKG_CONFIG_CURL_INCLUDE_DIRS=${PKG_CONFIG_CURL_INCLUDE_DIRS}\")\n    message(\"PKG_CONFIG_CURL_LIBRARY_DIRS=${PKG_CONFIG_CURL_LIBRARY_DIRS}\")\n    message(\"PKG_CONFIG_CURL_INCLUDEDIR=${PKG_CONFIG_CURL_INCLUDEDIR}\")\n    message(\"PKG_CONFIG_CURL_LIBDIR=${PKG_CONFIG_CURL_LIBDIR}\")\n    message(\"PKG_CONFIG_CURL_VERSION=${PKG_CONFIG_CURL_VERSION}\")\n    message(\"PKG_CONFIG_CURL_LIBRARIES=${PKG_CONFIG_CURL_LIBRARIES}\")\n    message(\"PKG_CONFIG_CURL_LINK_LIBRARIES=${PKG_CONFIG_CURL_LINK_LIBRARIES}\")\n\n    if (PKG_CONFIG_CURL_FOUND)\n        if (PKG_CONFIG_CURL_INCLUDE_DIRS)\n            set(CURL_INCLUDE_DIRS \"${PKG_CONFIG_CURL_INCLUDE_DIRS}\")\n        elseif (PKG_CONFIG_CURL_INCLUDEDIR)\n            set(CURL_INCLUDE_DIRS \"${PKG_CONFIG_CURL_INCLUDEDIR}\")\n        else()\n            find_path(CURL_INCLUDE_DIRS curl/curl.h)\n        endif()\n\n        # https://sourceware.org/bugzilla/show_bug.cgi?id=21264\n\n        set(CURL_LIBRARIES )\n\n        foreach(item ${PKG_CONFIG_CURL_LINK_LIBRARIES})\n                if(item MATCHES \"/.*libm\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-lm\")\n            elseif(item MATCHES \"/.*libdl\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-ldl\")\n            elseif(item MATCHES \"/.*librt\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-lrt\")\n            elseif(item MATCHES \"/.*libpthread\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-lpthread\")\n            elseif(item MATCHES \"/.*\\\\.framework\")\n                get_filename_component(LIBRARY_FILENAME_PREFIX ${item} NAME_WLE)\n                message(STATUS \"${LIBRARY_FILENAME_PREFIX}\")\n                list(APPEND CURL_LIBRARIES \"-framework ${LIBRARY_FILENAME_PREFIX}\")\n            elseif(item MATCHES \"-framework .*\")\n                list(APPEND CURL_LIBRARIES \"${item}\")\n            elseif(item MATCHES \"/.*\")\n                get_filename_component(LIBRARY_FILENAME ${item} NAME)\n\n                message(STATUS \"${LIBRARY_FILENAME}\")\n\n                if (NOT TARGET  CURL::${LIBRARY_FILENAME})\n                    add_library(CURL::${LIBRARY_FILENAME} UNKNOWN IMPORTED)\n                    set_target_properties(CURL::${LIBRARY_FILENAME} PROPERTIES IMPORTED_LOCATION \"${item}\")\n                endif()\n\n                list(APPEND CURL_LIBRARIES CURL::${LIBRARY_FILENAME})\n            endif()\n        endforeach()\n\n        if (NOT TARGET  CURL::libcurl)\n            add_library(CURL::libcurl INTERFACE IMPORTED)\n            set_target_properties(CURL::libcurl PROPERTIES\n                INTERFACE_INCLUDE_DIRECTORIES \"${CURL_INCLUDE_DIRS}\"\n                INTERFACE_LINK_LIBRARIES      \"${CURL_LIBRARIES}\"\n            )\n        endif()\n\n        if (PKG_CONFIG_CURL_VERSION)\n            set(CURL_VERSION_STRING ${PKG_CONFIG_CURL_VERSION})\n        endif()\n    endif()\nendif()\n\ninclude(FindPackageHandleStandardArgs)\nfind_package_handle_standard_args(CURL REQUIRED_VARS CURL_LIBRARIES CURL_INCLUDE_DIRS VERSION_VAR CURL_VERSION)\n\nmark_as_advanced(CURL_INCLUDE_DIRS CURL_LIBRARIES)\n' > cmake/FindCURL.cmake\n\n# https://cmake.org/cmake/help/latest/module/FindTIFF.html\ncat > cmake/FindTIFF.cmake <<EOF\nif (TIFF_INCLUDE_DIRS AND TIFF_LIBRARIES)\n    set(TIFF_FOUND TRUE)\nelse()\n    include(FindPkgConfig)\n    pkg_check_modules(PKG_CONFIG_TIFF QUIET libtiff-4)\n\n    if (PKG_CONFIG_TIFF_FOUND)\n        if (PKG_CONFIG_TIFF_INCLUDE_DIRS)\n            set(TIFF_INCLUDE_DIRS \"\\${PKG_CONFIG_TIFF_INCLUDE_DIRS}\")\n        elseif (PKG_CONFIG_TIFF_INCLUDEDIR)\n            set(TIFF_INCLUDE_DIRS \"\\${PKG_CONFIG_TIFF_INCLUDEDIR}\")\n        else()\n            find_path(TIFF_INCLUDE_DIRS tiff.h)\n        endif()\n\n        set(TIFF_LIBRARIES )\n\n        foreach(item \\${PKG_CONFIG_TIFF_LINK_LIBRARIES})\n            # https://sourceware.org/bugzilla/show_bug.cgi?id=21264\n                if(item MATCHES \".*libm\\\\.a\")\n            elseif(item MATCHES \".*libpthread\\\\.a\")\n            elseif(item MATCHES \"/.*\")\n                get_filename_component(LIBRARY_FILENAME \\${item} NAME)\n\n                if (NOT TARGET  TIFF::\\${LIBRARY_FILENAME})\n                    add_library(TIFF::\\${LIBRARY_FILENAME} UNKNOWN IMPORTED)\n                    set_target_properties(TIFF::\\${LIBRARY_FILENAME} PROPERTIES IMPORTED_LOCATION \"\\${item}\")\n                endif()\n\n                list(APPEND TIFF_LIBRARIES TIFF::\\${LIBRARY_FILENAME})\n            endif()\n        endforeach()\n\n        if (NOT TARGET  TIFF::TIFF)\n            add_library(TIFF::TIFF INTERFACE IMPORTED)\n            set_target_properties(TIFF::TIFF PROPERTIES\n                INTERFACE_INCLUDE_DIRECTORIES \"\\${TIFF_INCLUDE_DIRS}\"\n                INTERFACE_LINK_LIBRARIES      \"\\${TIFF_LIBRARIES}\"\n            )\n        endif()\n\n        if (PKG_CONFIG_TIFF_VERSION)\n            set(TIFF_VERSION \\${PKG_CONFIG_TIFF_VERSION})\n        endif()\n    endif()\nendif()\n\ninclude(FindPackageHandleStandardArgs)\nfind_package_handle_standard_args(TIFF REQUIRED_VARS TIFF_LIBRARIES TIFF_INCLUDE_DIRS VERSION_VAR TIFF_VERSION)\n\nmark_as_advanced(TIFF_INCLUDE_DIRS TIFF_LIBRARIES)\nEOF\n\nsedInPlace 's|${TIFF_LIBRARY}|TIFF::TIFF|' src/lib_proj.cmake\nsedInPlace 's|${CURL_LIBRARY}|CURL::libcurl|' src/lib_proj.cmake",
     "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_TESTING=OFF",
     "dotweak": "install -d lib/pkgconfig\ncat >      lib/pkgconfig/proj.pc <<EOF\nprefix=\\${pcfiledir}/../..\nlibdir=\\${prefix}/lib\nincludedir=\\${prefix}/include\ndatarootdir=\\${prefix}/share\ndatadir=\\${datarootdir}/proj\n\nName: PROJ\nDescription: Coordinate transformation software library\nVersion: $PACKAGE_VERSION\nRequires: sqlite3 libtiff-4 libcurl\nLibs: -L\\${libdir} -lproj -lc++ -ldl -lm\nCflags: -I\\${includedir}\nEOF"
   },
@@ -9940,7 +9940,7 @@
     "binbstd": "1",
     "api-min": "23",
     "parallel": "1",
-    "dopatch": "printf \"LS0tIEdOVW1ha2VmaWxlLmJhawkyMDIxLTA3LTAzIDE2OjI4OjU2LjAwMDAwMDAwMCArMDgwMAorKysgR05VbWFrZWZpbGUJMjAyMS0wNy0wMyAxNjozMzowMC4wMDAwMDAwMDAgKzA4MDAKQEAgLTE0LDkgKzE0LDkgQEAKIE9CSkNPUFkgID89ICQoQ1JPU1NfQ09NUElMRSlvYmpjb3B5CiBPQkpEVU1QICA/PSAkKENST1NTX0NPTVBJTEUpb2JqZHVtcAogCi1DUFBGTEFHUyArPSAtRF9GSUxFX09GRlNFVF9CSVRTPTY0IC1EX0dOVV9TT1VSQ0UgLUkuIC1JJChWUEFUSCkKLUNGTEFHUyAgICs9IC1XYWxsIC1XZXh0cmEgLU8yCi1MREZMQUdTICArPSAtbHRhbGxvYyAtV2wsLXosbm9leGVjc3RhY2sKK292ZXJyaWRlIENQUEZMQUdTICs9IC1EX0ZJTEVfT0ZGU0VUX0JJVFM9NjQgLURfR05VX1NPVVJDRSAtSS4gLUkkKFZQQVRIKQorb3ZlcnJpZGUgQ0ZMQUdTICAgKz0gLVdhbGwgLVdleHRyYSAtTzIKK292ZXJyaWRlIExERkxBR1MgICs9IC1sdGFsbG9jIC1XbCwteixub2V4ZWNzdGFjawogCiBPQkpFQ1RTICs9IFwKIAljbGkvY2xpLm8JCVwKQEAgLTI1NSw3ICsyNTUsOCBAQAogCS0kKFJNKSAtZiAkKENIRUNLX09CSkVDVFMpICQoQ0hFQ0tfUFJPR1JBTVMpICQoQ0hFQ0tfUkVTVUxUUykgJChPQkpFQ1RTKSAkKExPQURFUl9PQkpFQ1RTKSAkKExPQURFUi1tMzJfT0JKRUNUUykgcHJvb3QgbG9hZGVyL2xvYWRlciBsb2FkZXIvbG9hZGVyLW0zMiAkKERFUFMpIGJ1aWxkLmggbGljZW5zZXMKIAogaW5zdGFsbDogcHJvb3QKLQkkKCQocXVpZXQpSU5TVEFMTCkgLUQgJDwgJChERVNURElSKSQoQklORElSKS8kPAorCSQoSU5TVEFMTCkgLWQgJChERVNURElSKSQoQklORElSKQorCSQoSU5TVEFMTCkgJDwgJChERVNURElSKSQoQklORElSKS8kPAogaWZkZWYgUFJPT1RfVU5CVU5ETEVfTE9BREVSCiAJJChJTlNUQUxMKSAtRCBsb2FkZXIvbG9hZGVyICQoUFJPT1RfVU5CVU5ETEVfTE9BREVSKS9sb2FkZXIKIGlmZGVmIEhBU19MT0FERVJfMzJCSVQK\" | base64 -d | patch\nsed_in_place 's|-ltalloc||' GNUmakefile",
+    "dopatch": "printf \"LS0tIEdOVW1ha2VmaWxlLmJhawkyMDIxLTA3LTAzIDE2OjI4OjU2LjAwMDAwMDAwMCArMDgwMAorKysgR05VbWFrZWZpbGUJMjAyMS0wNy0wMyAxNjozMzowMC4wMDAwMDAwMDAgKzA4MDAKQEAgLTE0LDkgKzE0LDkgQEAKIE9CSkNPUFkgID89ICQoQ1JPU1NfQ09NUElMRSlvYmpjb3B5CiBPQkpEVU1QICA/PSAkKENST1NTX0NPTVBJTEUpb2JqZHVtcAogCi1DUFBGTEFHUyArPSAtRF9GSUxFX09GRlNFVF9CSVRTPTY0IC1EX0dOVV9TT1VSQ0UgLUkuIC1JJChWUEFUSCkKLUNGTEFHUyAgICs9IC1XYWxsIC1XZXh0cmEgLU8yCi1MREZMQUdTICArPSAtbHRhbGxvYyAtV2wsLXosbm9leGVjc3RhY2sKK292ZXJyaWRlIENQUEZMQUdTICs9IC1EX0ZJTEVfT0ZGU0VUX0JJVFM9NjQgLURfR05VX1NPVVJDRSAtSS4gLUkkKFZQQVRIKQorb3ZlcnJpZGUgQ0ZMQUdTICAgKz0gLVdhbGwgLVdleHRyYSAtTzIKK292ZXJyaWRlIExERkxBR1MgICs9IC1sdGFsbG9jIC1XbCwteixub2V4ZWNzdGFjawogCiBPQkpFQ1RTICs9IFwKIAljbGkvY2xpLm8JCVwKQEAgLTI1NSw3ICsyNTUsOCBAQAogCS0kKFJNKSAtZiAkKENIRUNLX09CSkVDVFMpICQoQ0hFQ0tfUFJPR1JBTVMpICQoQ0hFQ0tfUkVTVUxUUykgJChPQkpFQ1RTKSAkKExPQURFUl9PQkpFQ1RTKSAkKExPQURFUi1tMzJfT0JKRUNUUykgcHJvb3QgbG9hZGVyL2xvYWRlciBsb2FkZXIvbG9hZGVyLW0zMiAkKERFUFMpIGJ1aWxkLmggbGljZW5zZXMKIAogaW5zdGFsbDogcHJvb3QKLQkkKCQocXVpZXQpSU5TVEFMTCkgLUQgJDwgJChERVNURElSKSQoQklORElSKS8kPAorCSQoSU5TVEFMTCkgLWQgJChERVNURElSKSQoQklORElSKQorCSQoSU5TVEFMTCkgJDwgJChERVNURElSKSQoQklORElSKS8kPAogaWZkZWYgUFJPT1RfVU5CVU5ETEVfTE9BREVSCiAJJChJTlNUQUxMKSAtRCBsb2FkZXIvbG9hZGVyICQoUFJPT1RfVU5CVU5ETEVfTE9BREVSKS9sb2FkZXIKIGlmZGVmIEhBU19MT0FERVJfMzJCSVQK\" | base64 -d | patch\nsedInPlace 's|-ltalloc||' GNUmakefile",
     "install": "gmakew clean\ngmakew V=1 CC=$CC LD=$CC STRIP=$STRIP OBJCOPY=$OBJCOPY OBJDUMP=$OBJDUMP CPPFLAGS=\"'$CPPFLAGS'\" CFLAGS=\"'$CFLAGS'\" LDFLAGS=\"'$LDFLAGS $libtalloc_LIBRARY_DIR/libtalloc.a'\"\ngmakew install PREFIX=$PACKAGE_INSTALL_DIR DESTDIR="
   },
   {
@@ -10132,7 +10132,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|-g||' Makefile\nsed_in_place 's|LIBS+=-ldl -lpthread|LIBS+=-ldl|' Makefile\nsed_in_place 's|lib/quickjs|lib|g'         Makefile\nsed_in_place 's|include/quickjs|include|g' Makefile\nsed_in_place 's|$(HOST_CC) $(LDFLAGS)|$(HOST_CC) -B/usr/bin $(LDFLAGS)|' Makefile\n# https://newbedev.com/how-to-specify-alternate-linker-command-when-linking-with-cc",
+    "dopatch": "sedInPlace 's|-g||' Makefile\nsedInPlace 's|LIBS+=-ldl -lpthread|LIBS+=-ldl|' Makefile\nsedInPlace 's|lib/quickjs|lib|g'         Makefile\nsedInPlace 's|include/quickjs|include|g' Makefile\nsedInPlace 's|$(HOST_CC) $(LDFLAGS)|$(HOST_CC) -B/usr/bin $(LDFLAGS)|' Makefile\n# https://newbedev.com/how-to-specify-alternate-linker-command-when-linking-with-cc",
     "install": "export HOST_CC=\"$CC_FOR_BUILD\"\nexport CC=\"$CC $CPPFLAGS $CFLAGS $LDFLAGS\"\n\nunset CFLAGS\nunset CPPFLAGS\nunset LDFLAGS\n\ngmakew clean\ngmakew install HOST_CC=\"'$HOST_CC'\" CC=\"'$CC'\" \"AR=$AR\" \"STRIP=$STRIP\" LDFLAGS=-Wl,-v CROSS_PREFIX=xxx PREFIX=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -10230,7 +10230,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew -DRE2_BUILD_TESTING=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DRE2_BUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON",
-    "dotweak": "sed_in_place '/re2_INCLUDE_DIR/d' lib/cmake/re2/re2Config.cmake"
+    "dotweak": "sedInPlace '/re2_INCLUDE_DIR/d' lib/cmake/re2/re2Config.cmake"
   },
   {
     "pkgname": "re2c",
@@ -10311,7 +10311,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place '/SHARED_EXT=/c SHARED_EXT=\".so\"' configure\nsed_in_place 's/LD_STATIC=-static/LD_STATIC=/' configure",
+    "dopatch": "sedInPlace '/SHARED_EXT=/c SHARED_EXT=\".so\"' configure\nsedInPlace 's/LD_STATIC=-static/LD_STATIC=/' configure",
     "install": "run ./configure \\\n    --cc=\"$CC\" \\\n    --ar=\"$AR\" \\\n    --extra-cflags=\"'$CFLAGS $CPPFLAGS'\" \\\n    --extra-ldflags=\"'$LDFLAGS'\" \\\n    --target=\"$TARGET_TRIPLE\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --enable-static \\\n    --enable-lib-static \\\n    --enable-lib-shared\ngmakew clean\ngmakew\ngmakew install"
   },
   {
@@ -10546,7 +10546,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "sedInPlace '/ftello/d' ../include/ndk-pkg-common.h\nsedInPlace '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "cmakew -DSDL_STATIC=ON -DSDL_SHARED=ON"
   },
   {
@@ -10750,7 +10750,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's| OR BUILD_SHARED_LIBS||' CMakeLists.txt",
+    "dopatch": "sedInPlace 's| OR BUILD_SHARED_LIBS||' CMakeLists.txt",
     "install": "cmakew \\\n    -DSPDLOG_FMT_EXTERNAL=ON \\\n    -DSPDLOG_BUILD_BENCH=OFF \\\n    -DSPDLOG_BUILD_TESTS=OFF \\\n    -DSPDLOG_BUILD_EXAMPLE=OFF \\\n    -DSPDLOG_BUILD_SHARED=ON\nrun rm -rf *\ncmakew \\\n    -DSPDLOG_FMT_EXTERNAL=ON \\\n    -DSPDLOG_BUILD_BENCH=OFF \\\n    -DSPDLOG_BUILD_TESTS=OFF \\\n    -DSPDLOG_BUILD_EXAMPLE=OFF \\\n    -DSPDLOG_BUILD_SHARED=OFF"
   },
   {
@@ -10785,7 +10785,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \\#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' sqlite3.c",
+    "dopatch": "sedInPlace '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \\#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' sqlite3.c",
     "install": "configure --disable-editline --enable-readline --enable-static-shell LIBS=-lm"
   },
   {
@@ -10868,7 +10868,7 @@
     "bsystem": "go",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place '1d' assets_dev.go",
+    "dopatch": "sedInPlace '1d' assets_dev.go",
     "install": "gow -tags release"
   },
   {
@@ -10887,7 +10887,7 @@
     "binbstd": "1",
     "api-min": "26",
     "parallel": "1",
-    "dopatch": "sed_in_place \"/RUST_TARGET = --target/c RUST_TARGET = --target $RUST_TARGET\" rust/Makefile.am\nsed_in_place \"/RUST_SURICATA_LIB_XC_DIR=/c RUST_SURICATA_LIB_XC_DIR=$RUST_TARGET/\" configure.ac",
+    "dopatch": "sedInPlace \"/RUST_TARGET = --target/c RUST_TARGET = --target $RUST_TARGET\" rust/Makefile.am\nsedInPlace \"/RUST_SURICATA_LIB_XC_DIR=/c RUST_SURICATA_LIB_XC_DIR=$RUST_TARGET/\" configure.ac",
     "prepare": "export CARGO_BUILD_TARGET=\"$RUST_TARGET\"\nrun rustup target add \"$CARGO_BUILD_TARGET\"",
     "install": "configure \\\n    --enable-pie \\\n    --with-libpcap-includes=\"$libpcap_INCLUDE_DIR\" \\\n    --with-libpcap-libraries=\"$libpcap_LIBRARY_DIR\" \\\n    ac_cv_lib_pthread_pthread_create=yes \\\n    ac_cv_lib_jansson_json_dump_callback=yes \\\n    ac_cv_lib_pcap_pcap_open_dead=yes"
   },
@@ -11046,7 +11046,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's/test \"`uname -s`\" = \"Darwin\"/false/g' configure\nsed_in_place '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \\#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' ../pkgs/sqlite3.44.2/generic/../compat/sqlite3/sqlite3.c",
+    "dopatch": "sedInPlace 's/test \"`uname -s`\" = \"Darwin\"/false/g' configure\nsedInPlace '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \\#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' ../pkgs/sqlite3.44.2/generic/../compat/sqlite3/sqlite3.c",
     "prepare": "if [ \"$TARGET_PLATFORM_NBIT\" -eq 64 ] ; then\n    EXTRA_CONFIGURE_FLAGS='--enable-64bit'\nelse\n    EXTRA_CONFIGURE_FLAGS='--disable-64bit'\nfi",
     "install": "configure \\\n    --enable-dtrace \\\n    --enable-zipfs \\\n    --enable-load \\\n    --enable-dll-unloading \\\n    --enable-threads \\\n    --disable-symbols \\\n    --disable-corefoundation \\\n    --disable-framework \\\n    --with-tzdata \\\n    $EXTRA_CONFIGURE_FLAGS \\\n    tcl_cv_sys_version=Linux LIBS=-lm"
   },
@@ -11217,7 +11217,7 @@
     "binbstd": "0",
     "api-min": "23",
     "parallel": "1",
-    "dopatch": "sed_in_place '1i int getdtablesize();'   compat/imsg.c\nsed_in_place '1i #include<sys/endian.h>' compat/htonll.c\nsed_in_place '1i #include<sys/endian.h>' compat/ntohll.c",
+    "dopatch": "sedInPlace '1i int getdtablesize();'   compat/imsg.c\nsedInPlace '1i #include<sys/endian.h>' compat/htonll.c\nsedInPlace '1i #include<sys/endian.h>' compat/ntohll.c",
     "install": "configure \\\n    --with-TERM=screen-256color \\\n    --enable-utf8proc \\\n    --disable-static \\\n    ac_cv_search_forkpty='-lc' \\\n    ac_cv_search_utf8proc_charwidth='-lutf8proc'",
     "caveats": "To get it working on Termux, you might need to run the following instructions\n\nexport TMUX_TMPDIR=\"$HOME/tmux-tmp-dir\"\ninstall -d \"$TMUX_TMPDIR\"\nln -s ~/../usr/lib/terminfo ~/.terminfo"
   },
@@ -11282,7 +11282,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|ifndef __linux__|if 1|' strverscmp.c || return 1\nsed_in_place 's|ifndef __linux__|if 1|' tree.h       || return 1",
+    "dopatch": "sedInPlace 's|ifndef __linux__|if 1|' strverscmp.c || return 1\nsedInPlace 's|ifndef __linux__|if 1|' tree.h       || return 1",
     "install": "gmakew clean\ngmakew install \\\n    PREFIX=\"$PACKAGE_INSTALL_DIR\" \\\n    MANDIR=\"$PACKAGE_INSTALL_DIR/share/man\" \\\n    CC=\"$CC\" \\\n    CFLAGS=\"'$CFLAGS $CPPFLAGS -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64'\" \\\n    LDFLAGS=\"'$LDFLAGS'\""
   },
   {
@@ -11318,7 +11318,7 @@
     "binbstd": "0",
     "api-min": "23",
     "parallel": "1",
-    "dopatch": "sed_in_place '/LINK_LIBS util/d' CMakeLists.txt",
+    "dopatch": "sedInPlace '/LINK_LIBS util/d' CMakeLists.txt",
     "install": "cmakew"
   },
   {
@@ -11335,7 +11335,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|CFLAGS += -O2 -Wall|override CFLAGS +=|' Makefile",
+    "dopatch": "sedInPlace 's|CFLAGS += -O2 -Wall|override CFLAGS +=|' Makefile",
     "install": "gmakew clean\ngmakew UNAME=Linux CC=$CC CFLAGS=\"'$CFLAGS $CPPFLAGS $LDFLAGS'\"\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -11351,7 +11351,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|union wait status|int status|' ttyrec.c\n#sed_in_place 's|set_progname|setprogname|'     ttytime.c",
+    "dopatch": "sedInPlace 's|union wait status|int status|' ttyrec.c\n#sedInPlace 's|set_progname|setprogname|'     ttytime.c",
     "install": "gmakew clean\ngmakew CC=$CC CFLAGS=\"'$CFLAGS $CPPFLAGS -Dset_progname=setprogname $LDFLAGS'\"\ninstall_bins ttyrec ttyplay ttytime"
   },
   {
@@ -11434,7 +11434,7 @@
     "binbstd": "1",
     "api-min": "26",
     "parallel": "0",
-    "dopatch": "sed_in_place 's|getpass(\"\")|\"\"|g'     consio.cpp\nsed_in_place 's|install -D|install|g' makefile",
+    "dopatch": "sedInPlace 's|getpass(\"\")|\"\"|g'     consio.cpp\nsedInPlace 's|install -D|install|g' makefile",
     "install": "gmakew -f makefile unrar CXX=\"$CXX\" AR=\"$AR\" STRIP=\"$STRIP\" CXXFLAGS=\"'$CXXFLAGS'\" CPPFLAGS=\"'$CPPFLAGS'\" LDFLAGS=\"'$LDFLAGS'\"\ninstall -d \"$PACKAGE_INSTALL_DIR/bin\"\ngmakew -f makefile install-unrar DESTDIR=\"$PACKAGE_INSTALL_DIR\"\ngmakew -f makefile lib   CXX=\"$CXX\" AR=\"$AR\" STRIP=\"$STRIP\" CXXFLAGS=\"'$CXXFLAGS'\" CPPFLAGS=\"'$CPPFLAGS'\" LDFLAGS=\"'$LDFLAGS'\"\ninstall -d \"$PACKAGE_INSTALL_DIR/lib\"\ngmakew -f makefile install-lib   DESTDIR=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -11488,6 +11488,23 @@
     "install": "cmakew -DLINK_STATIC_LIBS=ON"
   },
   {
+    "pkgname": "uppm@0.15.4",
+    "pkgtype": "exe",
+    "version": "2024.06.17",
+    "license": "Apache-2.0",
+    "summary": "Universal Prebuild Package Manager",
+    "web-url": "https://github.com/leleliu008/uppm",
+    "git-url": "https://github.com/leleliu008/uppm",
+    "git-ref": "refs/heads/0.15.3",
+    "dep-pkg": "libcurl libgit2 libarchive libyaml libjansson",
+    "dep-upp": "git cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "prepare": "PACKAGE_VERSION=$(sed -n '/set(PROJECT_VERSION /p' CMakeLists.txt | sed 's|set(PROJECT_VERSION[[:space:]]*\\(.*\\))|\\1|')",
+    "install": "cmakew -DLINK_STATIC_LIBS=ON"
+  },
+  {
     "pkgname": "usbmuxd",
     "pkgtype": "exe",
     "version": "1.1.1",
@@ -11501,7 +11518,7 @@
     "binbstd": "0",
     "api-min": "24",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|/var/run|/data/local/tmp|' src/usbmuxd-proto.h\nsed_in_place 's|/var/run|/data/local/tmp|' src/main.c\nsed_in_place 's|/var/run|/data/local/tmp|' docs/usbmuxd.8\nsed_in_place 's|/var/run|/data/local/tmp|' udev/39-usbmuxd.rules.in",
+    "dopatch": "sedInPlace 's|/var/run|/data/local/tmp|' src/usbmuxd-proto.h\nsedInPlace 's|/var/run|/data/local/tmp|' src/main.c\nsedInPlace 's|/var/run|/data/local/tmp|' docs/usbmuxd.8\nsedInPlace 's|/var/run|/data/local/tmp|' udev/39-usbmuxd.rules.in",
     "install": "configure --without-preflight --without-systemd"
   },
   {
@@ -11644,7 +11661,7 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "sedInPlace '/ftello/d' ../include/ndk-pkg-common.h\nsedInPlace '/fseeko/d' ../include/ndk-pkg-common.h",
     "prepare": "printf '\\n' > ../include.h\n\nrm -f ./src/auto/config.cache\n\nexport vim_cv_toupper_broken=no\nexport vim_cv_getcwd_broken=no\nexport vim_cv_terminfo=yes\nexport vim_cv_tgetent=zero\nexport vim_cv_memmove_handles_overlap=yes\nexport vim_cv_stat_ignores_slash=no\nexport vim_cv_uname_output=Linux",
     "install": "configure \\\n    --with-tlib=ncursesw \\\n    --with-compiledby=ndk-pkg \\\n    --with-features=huge \\\n    --without-x \\\n    --enable-cscope \\\n    --enable-terminal \\\n    --enable-multibyte \\\n    --enable-perlinterp=no \\\n    --enable-rubyinterp=no \\\n    --enable-python3interp \\\n    --enable-luainterp \\\n    --enable-gui=no \\\n    --with-lua-prefix=$lua_INSTALL_DIR"
   },
@@ -11757,7 +11774,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "sedInPlace '/ftello/d' ../include/ndk-pkg-common.h\nsedInPlace '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "configure --disable-tests --enable-apps --disable-man"
   },
   {
@@ -11791,9 +11808,9 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt",
     "install": "cmakew \\\n    -DWEBP_BUILD_CWEBP=ON \\\n    -DWEBP_BUILD_DWEBP=ON \\\n    -DWEBP_BUILD_VWEBP=ON \\\n    -DWEBP_BUILD_WEBPMUX=ON \\\n    -DWEBP_BUILD_WEBPINFO=ON \\\n    -DWEBP_BUILD_GIF2WEBP=ON \\\n    -DWEBP_BUILD_IMG2WEBP=ON \\\n    -DWEBP_BUILD_ANIM_UTILS=ON \\\n    -DWEBP_BUILD_EXTRAS=ON \\\n    -DWEBP_LINK_STATIC=ON \\\n    -DBUILD_SHARED_LIBS=OFF",
-    "dotweak": "sed_in_place '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc"
+    "dotweak": "sedInPlace '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc"
   },
   {
     "pkgname": "webrtc",
@@ -11805,7 +11822,8 @@
     "dep-upp": "git gn ninja",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "if [ \"$NATIVE_OS_KIND\" != linux ] ; then\n    abort 1 \"this library is only supported built on Linux\"\nfi\n\nNINJA=\"$(command -v ninja)\" || abort 1 'command not found: ninja'\n   GN=\"$(command -v gn)\"    || abort 1 'command not found: gn'\n\nrun cd ..\n\nrun git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git\n\nexport PATH=\"$PWD/depot_tools:$PATH\"\nexport DEPOT_TOOLS_UPDATE=0\n\nrun fetch --nohistory --nohooks webrtc_android\n\ncat >> .gclient <<EOF\ntarget_os = ['android']\nEOF\n\nrun git -C src checkout main\n\nrun gclient sync --verbose",
+    "onstart": "[ \"$NATIVE_OS_KIND\" = linux ] || abort 1 \"this library is only supported built on Linux\"",
+    "prepare": "NINJA=\"$(command -v ninja)\" || abort 1 'command not found: ninja'\n   GN=\"$(command -v gn)\"    || abort 1 'command not found: gn'\n\nrun cd ..\n\nrun git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git\n\nexport PATH=\"$PWD/depot_tools:$PATH\"\nexport DEPOT_TOOLS_UPDATE=0\n\nrun fetch --nohistory --nohooks webrtc_android\n\ncat >> .gclient <<EOF\ntarget_os = ['android']\nEOF\n\nrun git -C src checkout main\n\nrun gclient sync --verbose",
     "install": "case $TARGET_PLATFORM_ARCH in\n    armv7a)  GN_ARG_TARGET_CPU=arm   ;;\n    aarch64) GN_ARG_TARGET_CPU=arm64 ;;\n    i686)    GN_ARG_TARGET_CPU=x86   ;;\n    x86_64)  GN_ARG_TARGET_CPU=x64   ;;\nesac\n\nrun \"$GN\" gen . --root=\"$PACKAGE_BSCRIPT_DIR\"\n\ncat >> args.gn <<EOF\nis_debug=false\ntarget_os=\"android\"\ntarget_cpu=\"$GN_ARG_TARGET_CPU\"\nv8_target_cpu=\"$GN_ARG_TARGET_CPU\"\nEOF\n\nrun \"$NINJA\"\nrun install_libs *.so"
   },
   {
@@ -11839,7 +11857,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '/ftello/d' ../include/ndk-pkg-common.h\nsed_in_place '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "sedInPlace '/ftello/d' ../include/ndk-pkg-common.h\nsedInPlace '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "configure \\\n    --disable-pcre \\\n    --disable-pcre2 \\\n    --enable-threads=posix \\\n    --with-ssl=openssl \\\n    --with-cares \\\n    --with-libidn \\\n    --without-libpsl",
     "caveats": "If wget is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers=<DNS-SERVERS> argument to curl like below\n\nwget --dns-servers=8.8.8.8 https://example.com"
   },
@@ -11907,7 +11925,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "if [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    sed_in_place 's|fseeko|fseekoxxxxxxxxxx|g' configure\nfi",
+    "dopatch": "if [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    sedInPlace 's|fseeko|fseekoxxxxxxxxxx|g' configure\nfi",
     "install": "configure \\\n    --disable-asm \\\n    --enable-cli \\\n    --enable-pic \\\n    --enable-lto \\\n    --enable-strip"
   },
   {
@@ -11924,9 +11942,9 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|cli x265-shared|cli x265-static|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|cli x265-shared|cli x265-static|' CMakeLists.txt",
     "install": "cmakew \\\n    -DENABLE_PIC=ON \\\n    -DENABLE_CLI=ON \\\n    -DENABLE_SHARED=ON \\\n    -DENABLE_ASSEMBLY=OFF",
-    "dotweak": "sed_in_place '/^Libs.private:/s|-l-l||' lib/pkgconfig/x265.pc"
+    "dotweak": "rm -rf include\nrm -rf lib"
   },
   {
     "pkgname": "xh",
@@ -11977,8 +11995,8 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|xmlErrorPtr error|const xmlError * error|' src/xmlstar.h\nsed_in_place 's|xmlErrorPtr error|const xmlError * error|' src/xml.c\nsed_in_place 's|xmlChar \\*\\*array;|const xmlChar **array;|' src/xml_elem.c\nsed_in_place 's|xmlChar \\*name)|const xmlChar *name)|'      src/xml_elem.c",
-    "install": "configure --with-libxml-include-prefix=\"$libxml2_INCLUDE_DIR/libxml2\" LIBS=\"'$(pkg-config --libs libxml-2.0)'\"",
+    "dopatch": "sedInPlace 's|xmlErrorPtr error|const xmlError * error|'  src/xmlstar.h\nsedInPlace 's|xmlErrorPtr error|const xmlError * error|'  src/xml.c\nsedInPlace 's|xmlChar \\*\\*array;|const xmlChar **array;|' src/xml_elem.c\nsedInPlace 's|xmlChar \\*name)|const xmlChar *name)|'      src/xml_elem.c",
+    "install": "configure \\\n    --with-libxml-prefix=\"$libxml2_INSTALL_DIR\" \\\n    --with-libxslt-prefix=\"$libxslt_INSTALL_DIR\" \\\n    LIBS=\"'$(pkg-config --libs libxml-2.0)'\"",
     "dotweak": "cd bin && ln -s xml xmlstarlet"
   },
   {
@@ -12031,7 +12049,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|CMAKE_C_STANDARD 99|CMAKE_C_STANDARD 11|' CMakeLists.txt\nsed_in_place 's|-march=armv6 -mfpu=vfp|-march=armv7-a -mfpu=neon|' CMakeLists.txt\nprintf 'INPUT(-llog)\\n' > ../lib/libm.a",
+    "dopatch": "sedInPlace 's|CMAKE_C_STANDARD 99|CMAKE_C_STANDARD 11|' CMakeLists.txt\nsedInPlace 's|-march=armv6 -mfpu=vfp|-march=armv7-a -mfpu=neon|' CMakeLists.txt\nprintf 'INPUT(-llog)\\n' > ../lib/libm.a",
     "install": "cmakew \\\n    -DXNNPACK_USE_SYSTEM_LIBS=ON \\\n    -DXNNPACK_ENABLE_ASSEMBLY=ON \\\n    -DXNNPACK_ENABLE_MEMOPT=ON \\\n    -DXNNPACK_ENABLE_SPARSE=ON \\\n    -DXNNPACK_BUILD_TESTS=OFF \\\n    -DXNNPACK_BUILD_BENCHMARKS=OFF \\\n    -DXNNPACK_ENABLE_ARM_BF16=OFF"
   },
   {
@@ -12048,7 +12066,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place '1i #include <unistd.h>' libisofs/rockridge.h",
+    "dopatch": "sedInPlace '1i #include <unistd.h>' libisofs/rockridge.h",
     "install": "configure \\\n    --enable-libacl \\\n    --enable-xattr \\\n    --enable-zlib \\\n    --enable-libbz2 \\\n    --enable-libcdio \\\n    --enable-jtethreads"
   },
   {
@@ -12081,7 +12099,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "sed_in_place 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.am\nsed_in_place 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.in",
+    "dopatch": "sedInPlace 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.am\nsedInPlace 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.in",
     "install": "configure \\\n    --enable-static \\\n    --disable-shared \\\n    --without-debug \\\n    --without-mem-debug \\\n    --without-debugger \\\n    --without-crypto \\\n    --without-python \\\n    --with-profiler \\\n    --with-plugins LIBS=-ldl",
     "dotweak": "rm -rfv bin/xslt-config\nrm -rfv include\nrm -rfv lib\nrm -rfv share/man/man3\nrm -rfv share/aclocal\nrm -rfv share/doc\nrm -rfv share/gtk-doc"
   },
@@ -12229,7 +12247,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "for patchfile in $(cat ../fix/patches/series)\ndo  \n    patch -p1 < ../fix/patches/$patchfile\ndone\n\npatch -p1 < ../res/99cb7eeeb6fdb8df700f40bfffbc30516c94774cbf585f725d81c3224a2c530c.diff\n\nsed_in_place 's|$(AS) _match.s|$(AS) -o _match.o _match.s|'          unix/Makefile\nsed_in_place 's|$(AS) _crc_i386.s|$(AS) -o _crc_i386.o _crc_i386.s|' unix/Makefile",
+    "dopatch": "for patchfile in $(cat ../fix/patches/series)\ndo  \n    patch -p1 < ../fix/patches/$patchfile\ndone\n\npatch -p1 < ../res/99cb7eeeb6fdb8df700f40bfffbc30516c94774cbf585f725d81c3224a2c530c.diff\n\nsedInPlace 's|$(AS) _match.s|$(AS) -o _match.o _match.s|'          unix/Makefile\nsedInPlace 's|$(AS) _crc_i386.s|$(AS) -o _crc_i386.o _crc_i386.s|' unix/Makefile",
     "install": "gmakew -f unix/Makefile clean\ngmakew -f unix/Makefile generic \\\n    CC=\"$CC\" \\\n    CPP=\"'$CPP'\" \\\n    AR=\"$AR\" \\\n    LOCAL_ZIP=\"'$CFLAGS $CPPFLAGS'\" \\\n    LFLAGS2=\"'$LDFLAGS'\"\ngmakew -f unix/Makefile install prefix=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -12247,7 +12265,7 @@
     "binbstd": "0",
     "parallel": "1",
     "developer": "Jean-loup Gailly <jloup@gailly.net>\nMark Adler <madler@alumni.caltech.edu>",
-    "dopatch": "sed_in_place 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt\nsed_in_place 's|zlib)|zlibstatic)|' CMakeLists.txt",
+    "dopatch": "sedInPlace 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt\nsedInPlace 's|zlib)|zlibstatic)|' CMakeLists.txt",
     "install": "cmakew"
   },
   {
