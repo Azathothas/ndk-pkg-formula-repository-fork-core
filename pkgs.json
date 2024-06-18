@@ -3618,7 +3618,7 @@
     "pkgname": "hexdump",
     "pkgtype": "exe",
     "version": "20181215",
-    "summary": "hexdump library and cli",
+    "summary": "hexdump cli",
     "web-url": "https://www.25thandclement.com/~william/projects/hexdump.c.html",
     "git-url": "https://github.com/wahern/hexdump",
     "src-url": "https://github.com/wahern/hexdump/archive/refs/tags/rel-20181215.tar.gz",
@@ -3626,7 +3626,7 @@
     "dep-upp": "curl bsdtar",
     "binbstd": "1",
     "parallel": "1",
-    "install": "run $CC $LDFLAGS -DHEXDUMP_MAIN $CPPFLAGS $CFLAGS -o hexdump   hexdump.c\nrun $CC -c                      $CPPFLAGS $CFLAGS -o hexdump.o hexdump.c\nrun $AR crs libhexdump.a hexdump.o\ninstall_bins hexdump\ninstall_incs hexdump.h\ninstall_libs libhexdump.a"
+    "install": "run $CC $LDFLAGS -DHEXDUMP_MAIN $CPPFLAGS $CFLAGS -o hexdump   hexdump.c\ninstall_bins hexdump"
   },
   {
     "pkgname": "hexyl",
@@ -5522,6 +5522,20 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew"
+  },
+  {
+    "pkgname": "libhexdump",
+    "pkgtype": "lib",
+    "version": "20181215",
+    "summary": "hexdump library and cli",
+    "web-url": "https://www.25thandclement.com/~william/projects/hexdump.c.html",
+    "git-url": "https://github.com/wahern/hexdump",
+    "src-url": "https://github.com/wahern/hexdump/archive/refs/tags/rel-20181215.tar.gz",
+    "src-sha": "882975323317f595093125467d7b9604f78bded7ba1005f5fc17e33358cdb0fa",
+    "dep-upp": "curl bsdtar",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "run $CC -c $CPPFLAGS $CFLAGS -o hexdump.o hexdump.c\nrun $AR crs libhexdump.a hexdump.o\ninstall_incs hexdump.h\ninstall_libs libhexdump.a"
   },
   {
     "pkgname": "libhiredis",
@@ -7857,7 +7871,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-zlib \\\n    --without-lzma \\\n    --without-python \\\n    --without-readline \\\n    --without-coverage \\\n    --without-debug \\\n    --enable-ipv6 LIBS=\"'-liconv -lm'\"",
-    "dotweak": "sed -i '/^Requires: /d'                lib/pkgconfig/libxml-2.0.pc\nsed -i -e 's|-liconv||g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc\nprintf 'Requires: libiconv libz\\n' >>  lib/pkgconfig/libxml-2.0.pc"
+    "dotweak": "sed -i '/^Requires: /d'                    lib/pkgconfig/libxml-2.0.pc\nsed -i -e 's|-liconv|-ldl|g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc\nprintf 'Requires: libiconv libz\\n' >>      lib/pkgconfig/libxml-2.0.pc"
   },
   {
     "pkgname": "libxslt",

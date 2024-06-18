@@ -4241,7 +4241,7 @@
 - pkgname: hexdump
   pkgtype: exe
   version: "20181215"
-  summary: hexdump library and cli
+  summary: hexdump cli
   web-url: https://www.25thandclement.com/~william/projects/hexdump.c.html
   git-url: https://github.com/wahern/hexdump
   src-url: https://github.com/wahern/hexdump/archive/refs/tags/rel-20181215.tar.gz
@@ -4251,11 +4251,7 @@
   parallel: "1"
   install: |-
     run $CC $LDFLAGS -DHEXDUMP_MAIN $CPPFLAGS $CFLAGS -o hexdump   hexdump.c
-    run $CC -c                      $CPPFLAGS $CFLAGS -o hexdump.o hexdump.c
-    run $AR crs libhexdump.a hexdump.o
     install_bins hexdump
-    install_incs hexdump.h
-    install_libs libhexdump.a
 - pkgname: hexyl
   pkgtype: exe
   version: 0.14.0
@@ -6467,6 +6463,22 @@
   binbstd: "0"
   parallel: "1"
   install: cmakew
+- pkgname: libhexdump
+  pkgtype: lib
+  version: "20181215"
+  summary: hexdump library and cli
+  web-url: https://www.25thandclement.com/~william/projects/hexdump.c.html
+  git-url: https://github.com/wahern/hexdump
+  src-url: https://github.com/wahern/hexdump/archive/refs/tags/rel-20181215.tar.gz
+  src-sha: 882975323317f595093125467d7b9604f78bded7ba1005f5fc17e33358cdb0fa
+  dep-upp: curl bsdtar
+  binbstd: "1"
+  parallel: "1"
+  install: |-
+    run $CC -c $CPPFLAGS $CFLAGS -o hexdump.o hexdump.c
+    run $AR crs libhexdump.a hexdump.o
+    install_incs hexdump.h
+    install_libs libhexdump.a
 - pkgname: libhiredis
   pkgtype: lib
   version: 1.2.0
@@ -9336,9 +9348,9 @@
         --without-debug \
         --enable-ipv6 LIBS="'-liconv -lm'"
   dotweak: |-
-    sed -i '/^Requires: /d'                lib/pkgconfig/libxml-2.0.pc
-    sed -i -e 's|-liconv||g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc
-    printf 'Requires: libiconv libz\n' >>  lib/pkgconfig/libxml-2.0.pc
+    sed -i '/^Requires: /d'                    lib/pkgconfig/libxml-2.0.pc
+    sed -i -e 's|-liconv|-ldl|g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc
+    printf 'Requires: libiconv libz\n' >>      lib/pkgconfig/libxml-2.0.pc
 - pkgname: libxslt
   pkgtype: lib
   version: 1.1.39

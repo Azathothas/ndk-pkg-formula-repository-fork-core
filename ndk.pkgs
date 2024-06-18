@@ -3315,7 +3315,7 @@ installed: no
 pkgname: hexdump
 pkgtype: exe
 version: 20181215
-summary: hexdump library and cli
+summary: hexdump cli
 web-url: https://www.25thandclement.com/~william/projects/hexdump.c.html
 git-url: https://github.com/wahern/hexdump
 src-url: https://github.com/wahern/hexdump/archive/refs/tags/rel-20181215.tar.gz
@@ -5057,6 +5057,19 @@ dep-pkg: libde265 libx265 librav1e libdav1d svt-av1 aom
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libhexdump
+pkgtype: lib
+version: 20181215
+summary: hexdump library and cli
+web-url: https://www.25thandclement.com/~william/projects/hexdump.c.html
+git-url: https://github.com/wahern/hexdump
+src-url: https://github.com/wahern/hexdump/archive/refs/tags/rel-20181215.tar.gz
+src-sha: 882975323317f595093125467d7b9604f78bded7ba1005f5fc17e33358cdb0fa
+dep-upp: curl bsdtar
+binbstd: 1
 parallel: 1
 installed: no
 ---
