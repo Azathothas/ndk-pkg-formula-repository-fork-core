@@ -59,13 +59,13 @@ installed: no
 ---
 pkgname: act
 pkgtype: pie
-version: 0.2.62
+version: 0.2.63
 license: MIT
 summary: Run your GitHub Actions locally
 web-url: https://github.com/nektos/act
 git-url: https://github.com/nektos/act
-src-url: https://github.com/nektos/act/archive/refs/tags/v0.2.62.tar.gz
-src-sha: 2b0231d02d57d5edbcc070b7c4802acf16110a0582ffb40181aaa695f2b7bf5c
+src-url: https://github.com/nektos/act/archive/refs/tags/v0.2.63.tar.gz
+src-sha: 67832789cac6d66cf164c31f2d884cccca1343ae07a208f8152fa861f03de5a3
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -951,6 +951,21 @@ src-url: https://github.com/theryangeary/choose/archive/v1.3.1.tar.gz
 src-sha: 6c44170f456f410370ba31d59bfad1f54a71ba80a79b87debbe235672a2ea0dd
 dep-upp: curl bsdtar
 bsystem: cargo
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: cilium-cli
+pkgtype: pie
+version: 0.16.10
+license: Apache-2.0
+summary: CLI to install, manage & troubleshoot Kubernetes clusters running Cilium
+web-url: https://cilium.io
+git-url: https://cilium.io
+src-url: https://github.com/cilium/cilium-cli/archive/refs/tags/v0.16.10.tar.gz
+src-sha: 58d1cf4fc4e3327a7adf4bc9c9415161397611895a03e05bee2493410474ac16
+dep-upp: curl bsdtar golang
+bsystem: go
 binbstd: 1
 parallel: 1
 installed: no
@@ -2247,13 +2262,13 @@ installed: no
 ---
 pkgname: fzf
 pkgtype: pie
-version: 0.52.1
+version: 0.53.0
 license: MIT
 summary: A command-line fuzzy finder written in Go
 web-url: https://github.com/junegunn/fzf
 git-url: https://github.com/junegunn/fzf
-src-url: https://github.com/junegunn/fzf/archive/refs/tags/0.52.1.tar.gz
-src-sha: 96848746ca78249c1fdd16f170776ce2f667097b60e4ffbd5ecdbd7dfac72ef9
+src-url: https://github.com/junegunn/fzf/archive/refs/tags/0.53.0.tar.gz
+src-sha: d45abbfb64f21913c633d46818d9d3eb3d7ebc7e94bd16f45941958aa5480e1d
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -2494,13 +2509,13 @@ installed: no
 ---
 pkgname: gh
 pkgtype: pie
-version: 2.50.0
+version: 2.51.0
 license: MIT
 summary: A command-line interface that brings github.com functionality to your terminal
 web-url: https://github.com/cli/cli
 git-url: https://github.com/cli/cli
-src-url: https://github.com/cli/cli/archive/refs/tags/v2.50.0.tar.gz
-src-sha: 683d0dee90e1d24a6673d13680e0d41963ddc6dd88580ab5119acec790d1b4d7
+src-url: https://github.com/cli/cli/archive/refs/tags/v2.51.0.tar.gz
+src-sha: babc66157676eadc30c150ab9151981792796d6f24663cebc6eb070eb14c390f
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -2601,13 +2616,13 @@ installed: no
 ---
 pkgname: gitui
 pkgtype: exe
-version: 0.26.1
+version: 0.26.3
 license: MIT
 summary: Blazing fast terminal-ui for git written in rust
 web-url: https://github.com/extrawurst/gitui
 git-url: https://github.com/extrawurst/gitui
-src-url: https://github.com/extrawurst/gitui/archive/refs/tags/v0.26.1.tar.gz
-src-sha: b1b0a6c692771a4e37f7ff33490365f8f330660a4110adf650b2483d99379c1d
+src-url: https://github.com/extrawurst/gitui/archive/refs/tags/v0.26.3.tar.gz
+src-sha: 8075e180f3b01ff0c290b690488a7628c44b4de12346e04a77d823914a48918b
 dep-pkg: libgit2 libssh2
 dep-upp: gmake curl bsdtar
 bsystem: cargo
@@ -2627,6 +2642,21 @@ git-url: https://github.com/gitwatch/gitwatch
 src-url: https://github.com/gitwatch/gitwatch/archive/refs/tags/v0.2.tar.gz
 src-sha: 38fd762d2fa0e18312b50f056d9fd888c3038dc2882516687247b541b6649b25
 dep-upp: curl bsdtar
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: glab
+pkgtype: pie
+version: 1.42.0
+license: MIT
+summary: A GitLab CLI tool bringing GitLab to your command line
+web-url: https://gitlab.com/gitlab-org/cli
+git-url: https://gitlab.com/gitlab-org/cli
+src-url: https://gitlab.com/gitlab-org/cli/-/archive/v1.42.0/cli-v1.42.0.tar.gz
+src-sha: f04af59911f9448dddc3fad8a49532525444d13c3a053aa382142ca85566b7da
+dep-upp: curl bsdtar golang
+bsystem: go
 binbstd: 1
 parallel: 1
 installed: no
@@ -3389,13 +3419,13 @@ installed: no
 ---
 pkgname: hugo
 pkgtype: pie
-version: 0.126.1
+version: 0.127.0
 license: Apache-2.0
 summary: A fast and flexible static site generator
 web-url: https://gohugo.io
 git-url: https://github.com/gohugoio/hugo
-src-url: https://github.com/gohugoio/hugo/archive/refs/tags/v0.126.1.tar.gz
-src-sha: b7e1f393977bdf6275cf33dfff6d1bcd3bab4895e7302c8fd30f05556b13a6ad
+src-url: https://github.com/gohugoio/hugo/archive/refs/tags/v0.127.0.tar.gz
+src-sha: 549c7ebdf2ee6b3107ea10a9fbd9932a91bb3f30f7e8839245f6d8e318aca88c
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -3605,6 +3635,19 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
+pkgname: ipinfo
+pkgtype: exe
+version: 1.2
+license: Beerware
+summary: A simple tool for calculation of IP networks
+web-url: https://kyberdigi.cz/projects/ipinfo/
+src-url: https://kyberdigi.cz/projects/ipinfo/files/ipinfo-1.2.tar.gz
+src-sha: 19e6659f781a48b56062a5527ff463a29c4dcc37624fab912d1dce037b1ddf2d
+dep-upp: curl bsdtar
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: isl
 pkgtype: lib
 version: 0.26
@@ -3686,13 +3729,13 @@ installed: no
 ---
 pkgname: jj
 pkgtype: exe
-version: 0.17.1
+version: 0.18.0
 license: Apache-2.0
 summary: A git-compatible distributed version control system
 web-url: https://github.com/martinvonz/jj
 git-url: https://github.com/martinvonz/jj
-src-url: https://github.com/martinvonz/jj/archive/refs/tags/v0.17.1.tar.gz
-src-sha: 653e1190a82a39dae733487a11aa641ba62a36ae1e221c21844f822575961919
+src-url: https://github.com/martinvonz/jj/archive/refs/tags/v0.18.0.tar.gz
+src-sha: 4f81eed321c3aeeb1e0528250f49b703710ebf91ba18238dd46f97b9a59aaa98
 dep-pkg: libgit2
 dep-upp: curl bsdtar
 bsystem: cargo
@@ -5687,6 +5730,21 @@ web-url: https://github.com/microsoft/mimalloc
 git-url: https://github.com/microsoft/mimalloc
 src-url: https://github.com/microsoft/mimalloc/archive/refs/tags/v2.1.6.tar.gz
 src-sha: 0ec960b656f8623de35012edacb988f8edcc4c90d2ce6c19f1d290fbb4872ccc
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libminiupnpc
+pkgtype: lib
+version: 2.2.7
+license: BSD-3-Clause
+summary: UPnP IGD client library and daemon
+web-url: https://miniupnp.tuxfamily.org
+src-url: http://miniupnp.free.fr/files/miniupnpc-2.2.7.tar.gz
+src-uri: https://miniupnp.tuxfamily.org/files/download.php?file=miniupnpc-2.2.7.tar.gz
+src-sha: b0c3a27056840fd0ec9328a5a9bac3dc5e0ec6d2e8733349cf577b0aa1e70ac1
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -8491,6 +8549,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: okta-aws-cli
+pkgtype: pie
+version: 2.1.2
+license: Apache-2.0
+summary: Okta federated identity for AWS CLI
+web-url: https://github.com/okta/okta-aws-cli
+git-url: https://github.com/okta/okta-aws-cli
+src-url: https://github.com/okta/okta-aws-cli/archive/refs/tags/v2.1.2.tar.gz
+src-sha: e1d35e3007bac39fbedc436475712fca03706429bd34a1cfad4bdbd004bab81a
+dep-upp: curl bsdtar golang
+bsystem: go
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: oniguruma
 pkgtype: lib
 version: 6.9.9
@@ -8503,6 +8576,21 @@ src-sha: 60162bd3b9fc6f4886d4c7a07925ffd374167732f55dce8c491bfd9cd818a6cf
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: opa
+pkgtype: pie
+version: 0.65.0
+license: Apache-2.0
+summary: Open source, general-purpose policy engine
+web-url: https://www.openpolicyagent.org
+git-url: https://github.com/open-policy-agent/opa.git
+src-url: https://github.com/open-policy-agent/opa/archive/refs/tags/v0.65.0.tar.gz
+src-sha: 996ff51dc0c86cd0e330e7017313d24b1f35436c9c569701c24952087d301122
+dep-upp: curl bsdtar golang
+bsystem: go
+binbstd: 1
 parallel: 1
 installed: no
 ---
@@ -9192,6 +9280,20 @@ ppflags: -UNDEBUG -D__USE_BSD=1
 parallel: 1
 installed: no
 ---
+pkgname: pv
+pkgtype: exe
+version: 1.8.10
+license: Artistic-2.0
+summary: Monitor data progress through a pipe
+web-url: https://www.ivarch.com/programs/pv.shtml
+src-url: https://www.ivarch.com/programs/sources/pv-1.8.10.tar.gz
+src-sha: d4c90c17cfcd44aa96b98237731e4f811e071d4c2052a689d2d81e6671f571b1
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: pybind11
 pkgtype: lib
 version: 2.12.0
@@ -9309,6 +9411,21 @@ src-sha: 5f156edb65d20b856d638dd9ee2dfb43285914d9aa2b6ec779dac0270cd56c3f
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: rancher
+pkgtype: pie
+version: 2.8.4
+license: Apache-2.0
+summary: Unified tool to manage your Rancher server
+web-url: https://github.com/rancher/cli
+git-url: https://github.com/rancher/cli
+src-url: https://github.com/rancher/cli/archive/refs/tags/v2.8.4.tar.gz
+src-sha: f576cb8210544db15f8e7e1a05d2b1ebd5a8d8f76add4067f66169aca86ffd78
+dep-upp: curl bsdtar golang
+bsystem: go
+binbstd: 1
 parallel: 1
 installed: no
 ---
@@ -9504,6 +9621,22 @@ src-sha: c537e8a53df36f1f996601d776203478ad56fab1d67b3c1a63057badb0851cec
 dep-pkg: readline
 dep-upp: curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autotools
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: rover
+pkgtype: exe
+version: 0.23.0
+license: MIT
+summary: CLI for managing and maintaining data graphs with Apollo Studio
+web-url: https://www.apollographql.com/docs/rover/
+git-url: https://github.com/apollographql/rover
+src-url: https://github.com/apollographql/rover/archive/refs/tags/v0.23.0.tar.gz
+src-sha: 0b6a968515e2684d64afe8715f74a7d351596a87001b9533f697ba187474b0cf
+dep-pkg: openssl-dev libz
+dep-upp: curl bsdtar
+bsystem: cargo
 binbstd: 1
 parallel: 1
 installed: no
@@ -10340,6 +10473,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: totp-cli
+pkgtype: pie
+version: 1.8.7
+license: MIT
+summary: Authy/Google Authenticator like TOTP CLI tool written in Go
+web-url: https://yitsushi.github.io/totp-cli/
+git-url: https://github.com/yitsushi/totp-cli
+src-url: https://github.com/yitsushi/totp-cli/archive/refs/tags/v1.8.7.tar.gz
+src-sha: d23554e785323cc6d4145b848fe140621f9bb6fc8809280235ed5f7aeb92e5fd
+dep-upp: curl bsdtar golang
+bsystem: go
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: tree
 pkgtype: exe
 version: 2.1.1
@@ -10841,6 +10989,22 @@ summary: Real-Time Communication
 web-url: https://webrtc.org/
 dep-upp: git gn ninja
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: websocat
+pkgtype: exe
+version: 1.13.0
+license: MIT
+summary: Command-line client for WebSockets
+web-url: https://github.com/vi/websocat
+git-url: https://github.com/vi/websocat
+src-url: https://github.com/vi/websocat/archive/refs/tags/v1.13.0.tar.gz
+src-sha: 43800f8df38ede8b5bffe825e633c0db6a3c36cfe26c23e882bcfc028d3119c7
+dep-pkg: openssl-dev
+dep-upp: curl bsdtar
+bsystem: cargo
+binbstd: 1
 parallel: 1
 installed: no
 ---
