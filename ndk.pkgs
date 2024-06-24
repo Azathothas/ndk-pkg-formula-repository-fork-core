@@ -5070,6 +5070,23 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libgsf
+pkgtype: lib
+version: 1.14.52
+license: LGPL-2.1-only
+summary: I/O abstraction library for dealing with structured file formats
+web-url: https://gitlab.gnome.org/GNOME/libgsf
+git-url: https://gitlab.gnome.org/GNOME/libgsf
+src-url: https://download.gnome.org/sources/libgsf/1.14/libgsf-1.14.52.tar.xz
+src-uri: https://distfiles.macports.org/libgsf/libgsf-1.14.52.tar.xz
+src-sha: 9181c914b9fac0e05d6bcaa34c7b552fe5fc0961d3c9f8c01ccc381fb084bcf0
+dep-pkg: glib libxml2 libbz2
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libharfbuzz
 pkgtype: lib
 version: 8.4.0
@@ -6564,6 +6581,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libspiro
+pkgtype: lib
+version: 20221101
+license: GPL-3.0-or-later
+summary: Library to simplify the drawing of curves
+web-url: https://github.com/fontforge/libspiro
+git-url: https://github.com/fontforge/libspiro
+src-url: https://github.com/fontforge/libspiro/releases/download/20221101/libspiro-dist-20221101.tar.gz
+src-sha: 5984fb5af3e4e1f927f3a74850b705a711fb86284802a5e6170b09786440e8be
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libspng
 pkgtype: lib
 version: 0.7.4
@@ -6934,6 +6966,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libuninameslist
+pkgtype: lib
+version: 20240524
+license: BSD-3-Clause
+summary: Library of Unicode names and annotation data
+web-url: https://github.com/fontforge/libuninameslist
+git-url: https://github.com/fontforge/libuninameslist
+src-url: https://github.com/fontforge/libuninameslist/releases/download/20240524/libuninameslist-dist-20240524.tar.gz
+src-sha: cb69d6b0b1bf896c98cd00497d3078be2d22b896b0dc7cba2bb3d6bc3172dac5
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libunistring
 pkgtype: lib
 version: 1.2
@@ -7186,6 +7233,22 @@ dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
 ccflags: -Wno-unused-but-set-variable
+parallel: 1
+installed: no
+---
+pkgname: libwmf
+pkgtype: lib
+version: 0.2.8.4
+license: LGPL-2.1-only
+summary: Library for converting WMF (Window Metafile Format) files
+web-url: https://wvware.sourceforge.net/libwmf.html
+src-url: https://downloads.sourceforge.net/project/wvware/libwmf/0.2.8.4/libwmf-0.2.8.4.tar.gz
+src-uri: https://distfiles.macports.org/libwmf/libwmf-0.2.8.4.tar.gz
+src-sha: 5b345c69220545d003ad52bfd035d5d6f4f075e65204114a9e875e84895a7cf8
+dep-pkg: gd
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -11083,6 +11146,36 @@ src-sha: 721ea7343698e9f3c69e09eab86b9b1fef828057655f7cebc1de728c2f75151e
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: wv
+pkgtype: exe
+version: 1.2.9
+license: GPL-2.0-or-later
+summary: Programs for accessing Microsoft Word documents
+web-url: https://wvware.sourceforge.net/
+src-url: https://abisource.com/downloads/wv/1.2.9/wv-1.2.9.tar.gz
+src-sha: 4c730d3b325c0785450dd3a043eeb53e1518598c4f41f155558385dd2635c19d
+dep-pkg: libgsf libwmf
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: wv2
+pkgtype: exe
+version: 0.4.2
+license: LGPL-2.0-only LGPL-2.0-or-later LGPL-2.1-only
+summary: Programs for accessing Microsoft Word documents
+web-url: https://wvware.sourceforge.net/
+src-url: https://downloads.sourceforge.net/project/wvware/wv2-0.4.2.tar.bz2
+src-sha: 9f2b6d3910cb0e29c9ff432f935a594ceec0101bca46ba2fc251aff251ee38dc
+dep-pkg: libgsf
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
 parallel: 1
 installed: no
 ---
