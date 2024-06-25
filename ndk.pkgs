@@ -7264,6 +7264,23 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libwv2
+pkgtype: lib
+version: 0.4.2
+license: LGPL-2.0-only LGPL-2.0-or-later LGPL-2.1-only
+summary: Programs for accessing Microsoft Word documents
+web-url: https://wvware.sourceforge.net/
+src-url: https://downloads.sourceforge.net/project/wvware/wv2-0.4.2.tar.bz2
+src-sha: 9f2b6d3910cb0e29c9ff432f935a594ceec0101bca46ba2fc251aff251ee38dc
+dep-pkg: libgsf
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+xxflags: -std=c++11
+ldflags: -liconv
+parallel: 1
+installed: no
+---
 pkgname: libx264
 pkgtype: lib
 version: r3108
@@ -11146,36 +11163,6 @@ src-sha: 721ea7343698e9f3c69e09eab86b9b1fef828057655f7cebc1de728c2f75151e
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
-parallel: 1
-installed: no
----
-pkgname: wv
-pkgtype: exe
-version: 1.2.9
-license: GPL-2.0-or-later
-summary: Programs for accessing Microsoft Word documents
-web-url: https://wvware.sourceforge.net/
-src-url: https://abisource.com/downloads/wv/1.2.9/wv-1.2.9.tar.gz
-src-sha: 4c730d3b325c0785450dd3a043eeb53e1518598c4f41f155558385dd2635c19d
-dep-pkg: libgsf libwmf
-dep-upp: curl bsdtar gmake gmake
-bsystem: configure
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: wv2
-pkgtype: exe
-version: 0.4.2
-license: LGPL-2.0-only LGPL-2.0-or-later LGPL-2.1-only
-summary: Programs for accessing Microsoft Word documents
-web-url: https://wvware.sourceforge.net/
-src-url: https://downloads.sourceforge.net/project/wvware/wv2-0.4.2.tar.bz2
-src-sha: 9f2b6d3910cb0e29c9ff432f935a594ceec0101bca46ba2fc251aff251ee38dc
-dep-pkg: libgsf
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
 parallel: 1
 installed: no
 ---
