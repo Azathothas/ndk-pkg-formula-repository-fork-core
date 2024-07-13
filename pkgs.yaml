@@ -2816,18 +2816,18 @@
   install: cargow install
 - pkgname: fsmon
   pkgtype: exe
-  version: 1.8.4
+  version: 1.8.6
   license: MIT
   summary: Filesystem monitor with fanotify and inotify backends
   web-url: https://github.com/nowsecure/fsmon
   git-url: https://github.com/nowsecure/fsmon
-  src-url: https://github.com/nowsecure/fsmon/archive/1.8.4.tar.gz
-  src-sha: 3e9ac1f20c76caf8d576535f21723419fe73bfe63178d306ea07f141f7dbaf0a
+  src-url: https://github.com/nowsecure/fsmon/archive/refs/tags/1.8.6.tar.gz
+  src-sha: 250df85b69328a43628cd88fc6df10596dd75e37ef59815e1f35e7818483e81d
   dep-upp: curl bsdtar gmake
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace 's|$(shell uname)|Linux|' Makefile
+  dopatch: sedInPlace 's|TARGET_TRIPLE|TARGET_MACHINE|' Makefile
   install: |-
     gmakew clean
     gmakew FANOTIFY_CFLAGS="'-DHAVE_FANOTIFY=1 -DHAVE_SYS_FANOTIFY=0'"
@@ -2891,6 +2891,20 @@
   install: |-
     gmakew clean
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR" LIBS=
+- pkgname: g
+  pkgtype: pie
+  version: 0.28.2
+  license: MIT
+  summary: Powerful and cross-platform ls
+  web-url: https://g.equationzhao.space
+  git-url: https://github.com/Equationzhao/g
+  src-url: https://github.com/Equationzhao/g/archive/refs/tags/v0.28.2.tar.gz
+  src-sha: 05df40665ea8c402c9d76b29269edb721758e9913bc03d173e7e84fa7a0a2ab6
+  dep-upp: curl bsdtar golang
+  bsystem: go
+  binbstd: "1"
+  parallel: "1"
+  install: gow
 - pkgname: garble
   pkgtype: pie
   version: 0.12.1
@@ -2905,6 +2919,20 @@
   binbstd: "1"
   parallel: "1"
   install: gow
+- pkgname: gat
+  pkgtype: pie
+  version: 0.17.0
+  license: MIT
+  summary: Cat alternative written in Go
+  web-url: https://github.com/koki-develop/gat
+  git-url: https://github.com/koki-develop/gat
+  src-url: https://github.com/koki-develop/gat/archive/refs/tags/v0.17.0.tar.gz
+  src-sha: 62c7509bee419f81af5d2f856f17ec98d65dd12212b3e361806cb2b6a22233b6
+  dep-upp: curl bsdtar golang
+  bsystem: go
+  binbstd: "1"
+  parallel: "1"
+  install: gow -X github.com/koki-develop/gat/cmd.version=v$PACKAGE_NAME
 - pkgname: gawk
   pkgtype: exe
   version: 5.3.0
@@ -3187,6 +3215,20 @@
   dotweak: |-
     rm -rf lib
     rm -rf include
+- pkgname: gf
+  pkgtype: pie
+  version: 2.7.2
+  license: MIT
+  summary: App development framework of Golang
+  web-url: https://goframe.org
+  git-url: https://github.com/gogf/gf
+  src-url: https://github.com/gogf/gf/archive/refs/tags/v2.7.2.tar.gz
+  src-sha: 1620df4e094a049edec788cd917bb8d117a6ec97800ce814eadddad30ef25245
+  dep-upp: curl bsdtar golang
+  bsystem: go
+  binbstd: "1"
+  parallel: "1"
+  install: gow
 - pkgname: gflags
   pkgtype: lib
   version: 2.2.2
@@ -3267,6 +3309,20 @@
         --without-x
     run make soclean
     run make install-so
+- pkgname: ghr
+  pkgtype: pie
+  version: 0.16.2
+  license: MIT
+  summary: Upload multiple artifacts to GitHub Release in parallel
+  web-url: https://tcnksm.github.io/ghr
+  git-url: https://github.com/tcnksm/ghr
+  src-url: https://github.com/tcnksm/ghr/archive/refs/tags/v0.16.2.tar.gz
+  src-sha: b4125f0cf58b1ad1d2ebdb708397a5d82e7f12f02222f7a3dff9c11d9e053654
+  dep-upp: curl bsdtar golang
+  bsystem: go
+  binbstd: "1"
+  parallel: "1"
+  install: gow
 - pkgname: gif
   pkgtype: exe
   version: 5.2.2
@@ -4230,6 +4286,21 @@
         --without-selinux \
         --disable-acl \
         --disable-gcc-warnings
+- pkgname: gtime
+  pkgtype: exe
+  version: "1.9"
+  license: GPL-3.0-or-later
+  summary: GNU implementation of time utility
+  web-url: https://www.gnu.org/software/time/
+  src-url: https://ftp.gnu.org/gnu/time/time-1.9.tar.gz
+  src-sha: fbacf0c81e62429df3e33bda4cee38756604f18e01d977338e23306a3e3b521e
+  dep-upp: curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  parallel: "1"
+  dopatch: sedInPlace '/config\.h/a \#include<string.h>' src/resuse.c
+  install: configure --program-prefix=g
+  dotweak: cd bin && ln -s gtime time
 - pkgname: gzip
   pkgtype: exe
   version: "1.13"
@@ -12180,6 +12251,27 @@
     run install_libs *.so
     run install_incs $PACKAGE_BSCRIPT_DIR/public/*.h
     run install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp
+- pkgname: pegof
+  pkgtype: exe
+  version: 2024.07.13
+  summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
+  web-url: https://github.com/dolik-rce/pegof
+  git-url: https://github.com/dolik-rce/pegof
+  git-sha: 06de1f60104b85f61c196aba8c349b2137f146e2
+  dep-upp: git cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  dopatch: |-
+    gsed -i '/add_executable(pegof_test/,$d' CMakeLists.txt
+
+    #gsed -i 's|-fsanitize=undefined|-fsanitize=undefined -static-libsan|' CMakeLists.txt
+
+    cat >> CMakeLists.txt <<EOF
+    include(GNUInstallDirs)
+    install(TARGETS pegof RUNTIME DESTINATION "\${CMAKE_INSTALL_BINDIR}")
+    EOF
+  install: cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: pget
   pkgtype: pie
   version: 0.2.1

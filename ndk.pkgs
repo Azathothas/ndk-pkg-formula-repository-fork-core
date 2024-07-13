@@ -2222,13 +2222,13 @@ installed: no
 ---
 pkgname: fsmon
 pkgtype: exe
-version: 1.8.4
+version: 1.8.6
 license: MIT
 summary: Filesystem monitor with fanotify and inotify backends
 web-url: https://github.com/nowsecure/fsmon
 git-url: https://github.com/nowsecure/fsmon
-src-url: https://github.com/nowsecure/fsmon/archive/1.8.4.tar.gz
-src-sha: 3e9ac1f20c76caf8d576535f21723419fe73bfe63178d306ea07f141f7dbaf0a
+src-url: https://github.com/nowsecure/fsmon/archive/refs/tags/1.8.6.tar.gz
+src-sha: 250df85b69328a43628cd88fc6df10596dd75e37ef59815e1f35e7818483e81d
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
@@ -2293,6 +2293,21 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
+pkgname: g
+pkgtype: pie
+version: 0.28.2
+license: MIT
+summary: Powerful and cross-platform ls
+web-url: https://g.equationzhao.space
+git-url: https://github.com/Equationzhao/g
+src-url: https://github.com/Equationzhao/g/archive/refs/tags/v0.28.2.tar.gz
+src-sha: 05df40665ea8c402c9d76b29269edb721758e9913bc03d173e7e84fa7a0a2ab6
+dep-upp: curl bsdtar golang
+bsystem: go
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: garble
 pkgtype: pie
 version: 0.12.1
@@ -2302,6 +2317,21 @@ web-url: https://github.com/burrowers/garble
 git-url: https://github.com/burrowers/garble
 src-url: https://github.com/burrowers/garble/archive/refs/tags/v0.12.1.tar.gz
 src-sha: 98ade316176d434f298bdb36e4c421e3c4c33668cfd2922d358f7f0403566500
+dep-upp: curl bsdtar golang
+bsystem: go
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: gat
+pkgtype: pie
+version: 0.17.0
+license: MIT
+summary: Cat alternative written in Go
+web-url: https://github.com/koki-develop/gat
+git-url: https://github.com/koki-develop/gat
+src-url: https://github.com/koki-develop/gat/archive/refs/tags/v0.17.0.tar.gz
+src-sha: 62c7509bee419f81af5d2f856f17ec98d65dd12212b3e361806cb2b6a22233b6
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -2495,6 +2525,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: gf
+pkgtype: pie
+version: 2.7.2
+license: MIT
+summary: App development framework of Golang
+web-url: https://goframe.org
+git-url: https://github.com/gogf/gf
+src-url: https://github.com/gogf/gf/archive/refs/tags/v2.7.2.tar.gz
+src-sha: 1620df4e094a049edec788cd917bb8d117a6ec97800ce814eadddad30ef25245
+dep-upp: curl bsdtar golang
+bsystem: go
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: gflags
 pkgtype: lib
 version: 2.2.2
@@ -2536,6 +2581,21 @@ src-sha: 854fd1958711b9b5108c052a6d552b906f1e3ebf3262763febf347d77618639d
 dep-pkg: jbig2dec libjpeg-turbo libidn libtesseract liblanginfo
 dep-upp: patch libz curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: ghr
+pkgtype: pie
+version: 0.16.2
+license: MIT
+summary: Upload multiple artifacts to GitHub Release in parallel
+web-url: https://tcnksm.github.io/ghr
+git-url: https://github.com/tcnksm/ghr
+src-url: https://github.com/tcnksm/ghr/archive/refs/tags/v0.16.2.tar.gz
+src-sha: b4125f0cf58b1ad1d2ebdb708397a5d82e7f12f02222f7a3dff9c11d9e053654
+dep-upp: curl bsdtar golang
+bsystem: go
 binbstd: 1
 parallel: 1
 installed: no
@@ -3282,6 +3342,20 @@ dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 api-min: 24
+parallel: 1
+installed: no
+---
+pkgname: gtime
+pkgtype: exe
+version: 1.9
+license: GPL-3.0-or-later
+summary: GNU implementation of time utility
+web-url: https://www.gnu.org/software/time/
+src-url: https://ftp.gnu.org/gnu/time/time-1.9.tar.gz
+src-sha: fbacf0c81e62429df3e33bda4cee38756604f18e01d977338e23306a3e3b521e
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -9039,6 +9113,19 @@ license: BSD-3-Clause
 summary: PDF read/write library by Google
 web-url: https://pdfium.googlesource.com/pdfium/
 dep-upp: git gn ninja python3
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: pegof
+pkgtype: exe
+version: 2024.07.13
+summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
+web-url: https://github.com/dolik-rce/pegof
+git-url: https://github.com/dolik-rce/pegof
+git-sha: 06de1f60104b85f61c196aba8c349b2137f146e2
+dep-upp: git cmake ninja
+bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no

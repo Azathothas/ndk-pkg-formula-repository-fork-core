@@ -2424,18 +2424,18 @@
   {
     "pkgname": "fsmon",
     "pkgtype": "exe",
-    "version": "1.8.4",
+    "version": "1.8.6",
     "license": "MIT",
     "summary": "Filesystem monitor with fanotify and inotify backends",
     "web-url": "https://github.com/nowsecure/fsmon",
     "git-url": "https://github.com/nowsecure/fsmon",
-    "src-url": "https://github.com/nowsecure/fsmon/archive/1.8.4.tar.gz",
-    "src-sha": "3e9ac1f20c76caf8d576535f21723419fe73bfe63178d306ea07f141f7dbaf0a",
+    "src-url": "https://github.com/nowsecure/fsmon/archive/refs/tags/1.8.6.tar.gz",
+    "src-sha": "250df85b69328a43628cd88fc6df10596dd75e37ef59815e1f35e7818483e81d",
     "dep-upp": "curl bsdtar gmake",
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "sedInPlace 's|$(shell uname)|Linux|' Makefile",
+    "dopatch": "sedInPlace 's|TARGET_TRIPLE|TARGET_MACHINE|' Makefile",
     "install": "gmakew clean\ngmakew FANOTIFY_CFLAGS=\"'-DHAVE_FANOTIFY=1 -DHAVE_SYS_FANOTIFY=0'\"\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -2501,6 +2501,22 @@
     "install": "gmakew clean\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\" LIBS="
   },
   {
+    "pkgname": "g",
+    "pkgtype": "pie",
+    "version": "0.28.2",
+    "license": "MIT",
+    "summary": "Powerful and cross-platform ls",
+    "web-url": "https://g.equationzhao.space",
+    "git-url": "https://github.com/Equationzhao/g",
+    "src-url": "https://github.com/Equationzhao/g/archive/refs/tags/v0.28.2.tar.gz",
+    "src-sha": "05df40665ea8c402c9d76b29269edb721758e9913bc03d173e7e84fa7a0a2ab6",
+    "dep-upp": "curl bsdtar golang",
+    "bsystem": "go",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "gow"
+  },
+  {
     "pkgname": "garble",
     "pkgtype": "pie",
     "version": "0.12.1",
@@ -2515,6 +2531,22 @@
     "binbstd": "1",
     "parallel": "1",
     "install": "gow"
+  },
+  {
+    "pkgname": "gat",
+    "pkgtype": "pie",
+    "version": "0.17.0",
+    "license": "MIT",
+    "summary": "Cat alternative written in Go",
+    "web-url": "https://github.com/koki-develop/gat",
+    "git-url": "https://github.com/koki-develop/gat",
+    "src-url": "https://github.com/koki-develop/gat/archive/refs/tags/v0.17.0.tar.gz",
+    "src-sha": "62c7509bee419f81af5d2f856f17ec98d65dd12212b3e361806cb2b6a22233b6",
+    "dep-upp": "curl bsdtar golang",
+    "bsystem": "go",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "gow -X github.com/koki-develop/gat/cmd.version=v$PACKAGE_NAME"
   },
   {
     "pkgname": "gawk",
@@ -2723,6 +2755,22 @@
     "dotweak": "rm -rf lib\nrm -rf include"
   },
   {
+    "pkgname": "gf",
+    "pkgtype": "pie",
+    "version": "2.7.2",
+    "license": "MIT",
+    "summary": "App development framework of Golang",
+    "web-url": "https://goframe.org",
+    "git-url": "https://github.com/gogf/gf",
+    "src-url": "https://github.com/gogf/gf/archive/refs/tags/v2.7.2.tar.gz",
+    "src-sha": "1620df4e094a049edec788cd917bb8d117a6ec97800ce814eadddad30ef25245",
+    "dep-upp": "curl bsdtar golang",
+    "bsystem": "go",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "gow"
+  },
+  {
     "pkgname": "gflags",
     "pkgtype": "lib",
     "version": "2.2.2",
@@ -2771,6 +2819,22 @@
     "dopatch": "rm -rf expat\nrm -rf freetype\nrm -rf jbig2dec\nrm -rf jpeg\nrm -rf lcms2mt\nrm -rf libpng\nrm -rf openjpeg\nrm -rf tiff\nrm -rf zlib\nrm -rf tesseract\n\n# https://bugs.ghostscript.com/show_bug.cgi?id=707649\npatch -p1 <<EOF\nFrom: Ken Sharp <Ken.Sharp@artifex.com>\nDate: Fri, 8 Mar 2024 09:19:05 +0000 (+0000)\nSubject: Bug #707649 - fix apply_sasl in error cases.\nX-Git-Tag: robin_test_ref~44\nX-Git-Url: https://git.ghostscript.com/?p=ghostpdl.git;a=commitdiff_plain;h=90cabe08422afdd16bac5dd9217602679d943045;hp=590626ae42ac1c1c288ea7558040d8f91a1b8d0d\n\nBug #707649 - fix apply_sasl in error cases.\n\nForgot to dereference the pointers before assigning the values, if we\nget non-fatal errors returned from stringprep.\n---\n\ndiff --git a/pdf/pdf_sec.c b/pdf/pdf_sec.c\nindex 565ae80ca..7e8f6719d 100644\n--- a/pdf/pdf_sec.c\n+++ b/pdf/pdf_sec.c\n@@ -183,8 +183,8 @@ static int apply_sasl(pdf_context *ctx, char *Password, int Len, char **NewPassw\n          * this easy: the errors we want to ignore are the ones with\n          * codes less than 100. */\n         if ((int)err < 100) {\n-            NewPassword = Password;\n-            NewLen = Len;\n+            *NewPassword = Password;\n+            *NewLen = Len;\n             return 0;\n         }\n \nEOF\n\nprintf '%s' '\nLS0tIC4vYmFzZS9nc2Vycm9ycy5oCTIwMTctMDMtMTYgMDk6MjA6MTEuMDAwMDAwMDAwICswMDAw\nCisrKyAuL2Jhc2UvZ3NlcnJvcnMuaAkyMDE3LTAzLTE4IDIxOjAyOjQ2LjU4NjczNzYyOSArMDAw\nMApAQCAtMTQ4LDE0ICsxNDgsMTQgQEAKICAqCiAgKi8KIAotI2lmbmRlZiBfX3ByaW50Zmxpa2UK\nKy8qIFJlZGVmaW5lIGNkZWZzLmgncyBfX3ByaW50Zmxpa2UgZnVuY3Rpb246ICovCisjdW5kZWYg\nX19wcmludGZsaWtlCiAjaWYgX19HTlVDX18gPiAyIHx8IF9fR05VQ19fID09IDIgJiYgX19HTlVD\nX01JTk9SX18gPj0gNwogI2RlZmluZSBfX3ByaW50Zmxpa2UoZm10YXJnLCBmaXJzdHZhcmFyZykg\nXAogICAgIF9fYXR0cmlidXRlX18oKF9fZm9ybWF0X18gKF9fcHJpbnRmX18sIGZtdGFyZywgZmly\nc3R2YXJhcmcpKSkKICNlbHNlCiAjZGVmaW5lIF9fcHJpbnRmbGlrZShmbXRhcmcsIGZpcnN0dmFy\nYXJnKQogI2VuZGlmCi0jZW5kaWYKIAogY29uc3QgY2hhciAqZ3NfZXJyc3RyKGludCBjb2RlKTsK\nIAo=' | base64 -d | patch -p0",
     "prepare": "HARFBUZZ_LIBS=\"$(pkg-config --libs-only-l harfbuzz)\"\n\nprintf 'INPUT(%s -lc++_shared)\\n' \"$HARFBUZZ_LIBS\" > ../lib/libpthread.a\n\nrun ln -s \"$PKG_CONFIG\" \"$TARGET_TRIPLE-pkg-config\"\n\nexport PATH=\"$PWD:$PATH\"\n\nexport CPPFLAGS=\"$CPPFLAGS -I$libfreetype_INCLUDE_DIR/freetype2\"\n\nexport LDFLAGS=\"$LDFLAGS -fopenmp -static-openmp\"\n\nexport ac_cv_lib_pthread_pthread_create=yes\n\nexport CCAUX=\"$CC_FOR_BUILD\"\nexport CFLAGSAUX=\"$CFLAGS_FOR_BUILD $LDFLAGS_FOR_BUILD\"\nexport CPPFLAGSAUX=\"$CPPFLAGS_FOR_BUILD\"\nexport LDFLAGSAUX=\"$LDFLAGS_FOR_BUILD\"",
     "install": "configure \\\n    --disable-compile-inits \\\n    --disable-cups \\\n    --disable-gtk \\\n    --with-system-libtiff \\\n    --without-x\nrun make soclean\nrun make install-so"
+  },
+  {
+    "pkgname": "ghr",
+    "pkgtype": "pie",
+    "version": "0.16.2",
+    "license": "MIT",
+    "summary": "Upload multiple artifacts to GitHub Release in parallel",
+    "web-url": "https://tcnksm.github.io/ghr",
+    "git-url": "https://github.com/tcnksm/ghr",
+    "src-url": "https://github.com/tcnksm/ghr/archive/refs/tags/v0.16.2.tar.gz",
+    "src-sha": "b4125f0cf58b1ad1d2ebdb708397a5d82e7f12f02222f7a3dff9c11d9e053654",
+    "dep-upp": "curl bsdtar golang",
+    "bsystem": "go",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "gow"
   },
   {
     "pkgname": "gif",
@@ -3588,6 +3652,23 @@
     "api-min": "24",
     "parallel": "1",
     "install": "export CPPFLAGS=\"$CPPFLAGS -D__USE_FORTIFY_LEVEL=0 -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE\"\n\nconfigure \\\n    --with-included-regex \\\n    --with-xattrs \\\n    --without-posix-acls \\\n    --without-selinux \\\n    --disable-acl \\\n    --disable-gcc-warnings"
+  },
+  {
+    "pkgname": "gtime",
+    "pkgtype": "exe",
+    "version": "1.9",
+    "license": "GPL-3.0-or-later",
+    "summary": "GNU implementation of time utility",
+    "web-url": "https://www.gnu.org/software/time/",
+    "src-url": "https://ftp.gnu.org/gnu/time/time-1.9.tar.gz",
+    "src-sha": "fbacf0c81e62429df3e33bda4cee38756604f18e01d977338e23306a3e3b521e",
+    "dep-upp": "curl bsdtar gmake gmake",
+    "bsystem": "configure",
+    "binbstd": "0",
+    "parallel": "1",
+    "dopatch": "sedInPlace '/config\\.h/a \\#include<string.h>' src/resuse.c",
+    "install": "configure --program-prefix=g",
+    "dotweak": "cd bin && ln -s gtime time"
   },
   {
     "pkgname": "gzip",
@@ -9871,6 +9952,21 @@
     "parallel": "1",
     "prepare": "NINJA=\"$(command -v ninja)\" || abort 1 'command not found: ninja'\n   GN=\"$(command -v gn)\"    || abort 1 'command not found: gn'\n\nrun cd ..\n\nrun git clone --depth=1 https://chromium.googlesource.com/chromium/tools/depot_tools.git\n\nexport PATH=\"$PWD/depot_tools:$PATH\"\nexport DEPOT_TOOLS_UPDATE=0\n\ncat >> .gclient <<EOF\nsolutions = [\n  { \"name\"        : 'src',\n    \"url\"         : 'https://pdfium.googlesource.com/pdfium.git',\n    \"deps_file\"   : 'DEPS',\n    \"managed\"     : False,\n    \"custom_deps\" : {},\n    \"custom_vars\": {},\n  },\n]\ntarget_os = ['android']\nEOF\n\nrun gclient sync --verbose\n\nrun cd -\n\nsedInPlace '/PNG_USE_READ_MACROS/a \"FPDFSDK_EXPORTS\",' BUILD.gn",
     "install": "case $TARGET_PLATFORM_ARCH in\n    armv7a)  GN_ARG_TARGET_CPU=arm   ;;\n    aarch64) GN_ARG_TARGET_CPU=arm64 ;;\n    i686)    GN_ARG_TARGET_CPU=x86   ;;\n    x86_64)  GN_ARG_TARGET_CPU=x64   ;;\nesac\n\nrun $GN gen . --root=\"$PACKAGE_BSCRIPT_DIR\"\n\ncat >> args.gn <<EOF\nis_debug=false\nis_component_build=true\nsymbol_level=1\npdf_is_standalone=true\npdf_enable_xfa=false\npdf_enable_v8=false\npdf_use_skia_paths=false\npdf_use_skia=false\ntarget_os=\"android\"\ntarget_cpu=\"$GN_ARG_TARGET_CPU\"\nEOF\n\nif [ \"$TARGET_PLATFORM_ARCH\" = 'armv7a' ] ; then\n    printf '%s\\n' 'arm_version=7' >> args.gn\nfi\n\nrun cat args.gn\n\nrun ninja\n\nrun install_bins pdfium_diff\nrun install_libs *.so\nrun install_incs $PACKAGE_BSCRIPT_DIR/public/*.h\nrun install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp"
+  },
+  {
+    "pkgname": "pegof",
+    "pkgtype": "exe",
+    "version": "2024.07.13",
+    "summary": "PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.",
+    "web-url": "https://github.com/dolik-rce/pegof",
+    "git-url": "https://github.com/dolik-rce/pegof",
+    "git-sha": "06de1f60104b85f61c196aba8c349b2137f146e2",
+    "dep-upp": "git cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "dopatch": "gsed -i '/add_executable(pegof_test/,$d' CMakeLists.txt\n\n#gsed -i 's|-fsanitize=undefined|-fsanitize=undefined -static-libsan|' CMakeLists.txt\n\ncat >> CMakeLists.txt <<EOF\ninclude(GNUInstallDirs)\ninstall(TARGETS pegof RUNTIME DESTINATION \"\\${CMAKE_INSTALL_BINDIR}\")\nEOF",
+    "install": "cmakew -DBUILD_SHARED_LIBS=OFF"
   },
   {
     "pkgname": "pget",
