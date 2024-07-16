@@ -782,7 +782,7 @@
     "binbstd": "1",
     "ccflags": "-Wno-ignored-optimization-argument -Wno-unused-command-line-argument -Wno-implicit-function-declaration",
     "parallel": "1",
-    "dopatch": "ln -s \"$ANDROID_NDK_CC\" ../bin/clang\n\nprintf '\\n' > ../include/ndk-pkg-common.h\n\nrun mv ../res/*.config busybox.config\n\ngsed -i \\\n    -e \"s|@TERMUX_PREFIX@|$PACKAGE_INSTALL_DIR|g\" \\\n    -e \"s|@TERMUX_SYSROOT@|$SYSROOT|g\" \\\n    -e \"s|@TERMUX_CFLAGS@|$CFLAGS|g\" \\\n    -e \"s|@TERMUX_LDFLAGS@|$LDFLAGS|g\" \\\n    -e \"s|@TERMUX_LDLIBS@|log|g\" \\\n    -e \"s|@TERMUX_HOST_PLATFORM@-||g\" \\\n    busybox.config\ngsed -i '/ CONFIG_STATIC_LIBGCC /c CONFIG_STATIC_LIBGCC=y' busybox.config\ngsed -i '/ CONFIG_STATIC /c CONFIG_STATIC=y' busybox.config\nmv busybox.config .config",
+    "dopatch": "ln -s \"$ANDROID_NDK_CC\" ../bin/clang\n\nprintf '\\n' > ../include/ndk-pkg-common.h\n\nrun mv ../res/*.config busybox.config\n\ngsed -i \\\n    -e \"s|@TERMUX_PREFIX@|$PACKAGE_INSTALL_DIR|g\" \\\n    -e \"s|@TERMUX_SYSROOT@|$SYSROOT|g\" \\\n    -e \"s|@TERMUX_CFLAGS@|$CFLAGS|g\" \\\n    -e \"s|@TERMUX_LDFLAGS@|$LDFLAGS|g\" \\\n    -e \"s|@TERMUX_LDLIBS@|c|g\" \\\n    -e \"s|@TERMUX_HOST_PLATFORM@-||g\" \\\n    busybox.config\ngsed -i '/ CONFIG_STATIC_LIBGCC /c CONFIG_STATIC_LIBGCC=y' busybox.config\ngsed -i '/ CONFIG_STATIC /c CONFIG_STATIC=y' busybox.config\nmv busybox.config .config",
     "install": "run gmake oldconfig\nrun gmake CC=\"$CC\" AS=\"$CC\" AR=\"$AR\" NM=\"$NM\" STRIP=\"$STRIP\" OBJCOPY=\"$OBJCOPY\" OBJDUMP=\"$OBJDUMP\" PKG_CONFIG=\"$PKG_CONFIG\" HOSTCC=\"$CC_FOR_BUILD\" HOSTCXX=\"$CXX_FOR_BUILD\" HOSTCFLAGS=\"'$CFLAGS_FOR_BUILD'\" HOSTCXXFLAGS=\"'$CXXFLAGS_FOR_BUILD'\"\ninstall_bins busybox"
   },
   {
