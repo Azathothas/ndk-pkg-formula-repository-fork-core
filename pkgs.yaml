@@ -8602,20 +8602,20 @@
   version: 3.46.0
   license: blessing
   summary: A small, fast, self-contained, high-reliability, full-featured, SQL database engine written in C
-  web-url: https://www.sqlite.org/
+  web-url: https://sqlite.org/
   git-url: https://github.com/sqlite/sqlite
-  src-url: https://www.sqlite.org/2024/sqlite-autoconf-3460000.tar.gz
-  src-sha: 6f8e6a7b335273748816f9b3b62bbdc372a889de8782d7f048c653a447417a7d
+  src-url: https://sqlite.org/2024/sqlite-amalgamation-3460000.zip
+  src-sha: 712a7d09d2a22652fb06a49af516e051979a3984adb067da86760e60ed51a7f5
   dep-upp: curl bsdtar
-  binbstd: "1"
+  binbstd: "0"
   parallel: "1"
   install: |-
-    run "$CC" -c "$CFLAGS" "$CPPFLAGS" -o sqlite3.o sqlite3.c
+    run "$CC" -c "$CFLAGS" "$CPPFLAGS" -o sqlite3.o ../sqlite3.c
     run "$CC" -shared "$LDFLAGS" -o libsqlite3.so sqlite3.o
     run "$AR" rsc libsqlite3.a sqlite3.o
 
-    install_incs *.h
-    install_libs libsqlite3.a libsqlite3.so
+    install_libs libsqlite3.*
+    install_incs ../*.h
   dotweak: |-
     install -d lib/pkgconfig
     cat >      lib/pkgconfig/sqlite3.pc <<EOF
@@ -12430,7 +12430,7 @@
   binbstd: "1"
   parallel: "1"
   install: |-
-    run $CC $CFLAGS $CPPFLAGS -DUSE_ZLIB $LDFLAGS -l:libz.a -o pngcheck pngcheck.c
+    run $CC $CFLAGS $CPPFLAGS -DUSE_ZLIB $LDFLAGS -lz -o pngcheck pngcheck.c
     install_bins pngcheck
     install_mans pngcheck.1
 - pkgname: pngquant
@@ -12460,7 +12460,7 @@
   binbstd: "1"
   parallel: "1"
   install: |-
-    run $CC $CFLAGS $CPPFLAGS -DUSE_ZLIB $LDFLAGS -l:libz.a -o pngsplit pngsplit.c
+    run $CC $CFLAGS $CPPFLAGS -DUSE_ZLIB $LDFLAGS -lz -o pngsplit pngsplit.c
     install_bins pngsplit
     install_mans pngsplit.1
 - pkgname: poco
