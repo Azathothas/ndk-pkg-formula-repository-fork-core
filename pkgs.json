@@ -808,14 +808,14 @@
     "summary": "Burrows–Wheeler-based data compression utilities with high compression ratio",
     "web-url": "https://sourceware.org/bzip2",
     "git-url": "https://sourceware.org/git/bzip2",
-    "src-url": "https://github.com/leleliu008/bzip2/archive/refs/tags/1.0.8.tar.gz",
-    "src-sha": "fb36d769189faaf841390fae88639fb02c79b87b0691a340fbbfc32b4f82b789",
+    "src-url": "https://github.com/leleliu008/bzip2/archive/refs/tags/1.0.8@2.tar.gz",
+    "src-sha": "13337d86c271b8e6f9cf4ea0b6fd6a1cd06b9b75c31fb4781ffbfcc6982c1bf0",
     "dep-upp": "curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "developer": "Julian Seward <jseward@acm.org>",
-    "install": "cmakew -DINSTALL_EXECUTABLES=ON -DINSTALL_LIBRARIES=OFF -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF"
+    "prepare": "CMAKE_BUILD_TARGETS='bz2-static bzip2 bzip2recover'\nCMAKE_INSTALL_COMPONENTS='bin man'",
+    "install": "cmakew"
   },
   {
     "pkgname": "caddy",
@@ -1936,6 +1936,22 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure"
+  },
+  {
+    "pkgname": "erdtree",
+    "pkgtype": "exe",
+    "version": "3.1.2",
+    "license": "MIT",
+    "summary": "Multi-threaded file-tree visualizer and disk usage analyzer",
+    "web-url": "https://github.com/solidiquis/erdtree",
+    "git-url": "https://github.com/solidiquis/erdtree",
+    "src-url": "https://github.com/solidiquis/erdtree/archive/refs/tags/v3.1.2.tar.gz",
+    "src-sha": "1758e7ad8f7be59bc3c6bda8b058097509f9db6f40ad57c4b0b361e3be439297",
+    "dep-upp": "curl bsdtar",
+    "bsystem": "cargo",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "cargow install"
   },
   {
     "pkgname": "esbuild",
@@ -4824,13 +4840,15 @@
     "summary": "Burrows–Wheeler-based data compression library with high compression ratio",
     "web-url": "https://sourceware.org/bzip2",
     "git-url": "https://sourceware.org/git/bzip2",
-    "src-url": "https://github.com/leleliu008/bzip2/archive/refs/tags/1.0.8.tar.gz",
-    "src-sha": "fb36d769189faaf841390fae88639fb02c79b87b0691a340fbbfc32b4f82b789",
+    "src-url": "https://github.com/leleliu008/bzip2/archive/refs/tags/1.0.8@2.tar.gz",
+    "src-sha": "13337d86c271b8e6f9cf4ea0b6fd6a1cd06b9b75c31fb4781ffbfcc6982c1bf0",
     "dep-upp": "curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DINSTALL_EXECUTABLES=OFF -DINSTALL_LIBRARIES=ON -DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=ON"
+    "developer": "Julian Seward <jseward@acm.org>",
+    "prepare": "CMAKE_BUILD_TARGETS='bz2-shared bz2-static'\nCMAKE_INSTALL_COMPONENTS='lib dev'",
+    "install": "cmakew"
   },
   {
     "pkgname": "libcaca",
@@ -8682,7 +8700,7 @@
     "summary": "A text-based web browser",
     "web-url": "https://invisible-island.net/lynx/",
     "src-url": "https://invisible-mirror.net/archives/lynx/tarballs/lynx2.8.9rel.1.tar.bz2",
-    "src-uri": "https://fossies.org/linux/www/lynx2.8.9rel.1.tar.bz2",
+    "src-uri": "https://distfiles.macports.org/lynx/lynx2.8.9rel.1.tar.bz2",
     "src-sha": "387f193d7792f9cfada14c60b0e5c0bff18f227d9257a39483e14fa1aaf79595",
     "dep-pkg": "openssl-dev ncurses libbz2 libz",
     "dep-upp": "openssl curl bsdtar gmake gmake",
@@ -11218,6 +11236,7 @@
     "binbstd": "1",
     "api-min": "24",
     "parallel": "1",
+    "prepare": "export RUSTUP_TOOLCHAIN=1.76",
     "install": "cargow install --locked --no-default-features"
   },
   {
