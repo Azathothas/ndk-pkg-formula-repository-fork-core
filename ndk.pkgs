@@ -652,15 +652,15 @@ parallel: 1
 installed: no
 ---
 pkgname: brotli
-pkgtype: exe+lib
+pkgtype: exe
 version: 1.1.0
 license: MIT
 summary: A generic-purpose lossless compression algorithm by Google
 web-url: https://github.com/google/brotli
 git-url: https://github.com/google/brotli
-src-url: https://github.com/google/brotli/archive/v1.1.0.tar.gz
+src-url: https://github.com/google/brotli/archive/refs/tags/v1.1.0.tar.gz
 src-sha: e720a6ca29428b803f4ad165371771f5398faba397edf6778837a18599ea13ff
-dep-upp: patch curl bsdtar cmake ninja
+dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
 parallel: 1
@@ -1318,7 +1318,7 @@ web-url: https://curl.haxx.se/
 git-url: https://github.com/curl/curl
 src-url: https://curl.haxx.se/download/curl-8.8.0.tar.bz2
 src-sha: 40d3792d38cfa244d8f692974a567e9a5f3387c547579f1124e95ea2a1020d0d
-dep-pkg: libnghttp2 libcares libzstd libz brotli openssl-dev
+dep-pkg: libnghttp2 libcares libzstd libz libbrotli openssl-dev
 dep-upp: perl curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -3673,8 +3673,9 @@ version: 1.12.2
 license: Imlib2
 summary: Image loading and rendering library
 web-url: https://sourceforge.net/projects/enlightenment/
-src-url: https://downloads.sourceforge.net/project/enlightenment/imlib2-src/1.12.2/imlib2-1.12.2.tar.gz
-src-sha: e96b43014ac9d61a0775e28a46cf7befbd49654705df845001e849e44839481b
+src-url: https://downloads.sourceforge.net/project/enlightenment/imlib2-src/1.12.2/imlib2-1.12.2.tar.xz
+src-uri: https://distfiles.macports.org/imlib2/imlib2-1.12.2.tar.xz
+src-sha: cc49931a20560968a8648c9ca079085976085ea96d59a01b1e17cb55af0ffe42
 dep-pkg: libjpeg-turbo libtiff libwebp libpng libgif libfreetype
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
@@ -4372,6 +4373,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libbrotli
+pkgtype: lib
+version: 1.1.0
+license: MIT
+summary: A generic-purpose lossless compression algorithm by Google
+web-url: https://github.com/google/brotli
+git-url: https://github.com/google/brotli
+src-url: https://github.com/google/brotli/archive/refs/tags/v1.1.0.tar.gz
+src-sha: e720a6ca29428b803f4ad165371771f5398faba397edf6778837a18599ea13ff
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libbthread
 pkgtype: lib
 version: 0.2
@@ -4430,7 +4446,6 @@ dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 ppflags: -DX_DISPLAY_MISSING
-ldflags: -lbz2 -lz -lm -lbrotlidec -lbrotlicommon -lpng -lfreetype
 parallel: 1
 installed: no
 ---
@@ -4638,7 +4653,7 @@ web-url: https://curl.haxx.se/
 git-url: https://github.com/curl/curl
 src-url: https://curl.haxx.se/download/curl-8.8.0.tar.bz2
 src-sha: 40d3792d38cfa244d8f692974a567e9a5f3387c547579f1124e95ea2a1020d0d
-dep-pkg: libnghttp2 libcares libzstd libz brotli openssl-dev
+dep-pkg: libnghttp2 libcares libzstd libz libbrotli openssl-dev
 dep-upp: perl curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -4942,7 +4957,7 @@ web-url: https://freetype.org/
 git-url: https://gitlab.freedesktop.org/freetype/freetype
 src-url: https://downloads.sourceforge.net/project/freetype/freetype2/2.13.2/freetype-2.13.2.tar.xz
 src-sha: 12991c4e55c506dd7f9b765933e62fd2be2e06d421505d7950a132e4f1bb484d
-dep-pkg: brotli libbz2 libpng
+dep-pkg: libbrotli libbz2 libpng
 dep-upp: curl bsdtar python3 ninja
 dep-pym: meson
 bsystem: meson
@@ -5514,7 +5529,7 @@ web-url: https://jpeg.org/jpegxl/index.html
 git-url: https://github.com/libjxl/libjxl
 src-url: https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.2.tar.gz
 src-sha: 95e807f63143856dc4d161c071cca01115d2c6405b3d3209854ac6989dc6bb91
-dep-pkg: libjpeg-turbo libwebp libpng libgif liblcms2 libhwy openexr brotli
+dep-pkg: libjpeg-turbo libwebp libpng libgif liblcms2 libbrotli libhwy openexr
 dep-upp: git curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -6330,6 +6345,22 @@ src-sha: 04db2d1c8dc0d5a006971bb138aa71d4a944275dde8dbf952ad8b59bf499aba1
 dep-pkg: libintl readline icu4c libxml2 libcurl libgmp libmpfr libbthread
 dep-upp: gettext-tools perl intltool patch curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libqpdf
+pkgtype: lib
+version: 11.9.1
+license: Apache-2.0
+summary: A C++ library that performs content-preserving transformations on PDF files
+web-url: https://github.com/qpdf/qpdf
+git-url: https://github.com/qpdf/qpdf
+src-url: https://github.com/qpdf/qpdf/releases/download/v11.9.1/qpdf-11.9.1.tar.gz
+src-sha: 2ba4d248f9567a27c146b9772ef5dc93bd9622317978455ffe91b259340d13d1
+dep-pkg: libjpeg-turbo openssl-dev libz
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no
@@ -9557,12 +9588,12 @@ pkgname: qpdf
 pkgtype: exe
 version: 11.9.1
 license: Apache-2.0
-summary: A command-line tool and C++ library that performs content-preserving transformations on PDF files
+summary: A command-line tool that performs content-preserving transformations on PDF files
 web-url: https://github.com/qpdf/qpdf
 git-url: https://github.com/qpdf/qpdf
 src-url: https://github.com/qpdf/qpdf/releases/download/v11.9.1/qpdf-11.9.1.tar.gz
 src-sha: 2ba4d248f9567a27c146b9772ef5dc93bd9622317978455ffe91b259340d13d1
-dep-pkg: libjpeg-turbo libz openssl-dev
+dep-pkg: libjpeg-turbo openssl-dev libz
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
