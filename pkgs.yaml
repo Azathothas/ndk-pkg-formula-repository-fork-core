@@ -13478,8 +13478,7 @@
   bsystem: cargo
   binbstd: "1"
   parallel: "1"
-  prepare: export RUSTUP_TOOLCHAIN=1.77
-  install: cargow install
+  install: cargow install --locked
 - pkgname: rsass
   pkgtype: exe
   version: 0.23.0
