@@ -6028,20 +6028,21 @@
   },
   {
     "pkgname": "libjpeg-turbo",
-    "pkgtype": "exe+lib",
-    "version": "3.0.2",
+    "pkgtype": "lib",
+    "version": "3.0.3",
     "license": "IJG",
     "summary": "A high-performance JPEG image codec that uses SIMD instructions (MMX, SSE2, AVX2, Neon, AltiVec) to accelerate baseline JPEG compression and decompression",
     "web-url": "https://www.libjpeg-turbo.org/",
     "git-url": "https://github.com/libjpeg-turbo/libjpeg-turbo",
-    "src-url": "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.2/libjpeg-turbo-3.0.2.tar.gz",
-    "src-uri": "https://downloads.sourceforge.net/project/libjpeg-turbo/3.0.2/libjpeg-turbo-3.0.2.tar.gz",
-    "src-sha": "c2ce515a78d91b09023773ef2770d6b0df77d674e144de80d63e0389b3a15ca6",
+    "src-url": "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.0.3/libjpeg-turbo-3.0.3.tar.gz",
+    "src-uri": "https://distfiles.macports.org/libjpeg-turbo/libjpeg-turbo-3.0.3.tar.gz",
+    "src-sha": "343e789069fc7afbcdfe44dbba7dbbf45afa98a15150e079a38e60e44578865d",
     "dep-upp": "nasm curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DENABLE_STATIC=ON \\\n    -DENABLE_SHARED=ON \\\n    -DWITH_JAVA=OFF"
+    "prepare": "CMAKE_INSTALL_COMPONENTS='lib include'",
+    "install": "cmakew \\\n    -DWITH_JAVA=OFF \\\n    -DENABLE_STATIC=ON \\\n    -DENABLE_SHARED=ON"
   },
   {
     "pkgname": "libjxl",
@@ -6880,6 +6881,24 @@
     "ldflags": "-Wl,--undefined-version",
     "parallel": "1",
     "install": "configure"
+  },
+  {
+    "pkgname": "libproj",
+    "pkgtype": "lib",
+    "version": "9.4.1",
+    "license": "MIT",
+    "summary": "Cartographic Projections Library",
+    "web-url": "https://proj.org/",
+    "git-url": "https://github.com/OSGeo/PROJ",
+    "src-url": "https://github.com/OSGeo/PROJ/releases/download/9.4.1/proj-9.4.1.tar.gz",
+    "src-sha": "ffe20170ee2b952207adf8a195e2141eab12cda181e49fdeb54425d98c7171d7",
+    "dep-pkg": "libsqlite3 libtiff libcurl",
+    "dep-upp": "sqlite3 curl bsdtar cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "dopatch": "sedInPlace '/add_subdirectory(man)/d' CMakeLists.txt",
+    "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON\ncmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF"
   },
   {
     "pkgname": "libprotobuf",
@@ -10293,7 +10312,7 @@
   },
   {
     "pkgname": "proj",
-    "pkgtype": "lib",
+    "pkgtype": "exe",
     "version": "9.4.1",
     "license": "MIT",
     "summary": "Cartographic Projections Library",
@@ -10301,13 +10320,14 @@
     "git-url": "https://github.com/OSGeo/PROJ",
     "src-url": "https://github.com/OSGeo/PROJ/releases/download/9.4.1/proj-9.4.1.tar.gz",
     "src-sha": "ffe20170ee2b952207adf8a195e2141eab12cda181e49fdeb54425d98c7171d7",
-    "dep-pkg": "libsqlite3 libtiff libcurl nlohmann-json",
+    "dep-pkg": "libsqlite3 libtiff libcurl",
     "dep-upp": "sqlite3 curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "# https://cmake.org/cmake/help/latest/module/FindCURL.html\nprintf '%s\\n' '\nif (CURL_INCLUDE_DIRS AND CURL_LIBRARIES)\n    set(CURL_FOUND TRUE)\nelse()\n    pkg_check_modules(PKG_CONFIG_CURL QUIET libcurl)\n\n    message(\"PKG_CONFIG_CURL_FOUND=${PKG_CONFIG_CURL_FOUND}\")\n    message(\"PKG_CONFIG_CURL_INCLUDE_DIRS=${PKG_CONFIG_CURL_INCLUDE_DIRS}\")\n    message(\"PKG_CONFIG_CURL_LIBRARY_DIRS=${PKG_CONFIG_CURL_LIBRARY_DIRS}\")\n    message(\"PKG_CONFIG_CURL_INCLUDEDIR=${PKG_CONFIG_CURL_INCLUDEDIR}\")\n    message(\"PKG_CONFIG_CURL_LIBDIR=${PKG_CONFIG_CURL_LIBDIR}\")\n    message(\"PKG_CONFIG_CURL_VERSION=${PKG_CONFIG_CURL_VERSION}\")\n    message(\"PKG_CONFIG_CURL_LIBRARIES=${PKG_CONFIG_CURL_LIBRARIES}\")\n    message(\"PKG_CONFIG_CURL_LINK_LIBRARIES=${PKG_CONFIG_CURL_LINK_LIBRARIES}\")\n\n    if (PKG_CONFIG_CURL_FOUND)\n        if (PKG_CONFIG_CURL_INCLUDE_DIRS)\n            set(CURL_INCLUDE_DIRS \"${PKG_CONFIG_CURL_INCLUDE_DIRS}\")\n        elseif (PKG_CONFIG_CURL_INCLUDEDIR)\n            set(CURL_INCLUDE_DIRS \"${PKG_CONFIG_CURL_INCLUDEDIR}\")\n        else()\n            find_path(CURL_INCLUDE_DIRS curl/curl.h)\n        endif()\n\n        # https://sourceware.org/bugzilla/show_bug.cgi?id=21264\n\n        set(CURL_LIBRARIES )\n\n        foreach(item ${PKG_CONFIG_CURL_LINK_LIBRARIES})\n                if(item MATCHES \"/.*libm\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-lm\")\n            elseif(item MATCHES \"/.*libdl\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-ldl\")\n            elseif(item MATCHES \"/.*librt\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-lrt\")\n            elseif(item MATCHES \"/.*libpthread\\\\.(a|so|dylib)\")\n                list(APPEND CURL_LIBRARIES \"-lpthread\")\n            elseif(item MATCHES \"/.*\\\\.framework\")\n                get_filename_component(LIBRARY_FILENAME_PREFIX ${item} NAME_WLE)\n                message(STATUS \"${LIBRARY_FILENAME_PREFIX}\")\n                list(APPEND CURL_LIBRARIES \"-framework ${LIBRARY_FILENAME_PREFIX}\")\n            elseif(item MATCHES \"-framework .*\")\n                list(APPEND CURL_LIBRARIES \"${item}\")\n            elseif(item MATCHES \"/.*\")\n                get_filename_component(LIBRARY_FILENAME ${item} NAME)\n\n                message(STATUS \"${LIBRARY_FILENAME}\")\n\n                if (NOT TARGET  CURL::${LIBRARY_FILENAME})\n                    add_library(CURL::${LIBRARY_FILENAME} UNKNOWN IMPORTED)\n                    set_target_properties(CURL::${LIBRARY_FILENAME} PROPERTIES IMPORTED_LOCATION \"${item}\")\n                endif()\n\n                list(APPEND CURL_LIBRARIES CURL::${LIBRARY_FILENAME})\n            endif()\n        endforeach()\n\n        if (NOT TARGET  CURL::libcurl)\n            add_library(CURL::libcurl INTERFACE IMPORTED)\n            set_target_properties(CURL::libcurl PROPERTIES\n                INTERFACE_INCLUDE_DIRECTORIES \"${CURL_INCLUDE_DIRS}\"\n                INTERFACE_LINK_LIBRARIES      \"${CURL_LIBRARIES}\"\n            )\n        endif()\n\n        if (PKG_CONFIG_CURL_VERSION)\n            set(CURL_VERSION_STRING ${PKG_CONFIG_CURL_VERSION})\n        endif()\n    endif()\nendif()\n\ninclude(FindPackageHandleStandardArgs)\nfind_package_handle_standard_args(CURL REQUIRED_VARS CURL_LIBRARIES CURL_INCLUDE_DIRS VERSION_VAR CURL_VERSION)\n\nmark_as_advanced(CURL_INCLUDE_DIRS CURL_LIBRARIES)\n' > cmake/FindCURL.cmake\n\n\n# https://cmake.org/cmake/help/latest/module/FindTIFF.html\ncat > cmake/FindTIFF.cmake <<EOF\nif (TIFF_INCLUDE_DIRS AND TIFF_LIBRARIES)\n    set(TIFF_FOUND TRUE)\nelse()\n    include(FindPkgConfig)\n    pkg_check_modules(PKG_CONFIG_TIFF QUIET libtiff-4)\n\n    if (PKG_CONFIG_TIFF_FOUND)\n        if (PKG_CONFIG_TIFF_INCLUDE_DIRS)\n            set(TIFF_INCLUDE_DIRS \"\\${PKG_CONFIG_TIFF_INCLUDE_DIRS}\")\n        elseif (PKG_CONFIG_TIFF_INCLUDEDIR)\n            set(TIFF_INCLUDE_DIRS \"\\${PKG_CONFIG_TIFF_INCLUDEDIR}\")\n        else()\n            find_path(TIFF_INCLUDE_DIRS tiff.h)\n        endif()\n\n        set(TIFF_LIBRARIES )\n\n        message(\"PKG_CONFIG_TIFF_LINK_LIBRARIES=\\${PKG_CONFIG_TIFF_LINK_LIBRARIES}\")\n\n        foreach(item \\${PKG_CONFIG_TIFF_LINK_LIBRARIES})\n            # https://sourceware.org/bugzilla/show_bug.cgi?id=21264\n                if(item MATCHES \".*libm\\\\.a\")\n            elseif(item MATCHES \".*libpthread\\\\.a\")\n            elseif(item MATCHES \"/.*\")\n                get_filename_component(LIBRARY_FILENAME \\${item} NAME)\n\n                if (NOT TARGET  TIFF::\\${LIBRARY_FILENAME})\n                    add_library(TIFF::\\${LIBRARY_FILENAME} UNKNOWN IMPORTED)\n                    set_target_properties(TIFF::\\${LIBRARY_FILENAME} PROPERTIES IMPORTED_LOCATION \"\\${item}\")\n                endif()\n\n                list(APPEND TIFF_LIBRARIES TIFF::\\${LIBRARY_FILENAME})\n            endif()\n        endforeach()\n\n        if (NOT TARGET  TIFF::TIFF)\n            add_library(TIFF::TIFF INTERFACE IMPORTED)\n            set_target_properties(TIFF::TIFF PROPERTIES\n                INTERFACE_INCLUDE_DIRECTORIES \"\\${TIFF_INCLUDE_DIRS}\"\n                INTERFACE_LINK_LIBRARIES      \"\\${TIFF_LIBRARIES}\"\n            )\n        endif()\n\n        if (PKG_CONFIG_TIFF_VERSION)\n            set(TIFF_VERSION \\${PKG_CONFIG_TIFF_VERSION})\n        endif()\n    endif()\nendif()\n\ninclude(FindPackageHandleStandardArgs)\nfind_package_handle_standard_args(TIFF REQUIRED_VARS TIFF_LIBRARIES TIFF_INCLUDE_DIRS VERSION_VAR TIFF_VERSION)\n\nmark_as_advanced(TIFF_INCLUDE_DIRS TIFF_LIBRARIES)\nEOF",
-    "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_TESTING=OFF"
+    "dopatch": "# https://cmake.org/cmake/help/latest/module/FindTIFF.html\nTIFF_LIBRARIES=\"$(pkg-config --libs-only-l libtiff-4 | tr ' ' ';')\"\n\ncat > cmake/FindTIFF.cmake <<EOF\nset(TIFF_FOUND TRUE)\n\nadd_library(TIFF::TIFF INTERFACE IMPORTED)\nset_target_properties(TIFF::TIFF PROPERTIES\n    INTERFACE_INCLUDE_DIRECTORIES \"$libtiff_INCLUDE_DIR\"\n    INTERFACE_LINK_LIBRARIES      \"$TIFF_LIBRARIES\"\n)\nEOF\n\n# # https://cmake.org/cmake/help/latest/module/FindCURL.html\nCURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl | tr ' ' ';')\"\n\ncat > cmake/FindCURL.cmake <<EOF\nset(CURL_FOUND TRUE)\n\nadd_library(CURL::libcurl INTERFACE IMPORTED)\nset_target_properties(CURL::libcurl PROPERTIES\n    INTERFACE_INCLUDE_DIRECTORIES \"$libcurl_INCLUDE_DIR\"\n    INTERFACE_LINK_LIBRARIES      \"$CURL_LIBRARIES\"\n)\nEOF",
+    "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=ON  -DBUILD_SHARED_LIBS=OFF",
+    "dotweak": "rm -rf include/\nrm -rf lib/"
   },
   {
     "pkgname": "proj7",
