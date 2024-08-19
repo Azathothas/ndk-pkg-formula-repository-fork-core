@@ -6781,6 +6781,22 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libsrt
+pkgtype: lib
+version: 1.5.3
+license: MPL-2.0
+summary: Secure Reliable Transport
+web-url: https://www.srtalliance.org/
+git-url: https://github.com/Haivision/srt
+src-url: https://github.com/Haivision/srt/archive/refs/tags/v1.5.3.tar.gz
+src-sha: befaeb16f628c46387b898df02bc6fba84868e86a6f6d8294755375b9932d777
+dep-pkg: openssl-dev
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libsrtp
 pkgtype: lib
 version: 2.6.0

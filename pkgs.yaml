@@ -5538,10 +5538,10 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
+  dopatch: sedInPlace 's/RUNTIME DESTINATION/RUNTIME EXCLUDE_FROM_ALL DESTINATION/' CMakeLists.txt
   install: |-
     cmakew -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_SHARED_LIBS=ON
-  dotweak: rm -rf bin/
 - pkgname: libbthread
   pkgtype: lib
   version: "0.2"
@@ -8675,6 +8675,34 @@
     Cflags: -I\${includedir}
     Libs: -L\${libdir} -lsqlite3 -lm
     EOF
+- pkgname: libsrt
+  pkgtype: lib
+  version: 1.5.3
+  license: MPL-2.0
+  summary: Secure Reliable Transport
+  web-url: https://www.srtalliance.org/
+  git-url: https://github.com/Haivision/srt
+  src-url: https://github.com/Haivision/srt/archive/refs/tags/v1.5.3.tar.gz
+  src-sha: befaeb16f628c46387b898df02bc6fba84868e86a6f6d8294755375b9932d777
+  dep-pkg: openssl-dev
+  dep-upp: curl bsdtar cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  dopatch: |-
+    sedInPlace 's|RUNTIME DESTINATION|RUNTIME EXCLUDE_FROM_ALL DESTINATION|' CMakeLists.txt
+    sedInPlace 's|scripts/srt-ffplay|scripts/srt-ffplay EXCLUDE_FROM_ALL|'   CMakeLists.txt
+  install: |-
+    cmakew \
+        -DENABLE_APPS=OFF \
+        -DENABLE_STATIC=ON \
+        -DENABLE_SHARED=ON \
+        -DENABLE_UNITTESTS=OFF \
+        -DWITH_OPENSSL_INCLUDEDIR=$openssl_dev_INSTALL_DIR/include \
+        -DWITH_OPENSSL_LIBDIR=$openssl_dev_INSTALL_DIR/lib \
+        -DCMAKE_INSTALL_BINDIR=bin \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DCMAKE_INSTALL_INCLUDEDIR=include
 - pkgname: libsrtp
   pkgtype: lib
   version: 2.6.0
