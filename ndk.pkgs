@@ -2591,6 +2591,7 @@ version: 10.03.0
 license: AGPL-3.0-or-later
 summary: Interpreter for PostScript and PDF
 web-url: https://www.ghostscript.com/
+git-url: https://github.com/ArtifexSoftware/ghostpdl-downloads
 src-url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10030/ghostpdl-10.03.0.tar.xz
 src-sha: 854fd1958711b9b5108c052a6d552b906f1e3ebf3262763febf347d77618639d
 dep-pkg: jbig2dec libjpeg-turbo libidn libtesseract liblanginfo
@@ -3720,6 +3721,7 @@ version: 0.1.0
 license: MIT
 summary: A invoice generator
 web-url: https://github.com/maaslalani/invoice
+git-url: https://github.com/maaslalani/invoice
 src-url: https://github.com/maaslalani/invoice/archive/refs/tags/v0.1.0.tar.gz
 src-sha: f34f20f6491f42c0e94dbde433a578f0dba98938f2e3186018d3e16d050abdaf
 dep-upp: curl bsdtar golang
@@ -6575,6 +6577,7 @@ version: 0.2.2
 license: BSD-2-Clause
 summary: Library for sample rate conpackage set version of audio data
 web-url: https://github.com/libsndfile/libsamplerate
+git-url: https://github.com/libsndfile/libsamplerate
 src-url: https://github.com/libsndfile/libsamplerate/archive/0.2.2.tar.gz
 src-sha: 16e881487f184250deb4fcb60432d7556ab12cb58caea71ef23960aec6c0405a
 dep-upp: curl bsdtar cmake ninja
@@ -6618,6 +6621,7 @@ version: 3.9.4
 license: Apache-2.0
 summary: SIMD-accelerated C++ JSON parser
 web-url: https://simdjson.org
+git-url: https://github.com/simdjson/simdjson
 src-url: https://github.com/simdjson/simdjson/archive/refs/tags/v3.9.4.tar.gz
 src-sha: 9bf13be00fa1e1c5891a90dbc39b983e09972f0972a8956c20a9974cedfcca2f
 dep-upp: curl bsdtar cmake ninja
@@ -9836,6 +9840,7 @@ version: 0.42.0
 license: MPL-2.0
 summary: A command-line tool to convert SVG to PNG
 web-url: https://github.com/RazrFalcon/resvg
+git-url: https://github.com/RazrFalcon/resvg
 src-url: https://github.com/RazrFalcon/resvg/archive/refs/tags/v0.42.0.tar.gz
 src-sha: 277ae58105d96e6ed6b22df75fab4eb93c3802623d675b9f4970a64e00c2a1e4
 dep-upp: curl bsdtar
@@ -10745,6 +10750,7 @@ version: 3.8.1
 license: MIT
 summary: A header-only C++11 (or later) library for parsing TOML
 web-url: https://github.com/ToruNiina/toml11
+git-url: https://github.com/ToruNiina/toml11
 src-url: https://github.com/ToruNiina/toml11/archive/refs/tags/v3.8.1.tar.gz
 src-sha: 6a3d20080ecca5ea42102c078d3415bef80920f6c4ea2258e87572876af77849
 dep-upp: curl bsdtar cmake ninja
