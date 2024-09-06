@@ -1055,8 +1055,8 @@ pkgtype: exe
 version: 2.0
 license: GPL-3.0-or-later
 summary: A command-line tool for producing a Matrix-style animation
-web-url: https://github.com/abishekvashok/cmatrix/
-git-url: https://github.com/abishekvashok/cmatrix/
+web-url: https://github.com/abishekvashok/cmatrix
+git-url: https://github.com/abishekvashok/cmatrix
 src-url: https://github.com/abishekvashok/cmatrix/archive/refs/tags/v2.0.tar.gz
 src-sha: ad93ba39acd383696ab6a9ebbed1259ecf2d3cf9f49d6b97038c66f80749e99a
 dep-pkg: ncurses
@@ -1133,8 +1133,8 @@ pkgtype: lib
 version: 2.10.19
 license: MIT
 summary: A C++ library for cloud-based client-server communication
-web-url: https://github.com/Microsoft/cpprestsdk
-git-url: https://github.com/Microsoft/cpprestsdk
+web-url: https://github.com/microsoft/cpprestsdk
+git-url: https://github.com/microsoft/cpprestsdk
 src-url: https://github.com/microsoft/cpprestsdk/archive/refs/tags/v2.10.19.tar.gz
 src-sha: 4b0d14e5bfe77ce419affd253366e861968ae6ef2c35ae293727c1415bd145c8
 dep-pkg: websocketpp openssl-dev boost libz
@@ -8093,6 +8093,20 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: mawk
+pkgtype: exe
+version: 1.3.4
+license: GPL-2.0
+summary: Interpreter for the AWK Programming Language
+web-url: https://invisible-island.net/mawk/
+src-url: https://invisible-island.net/archives/mawk/mawk-1.3.4-20200120.tgz
+src-sha: 7fd4cd1e1fae9290fe089171181bbc6291dfd9bca939ca804f0ddb851c8b8237
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: mbedtls
 pkgtype: exe+lib
 version: 3.6.0
@@ -8856,7 +8870,7 @@ version: 0.65.0
 license: Apache-2.0
 summary: Open source, general-purpose policy engine
 web-url: https://www.openpolicyagent.org
-git-url: https://github.com/open-policy-agent/opa.git
+git-url: https://github.com/open-policy-agent/opa
 src-url: https://github.com/open-policy-agent/opa/archive/refs/tags/v0.65.0.tar.gz
 src-sha: 996ff51dc0c86cd0e330e7017313d24b1f35436c9c569701c24952087d301122
 dep-upp: curl bsdtar golang
@@ -9072,8 +9086,8 @@ pkgtype: exe
 version: 17.05
 license: LGPL-2.1-or-later
 summary: 7-Zip (high compression file archiver) implementation
-web-url: https://github.com/jinfeihan57/p7zip
-git-url: https://github.com/jinfeihan57/p7zip
+web-url: https://github.com/p7zip-project/p7zip
+git-url: https://github.com/p7zip-project/p7zip
 src-url: https://github.com/p7zip-project/p7zip/archive/v17.05.tar.gz
 src-sha: d2788f892571058c08d27095c22154579dfefb807ebe357d145ab2ddddefb1a6
 dep-pkg: libiconv
@@ -9482,7 +9496,7 @@ version: 5.1.107
 license: GPL-2.0-or-later
 summary: A user-space implementation of chroot, mount --bind, and binfmt_misc
 web-url: https://proot-me.github.io
-git-url: https://github.com/proot-me/proot
+git-url: https://github.com/termux/proot
 src-url: https://github.com/termux/proot/archive/8f67d6c7fadb445b7a528020d05e72dba717c5b9.tar.gz
 src-sha: 6570eae1752e7f19abf1417de8ccb0329a8c0ed63b1e7a70ef5d07a945af1dd5
 dep-pkg: libtalloc

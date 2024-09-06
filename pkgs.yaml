@@ -23,7 +23,7 @@
   binbstd: "0"
   ppflags: -include stdlib.h -include string.h
   parallel: "1"
-  dopatch: sedInPlace '203c return 0;' src/aalinuxkbd.c
+  dopatch: gsed -i '203c return 0;' src/aalinuxkbd.c
   install: configure --without-x --with-ncurses="$ncurses_INSTALL_DIR"
 - pkgname: abseil
   pkgtype: lib
@@ -319,7 +319,7 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace 's|$(HOSTCC) $(CFLAGS)|$(HOSTCC) $(HOSTCFLAGS)|' makefile
+  dopatch: gsed -i 's|$(HOSTCC) $(CFLAGS)|$(HOSTCC) $(HOSTCFLAGS)|' makefile
   install: |-
     gmakew clean
     gmakew CC="$CC" CFLAGS="'$CFLAGS'" HOSTCC="$CC_FOR_BUILD" HOSTCFLAGS="'$CFLAGS_FOR_BUILD $CPPFLAGS_FOR_BUILD'"
@@ -436,8 +436,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/strip/c message("--")' CMakeLists.txt
-    sedInPlace '/set(CMAKE_CXX_FLAGS/c set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")' CMakeLists.txt
+    gsed -i '/strip/c message("--")' CMakeLists.txt
+    gsed -i '/set(CMAKE_CXX_FLAGS/c set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")' CMakeLists.txt
   install: cmakew
 - pkgname: bat
   pkgtype: exe
@@ -520,7 +520,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's| install_docs||' Makefile.in
+  dopatch: gsed -i 's| install_docs||' Makefile.in
   install: |-
     configure \
         --enable-cxx=no \
@@ -577,7 +577,7 @@
   dopatch: |-
     for MAKEFILE_AM in $(find lib -name "Makefile.in")
     do
-        sedInPlace 's|-release "$(PACKAGE_VERSION)"||' "$MAKEFILE_AM"
+        gsed -i 's|-release "$(PACKAGE_VERSION)"||' "$MAKEFILE_AM"
     done
   install: |-
     configure \
@@ -674,8 +674,8 @@
   binbstd: "1"
   parallel: "1"
   do12345: |-
-    sedInPlace '1a set -x' bootstrap.sh
-    sedInPlace '1a set -x' tools/build/src/engine/build.sh
+    gsed -i '1a set -x' bootstrap.sh
+    gsed -i '1a set -x' tools/build/src/engine/build.sh
     run ./bootstrap.sh
   dopatch: |-
     # https://stackoverflow.com/questions/32826175/ftello-and-fseeko-android-build-errors
@@ -683,8 +683,8 @@
     # int   fseeko(FILE* __fp, off_t __offset, int __whence) __RENAME(fseeko64) __INTRODUCED_IN(24);
     # off_t ftello(FILE* __fp) __RENAME(ftello64) __INTRODUCED_IN(24);
     if [ "$TARGET_PLATFORM_VERS" -lt 24 ] ; then
-        sedInPlace 's|BOOST_NOWIDE_FTELL ftello|BOOST_NOWIDE_FTELL ::ftell|' libs/nowide/src/filebuf.cpp
-        sedInPlace 's|BOOST_NOWIDE_FTELL fseeko|BOOST_NOWIDE_FTELL ::fseek|' libs/nowide/src/filebuf.cpp
+        gsed -i 's|BOOST_NOWIDE_FTELL ftello|BOOST_NOWIDE_FTELL ::ftell|' libs/nowide/src/filebuf.cpp
+        gsed -i 's|BOOST_NOWIDE_FTELL fseeko|BOOST_NOWIDE_FTELL ::fseek|' libs/nowide/src/filebuf.cpp
     fi
   install: |-
     case $TARGET_PLATFORM_ARCH in
@@ -759,7 +759,7 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|STRIP=true||' src/Makefile
+    gsed -i 's|STRIP=true||' src/Makefile
 
     run cd ../lib/
     run "$AR" x "$libiconv_INSTALL_DIR/lib/libiconv.a"
@@ -805,10 +805,10 @@
     run cargo fetch --target "$RUST_TARGET"
 
     for f in $CARGO_HOME/registry/src/*/libgit2-sys-*/build.rs ; do
-        sed -i -E 's/\.range_version\(([^)]*)\.\.[^)]*\)/.atleast_version(\1)/g' "${f}"
+        gsed -i -E 's/\.range_version\(([^)]*)\.\.[^)]*\)/.atleast_version(\1)/g' "${f}"
     done
 
-    sedInPlace '/trash/d' Cargo.toml
+    gsed -i '/trash/d' Cargo.toml
   install: cargow install --locked
 - pkgname: brotli
   pkgtype: exe
@@ -1062,9 +1062,9 @@
   api-min: "24"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|ifdef HAVE_AVX2|if 0|g'    src/hashutil.cpp
-    sedInPlace 's|third_party/blake3/||'     src/Hash.hpp
-    sedInPlace '/add_subdirectory(blake3)/d' src/third_party/CMakeLists.txt
+    gsed -i 's|ifdef HAVE_AVX2|if 0|g'    src/hashutil.cpp
+    gsed -i 's|third_party/blake3/||'     src/Hash.hpp
+    gsed -i '/add_subdirectory(blake3)/d' src/third_party/CMakeLists.txt
   install: |-
     cmakew \
         -DENABLE_COVERAGE=OFF \
@@ -1325,8 +1325,8 @@
   version: "2.0"
   license: GPL-3.0-or-later
   summary: A command-line tool for producing a Matrix-style animation
-  web-url: https://github.com/abishekvashok/cmatrix/
-  git-url: https://github.com/abishekvashok/cmatrix/
+  web-url: https://github.com/abishekvashok/cmatrix
+  git-url: https://github.com/abishekvashok/cmatrix
   src-url: https://github.com/abishekvashok/cmatrix/archive/refs/tags/v2.0.tar.gz
   src-sha: ad93ba39acd383696ab6a9ebbed1259ecf2d3cf9f49d6b97038c66f80749e99a
   dep-pkg: ncurses
@@ -1426,8 +1426,8 @@
   version: 2.10.19
   license: MIT
   summary: A C++ library for cloud-based client-server communication
-  web-url: https://github.com/Microsoft/cpprestsdk
-  git-url: https://github.com/Microsoft/cpprestsdk
+  web-url: https://github.com/microsoft/cpprestsdk
+  git-url: https://github.com/microsoft/cpprestsdk
   src-url: https://github.com/microsoft/cpprestsdk/archive/refs/tags/v2.10.19.tar.gz
   src-sha: 4b0d14e5bfe77ce419affd253366e861968ae6ef2c35ae293727c1415bd145c8
   dep-pkg: websocketpp openssl-dev boost libz
@@ -1436,7 +1436,7 @@
   binbstd: "0"
   ldflags: -llog
   parallel: "1"
-  dopatch: sedInPlace 's|ANDROID|XXXX|' Release/cmake/cpprest_find_openssl.cmake
+  dopatch: gsed -i 's|ANDROID|XXXX|' Release/cmake/cpprest_find_openssl.cmake
   install: |-
     export OPENSSL_ROOT_DIR="$openssl_dev_INSTALL_DIR"
     cmakew -DBUILD_TESTS=OFF -DBUILD_SAMPLES=OFF
@@ -1509,7 +1509,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt
+  dopatch: gsed -i 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt
   install: |-
     cmakew \
         -DCPUINFO_BUILD_TOOLS=ON \
@@ -1621,7 +1621,7 @@
     find . -name ".deps"    -exec rm -rf {} +
     find . -name "Makefile" -exec rm -rf {} +
     autoreconf -ivf
-    sedInPlace 's/install-data-am: install-dochdrDATA/install-data-am: /' doc/headers/Makefile.in
+    gsed -i 's/install-data-am: install-dochdrDATA/install-data-am: /' doc/headers/Makefile.in
   install: |-
     configure \
         --disable-examples \
@@ -1645,7 +1645,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure
+  dopatch: gsed -i 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure
   install: |-
     configure \
         --disable-shared \
@@ -1850,7 +1850,7 @@
   bsystem: meson
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|libdav1d|libdav1d.get_static_lib()|' tools/meson.build
+  dopatch: gsed -i 's|libdav1d|libdav1d.get_static_lib()|' tools/meson.build
   install: |-
     mesonw \
         -Denable_asm=true \
@@ -1904,7 +1904,7 @@
   parallel: "1"
   dopatch: |-
     # https://github.com/android/ndk/issues/1409
-    sedInPlace 's|int debug;|int debug __attribute__((common));|' common/includes/debug.h
+    gsed -i 's|int debug;|int debug __attribute__((common));|' common/includes/debug.h
   install: configure
 - pkgname: dnslookup
   pkgtype: pie
@@ -1994,7 +1994,7 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace '/^ENABLE_NLS/d' Makefile
+  dopatch: gsed -i '/^ENABLE_NLS/d' Makefile
   install: |-
     gmakew clean
     gmakew CC="$CC" CPP="'$CPP'" STRIP="$STRIP" CFLAGS_USER="'$CFLAGS'" LDFLAGS_USER="'$LDFLAGS'" D2U_OS=android
@@ -2195,8 +2195,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|'       CMakeLists.txt
-    sedInPlace 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt
+    gsed -i 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|'       CMakeLists.txt
+    gsed -i 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt
   install: cmakew
 - pkgname: elvish
   pkgtype: pie
@@ -2317,7 +2317,7 @@
   parallel: "1"
   dopatch: |-
     CURL_LIBRARIES="$(pkg-config --libs-only-l libcurl)"
-    sedInPlace "s|\${CURL_LIBRARIES}|$CURL_LIBRARIES|" src/CMakeLists.txt
+    gsed -i "s|\${CURL_LIBRARIES}|$CURL_LIBRARIES|" src/CMakeLists.txt
   install: |-
     cmakew \
         -DEXIV2_ENABLE_NLS=OFF \
@@ -2480,8 +2480,8 @@
         i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;
     esac
 
-    sedInPlace 's|-lxvidcore|-lxvidcore -lm|' configure
-    sedInPlace "s|SDL2_CONFIG=|SDL2_CONFIG='$sdl2_INSTALL_DIR/bin/sdl2-config'|" configure
+    gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure
+    gsed -i "s|SDL2_CONFIG=|SDL2_CONFIG='$sdl2_INSTALL_DIR/bin/sdl2-config'|" configure
 
     if run ./configure \
         --prefix="$PACKAGE_INSTALL_DIR" \
@@ -2599,11 +2599,11 @@
   api-min: "26"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's/ret = strerror_r (errnum, buf, buflen);/strerror_r (errnum, buf, buflen); ret = errno;/g' gl/lib/strerror_r.c
-    sedInPlace 's/strerror_r (errnum, stackbuf, sizeof stackbuf) == ERANGE/errno == ERANGE/g' gl/lib/strerror_r.c
-    sedInPlace '/if (errno == ERANGE)/i strerror_r (errnum, stackbuf, sizeof stackbuf);'      gl/lib/strerror_r.c
-    sedInPlace 's/find.texi\ //' doc/Makefile.am
-    sedInPlace 's/find.texi\ //' doc/Makefile.in
+    gsed -i 's/ret = strerror_r (errnum, buf, buflen);/strerror_r (errnum, buf, buflen); ret = errno;/g' gl/lib/strerror_r.c
+    gsed -i 's/strerror_r (errnum, stackbuf, sizeof stackbuf) == ERANGE/errno == ERANGE/g' gl/lib/strerror_r.c
+    gsed -i '/if (errno == ERANGE)/i strerror_r (errnum, stackbuf, sizeof stackbuf);'      gl/lib/strerror_r.c
+    gsed -i 's/find.texi\ //' doc/Makefile.am
+    gsed -i 's/find.texi\ //' doc/Makefile.in
   install: |-
     configure \
         --without-selinux \
@@ -2692,7 +2692,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '1i \#include<stdlib.h>' src/misc.c
+  dopatch: gsed -i '1i \#include<stdlib.h>' src/misc.c
   install: configure --enable-warnings LIBS=-lm
 - pkgname: flock
   pkgtype: exe
@@ -2707,7 +2707,7 @@
   bsystem: autotools
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|%1u|%1ld|' src/flock.c
+  dopatch: gsed -i 's|%1u|%1ld|' src/flock.c
   install: configure
 - pkgname: fmt
   pkgtype: lib
@@ -2822,7 +2822,7 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace 's|TARGET_TRIPLE|TARGET_MACHINE|' Makefile
+  dopatch: gsed -i 's|TARGET_TRIPLE|TARGET_MACHINE|' Makefile
   install: |-
     gmakew clean
     gmakew FANOTIFY_CFLAGS="'-DHAVE_FANOTIFY=1 -DHAVE_SYS_FANOTIFY=0'"
@@ -2989,7 +2989,7 @@
   binbstd: "0"
   parallel: "1"
   install: configure --without-x --without-xpm
-  dotweak: sedInPlace 's|-lgd|-lgd -liconv|' lib/pkgconfig/gdlib.pc
+  dotweak: gsed -i 's|-lgd|-lgd -liconv|' lib/pkgconfig/gdlib.pc
 - pkgname: gdk-pixbuf
   pkgtype: exe+lib
   version: 2.42.12
@@ -3110,8 +3110,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/ftello/d' ../include/ndk-pkg-common.h
-    sedInPlace '/fseeko/d' ../include/ndk-pkg-common.h
+    gsed -i '/ftello/d' ../include/ndk-pkg-common.h
+    gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
   install: |-
     export am_cv_func_iconv_works=yes
     configure \
@@ -3147,8 +3147,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/SUBDIRS =/s|gettext-tools||g' Makefile.in
-    sedInPlace '/SUBDIRS =/s|gnulib-tests||g' gettext-tools/Makefile.in
+    gsed -i '/SUBDIRS =/s|gettext-tools||g' Makefile.in
+    gsed -i '/SUBDIRS =/s|gnulib-tests||g' gettext-tools/Makefile.in
   install: |-
     configure \
         --with-included-glib \
@@ -3335,7 +3335,7 @@
     Gershon Elber <gershon@cs.technion.sc.il>
     Toshio Kuratomi <toshio@tiki-lounge.com>
     Eric Raymond <esr@snark.thyrsus.com>
-  dopatch: sedInPlace 's#$(MAKE) -C doc#@mkdir -p doc \&\& ([ -f doc/giflib.1 ] || touch doc/giflib.1)#' Makefile
+  dopatch: gsed -i 's#$(MAKE) -C doc#@mkdir -p doc \&\& ([ -f doc/giflib.1 ] || touch doc/giflib.1)#' Makefile
   install: |-
     gmakew clean   UNAME=Linux
     gmakew install UNAME=Linux PREFIX="$PACKAGE_INSTALL_DIR" CC="$CC" AR="$AR" CFLAGS="'$CFLAGS'"
@@ -3383,8 +3383,8 @@
     ZWxsYXRpb24iKTsKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJR19TRVRNQVNLLCAmYXMt
     Pm9sZCwgTlVMTCksCiAJCSJyZXN0b3Jpbmcgc2lnbmFsIG1hc2siKTsKICNlbmRpZgo=' | base64 -d | patch -p0
 
-    sedInPlace '/uname_S := /c uname_S := Linux' config.mak.uname
-    sedInPlace "/uname_N := /c uname_M := $TARGET_PLATFORM_ARCH" config.mak.uname
+    gsed -i '/uname_S := /c uname_S := Linux' config.mak.uname
+    gsed -i "/uname_N := /c uname_M := $TARGET_PLATFORM_ARCH" config.mak.uname
   prepare: |-
     # to bypass git error: cannot run test program while cross compiling
     export ac_cv_fread_reads_directories=yes
@@ -3519,11 +3519,11 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace "/libiconv =/c libiconv = dependency('libiconv', method : 'pkg-config')" meson.build
-    sedInPlace "s|dependency('zlib')|cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])|" meson.build
-    sedInPlace '2139,2165d'  meson.build
-    sedInPlace "2139a libintl = cc.find_library('intl',  dirs: ['$libintl_LIBRARY_DIR'])" meson.build
-    sedInPlace '2140a libintl_deps = [libintl, libiconv]' meson.build
+    gsed -i "/libiconv =/c libiconv = dependency('libiconv', method : 'pkg-config')" meson.build
+    gsed -i "s|dependency('zlib')|cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])|" meson.build
+    gsed -i '2139,2165d'  meson.build
+    gsed -i "2139a libintl = cc.find_library('intl',  dirs: ['$libintl_LIBRARY_DIR'])" meson.build
+    gsed -i '2140a libintl_deps = [libintl, libiconv]' meson.build
   install: |-
     mesonw \
         -Dnls=disabled \
@@ -3535,7 +3535,7 @@
         -Dtests=false \
         -Dinstalled_tests=false \
         -Dbsymbolic_functions=false
-  dotweak: sedInPlace 's|libiconv|libintl libffi libz|' lib/pkgconfig/glib-2.0.pc
+  dotweak: gsed -i 's|libiconv|libintl libffi libz|' lib/pkgconfig/glib-2.0.pc
 - pkgname: glib-tools
   pkgtype: exe
   version: 2.80.2
@@ -3552,22 +3552,22 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace "s|link_with : libgio|link_with : libgio.get_static_lib()|" gio/meson.build
-    sedInPlace "s|link_with : libglib|link_with : libglib.get_static_lib()|" glib/meson.build
-    sedInPlace "s|link_with : libgobject|link_with : libgobject.get_static_lib()|" gobject/meson.build
-    sedInPlace "s|link_with : libgmodule|link_with : libgmodule.get_static_lib()|" gmodule/meson.build
-    sedInPlace "s|link_with : libgthread|link_with : libgthread.get_static_lib()|" gthread/meson.build
-    sedInPlace "s|link_with: libgirepository,|link_with: libgirepository.get_static_lib(),|" girepository/meson.build
+    gsed -i "s|link_with : libgio|link_with : libgio.get_static_lib()|" gio/meson.build
+    gsed -i "s|link_with : libglib|link_with : libglib.get_static_lib()|" glib/meson.build
+    gsed -i "s|link_with : libgobject|link_with : libgobject.get_static_lib()|" gobject/meson.build
+    gsed -i "s|link_with : libgmodule|link_with : libgmodule.get_static_lib()|" gmodule/meson.build
+    gsed -i "s|link_with : libgthread|link_with : libgthread.get_static_lib()|" gthread/meson.build
+    gsed -i "s|link_with: libgirepository,|link_with: libgirepository.get_static_lib(),|" girepository/meson.build
 
-    sedInPlace "s|cc.find_library('resolv')|declare_dependency(link_args : ['-lresolv'])|" gio/meson.build
+    gsed -i "s|cc.find_library('resolv')|declare_dependency(link_args : ['-lresolv'])|" gio/meson.build
 
-    sedInPlace "/libffi_dep =/c libffi_dep = cc.find_library('ffi', static : true, dirs: ['$libffi_LIBRARY_DIR'])" meson.build
-    sedInPlace "/libiconv =/c libiconv = cc.find_library('iconv', static : true, dirs: ['$libiconv_LIBRARY_DIR'])" meson.build
-    sedInPlace "/libz_dep =/c libz_dep = cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])" meson.build
+    gsed -i "/libffi_dep =/c libffi_dep = cc.find_library('ffi', static : true, dirs: ['$libffi_LIBRARY_DIR'])" meson.build
+    gsed -i "/libiconv =/c libiconv = cc.find_library('iconv', static : true, dirs: ['$libiconv_LIBRARY_DIR'])" meson.build
+    gsed -i "/libz_dep =/c libz_dep = cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])" meson.build
 
-    sedInPlace '2228,2254d'  meson.build
-    sedInPlace "2228a libintl = cc.find_library('intl', static : true, dirs: ['$libintl_LIBRARY_DIR'])" meson.build
-    sedInPlace '2229a libintl_deps = [libintl, libiconv]' meson.build
+    gsed -i '2228,2254d'  meson.build
+    gsed -i "2228a libintl = cc.find_library('intl', static : true, dirs: ['$libintl_LIBRARY_DIR'])" meson.build
+    gsed -i '2229a libintl_deps = [libintl, libiconv]' meson.build
   install: |-
     mesonw \
         -Dintrospection=disabled \
@@ -3703,7 +3703,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|int streaming;|int streaming __attribute__((common));|' barcode.h
+  dopatch: gsed -i 's|int streaming;|int streaming __attribute__((common));|' barcode.h
   prepare: export CPPFLAGS="$CPPFLAGS -I$gettext_dev_INSTALL_DIR/share/gettext"
   install: configure
 - pkgname: gnu-which
@@ -4132,8 +4132,8 @@
         --disable-gcc-warnings \
         --with-included-regex
   dotweak: |-
-    sedInPlace 's|bash|sh|' bin/egrep
-    sedInPlace 's|bash|sh|' bin/fgrep
+    gsed -i 's|bash|sh|' bin/egrep
+    gsed -i 's|bash|sh|' bin/fgrep
 - pkgname: grex
   pkgtype: exe
   version: 1.4.5
@@ -4294,7 +4294,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/config\.h/a \#include<string.h>' src/resuse.c
+  dopatch: gsed -i '/config\.h/a \#include<string.h>' src/resuse.c
   install: configure --program-prefix=g
   dotweak: cd bin && ln -s gtime time
 - pkgname: gzip
@@ -4573,7 +4573,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: "sedInPlace 's/iomanip.h/iomanip/g' configure\n\nfor item in $(grep -l \"unsigned int argc\" examples/*)\ndo\n    sedInPlace 's/int main( unsigned int argc,/int main(int argc,/g' \"$item\" \ndone"
+  dopatch: "gsed -i 's/iomanip.h/iomanip/g' configure\n\nfor item in $(grep -l \"unsigned int argc\" examples/*)\ndo\n    gsed -i 's/int main( unsigned int argc,/int main(int argc,/g' \"$item\" \ndone"
   install: |-
     configure \
         --enable-cxx-warnings=no \
@@ -4613,8 +4613,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/ftello/d' ../include/ndk-pkg-common.h
-    sedInPlace '/fseeko/d' ../include/ndk-pkg-common.h
+    gsed -i '/ftello/d' ../include/ndk-pkg-common.h
+    gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
   install: |-
     configure \
         --with-freetype=yes \
@@ -4778,7 +4778,7 @@
   bsystem: autogen
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '$d' autogen.sh && ./autogen.sh
+  dopatch: gsed -i '$d' autogen.sh && ./autogen.sh
   install: configure --with-libpng="$libpng_INSTALL_DIR"
 - pkgname: jfrog-cli
   pkgtype: pie
@@ -4865,7 +4865,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|set(APPS_LINK_LIBS "${PROJECT_NAME}")|set(APPS_LINK_LIBS "${PROJECT_NAME}-static")|' apps/CMakeLists.txt
+  dopatch: gsed -i 's|set(APPS_LINK_LIBS "${PROJECT_NAME}")|set(APPS_LINK_LIBS "${PROJECT_NAME}-static")|' apps/CMakeLists.txt
   install: |-
     cmakew \
         -DBUILD_SHARED_LIBS=ON \
@@ -5011,11 +5011,11 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/search_paths_first"/d' configure
+    gsed -i '/search_paths_first"/d' configure
 
     for item in $(grep '<db.h>' -rl plugins/kdb/db2)
     do
-        sedInPlace 's|<db.h>|<db_185.h>|g' "$item" || return 1
+        gsed -i 's|<db.h>|<db_185.h>|g' "$item" || return 1
     done
   prepare: |-
     # int getifaddrs(struct ifaddrs** __list_ptr) __INTRODUCED_IN(24);
@@ -5052,8 +5052,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/lame_init_old/d' include/libmp3lame.sym
-    sedInPlace 's|-mtune=native||g' configure
+    gsed -i '/lame_init_old/d' include/libmp3lame.sym
+    gsed -i 's|-mtune=native||g' configure
   install: |-
     configure \
         --without-dmalloc \
@@ -5096,7 +5096,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/define CMS_NO_REGISTER_KEYWORD 1/c \#define CMS_NO_REGISTER_KEYWORD 1' include/lcms2.h
+  dopatch: gsed -i '/define CMS_NO_REGISTER_KEYWORD 1/c \#define CMS_NO_REGISTER_KEYWORD 1' include/lcms2.h
   install: configure
 - pkgname: lcov
   pkgtype: exe
@@ -5194,7 +5194,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|DESTINATION cmake|DESTINATION lib/cmake/libaec|' CMakeLists.txt
+  dopatch: gsed -i 's|DESTINATION cmake|DESTINATION lib/cmake/libaec|' CMakeLists.txt
   install: cmakew
 - pkgname: libaio
   pkgtype: lib
@@ -5211,7 +5211,7 @@
   dopatch: |-
     # on macOS, some fs is non-case-sensitive. In this case, gmake install will always say make: 'install' is up to date.
     mv INSTALL INSTALL.txt
-    sedInPlace 's|install -D|install|g' src/Makefile
+    gsed -i 's|install -D|install|g' src/Makefile
   install: |-
     gmakew clean
     gmakew default CFLAGS="'$CFLAGS $CPPFLAGS $LDFLAGS -I$PACKAGE_BSCRIPT_DIR/src'" AR="$AR" RANLIB="$RANLIB"
@@ -5303,8 +5303,8 @@
         --with-zstd \
         --with-iconv
   dotweak: |-
-    sedInPlace '/Libs: /s|$| -liconv|' lib/pkgconfig/libarchive.pc
-    sedInPlace '/Requires:/d'          lib/pkgconfig/libarchive.pc
+    gsed -i '/Libs: /s|$| -liconv|' lib/pkgconfig/libarchive.pc
+    gsed -i '/Requires:/d'          lib/pkgconfig/libarchive.pc
 - pkgname: libargp
   pkgtype: lib
   version: 1.5.0
@@ -5540,7 +5540,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's/RUNTIME DESTINATION/RUNTIME EXCLUDE_FROM_ALL DESTINATION/' CMakeLists.txt
+  dopatch: gsed -i 's/RUNTIME DESTINATION/RUNTIME EXCLUDE_FROM_ALL DESTINATION/' CMakeLists.txt
   install: |-
     cmakew -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_SHARED_LIBS=ON
@@ -5606,7 +5606,7 @@
   parallel: "1"
   dopatch: |-
     if [ "$TARGET_PLATFORM_ARCH" = 'x86_64' ] ; then
-        sedInPlace '/HAVE_FLDLN2/d' configure
+        gsed -i '/HAVE_FLDLN2/d' configure
     fi
   install: |-
     configure \
@@ -5631,9 +5631,9 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's/indent -kr/indent -br/'    Make.Rules
-    sedInPlace 's/-i $@/-i".bak" $@/'        libcap/Makefile
-    sedInPlace 's|size_t len/|size_t len/g|' libcap/Makefile
+    gsed -i 's/indent -kr/indent -br/'    Make.Rules
+    gsed -i 's/-i $@/-i".bak" $@/'        libcap/Makefile
+    gsed -i 's|size_t len/|size_t len/g|' libcap/Makefile
   install: |-
     gmakew -C "$PACKAGE_BSCRIPT_DIR/libcap" clean
     gmakew -C "$PACKAGE_BSCRIPT_DIR/libcap" install \
@@ -5738,7 +5738,7 @@
   parallel: "1"
   dopatch: |-
     if [ "$TARGET_PLATFORM_VERS" -lt 24 ] ; then
-        sedInPlace 's|define CDIO_FSEEK fseeko|define CDIO_FSEEK fseek|' lib/driver/_cdio_stdio.c
+        gsed -i 's|define CDIO_FSEEK fseeko|define CDIO_FSEEK fseek|' lib/driver/_cdio_stdio.c
     fi
   install: configure
 - pkgname: libcerf
@@ -5812,7 +5812,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt
+  dopatch: gsed -i 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt
   install: |-
     cmakew \
         -DCPUINFO_BUILD_TOOLS=OFF \
@@ -5895,7 +5895,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure
+  dopatch: gsed -i 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure
   install: |-
     configure \
         --enable-optimize \
@@ -5914,7 +5914,7 @@
     rm -rf bin/curl
     rm -rf share/man/man1/curl.1
     cd lib/pkgconfig
-    sed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lnghttp2||g' -e 's|-lzstd||g' -e 's|-lz||g' -e 's|-lbrotlidec||g' -e 's|-lbrotlicommon||g' libcurl.pc
+    gsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lnghttp2||g' -e 's|-lzstd||g' -e 's|-lz||g' -e 's|-lbrotlidec||g' -e 's|-lbrotlicommon||g' libcurl.pc
     printf 'Requires: libnghttp2 libcares libzstd libz libbrotlidec openssl\n' >> libcurl.pc
 - pkgname: libdatrie
   pkgtype: lib
@@ -5930,7 +5930,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/SUBDIRS = /c SUBDIRS = datrie' Makefile.in
+  dopatch: gsed -i '/SUBDIRS = /c SUBDIRS = datrie' Makefile.in
   install: configure LIBS="'-lcharset -liconv'"
 - pkgname: libdav1d
   pkgtype: lib
@@ -6026,8 +6026,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|'       CMakeLists.txt
-    sedInPlace 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt
+    gsed -i 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|'       CMakeLists.txt
+    gsed -i 's|${CMAKE_INSTALL_DATADIR}/eigen3/cmake|${CMAKE_INSTALL_LIBDIR}/cmake/eigen3|' CMakeLists.txt
   install: cmakew
 - pkgname: libev
   pkgtype: lib
@@ -6067,7 +6067,7 @@
         -DEVENT__DOXYGEN=OFF \
         -DEVENT__COVERAGE=OFF \
         -DEVENT__LIBRARY_TYPE=BOTH
-  dotweak: sedInPlace '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc
+  dotweak: gsed -i '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc
 - pkgname: libexecinfo
   pkgtype: lib
   version: 2024.09.06
@@ -6092,7 +6092,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/add_subdirectory(src\/app)/d' CMakeLists.txt
+  dopatch: gsed -i '/add_subdirectory(src\/app)/d' CMakeLists.txt
   install: |-
     cmakew -DBUILD_SHARED_LIBS=ON
     cmakew -DBUILD_SHARED_LIBS=OFF
@@ -6133,7 +6133,7 @@
   parallel: "1"
   dopatch: |-
     CURL_LIBRARIES="$(pkg-config --libs-only-l libcurl)"
-    sedInPlace "s|\${CURL_LIBRARIES}|$CURL_LIBRARIES|" src/CMakeLists.txt
+    gsed -i "s|\${CURL_LIBRARIES}|$CURL_LIBRARIES|" src/CMakeLists.txt
   install: |-
     cmakew \
         -DEXIV2_ENABLE_NLS=OFF \
@@ -6222,7 +6222,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|tools m4|m4|' Makefile.in
+  dopatch: gsed -i 's|tools m4|m4|' Makefile.in
   install: configure --enable-threads LIBS=-lm
 - pkgname: libflac
   pkgtype: lib
@@ -6379,7 +6379,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|src tools|src|' Makefile.in
+  dopatch: gsed -i 's|src tools|src|' Makefile.in
   install: configure --enable-libgdbm-compat --without-readline
   dotweak: |-
     rm -rf share/info
@@ -6453,7 +6453,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: find . -name 'CMakeLists.txt' -exec sed -i 's|C_STANDARD 90|C_STANDARD 99|' {} \;
+  dopatch: find . -name 'CMakeLists.txt' -exec gsed -i 's|C_STANDARD 90|C_STANDARD 99|' {} \;
   install: |-
     cmakew \
         -DBUILD_CLI=OFF \
@@ -6469,8 +6469,8 @@
         -DUSE_BUNDLED_ZLIB=OFF \
         -DREGEX_BACKEND=pcre2
   dotweak: |-
-    sed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lz||g' -e 's|-lssh2||g' lib/pkgconfig/libgit2.pc
-    sed -i -e 's|openssl|libssh2|' -e 's|zlib|libiconv|' lib/pkgconfig/libgit2.pc
+    gsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lz||g' -e 's|-lssh2||g' lib/pkgconfig/libgit2.pc
+    gsed -i -e 's|openssl|libssh2|' -e 's|zlib|libiconv|' lib/pkgconfig/libgit2.pc
 - pkgname: libglm
   pkgtype: lib
   version: 1.0.1
@@ -6603,11 +6603,11 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/add_subdirectory(tests)/d' CMakeLists.txt
+  dopatch: gsed -i '/add_subdirectory(tests)/d' CMakeLists.txt
   install: |-
     cmakew -DGRAPHITE2_NFILEFACE=ON -DBUILD_SHARED_LIBS=ON
     cmakew -DGRAPHITE2_NFILEFACE=ON -DBUILD_SHARED_LIBS=OFF
-  dotweak: sedInPlace 's|-lgraphite2|-lgraphite2 -lc++|' lib/pkgconfig/graphite2.pc
+  dotweak: gsed -i 's|-lgraphite2|-lgraphite2 -lc++|' lib/pkgconfig/graphite2.pc
 - pkgname: libgsf
   pkgtype: lib
   version: 1.14.52
@@ -6639,7 +6639,7 @@
   bsystem: meson
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace "/subdir('util')/d" meson.build
+  dopatch: gsed -i "/subdir('util')/d" meson.build
   install: |-
     mesonw \
         -Dicu=enabled \
@@ -6734,8 +6734,8 @@
   parallel: "1"
   dopatch: |-
     if [ "$TARGET_PLATFORM_VERS" -lt 30 ] ; then
-        sedInPlace '1i void* mempcpy(void* dst, const void* src, size_t n) {return memcpy(dst, src, n) + n;}' srclib/canonicalize-lgpl.c
-        sedInPlace '1i #include <string.h>' srclib/canonicalize-lgpl.c
+        gsed -i '1i void* mempcpy(void* dst, const void* src, size_t n) {return memcpy(dst, src, n) + n;}' srclib/canonicalize-lgpl.c
+        gsed -i '1i #include <string.h>' srclib/canonicalize-lgpl.c
     fi
   install: configure --enable-extra-encodings
   dotweak: |-
@@ -6842,11 +6842,11 @@
   api-min: "24"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's/@echo/echo/g' common/Makefile.in
-    sedInPlace 's/@echo/echo/g' tools/Makefile.in
-    sedInPlace 's/@echo/echo/g' src/Makefile.in
-    sedInPlace 's|PLIST_FORMAT_XML|PLIST_FORMAT_XML_|' common/utils.h
-    sedInPlace 's|PLIST_FORMAT_BINARY|PLIST_FORMAT_BINARY_|' common/utils.h
+    gsed -i 's/@echo/echo/g' common/Makefile.in
+    gsed -i 's/@echo/echo/g' tools/Makefile.in
+    gsed -i 's/@echo/echo/g' src/Makefile.in
+    gsed -i 's|PLIST_FORMAT_XML|PLIST_FORMAT_XML_|' common/utils.h
+    gsed -i 's|PLIST_FORMAT_BINARY|PLIST_FORMAT_BINARY_|' common/utils.h
   install: configure --without-cython
 - pkgname: libimobiledevice-glue
   pkgtype: lib
@@ -7124,7 +7124,7 @@
   bsystem: meson
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/define CMS_NO_REGISTER_KEYWORD 1/c \#define CMS_NO_REGISTER_KEYWORD 1' include/lcms2.h
+  dopatch: gsed -i '/define CMS_NO_REGISTER_KEYWORD 1/c \#define CMS_NO_REGISTER_KEYWORD 1' include/lcms2.h
   install: mesonw
 - pkgname: libldns
   pkgtype: lib
@@ -7370,7 +7370,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|find_package(CURL)|find_package(CURL CONFIG)|' CMakeLists.txt
+  dopatch: gsed -i 's|find_package(CURL)|find_package(CURL CONFIG)|' CMakeLists.txt
   install: |-
     CURL_LIBRARIES="$(pkg-config --libs-only-l libcurl | tr ' ' ';')"
     cmakew -DBUILD_SHARED_LIBS=OFF -DCURL_INCLUDE_DIRS="$libcurl_INCLUDE_DIR" -DCURL_LIBRARIES="'$CURL_LIBRARIES'"
@@ -7486,7 +7486,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|' CMakeLists.txt
+  dopatch: gsed -i 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|' CMakeLists.txt
   install: |-
     cmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF
     cmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON
@@ -7503,7 +7503,7 @@
   bsystem: autotools
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|__FreeBSD__|__ANDROID__|' ioapi.h
+  dopatch: gsed -i 's|__FreeBSD__|__ANDROID__|' ioapi.h
   install: configure
 - pkgname: libmnl
   pkgtype: lib
@@ -7531,8 +7531,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/lame_init_old/d' include/libmp3lame.sym
-    sedInPlace 's|-mtune=native||g' configure
+    gsed -i '/lame_init_old/d' include/libmp3lame.sym
+    gsed -i 's|-mtune=native||g' configure
   install: |-
     configure \
         --without-dmalloc \
@@ -7650,12 +7650,12 @@
   parallel: "0"
   dopatch: |-
     # https://stackoverflow.com/questions/9168150/implicit-declaration-using-std-c99
-    sedInPlace 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile
-    sedInPlace '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in
-    sedInPlace '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in
-    sedInPlace '/^INSTALL =/c INSTALL = install' config.mk.in
-    sedInPlace '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in
-    sedInPlace 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile
+    gsed -i 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile
+    gsed -i '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in
+    gsed -i '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in
+    gsed -i '/^INSTALL =/c INSTALL = install' config.mk.in
+    gsed -i '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in
+    gsed -i 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile
     run cp config.mk.in config.mk
   install: |-
     gmakew clean
@@ -7720,10 +7720,10 @@
   parallel: "1"
   dopatch: |-
     autoreconf -ivf
-    sedInPlace 's@linux-private/@@g' lib/mpls.c
-    sedInPlace 's@linux-private/@@g' lib/route/link/vrf.c
-    sedInPlace '/linux-private/d' Makefile.in
-    sedInPlace '/linux-private/d' Makefile.am
+    gsed -i 's@linux-private/@@g' lib/mpls.c
+    gsed -i 's@linux-private/@@g' lib/route/link/vrf.c
+    gsed -i '/linux-private/d' Makefile.in
+    gsed -i '/linux-private/d' Makefile.am
   install: |-
     configure \
         --enable-pthreads \
@@ -7911,7 +7911,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|DESTINATION cmake|DESTINATION lib/cmake|' CMakeLists.txt
+  dopatch: gsed -i 's|DESTINATION cmake|DESTINATION lib/cmake|' CMakeLists.txt
   install: |-
     cmakew \
         -DCMAKE_C_STANDARD=99 \
@@ -8016,7 +8016,7 @@
   binbstd: "0"
   parallel: "1"
   install: configure --without-cython LIBS=-lm
-  dotweak: sedInPlace 's|-lplist-2.0|-lplist-2.0 -lm|' lib/pkgconfig/libplist-2.0.pc
+  dotweak: gsed -i 's|-lplist-2.0|-lplist-2.0 -lm|' lib/pkgconfig/libplist-2.0.pc
 - pkgname: libpng
   pkgtype: lib
   version: 1.6.43
@@ -8075,7 +8075,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/add_subdirectory(man)/d' CMakeLists.txt
+  dopatch: gsed -i '/add_subdirectory(man)/d' CMakeLists.txt
   install: |-
     cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON
     cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF
@@ -8284,7 +8284,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace "s|-ltiff|$(pkg-config --libs libtiff-4)|" configure
+  dopatch: gsed -i "s|-ltiff|$(pkg-config --libs libtiff-4)|" configure
   install: configure LIBS="'$(pkg-config --libs proj)'"
 - pkgname: librav1e
   pkgtype: lib
@@ -8713,8 +8713,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|RUNTIME DESTINATION|RUNTIME EXCLUDE_FROM_ALL DESTINATION|' CMakeLists.txt
-    sedInPlace 's|scripts/srt-ffplay|scripts/srt-ffplay EXCLUDE_FROM_ALL|'   CMakeLists.txt
+    gsed -i 's|RUNTIME DESTINATION|RUNTIME EXCLUDE_FROM_ALL DESTINATION|' CMakeLists.txt
+    gsed -i 's|scripts/srt-ffplay|scripts/srt-ffplay EXCLUDE_FROM_ALL|'   CMakeLists.txt
   install: |-
     cmakew \
         -DENABLE_APPS=OFF \
@@ -8806,7 +8806,7 @@
   binbstd: "0"
   ppflags: -include stdlib.h
   parallel: "1"
-  dopatch: sedInPlace 's|png_set_gray_1_2_4_to_8|png_set_expand_gray_1_2_4_to_8|' src/svg_image.c
+  dopatch: gsed -i 's|png_set_gray_1_2_4_to_8|png_set_expand_gray_1_2_4_to_8|' src/svg_image.c
   install: configure
 - pkgname: libsvm
   pkgtype: lib
@@ -8840,9 +8840,9 @@
   api-min: "23"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|defined(HAVE_MEMSET_EXPLICIT)|0|' lib/replace/replace.c
+    gsed -i 's|defined(HAVE_MEMSET_EXPLICIT)|0|' lib/replace/replace.c
 
-    sedInPlace 's|echo -n|printf|' buildtools/wafsamba/samba_cross.py
+    gsed -i 's|echo -n|printf|' buildtools/wafsamba/samba_cross.py
 
     cat > cross-answers.txt <<EOF
     Checking uname sysname type: "Linux"
@@ -9008,7 +9008,7 @@
   bsystem: autogen
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '$d' autogen.sh
+  dopatch: gsed -i '$d' autogen.sh
   install: |-
     configure \
         --with-ogg=$libogg_INSTALL_DIR \
@@ -9153,7 +9153,7 @@
         --enable-aligned=true \
         --without-fastcgi \
         --with-zlib="$libz_INSTALL_DIR"
-  dotweak: sedInPlace 's|-ltorrent|-ltorrent -lexecinfo|' lib/pkgconfig/libtorrent.pc
+  dotweak: gsed -i 's|-ltorrent|-ltorrent -lexecinfo|' lib/pkgconfig/libtorrent.pc
 - pkgname: libtorrent-rasterbar
   pkgtype: lib
   version: 2.0.10
@@ -9318,8 +9318,8 @@
   api-min: "24"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|/var/run|/data/local/tmp|' include/usbmuxd-proto.h
-    sedInPlace 's|/var/run|/data/local/tmp|' src/libusbmuxd.c
+    gsed -i 's|/var/run|/data/local/tmp|' include/usbmuxd-proto.h
+    gsed -i 's|/var/run|/data/local/tmp|' src/libusbmuxd.c
   install: configure
 - pkgname: libusrsctp
   pkgtype: lib
@@ -9441,7 +9441,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's/-mno-ieee-fp//g' configure
+  dopatch: gsed -i 's/-mno-ieee-fp//g' configure
   install: configure LIBS=-lm
 - pkgname: libvpx
   pkgtype: lib
@@ -9490,8 +9490,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/ftello/d' ../include/ndk-pkg-common.h
-    sedInPlace '/fseeko/d' ../include/ndk-pkg-common.h
+    gsed -i '/ftello/d' ../include/ndk-pkg-common.h
+    gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
   install: configure --disable-tests --disable-apps --disable-man
 - pkgname: libwebm
   pkgtype: lib
@@ -9524,7 +9524,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt
+  dopatch: gsed -i 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt
   install: |-
     cmakew \
         -DBUILD_SHARED_LIBS=OFF \
@@ -9548,7 +9548,7 @@
         -DWEBP_BUILD_GIF2WEBP=OFF \
         -DWEBP_BUILD_IMG2WEBP=OFF \
         -DWEBP_BUILD_ANIM_UTILS=OFF
-  dotweak: sedInPlace '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc
+  dotweak: gsed -i '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc
 - pkgname: libwebsockets
   pkgtype: lib
   version: 4.3.3
@@ -9564,7 +9564,7 @@
   binbstd: "0"
   ccflags: -Wno-unused-but-set-variable
   parallel: "1"
-  dopatch: sedInPlace 's|include(LwsCheckRequirements)|include(${LWS_CMAKE_DIR}/LwsCheckRequirements.cmake)|' cmake/libwebsockets-config.cmake.in
+  dopatch: gsed -i 's|include(LwsCheckRequirements)|include(${LWS_CMAKE_DIR}/LwsCheckRequirements.cmake)|' cmake/libwebsockets-config.cmake.in
   install: |-
     cmakew \
         -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=OFF \
@@ -9643,7 +9643,7 @@
   parallel: "1"
   dopatch: |-
     if [ "$TARGET_PLATFORM_VERS" -lt 24 ] ; then
-        sedInPlace 's|fseeko|fseekoxxxxxxxxxx|g' configure
+        gsed -i 's|fseeko|fseekoxxxxxxxxxx|g' configure
     fi
   install: |-
     configure \
@@ -9671,7 +9671,7 @@
         -DENABLE_PIC=ON \
         -DENABLE_SHARED=ON \
         -DENABLE_ASSEMBLY=OFF
-  dotweak: sedInPlace '/^Libs:/s|-l-l||' lib/pkgconfig/x265.pc
+  dotweak: gsed -i '/^Libs:/s|-l-l||' lib/pkgconfig/x265.pc
 - pkgname: libxapian
   pkgtype: lib
   version: 1.4.25
@@ -9733,9 +9733,9 @@
         --without-debug \
         --enable-ipv6 LIBS="'-liconv -lm'"
   dotweak: |-
-    sed -i '/^Requires: /d'                    lib/pkgconfig/libxml-2.0.pc
-    sed -i -e 's|-liconv|-ldl|g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc
-    printf 'Requires: libiconv libz\n' >>      lib/pkgconfig/libxml-2.0.pc
+    gsed -i '/^Requires: /d'                    lib/pkgconfig/libxml-2.0.pc
+    gsed -i -e 's|-liconv|-ldl|g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc
+    printf 'Requires: libiconv libz\n' >>       lib/pkgconfig/libxml-2.0.pc
 - pkgname: libxslt
   pkgtype: lib
   version: 1.1.41
@@ -9751,8 +9751,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.am
-    sedInPlace 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.in
+    gsed -i 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.am
+    gsed -i 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.in
   install: |-
     configure \
         --without-debug \
@@ -9860,8 +9860,8 @@
     Jean-loup Gailly <jloup@gailly.net>
     Mark Adler <madler@alumni.caltech.edu>
   dopatch: |-
-    sedInPlace 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt
-    sedInPlace 's|zlib)|zlibstatic)|' CMakeLists.txt
+    gsed -i 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt
+    gsed -i 's|zlib)|zlibstatic)|' CMakeLists.txt
   install: cmakew
   dotweak: cp lib/pkgconfig/zlib.pc lib/pkgconfig/libz.pc
 - pkgname: libz3
@@ -9977,7 +9977,7 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace '/cp -f/d' makefile
+  dopatch: gsed -i '/cp -f/d' makefile
   install: |-
     gmakew clean
     gmakew all \
@@ -10057,7 +10057,7 @@
   bsystem: autogen
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/define MAX_WRITE_LIMIT/a \#include<linux/fs.h>' src/chunk.h
+  dopatch: gsed -i '/define MAX_WRITE_LIMIT/a \#include<linux/fs.h>' src/chunk.h
   install: |-
     configure \
         --with-openssl \
@@ -10200,7 +10200,7 @@
   binbstd: "0"
   api-min: "23"
   parallel: "1"
-  dopatch: sedInPlace 's/PAGE_SIZE/XXXXXXXXXXXXXXXXXXXXXX/' lrzip_private.h util.c
+  dopatch: gsed -i 's/PAGE_SIZE/XXXXXXXXXXXXXXXXXXXXXX/' lrzip_private.h util.c
   install: |-
     configure \
         --disable-asm \
@@ -10302,7 +10302,7 @@
         export CFLAGS="$CFLAGS -arch=$NATIVE_OS_ARCH"
     fi
 
-    sedInPlace '/TARGET_SONAME=/c TARGET_SONAME=libluajit.so' src/Makefile
+    gsed -i '/TARGET_SONAME=/c TARGET_SONAME=libluajit.so' src/Makefile
   prepare: |-
     if [ -d /usr/include/x86_64-linux-gnu ] ; then
         export CPPFLAGS_FOR_BUILD="$CPPFLAGS_FOR_BUILD -I/usr/include/x86_64-linux-gnu"
@@ -10456,7 +10456,7 @@
   binbstd: "1"
   parallel: "1"
   install: |-
-    sedInPlace 's|$(progname_shared)|lib$(libname).so.$(pkgversion)|' Makefile.in
+    gsed -i 's|$(progname_shared)|lib$(libname).so.$(pkgversion)|' Makefile.in
     run ./configure --enable-static --enable-shared --disable-ldconfig --prefix="$PACKAGE_INSTALL_DIR" CC="$CC" CFLAGS="'$CFLAGS'" CPPFLAGS="'$CPPFLAGS'" LDFLAGS="'$LDFLAGS'" AR="$AR"
     gmakew
     gmakew install
@@ -10474,10 +10474,10 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|sysinfo|get_sys_info|' src/conf.h
-    sedInPlace 's|sysinfo|get_sys_info|' src/help.c
-    sedInPlace 's|sysinfo|get_sys_info|' src/lzop.c
-    sedInPlace 's|sysinfo|get_sys_info|' src/djgpp2.c
+    gsed -i 's|sysinfo|get_sys_info|' src/conf.h
+    gsed -i 's|sysinfo|get_sys_info|' src/help.c
+    gsed -i 's|sysinfo|get_sys_info|' src/lzop.c
+    gsed -i 's|sysinfo|get_sys_info|' src/djgpp2.c
   install: cmakew
 - pkgname: magic_enum
   pkgtype: lib
@@ -10498,6 +10498,19 @@
         -DMAGIC_ENUM_OPT_BUILD_EXAMPLES=OFF \
         -DMAGIC_ENUM_OPT_ENABLE_NONASCII=ON \
         -DMAGIC_ENUM_OPT_INSTALL=ON
+- pkgname: mawk
+  pkgtype: exe
+  version: 1.3.4
+  license: GPL-2.0
+  summary: Interpreter for the AWK Programming Language
+  web-url: https://invisible-island.net/mawk/
+  src-url: https://invisible-island.net/archives/mawk/mawk-1.3.4-20200120.tgz
+  src-sha: 7fd4cd1e1fae9290fe089171181bbc6291dfd9bca939ca804f0ddb851c8b8237
+  dep-upp: curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  parallel: "1"
+  install: configure
 - pkgname: mbedtls
   pkgtype: exe+lib
   version: 3.6.0
@@ -10515,7 +10528,7 @@
   dopatch: |-
     # https://github.com/Mbed-TLS/mbedtls/issues/8832
     if [ "$TARGET_PLATFORM_ARCH" = i686 ] ; then
-        sedInPlace '/#define MBEDTLS_AESNI_C/d' include/mbedtls/mbedtls_config.h
+        gsed -i '/#define MBEDTLS_AESNI_C/d' include/mbedtls/mbedtls_config.h
     fi
   install: |-
     cmakew \
@@ -10705,7 +10718,7 @@
   bsystem: configure
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace 's|ac_sys_system=`uname -s`|ac_sys_system=$host|' configure
+  dopatch: gsed -i 's|ac_sys_system=`uname -s`|ac_sys_system=$host|' configure
   install: |-
     export LD="$CC"
     configure
@@ -11063,7 +11076,7 @@
         ac_cv_header_fcntl_h=yes \
         ac_cv_header_unistd_h=yes \
         ac_cv_header_sys_time_h=yes
-  dopatch: sedInPlace 's|cf_ok_build_cc=unknown|cf_ok_build_cc=yes|' configure
+  dopatch: gsed -i 's|cf_ok_build_cc=unknown|cf_ok_build_cc=yes|' configure
   install: |-
     export BUILD_CC="$CC_FOR_BUILD"
     export BUILD_CFLAGS="$CFLAGS_FOR_BUILD"
@@ -11140,7 +11153,7 @@
         ac_cv_header_fcntl_h=yes \
         ac_cv_header_unistd_h=yes \
         ac_cv_header_sys_time_h=yes
-  dopatch: sedInPlace 's|cf_ok_build_cc=unknown|cf_ok_build_cc=yes|' configure
+  dopatch: gsed -i 's|cf_ok_build_cc=unknown|cf_ok_build_cc=yes|' configure
   install: |-
     export BUILD_CC="$CC_FOR_BUILD"
     export BUILD_CFLAGS="$CFLAGS_FOR_BUILD"
@@ -11250,7 +11263,7 @@
   api-min: "26"
   parallel: "1"
   install: |-
-    sedInPlace 's|-lpcap|-l:libpcap.a -l:libssl.a -l:libcrypto.a -ldl|' src/MakeApp.mk
+    gsed -i 's|-lpcap|-l:libpcap.a -l:libssl.a -l:libcrypto.a -ldl|' src/MakeApp.mk
     gmakew clean
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR" CXX="$CXX" CXXFLAGS="'$CXXFLAGS -std=c++14'" CPPFLAGS="'$CPPFLAGS -Dindex=strchr -Drindex=strrchr -D_GNU_SOURCE -Dquad_t=int64_t -Du_quad_t=uint64_t'"
 - pkgname: netpbm
@@ -11268,12 +11281,12 @@
   parallel: "0"
   dopatch: |-
     # https://stackoverflow.com/questions/9168150/implicit-declaration-using-std-c99
-    sedInPlace 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile
-    sedInPlace '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in
-    sedInPlace '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in
-    sedInPlace '/^INSTALL =/c INSTALL = install' config.mk.in
-    sedInPlace '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in
-    sedInPlace 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile
+    gsed -i 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile
+    gsed -i '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in
+    gsed -i '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in
+    gsed -i '/^INSTALL =/c INSTALL = install' config.mk.in
+    gsed -i '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in
+    gsed -i 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile
     run cp config.mk.in config.mk
   install: |-
     gmakew clean
@@ -11345,7 +11358,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/find_package(LibXml2/c find_package(LibXml2 CONFIG)' CMakeLists.txt
+  dopatch: gsed -i '/find_package(LibXml2/c find_package(LibXml2 CONFIG)' CMakeLists.txt
   install: |-
     cmakew \
         -DBUILD_SHARED_LIBS=ON \
@@ -11403,9 +11416,9 @@
         do
             if [ -f "$1/$item" ] ; then
                 if [ "$XTRACE" = yes ] ; then
-                    sedInPlace '1i set -x' "$1/$item"
+                    gsed -i '1i set -x' "$1/$item"
                 fi
-                sedInPlace 's/ngx_feature_run=yes/ngx_feature_run=no/g' "$1/$item"
+                gsed -i 's/ngx_feature_run=yes/ngx_feature_run=no/g' "$1/$item"
             elif [ -d "$1/$item" ] ; then
                 trace_configure "$1/$item"
             fi
@@ -11414,13 +11427,13 @@
 
     trace_configure auto
     if [ "$XTRACE" = yes ] ; then
-        sedInPlace '1i set -x' configure
+        gsed -i '1i set -x' configure
     fi
 
-    sedInPlace 's/#if (NGX_READ_EVENT != EPOLLIN|EPOLLRDHUP)/#if 1/' src/event/modules/ngx_epoll_module.c
-    sedInPlace 's/#if (NGX_WRITE_EVENT != EPOLLOUT)/#if 1/'          src/event/modules/ngx_epoll_module.c
-    sedInPlace '/#if (NGX_HAVE_SCHED_SETAFFINITY)/a #include <sched.h>' src/os/unix/ngx_setaffinity.h
-  install: "export NGX_SYSTEM=Linux\nexport NGX_RELEASE=unknown\nexport NGX_MACHINE=$TARGET_PLATFORM_ARCH\n\nif [ \"$TARGET_PLATFORM_NBIT\" -eq '64' ] ; then\n    sedInPlace 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=8/' auto/types/sizeof\nelse\n    sedInPlace 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=4/' auto/types/sizeof\nfi\n\n[ -f Makefile ] && gmakew clean\n\nwrite_NGX_SYS_NERR() {\n    cat >> objs/ngx_auto_config.h <<EOF\n#ifndef NGX_SYS_NERR\n#define NGX_SYS_NERR  107\n#endif\nEOF\n}   \n\nrun ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --crossbuild=Linux:unknown:$TARGET_PLATFORM_ARCH \\\n    --with-cc=\"$CC\" \\\n    --with-cc-opt=\"\\\"$CFLAGS $CPPFLAGS -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE=1 -D__USE_GNU\\\"\" \\\n    --with-ld-opt=\"\\\"$LDFLAGS -lcrypto -lcrypt\\\"\" \\\n    --with-pcre\nwrite_NGX_SYS_NERR\ngmakew install"
+    gsed -i 's/#if (NGX_READ_EVENT != EPOLLIN|EPOLLRDHUP)/#if 1/' src/event/modules/ngx_epoll_module.c
+    gsed -i 's/#if (NGX_WRITE_EVENT != EPOLLOUT)/#if 1/'          src/event/modules/ngx_epoll_module.c
+    gsed -i '/#if (NGX_HAVE_SCHED_SETAFFINITY)/a #include <sched.h>' src/os/unix/ngx_setaffinity.h
+  install: "export NGX_SYSTEM=Linux\nexport NGX_RELEASE=unknown\nexport NGX_MACHINE=$TARGET_PLATFORM_ARCH\n\nif [ \"$TARGET_PLATFORM_NBIT\" -eq '64' ] ; then\n    gsed -i 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=8/' auto/types/sizeof\nelse\n    gsed -i 's/ngx_size=`$NGX_AUTOTEST`/ngx_size=4/' auto/types/sizeof\nfi\n\n[ -f Makefile ] && gmakew clean\n\nwrite_NGX_SYS_NERR() {\n    cat >> objs/ngx_auto_config.h <<EOF\n#ifndef NGX_SYS_NERR\n#define NGX_SYS_NERR  107\n#endif\nEOF\n}   \n\nrun ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --crossbuild=Linux:unknown:$TARGET_PLATFORM_ARCH \\\n    --with-cc=\"$CC\" \\\n    --with-cc-opt=\"\\\"$CFLAGS $CPPFLAGS -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE=1 -D__USE_GNU\\\"\" \\\n    --with-ld-opt=\"\\\"$LDFLAGS -lcrypto -lcrypt\\\"\" \\\n    --with-pcre\nwrite_NGX_SYS_NERR\ngmakew install"
 - pkgname: ngtcp2
   pkgtype: lib
   version: 2024.09.06
@@ -11630,7 +11643,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|/${ANDROID_ABI}||' CMakeLists.txt
+  dopatch: gsed -i 's|/${ANDROID_ABI}||' CMakeLists.txt
   install: |-
     cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_MP4=ON -DWITH_ASF=ON
     cmakew -DBUILD_SHARED_LIBS=ON  -DWITH_MP4=ON -DWITH_ASF=ON
@@ -11668,7 +11681,7 @@
   license: Apache-2.0
   summary: Open source, general-purpose policy engine
   web-url: https://www.openpolicyagent.org
-  git-url: https://github.com/open-policy-agent/opa.git
+  git-url: https://github.com/open-policy-agent/opa
   src-url: https://github.com/open-policy-agent/opa/archive/refs/tags/v0.65.0.tar.gz
   src-sha: 996ff51dc0c86cd0e330e7017313d24b1f35436c9c569701c24952087d301122
   dep-upp: curl bsdtar golang
@@ -11710,9 +11723,9 @@
   binbstd: "1"
   parallel: "1"
   prepare: |-
-    sedInPlace '/LIBDLLNAME   =/i LIBNAME = $(LIBPREFIX).$(LIBSUFFIX)' Makefile.system
-    sedInPlace 's|ln -fs|true|g' Makefile.install
-    sedInPlace 's|ln -fs|true|g' Makefile
+    gsed -i '/LIBDLLNAME   =/i LIBNAME = $(LIBPREFIX).$(LIBSUFFIX)' Makefile.system
+    gsed -i 's|ln -fs|true|g' Makefile.install
+    gsed -i 's|ln -fs|true|g' Makefile
 
     # https://github.com/xianyi/OpenBLAS/wiki/How-to-build-OpenBLAS-for-Android
     case $TARGET_PLATFORM_ARCH in
@@ -11826,7 +11839,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/find_library(OPENEXR_EXTRA_MATH_LIB m)/c set(OPENEXR_EXTRA_MATH_LIB -lm)' cmake/CMakeLists.txt
+  dopatch: gsed -i '/find_library(OPENEXR_EXTRA_MATH_LIB m)/c set(OPENEXR_EXTRA_MATH_LIB -lm)' cmake/CMakeLists.txt
   install: |-
     cmakew \
         -DDOCS=OFF \
@@ -11855,11 +11868,11 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/ftello/d' ../include/ndk-pkg-common.h
-    sedInPlace '/fseeko/d' ../include/ndk-pkg-common.h
-    sedInPlace 's|TIFF_LIBRARIES|PC_TIFF_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt
-    sedInPlace 's|LCMS2_LIBRARIES|PC_LCMS2_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt
-    sedInPlace 's|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}_static|' src/bin/jp2/CMakeLists.txt
+    gsed -i '/ftello/d' ../include/ndk-pkg-common.h
+    gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
+    gsed -i 's|TIFF_LIBRARIES|PC_TIFF_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt
+    gsed -i 's|LCMS2_LIBRARIES|PC_LCMS2_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt
+    gsed -i 's|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}_static|' src/bin/jp2/CMakeLists.txt
   install: |-
     cmakew \
         -DBUILD_DOC=OFF \
@@ -11886,7 +11899,7 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace 's|-mhard-float||g' Make.inc
+  dopatch: gsed -i 's|-mhard-float||g' Make.inc
   prepare: |-
     if [ "$TARGET_PLATFORM_ARCH" = 'x86_64' ] ; then
         LONG_DOUBLE_NOT_DOUBLE=1
@@ -11923,15 +11936,15 @@
   api-min: "26"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's/#define HAS_SHMDT/#define XXXXXXXXX/' opal/mca/memory/patcher/memory_patcher_component.c
-    sedInPlace 's/#define HAS_SHMAT/#define YYYYYYYYY/' opal/mca/memory/patcher/memory_patcher_component.c
-    sedInPlace 's/HAS_SHMDT/(defined(SYS_shmdt) || (defined(IPCOP_shmdt) \&\& defined(SYS_ipc)))/' opal/mca/memory/patcher/memory_patcher_component.c
-    sedInPlace 's/HAS_SHMAT/(defined(SYS_shmat) || (defined(IPCOP_shmat) \&\& defined(SYS_ipc)))/' opal/mca/memory/patcher/memory_patcher_component.c
-    sedInPlace '/#include <stdlib.h>/a #include "../include/opal_config.h"' opal/util/malloc.h
-    sedInPlace 's/rindex(/strrchr(/g' orte/mca/plm/rsh/plm_rsh_module.c
-    sedInPlace 's/rindex(/strrchr(/g' oshmem/mca/memheap/base/memheap_base_static.c
-    sedInPlace 's/bcmp(/memcmp(/g'    ompi/mca/topo/treematch/treematch/tm_malloc.c
-    sedInPlace '1i static int getdtablesize(void);' orte/mca/state/base/state_base_fns.c
+    gsed -i 's/#define HAS_SHMDT/#define XXXXXXXXX/' opal/mca/memory/patcher/memory_patcher_component.c
+    gsed -i 's/#define HAS_SHMAT/#define YYYYYYYYY/' opal/mca/memory/patcher/memory_patcher_component.c
+    gsed -i 's/HAS_SHMDT/(defined(SYS_shmdt) || (defined(IPCOP_shmdt) \&\& defined(SYS_ipc)))/' opal/mca/memory/patcher/memory_patcher_component.c
+    gsed -i 's/HAS_SHMAT/(defined(SYS_shmat) || (defined(IPCOP_shmat) \&\& defined(SYS_ipc)))/' opal/mca/memory/patcher/memory_patcher_component.c
+    gsed -i '/#include <stdlib.h>/a #include "../include/opal_config.h"' opal/util/malloc.h
+    gsed -i 's/rindex(/strrchr(/g' orte/mca/plm/rsh/plm_rsh_module.c
+    gsed -i 's/rindex(/strrchr(/g' oshmem/mca/memheap/base/memheap_base_static.c
+    gsed -i 's/bcmp(/memcmp(/g'    ompi/mca/topo/treematch/treematch/tm_malloc.c
+    gsed -i '1i static int getdtablesize(void);' orte/mca/state/base/state_base_fns.c
     cat >> orte/mca/state/base/state_base_fns.c <<EOF
     #include <sys/cdefs.h>
     #include <sys/resource.h>
@@ -11970,12 +11983,12 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/-mandroid/d'           Configurations/15-android.conf
-    sedInPlace '/ndk is invalid/d'      Configurations/15-android.conf
-    sedInPlace '/no NDK $triarch-gcc/d' Configurations/15-android.conf
-    sedInPlace '/-target/d'             Configurations/15-android.conf
-    sedInPlace '/-gcc-toolchain/d'      Configurations/15-android.conf
-    sedInPlace '/tritools-4.9/d'        Configurations/15-android.conf
+    gsed -i '/-mandroid/d'           Configurations/15-android.conf
+    gsed -i '/ndk is invalid/d'      Configurations/15-android.conf
+    gsed -i '/no NDK $triarch-gcc/d' Configurations/15-android.conf
+    gsed -i '/-target/d'             Configurations/15-android.conf
+    gsed -i '/-gcc-toolchain/d'      Configurations/15-android.conf
+    gsed -i '/tritools-4.9/d'        Configurations/15-android.conf
   prepare: |-
     # ./configure LIST | grep android
     case $TARGET_PLATFORM_ARCH in
@@ -12002,7 +12015,7 @@
     gmakew clean
     gmakew CROSS_COMPILE=
     gmakew CROSS_COMPILE= install
-  dotweak: sedInPlace 's|-latomic||g' lib/pkgconfig/libcrypto.pc
+  dotweak: gsed -i 's|-latomic||g' lib/pkgconfig/libcrypto.pc
 - pkgname: openssl-dev
   pkgtype: lib
   version: 3.3.0
@@ -12017,12 +12030,12 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/-mandroid/d'           Configurations/15-android.conf
-    sedInPlace '/ndk is invalid/d'      Configurations/15-android.conf
-    sedInPlace '/no NDK $triarch-gcc/d' Configurations/15-android.conf
-    sedInPlace '/-target/d'             Configurations/15-android.conf
-    sedInPlace '/-gcc-toolchain/d'      Configurations/15-android.conf
-    sedInPlace '/tritools-4.9/d'        Configurations/15-android.conf
+    gsed -i '/-mandroid/d'           Configurations/15-android.conf
+    gsed -i '/ndk is invalid/d'      Configurations/15-android.conf
+    gsed -i '/no NDK $triarch-gcc/d' Configurations/15-android.conf
+    gsed -i '/-target/d'             Configurations/15-android.conf
+    gsed -i '/-gcc-toolchain/d'      Configurations/15-android.conf
+    gsed -i '/tritools-4.9/d'        Configurations/15-android.conf
   prepare: |-
     # ./configure LIST | grep android
     case $TARGET_PLATFORM_ARCH in
@@ -12034,7 +12047,7 @@
 
     export CROSS_SYSROOT="$SYSROOT"
   install: "run ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
-  dotweak: sedInPlace 's|-latomic||g' lib/pkgconfig/libcrypto.pc
+  dotweak: gsed -i 's|-latomic||g' lib/pkgconfig/libcrypto.pc
 - pkgname: openssl-fips
   pkgtype: lib
   version: 2.0.16
@@ -12050,8 +12063,8 @@
   dopatch: |-
     export LC_COLLATE='C'
     export LC_CTYPE='C'
-    sedInPlace 's/-mandroid//g' Configure
-    sedInPlace 's|./fips_standalone_sha1$(EXE_EXT) fipscanister.o > fipscanister.o.sha1||g' fips/Makefile
+    gsed -i 's/-mandroid//g' Configure
+    gsed -i 's|./fips_standalone_sha1$(EXE_EXT) fipscanister.o > fipscanister.o.sha1||g' fips/Makefile
   install: |-
     get_os_compiler() {
         case $TARGET_PLATFORM_ARCH in
@@ -12089,12 +12102,12 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/-mandroid/d'           Configurations/15-android.conf
-    sedInPlace '/ndk is invalid/d'      Configurations/15-android.conf
-    sedInPlace '/no NDK $triarch-gcc/d' Configurations/15-android.conf
-    sedInPlace '/-target/d'             Configurations/15-android.conf
-    sedInPlace '/-gcc-toolchain/d'      Configurations/15-android.conf
-    sedInPlace '/tritools-4.9/d'        Configurations/15-android.conf
+    gsed -i '/-mandroid/d'           Configurations/15-android.conf
+    gsed -i '/ndk is invalid/d'      Configurations/15-android.conf
+    gsed -i '/no NDK $triarch-gcc/d' Configurations/15-android.conf
+    gsed -i '/-target/d'             Configurations/15-android.conf
+    gsed -i '/-gcc-toolchain/d'      Configurations/15-android.conf
+    gsed -i '/tritools-4.9/d'        Configurations/15-android.conf
   install: "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"\n\nrun ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
 - pkgname: p11-kit
   pkgtype: lib
@@ -12111,7 +12124,7 @@
   parallel: "1"
   dopatch: |-
     # p11-kit cannot be used as a static library
-    sedInPlace 's/if test "$enable_static" = "yes"; then/if false ; then/' configure
+    gsed -i 's/if test "$enable_static" = "yes"; then/if false ; then/' configure
   install: |-
     configure \
         --without-systemd \
@@ -12126,8 +12139,8 @@
   version: "17.05"
   license: LGPL-2.1-or-later
   summary: 7-Zip (high compression file archiver) implementation
-  web-url: https://github.com/jinfeihan57/p7zip
-  git-url: https://github.com/jinfeihan57/p7zip
+  web-url: https://github.com/p7zip-project/p7zip
+  git-url: https://github.com/p7zip-project/p7zip
   src-url: https://github.com/p7zip-project/p7zip/archive/v17.05.tar.gz
   src-sha: d2788f892571058c08d27095c22154579dfefb807ebe357d145ab2ddddefb1a6
   dep-pkg: libiconv
@@ -12137,7 +12150,7 @@
   parallel: "1"
   dopatch: |-
     run mv makefile.linux_any_cpu makefile.machine
-    sedInPlace 's|getpass("")|""|g' CPP/7zip/UI/Console/UserInputUtils.cpp
+    gsed -i 's|getpass("")|""|g' CPP/7zip/UI/Console/UserInputUtils.cpp
     printf 'INPUT(%s)\n' '-liconv' > ../lib/libpthread.a
   install: |-
     gmakew all3 CC="'$CC $CFLAGS -DANDROID_NDK -D_UINT64_T_DECLARED $CPPFLAGS $LDFLAGS'" CXX="'$CXX $CXXFLAGS -DANDROID_NDK -D_UINT64_T_DECLARED $CPPFLAGS $LDFLAGS'"
@@ -12259,7 +12272,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|DESTINATION cmake|DESTINATION lib/cmake|' CMakeLists.txt
+  dopatch: gsed -i 's|DESTINATION cmake|DESTINATION lib/cmake|' CMakeLists.txt
   install: |-
     cmakew \
         -DCMAKE_C_STANDARD=99 \
@@ -12312,7 +12325,7 @@
 
     run cd -
 
-    sedInPlace '/PNG_USE_READ_MACROS/a "FPDFSDK_EXPORTS",' BUILD.gn
+    gsed -i '/PNG_USE_READ_MACROS/a "FPDFSDK_EXPORTS",' BUILD.gn
   install: |-
     case $TARGET_PLATFORM_ARCH in
         armv7a)  GN_ARG_TARGET_CPU=arm   ;;
@@ -12397,7 +12410,7 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace 's|ln -f|ln -sf|' Makefile
+  dopatch: gsed -i 's|ln -f|ln -sf|' Makefile
   install: |-
     gmakew clean
     gmakew CC=$CC CFLAGS="'$CFLAGS'" LDFLAGS="'$LDFLAGS'"
@@ -12441,8 +12454,8 @@
   ccflags: -Wno-int-conversion
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|with_libiconv=maybe|with_libiconv=gnu|g' glib/configure
-    sedInPlace '/HAVE_PTHREAD_COND_TIMEDWAIT_MONOTONIC/d'  glib/configure
+    gsed -i 's|with_libiconv=maybe|with_libiconv=gnu|g' glib/configure
+    gsed -i '/HAVE_PTHREAD_COND_TIMEDWAIT_MONOTONIC/d'  glib/configure
 
     cat > glib/configure.cache <<EOF
     glib_cv_stack_grows=no
@@ -12820,8 +12833,8 @@
     mark_as_advanced(TIFF_INCLUDE_DIRS TIFF_LIBRARIES)
     EOF
 
-    sedInPlace 's|${TIFF_LIBRARY}|TIFF::TIFF|' src/lib_proj.cmake
-    sedInPlace 's|${CURL_LIBRARY}|CURL::libcurl|' src/lib_proj.cmake
+    gsed -i 's|${TIFF_LIBRARY}|TIFF::TIFF|' src/lib_proj.cmake
+    gsed -i 's|${CURL_LIBRARY}|CURL::libcurl|' src/lib_proj.cmake
   install: cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_TESTING=OFF
   dotweak: |-
     install -d lib/pkgconfig
@@ -12845,7 +12858,7 @@
   license: GPL-2.0-or-later
   summary: A user-space implementation of chroot, mount --bind, and binfmt_misc
   web-url: https://proot-me.github.io
-  git-url: https://github.com/proot-me/proot
+  git-url: https://github.com/termux/proot
   src-url: https://github.com/termux/proot/archive/8f67d6c7fadb445b7a528020d05e72dba717c5b9.tar.gz
   src-sha: 6570eae1752e7f19abf1417de8ccb0329a8c0ed63b1e7a70ef5d07a945af1dd5
   dep-pkg: libtalloc
@@ -12856,7 +12869,7 @@
   parallel: "1"
   dopatch: |-
     printf "LS0tIEdOVW1ha2VmaWxlLmJhawkyMDIxLTA3LTAzIDE2OjI4OjU2LjAwMDAwMDAwMCArMDgwMAorKysgR05VbWFrZWZpbGUJMjAyMS0wNy0wMyAxNjozMzowMC4wMDAwMDAwMDAgKzA4MDAKQEAgLTE0LDkgKzE0LDkgQEAKIE9CSkNPUFkgID89ICQoQ1JPU1NfQ09NUElMRSlvYmpjb3B5CiBPQkpEVU1QICA/PSAkKENST1NTX0NPTVBJTEUpb2JqZHVtcAogCi1DUFBGTEFHUyArPSAtRF9GSUxFX09GRlNFVF9CSVRTPTY0IC1EX0dOVV9TT1VSQ0UgLUkuIC1JJChWUEFUSCkKLUNGTEFHUyAgICs9IC1XYWxsIC1XZXh0cmEgLU8yCi1MREZMQUdTICArPSAtbHRhbGxvYyAtV2wsLXosbm9leGVjc3RhY2sKK292ZXJyaWRlIENQUEZMQUdTICs9IC1EX0ZJTEVfT0ZGU0VUX0JJVFM9NjQgLURfR05VX1NPVVJDRSAtSS4gLUkkKFZQQVRIKQorb3ZlcnJpZGUgQ0ZMQUdTICAgKz0gLVdhbGwgLVdleHRyYSAtTzIKK292ZXJyaWRlIExERkxBR1MgICs9IC1sdGFsbG9jIC1XbCwteixub2V4ZWNzdGFjawogCiBPQkpFQ1RTICs9IFwKIAljbGkvY2xpLm8JCVwKQEAgLTI1NSw3ICsyNTUsOCBAQAogCS0kKFJNKSAtZiAkKENIRUNLX09CSkVDVFMpICQoQ0hFQ0tfUFJPR1JBTVMpICQoQ0hFQ0tfUkVTVUxUUykgJChPQkpFQ1RTKSAkKExPQURFUl9PQkpFQ1RTKSAkKExPQURFUi1tMzJfT0JKRUNUUykgcHJvb3QgbG9hZGVyL2xvYWRlciBsb2FkZXIvbG9hZGVyLW0zMiAkKERFUFMpIGJ1aWxkLmggbGljZW5zZXMKIAogaW5zdGFsbDogcHJvb3QKLQkkKCQocXVpZXQpSU5TVEFMTCkgLUQgJDwgJChERVNURElSKSQoQklORElSKS8kPAorCSQoSU5TVEFMTCkgLWQgJChERVNURElSKSQoQklORElSKQorCSQoSU5TVEFMTCkgJDwgJChERVNURElSKSQoQklORElSKS8kPAogaWZkZWYgUFJPT1RfVU5CVU5ETEVfTE9BREVSCiAJJChJTlNUQUxMKSAtRCBsb2FkZXIvbG9hZGVyICQoUFJPT1RfVU5CVU5ETEVfTE9BREVSKS9sb2FkZXIKIGlmZGVmIEhBU19MT0FERVJfMzJCSVQK" | base64 -d | patch
-    sedInPlace 's|-ltalloc||' GNUmakefile
+    gsed -i 's|-ltalloc||' GNUmakefile
   install: |-
     gmakew clean
     gmakew V=1 CC=$CC LD=$CC STRIP=$STRIP OBJCOPY=$OBJCOPY OBJDUMP=$OBJDUMP CPPFLAGS="'$CPPFLAGS'" CFLAGS="'$CFLAGS'" LDFLAGS="'$LDFLAGS $libtalloc_LIBRARY_DIR/libtalloc.a'"
@@ -13133,11 +13146,11 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|-g||' Makefile
-    sedInPlace 's|LIBS+=-ldl -lpthread|LIBS+=-ldl|' Makefile
-    sedInPlace 's|lib/quickjs|lib|g'         Makefile
-    sedInPlace 's|include/quickjs|include|g' Makefile
-    sedInPlace 's|$(HOST_CC) $(LDFLAGS)|$(HOST_CC) -B/usr/bin $(LDFLAGS)|' Makefile
+    gsed -i 's|-g||' Makefile
+    gsed -i 's|LIBS+=-ldl -lpthread|LIBS+=-ldl|' Makefile
+    gsed -i 's|lib/quickjs|lib|g'         Makefile
+    gsed -i 's|include/quickjs|include|g' Makefile
+    gsed -i 's|$(HOST_CC) $(LDFLAGS)|$(HOST_CC) -B/usr/bin $(LDFLAGS)|' Makefile
     # https://newbedev.com/how-to-specify-alternate-linker-command-when-linking-with-cc
   install: |-
     export HOST_CC="$CC_FOR_BUILD"
@@ -13350,8 +13363,8 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/SHARED_EXT=/c SHARED_EXT=".so"' configure
-    sedInPlace 's/LD_STATIC=-static/LD_STATIC=/' configure
+    gsed -i '/SHARED_EXT=/c SHARED_EXT=".so"' configure
+    gsed -i 's/LD_STATIC=-static/LD_STATIC=/' configure
   install: |-
     run ./configure \
         --cc="$CC" \
@@ -13614,8 +13627,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/ftello/d' ../include/ndk-pkg-common.h
-    sedInPlace '/fseeko/d' ../include/ndk-pkg-common.h
+    gsed -i '/ftello/d' ../include/ndk-pkg-common.h
+    gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
   install: cmakew -DSDL_STATIC=ON -DSDL_SHARED=ON
 - pkgname: shaderc
   pkgtype: exe
@@ -13863,7 +13876,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's| OR BUILD_SHARED_LIBS||' CMakeLists.txt
+  dopatch: gsed -i 's| OR BUILD_SHARED_LIBS||' CMakeLists.txt
   install: |-
     cmakew \
         -DSPDLOG_FMT_EXTERNAL=ON \
@@ -13907,7 +13920,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' sqlite3.c
+  dopatch: gsed -i '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' sqlite3.c
   install: configure --disable-editline --enable-readline --enable-static-shell LIBS=-lm
   dotweak: |-
     rm -rf include
@@ -13986,7 +13999,7 @@
   bsystem: go
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace '1d' assets_dev.go
+  dopatch: gsed -i '1d' assets_dev.go
   install: gow -tags release
 - pkgname: suricata
   pkgtype: exe
@@ -14004,8 +14017,8 @@
   api-min: "26"
   parallel: "1"
   dopatch: |-
-    sedInPlace "/RUST_TARGET = --target/c RUST_TARGET = --target $RUST_TARGET" rust/Makefile.am
-    sedInPlace "/RUST_SURICATA_LIB_XC_DIR=/c RUST_SURICATA_LIB_XC_DIR=$RUST_TARGET/" configure.ac
+    gsed -i "/RUST_TARGET = --target/c RUST_TARGET = --target $RUST_TARGET" rust/Makefile.am
+    gsed -i "/RUST_SURICATA_LIB_XC_DIR=/c RUST_SURICATA_LIB_XC_DIR=$RUST_TARGET/" configure.ac
   prepare: |-
     export CARGO_BUILD_TARGET="$RUST_TARGET"
     run rustup target add "$CARGO_BUILD_TARGET"
@@ -14200,8 +14213,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's/test "`uname -s`" = "Darwin"/false/g' configure
-    sedInPlace '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' ../pkgs/sqlite3.44.2/generic/../compat/sqlite3/sqlite3.c
+    gsed -i 's/test "`uname -s`" = "Darwin"/false/g' configure
+    gsed -i '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' ../pkgs/sqlite3.44.2/generic/../compat/sqlite3/sqlite3.c
   prepare: |-
     if [ "$TARGET_PLATFORM_NBIT" -eq 64 ] ; then
         EXTRA_CONFIGURE_FLAGS='--enable-64bit'
@@ -14396,9 +14409,9 @@
   api-min: "23"
   parallel: "1"
   dopatch: |-
-    sedInPlace '1i int getdtablesize();'   compat/imsg.c
-    sedInPlace '1i #include<sys/endian.h>' compat/htonll.c
-    sedInPlace '1i #include<sys/endian.h>' compat/ntohll.c
+    gsed -i '1i int getdtablesize();'   compat/imsg.c
+    gsed -i '1i #include<sys/endian.h>' compat/htonll.c
+    gsed -i '1i #include<sys/endian.h>' compat/ntohll.c
   install: |-
     configure \
         --with-TERM=screen-256color \
@@ -14482,8 +14495,8 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|ifndef __linux__|if 1|' strverscmp.c || return 1
-    sedInPlace 's|ifndef __linux__|if 1|' tree.h       || return 1
+    gsed -i 's|ifndef __linux__|if 1|' strverscmp.c || return 1
+    gsed -i 's|ifndef __linux__|if 1|' tree.h       || return 1
   install: |-
     gmakew clean
     gmakew install \
@@ -14527,7 +14540,7 @@
   binbstd: "0"
   api-min: "23"
   parallel: "1"
-  dopatch: sedInPlace '/LINK_LIBS util/d' CMakeLists.txt
+  dopatch: gsed -i '/LINK_LIBS util/d' CMakeLists.txt
   install: cmakew
 - pkgname: ttygif
   pkgtype: exe
@@ -14542,7 +14555,7 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: sedInPlace 's|CFLAGS += -O2 -Wall|override CFLAGS +=|' Makefile
+  dopatch: gsed -i 's|CFLAGS += -O2 -Wall|override CFLAGS +=|' Makefile
   install: |-
     gmakew clean
     gmakew UNAME=Linux CC=$CC CFLAGS="'$CFLAGS $CPPFLAGS $LDFLAGS'"
@@ -14560,8 +14573,8 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|union wait status|int status|' ttyrec.c
-    #sedInPlace 's|set_progname|setprogname|'     ttytime.c
+    gsed -i 's|union wait status|int status|' ttyrec.c
+    #gsed -i 's|set_progname|setprogname|'     ttytime.c
   install: |-
     gmakew clean
     gmakew CC=$CC CFLAGS="'$CFLAGS $CPPFLAGS -Dset_progname=setprogname $LDFLAGS'"
@@ -14668,8 +14681,8 @@
   api-min: "26"
   parallel: "0"
   dopatch: |-
-    sedInPlace 's|getpass("")|""|g'     consio.cpp
-    sedInPlace 's|install -D|install|g' makefile
+    gsed -i 's|getpass("")|""|g'     consio.cpp
+    gsed -i 's|install -D|install|g' makefile
   install: |-
     gmakew -f makefile unrar CXX="$CXX" AR="$AR" STRIP="$STRIP" CXXFLAGS="'$CXXFLAGS'" CPPFLAGS="'$CPPFLAGS'" LDFLAGS="'$LDFLAGS'"
     install -d "$PACKAGE_INSTALL_DIR/bin"
@@ -14750,10 +14763,10 @@
   api-min: "24"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|/var/run|/data/local/tmp|' src/usbmuxd-proto.h
-    sedInPlace 's|/var/run|/data/local/tmp|' src/main.c
-    sedInPlace 's|/var/run|/data/local/tmp|' docs/usbmuxd.8
-    sedInPlace 's|/var/run|/data/local/tmp|' udev/39-usbmuxd.rules.in
+    gsed -i 's|/var/run|/data/local/tmp|' src/usbmuxd-proto.h
+    gsed -i 's|/var/run|/data/local/tmp|' src/main.c
+    gsed -i 's|/var/run|/data/local/tmp|' docs/usbmuxd.8
+    gsed -i 's|/var/run|/data/local/tmp|' udev/39-usbmuxd.rules.in
   install: configure --without-preflight --without-systemd
 - pkgname: utf8.h
   pkgtype: lib
@@ -14959,8 +14972,8 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/ftello/d' ../include/ndk-pkg-common.h
-    sedInPlace '/fseeko/d' ../include/ndk-pkg-common.h
+    gsed -i '/ftello/d' ../include/ndk-pkg-common.h
+    gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
   prepare: |-
     printf '\n' > ../include.h
 
@@ -15087,8 +15100,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/ftello/d' ../include/ndk-pkg-common.h
-    sedInPlace '/fseeko/d' ../include/ndk-pkg-common.h
+    gsed -i '/ftello/d' ../include/ndk-pkg-common.h
+    gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
   install: configure --disable-tests --enable-apps --disable-man
 - pkgname: webhook
   pkgtype: pie
@@ -15118,7 +15131,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt
+  dopatch: gsed -i 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt
   install: |-
     cmakew \
         -DWEBP_BUILD_CWEBP=ON \
@@ -15132,7 +15145,7 @@
         -DWEBP_BUILD_EXTRAS=ON \
         -DWEBP_LINK_STATIC=ON \
         -DBUILD_SHARED_LIBS=OFF
-  dotweak: sedInPlace '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc
+  dotweak: gsed -i '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc
 - pkgname: webrtc
   pkgtype: lib
   version: "1"
@@ -15226,8 +15239,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace '/ftello/d' ../include/ndk-pkg-common.h
-    sedInPlace '/fseeko/d' ../include/ndk-pkg-common.h
+    gsed -i '/ftello/d' ../include/ndk-pkg-common.h
+    gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
   install: |-
     configure \
         --disable-pcre \
@@ -15357,7 +15370,7 @@
   parallel: "1"
   dopatch: |-
     if [ "$TARGET_PLATFORM_VERS" -lt 24 ] ; then
-        sedInPlace 's|fseeko|fseekoxxxxxxxxxx|g' configure
+        gsed -i 's|fseeko|fseekoxxxxxxxxxx|g' configure
     fi
   install: |-
     configure \
@@ -15379,7 +15392,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: sedInPlace 's|cli x265-shared|cli x265-static|' CMakeLists.txt
+  dopatch: gsed -i 's|cli x265-shared|cli x265-static|' CMakeLists.txt
   install: |-
     cmakew \
         -DENABLE_PIC=ON \
@@ -15434,10 +15447,10 @@
   binbstd: "1"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|xmlErrorPtr error|const xmlError * error|'  src/xmlstar.h
-    sedInPlace 's|xmlErrorPtr error|const xmlError * error|'  src/xml.c
-    sedInPlace 's|xmlChar \*\*array;|const xmlChar **array;|' src/xml_elem.c
-    sedInPlace 's|xmlChar \*name)|const xmlChar *name)|'      src/xml_elem.c
+    gsed -i 's|xmlErrorPtr error|const xmlError * error|'  src/xmlstar.h
+    gsed -i 's|xmlErrorPtr error|const xmlError * error|'  src/xml.c
+    gsed -i 's|xmlChar \*\*array;|const xmlChar **array;|' src/xml_elem.c
+    gsed -i 's|xmlChar \*name)|const xmlChar *name)|'      src/xml_elem.c
   install: |-
     configure \
         --with-libxml-prefix="$libxml2_INSTALL_DIR" \
@@ -15519,8 +15532,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|CMAKE_C_STANDARD 99|CMAKE_C_STANDARD 11|' CMakeLists.txt
-    sedInPlace 's|-march=armv6 -mfpu=vfp|-march=armv7-a -mfpu=neon|' CMakeLists.txt
+    gsed -i 's|CMAKE_C_STANDARD 99|CMAKE_C_STANDARD 11|' CMakeLists.txt
+    gsed -i 's|-march=armv6 -mfpu=vfp|-march=armv7-a -mfpu=neon|' CMakeLists.txt
     printf 'INPUT(-llog)\n' > ../lib/libm.a
   install: |-
     cmakew \
@@ -15544,7 +15557,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: 'sedInPlace ''1i #include <unistd.h>'' libisofs/rockridge.h'
+  dopatch: 'gsed -i ''1i #include <unistd.h>'' libisofs/rockridge.h'
   install: |-
     configure \
         --enable-libacl \
@@ -15583,8 +15596,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    sedInPlace 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.am
-    sedInPlace 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.in
+    gsed -i 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.am
+    gsed -i 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.in
   install: |-
     configure \
         --enable-static \
@@ -15754,7 +15767,7 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: "for patchfile in $(cat ../fix/patches/series)\ndo  \n    patch -p1 < ../fix/patches/$patchfile\ndone\n\npatch -p1 < ../res/99cb7eeeb6fdb8df700f40bfffbc30516c94774cbf585f725d81c3224a2c530c.diff\n\nsedInPlace 's|$(AS) _match.s|$(AS) -o _match.o _match.s|'          unix/Makefile\nsedInPlace 's|$(AS) _crc_i386.s|$(AS) -o _crc_i386.o _crc_i386.s|' unix/Makefile"
+  dopatch: "for patchfile in $(cat ../fix/patches/series)\ndo  \n    patch -p1 < ../fix/patches/$patchfile\ndone\n\npatch -p1 < ../res/99cb7eeeb6fdb8df700f40bfffbc30516c94774cbf585f725d81c3224a2c530c.diff\n\ngsed -i 's|$(AS) _match.s|$(AS) -o _match.o _match.s|'          unix/Makefile\ngsed -i 's|$(AS) _crc_i386.s|$(AS) -o _crc_i386.o _crc_i386.s|' unix/Makefile"
   install: |-
     gmakew -f unix/Makefile clean
     gmakew -f unix/Makefile generic \
@@ -15781,8 +15794,8 @@
     Jean-loup Gailly <jloup@gailly.net>
     Mark Adler <madler@alumni.caltech.edu>
   dopatch: |-
-    sedInPlace 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt
-    sedInPlace 's|zlib)|zlibstatic)|' CMakeLists.txt
+    gsed -i 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt
+    gsed -i 's|zlib)|zlibstatic)|' CMakeLists.txt
   install: cmakew
 - pkgname: zlib-ng
   pkgtype: lib
