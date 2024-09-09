@@ -4001,7 +4001,7 @@ git-url: https://github.com/krb5/krb5
 src-url: https://kerberos.org/dist/krb5/1.21/krb5-1.21.2.tar.gz
 src-sha: 9560941a9d843c0243a71b17a7ac6fe31c7cebb5bce3983db79e52ae7e850491
 dep-pkg: readline openssl-dev berkeley-db libglob
-dep-upp: gm4 bison curl bsdtar gmake gmake
+dep-upp: gm4 bison perl curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 1
@@ -4061,6 +4061,7 @@ web-url: http://ltp.sourceforge.net/coverage/lcov.php
 git-url: https://github.com/linux-test-project/lcov
 src-url: https://github.com/linux-test-project/lcov/releases/download/v2.1/lcov-2.1.tar.gz
 src-sha: 4d01d9f551a3f0e868ce84742fb60aac4407e3fc1622635a07e29d70e38f1faf
+dep-pkg: perl
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
@@ -5038,7 +5039,7 @@ web-url: https://github.com/OSGeo/libgeotiff
 git-url: https://github.com/OSGeo/libgeotiff
 src-url: https://github.com/OSGeo/libgeotiff/releases/download/1.7.3/libgeotiff-1.7.3.tar.gz
 src-sha: ba23a3a35980ed3de916e125c739251f8e3266be07540200125a307d7cf5a704
-dep-pkg: libjpeg-turbo proj
+dep-pkg: libjpeg-turbo libproj
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -7907,7 +7908,7 @@ git-url: https://github.com/lsof-org/lsof
 src-url: https://github.com/lsof-org/lsof/archive/4.99.3.tar.gz
 src-sha: b9c56468b927d9691ab168c0b1e9f8f1f835694a35ff898c549d383bd8d09bd4
 dep-pkg: libtirpc libgetdtablesize
-dep-upp: curl bsdtar gmake
+dep-upp: perl curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
 api-min: 26
