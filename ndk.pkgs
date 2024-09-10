@@ -7343,7 +7343,7 @@ web-url: https://www.webmproject.org/code/
 git-url: https://github.com/webmproject/libvpx
 src-url: https://github.com/webmproject/libvpx/archive/v1.13.1.tar.gz
 src-sha: 00dae80465567272abd077f59355f95ac91d7809a2d3006f9ace2637dd429d14
-dep-upp: yasm perl curl bsdtar gmake gmake
+dep-upp: yasm perl diffutils curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 1
