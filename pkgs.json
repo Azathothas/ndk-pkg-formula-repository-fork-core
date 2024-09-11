@@ -2532,7 +2532,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "install": "gmakew clean\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\" LIBS="
+    "install": "gmakew clean\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\" CFLAGS=\"'$CFLAGS'\" LIBS=\"'$LDFLAGS'\""
   },
   {
     "pkgname": "g",
