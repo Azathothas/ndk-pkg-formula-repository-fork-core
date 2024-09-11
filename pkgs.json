@@ -153,7 +153,7 @@
     "summary": "Automatic Language-Agnostic Subtitle Synchronization",
     "web-url": "https://github.com/kaegi/alass",
     "git-url": "https://github.com/kaegi/alass",
-    "dep-pkg": "ffmpeg",
+    "dep-pkg": "ffmpeg-dev",
     "dep-upp": "git",
     "bsystem": "cargo",
     "binbstd": "1",
@@ -328,7 +328,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "gsed -i 's|$(HOSTCC) $(CFLAGS)|$(HOSTCC) $(HOSTCFLAGS)|' makefile",
+    "dopatch": "gsed -i 's|$(HOSTCC) $(CFLAGS)|$(HOSTCC) $(HOSTCFLAGS)|' makefile\ngsed -i 's|-lm|$(LDFLAGS) -lm|' makefile",
     "install": "gmakew clean\ngmakew CC=\"$CC\" CFLAGS=\"'$CFLAGS'\" HOSTCC=\"$CC_FOR_BUILD\" HOSTCFLAGS=\"'$CFLAGS_FOR_BUILD $CPPFLAGS_FOR_BUILD'\"\nmv a.out awk\ninstall_bins awk\ninstall_mans awk.1"
   },
   {
@@ -751,7 +751,7 @@
   },
   {
     "pkgname": "bullet",
-    "pkgtype": "exe",
+    "pkgtype": "lib",
     "version": "3.25",
     "license": "Zlib",
     "summary": "Physics SDK",
@@ -2171,7 +2171,7 @@
   },
   {
     "pkgname": "ffmpeg",
-    "pkgtype": "exe+lib",
+    "pkgtype": "exe",
     "version": "7.0",
     "license": "GPL-2.0-or-later",
     "summary": "A complete, cross-platform solution to record, convert and stream audio and video",
@@ -2179,12 +2179,29 @@
     "git-url": "https://github.com/FFmpeg/FFmpeg",
     "src-url": "https://ffmpeg.org/releases/ffmpeg-7.0.tar.xz",
     "src-sha": "4426a94dd2c814945456600c8adfc402bee65ec14a70e8c531ec9a2cd651da7b",
-    "dep-pkg": "libmp3lame libtheora libvorbis libspeex librav1e libdav1d libx264 libx265 libopus libxvid libvpx libwebp libtiff libpng libjpeg-turbo libgif libxml2 sdl2",
+    "dep-pkg": "libmp3lame libtheora libvorbis libspeex librav1e libdav1d libx264 libx265 libopus libxvid libvpx libwebp libtiff libpng libjpeg-turbo libgif libxml2 libsdl2",
     "dep-upp": "nasm curl bsdtar gmake",
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "install": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac\n\ngsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$sdl2_INSTALL_DIR/bin/sdl2-config'|\" configure\n\nif run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --enable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --disable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
+    "install": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac\n\ngsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure\n\nexport ANDROID_NDK_COMPILER_ARGS=\"$ANDROID_NDK_COMPILER_ARGS -ldl\"\n\nif run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --disable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --enable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
+  },
+  {
+    "pkgname": "ffmpeg-dev",
+    "pkgtype": "exe",
+    "version": "7.0",
+    "license": "GPL-2.0-or-later",
+    "summary": "A complete, cross-platform solution to record, convert and stream audio and video",
+    "web-url": "https://ffmpeg.org/",
+    "git-url": "https://github.com/FFmpeg/FFmpeg",
+    "src-url": "https://ffmpeg.org/releases/ffmpeg-7.0.tar.xz",
+    "src-sha": "4426a94dd2c814945456600c8adfc402bee65ec14a70e8c531ec9a2cd651da7b",
+    "dep-pkg": "libmp3lame libtheora libvorbis libspeex librav1e libdav1d libx264 libx265 libopus libxvid libvpx libwebp libtiff libpng libjpeg-turbo libgif libxml2 libsdl2",
+    "dep-upp": "nasm curl bsdtar gmake",
+    "bsystem": "gmake",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac\n\ngsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure\n\nif run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --enable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --disable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
   },
   {
     "pkgname": "figlet",
@@ -3070,7 +3087,7 @@
   },
   {
     "pkgname": "glslang",
-    "pkgtype": "exe",
+    "pkgtype": "lib",
     "version": "14.2.0",
     "license": "BSD-3-Clause GPL-3.0-or-later MIT Apache-2.0",
     "summary": "OpenGL and OpenGL ES reference compiler for shading languages",
@@ -4118,23 +4135,6 @@
     "install": "gmakew clean\ngmakew CC=\"$CC\" CFLAGS=\"'$CFLAGS $CPPFLAGS'\" LDFLAGS=\"'$LDFLAGS -Wl,-z,nostart-stop-gc'\"\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\""
   },
   {
-    "pkgname": "ixwebsocket",
-    "pkgtype": "exe",
-    "version": "11.3.2",
-    "license": "BSD-3-Clause",
-    "summary": "WebSocket client and server, and HTTP client command-line tool",
-    "web-url": "https://github.com/machinezone/IXWebSocket",
-    "git-url": "https://github.com/machinezone/IXWebSocket",
-    "src-url": "https://github.com/machinezone/IXWebSocket/archive/refs/tags/v11.3.2.tar.gz",
-    "src-sha": "07d5e9f4cf492069c39c3953fbb3700a9cf8ec8949343998888e54ef37b03223",
-    "dep-pkg": "openssl-dev libz",
-    "dep-upp": "curl bsdtar cmake ninja",
-    "bsystem": "cmake",
-    "binbstd": "0",
-    "parallel": "1",
-    "install": "cmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=OFF\ncmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=ON"
-  },
-  {
     "pkgname": "jbig2dec",
     "pkgtype": "exe+lib",
     "version": "0.20",
@@ -4288,22 +4288,6 @@
     "binbstd": "1",
     "parallel": "1",
     "install": "gow && install_mans man/jump.1"
-  },
-  {
-    "pkgname": "kcp",
-    "pkgtype": "exe",
-    "version": "1.7",
-    "license": "MIT",
-    "summary": "A Fast and Reliable ARQ Protocol",
-    "web-url": "https://github.com/skywind3000/kcp",
-    "git-url": "https://github.com/skywind3000/kcp",
-    "src-url": "https://github.com/skywind3000/kcp/archive/refs/tags/1.7.tar.gz",
-    "src-sha": "b4d26994d95599ab0c44e1f93002f9fda275094a879d66c192d79d596529199e",
-    "dep-upp": "curl bsdtar cmake ninja",
-    "bsystem": "cmake",
-    "binbstd": "0",
-    "parallel": "1",
-    "install": "cmakew"
   },
   {
     "pkgname": "kcptun",
@@ -4504,6 +4488,22 @@
     "binbstd": "1",
     "parallel": "1",
     "install": "gow -X main.gVersion=$PACKAGE_VERSION\nrun install_mans lf.1"
+  },
+  {
+    "pkgname": "libLIEF",
+    "pkgtype": "lib",
+    "version": "0.15.1",
+    "license": "Apache-2.0",
+    "summary": "Library to Instrument Executable Formats",
+    "web-url": "https://github.com/lief-project/LIEF",
+    "git-url": "https://github.com/lief-project/LIEF",
+    "src-url": "https://github.com/lief-project/LIEF/archive/refs/tags/0.15.1.tar.gz",
+    "src-sha": "28653b59afc8b8b255251f21a0f3cbfbdec05dd988fb3f473e22dde28f427ad8",
+    "dep-upp": "curl bsdtar cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "cmakew \\\n    -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=OFF \\\n    -DLIEF_DOC=OFF \\\n    -DLIEF_TESTS=OFF \\\n    -DLIEF_EXAMPLES=OFF \\\n    -DLIEF_COVERAGE=OFF"
   },
   {
     "pkgname": "libaec",
@@ -5981,6 +5981,23 @@
     "install": "configure \\\n    --enable-xattr \\\n    --enable-zlib \\\n    --disable-libacl \\\n    --disable-verbose-debug"
   },
   {
+    "pkgname": "libixwebsocket",
+    "pkgtype": "lib",
+    "version": "11.3.2",
+    "license": "BSD-3-Clause",
+    "summary": "WebSocket client and server, and HTTP client command-line tool",
+    "web-url": "https://github.com/machinezone/IXWebSocket",
+    "git-url": "https://github.com/machinezone/IXWebSocket",
+    "src-url": "https://github.com/machinezone/IXWebSocket/archive/refs/tags/v11.3.2.tar.gz",
+    "src-sha": "07d5e9f4cf492069c39c3953fbb3700a9cf8ec8949343998888e54ef37b03223",
+    "dep-pkg": "openssl-dev libz",
+    "dep-upp": "curl bsdtar cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "cmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=OFF\ncmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=ON"
+  },
+  {
     "pkgname": "libjansson",
     "pkgtype": "lib",
     "version": "2.14",
@@ -6063,6 +6080,22 @@
     "parallel": "1",
     "prepare": "run git clone --depth 1 https://github.com/webmproject/sjpeg third_party/sjpeg",
     "install": "cmakew \\\n    -DBUILD_TESTING=OFF \\\n    -DJPEGXL_ENABLE_JNI=OFF \\\n    -DJPEGXL_ENABLE_SJPEG=ON \\\n    -DJPEGXL_ENABLE_SKCMS=OFF \\\n    -DJPEGXL_ENABLE_TOOLS=OFF \\\n    -DJPEGXL_ENABLE_EXAMPLES=OFF \\\n    -DJPEGXL_ENABLE_MANPAGES=OFF \\\n    -DJPEGXL_ENABLE_BENCHMARK=OFF \\\n    -DJPEGXL_WARNINGS_AS_ERRORS=OFF \\\n    -DJPEGXL_FORCE_SYSTEM_BROTLI=ON \\\n    -DJPEGXL_FORCE_SYSTEM_LCMS2=ON \\\n    -DJPEGXL_FORCE_SYSTEM_HWY=ON \\\n    -DJPEGXL_VERSION=$PACKAGE_VERSION \\\n    -DSJPEG_ANDROID_NDK_PATH=\"$ANDROID_NDK_HOME\""
+  },
+  {
+    "pkgname": "libkcp",
+    "pkgtype": "lib",
+    "version": "1.7",
+    "license": "MIT",
+    "summary": "A Fast and Reliable ARQ Protocol",
+    "web-url": "https://github.com/skywind3000/kcp",
+    "git-url": "https://github.com/skywind3000/kcp",
+    "src-url": "https://github.com/skywind3000/kcp/archive/refs/tags/1.7.tar.gz",
+    "src-sha": "b4d26994d95599ab0c44e1f93002f9fda275094a879d66c192d79d596529199e",
+    "dep-upp": "curl bsdtar cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "cmakew"
   },
   {
     "pkgname": "libksba",
@@ -7188,6 +7221,23 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure"
+  },
+  {
+    "pkgname": "libsdl2",
+    "pkgtype": "lib",
+    "version": "2.30.4",
+    "license": "Zlib",
+    "summary": "A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D",
+    "web-url": "https://www.libsdl.org/",
+    "git-url": "https://github.com/libsdl-org/SDL",
+    "src-url": "https://www.libsdl.org/release/SDL2-2.30.4.tar.gz",
+    "src-sha": "59c89d0ed40d4efb23b7318aa29fe7039dbbc098334b14f17f1e7e561da31a26",
+    "dep-upp": "curl bsdtar cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
+    "install": "cmakew -DSDL_STATIC=ON -DSDL_SHARED=ON"
   },
   {
     "pkgname": "libsigsegv",
@@ -8444,20 +8494,6 @@
     "install": "cmakew \\\n    -DZSTD_BUILD_STATIC=ON \\\n    -DZSTD_BUILD_SHARED=ON \\\n    -DZSTD_BUILD_TESTS=OFF \\\n    -DZSTD_BUILD_CONTRIB=OFF \\\n    -DZSTD_BUILD_PROGRAMS=OFF \\\n    -DZSTD_MULTITHREAD_SUPPORT=ON"
   },
   {
-    "pkgname": "lief",
-    "pkgtype": "exe",
-    "version": "2024.09.11",
-    "license": "Apache-2.0",
-    "summary": "Library to Instrument Executable Formats",
-    "web-url": "https://github.com/lief-project/LIEF",
-    "git-url": "https://github.com/lief-project/LIEF",
-    "dep-upp": "git cmake ninja",
-    "bsystem": "cmake",
-    "binbstd": "0",
-    "parallel": "1",
-    "install": "cmakew \\\n    -DANDROID_USE_LEGACY_TOOLCHAIN_FILE=OFF \\\n    -DLIEF_DOC=OFF \\\n    -DLIEF_TESTS=OFF \\\n    -DLIEF_EXAMPLES=OFF \\\n    -DLIEF_COVERAGE=OFF"
-  },
-  {
     "pkgname": "lighttpd",
     "pkgtype": "exe",
     "version": "1.4.76",
@@ -9043,7 +9079,7 @@
     "git-url": "https://github.com/madebr/mpg123",
     "src-url": "https://www.mpg123.de/download/mpg123-1.32.6.tar.bz2",
     "src-sha": "ccdd1d0abc31d73d8b435fc658c79049d0a905b30669b6a42a03ad169dc609e6",
-    "dep-pkg": "sdl2",
+    "dep-pkg": "libsdl2",
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
@@ -9730,7 +9766,7 @@
     "git-url": "https://github.com/opencv/opencv",
     "src-url": "https://github.com/opencv/opencv/archive/refs/tags/4.9.0.tar.gz",
     "src-sha": "ddf76f9dffd322c7c3cb1f721d0887f62d747b82059342213138dc190f28bc6c",
-    "dep-pkg": "eigen3 libtbb openjpeg openexr openblas ffmpeg",
+    "dep-pkg": "eigen3 libtbb openjpeg openexr openblas ffmpeg-dev",
     "dep-upp": "python3 android-sdk curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
@@ -9835,10 +9871,10 @@
   },
   {
     "pkgname": "openssl-dev",
-    "pkgtype": "lib",
+    "pkgtype": "exe",
     "version": "3.3.0",
     "license": "Apache-2.0",
-    "summary": "Cryptography and SSL/TLS Toolkit",
+    "summary": "Cryptography and SSL/TLS library",
     "web-url": "https://www.openssl.org/",
     "git-url": "https://github.com/openssl/openssl",
     "src-url": "https://www.openssl.org/source/openssl-3.3.0.tar.gz",
@@ -10609,7 +10645,7 @@
   },
   {
     "pkgname": "rang",
-    "pkgtype": "exe",
+    "pkgtype": "lib",
     "version": "3.2",
     "license": "Unlicense",
     "summary": "A Minimal, Header only Modern c++ library for terminal goodies",
@@ -11021,23 +11057,6 @@
     "binbstd": "1",
     "parallel": "1",
     "install": "cargow install"
-  },
-  {
-    "pkgname": "sdl2",
-    "pkgtype": "lib",
-    "version": "2.30.4",
-    "license": "Zlib",
-    "summary": "A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D",
-    "web-url": "https://www.libsdl.org/",
-    "git-url": "https://github.com/libsdl-org/SDL",
-    "src-url": "https://www.libsdl.org/release/SDL2-2.30.4.tar.gz",
-    "src-sha": "59c89d0ed40d4efb23b7318aa29fe7039dbbc098334b14f17f1e7e561da31a26",
-    "dep-upp": "curl bsdtar cmake ninja",
-    "bsystem": "cmake",
-    "binbstd": "0",
-    "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
-    "install": "cmakew -DSDL_STATIC=ON -DSDL_SHARED=ON"
   },
   {
     "pkgname": "shaderc",
@@ -12652,13 +12671,15 @@
     "license": "LGPL-2.1-or-later",
     "summary": "A free, general-purpose data compression with a high compression ratio",
     "web-url": "https://tukaani.org/xz",
-    "src-url": "https://mirrors.aliyun.com/macports/distfiles/xz/xz-5.4.6.tar.bz2",
-    "src-sha": "913851b274e8e1d31781ec949f1c23e8dbcf0ecf6e73a2436dc21769dd3e6f49",
+    "src-url": "https://downloads.sourceforge.net/project/lzmautils/xz-5.4.6.tar.gz",
+    "src-uri": "https://archive.org/download/xz-5.4.6/xz-5.4.6.tar.gz",
+    "src-sha": "aeba3e03bf8140ddedf62a0a367158340520f6b384f75ca6045ccc6c0d43fd5c",
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure \\\n    --disable-external-sha256 \\\n    --disable-werror \\\n    --disable-nls \\\n    --enable-assembler \\\n    --enable-threads=posix"
+    "install": "configure \\\n    --disable-external-sha256 \\\n    --disable-werror \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-assembler \\\n    --enable-threads=posix",
+    "dotweak": "rm -rf include\nrm -rf lib"
   },
   {
     "pkgname": "yaml-cpp",
@@ -12873,7 +12894,8 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DZSTD_MULTITHREAD_SUPPORT=ON \\\n    -DZSTD_BUILD_TESTS=OFF \\\n    -DZSTD_BUILD_CONTRIB=OFF \\\n    -DZSTD_BUILD_PROGRAMS=ON \\\n    -DZSTD_BUILD_STATIC=ON \\\n    -DZSTD_BUILD_SHARED=OFF \\\n    -DZSTD_ZLIB_SUPPORT=ON \\\n    -DZSTD_LZMA_SUPPORT=ON \\\n    -DZSTD_LZ4_SUPPORT=OFF"
+    "install": "cmakew \\\n    -DZSTD_MULTITHREAD_SUPPORT=ON \\\n    -DZSTD_BUILD_TESTS=OFF \\\n    -DZSTD_BUILD_CONTRIB=OFF \\\n    -DZSTD_BUILD_PROGRAMS=ON \\\n    -DZSTD_BUILD_STATIC=ON \\\n    -DZSTD_BUILD_SHARED=OFF \\\n    -DZSTD_ZLIB_SUPPORT=ON \\\n    -DZSTD_LZMA_SUPPORT=ON \\\n    -DZSTD_LZ4_SUPPORT=OFF",
+    "dotweak": "rm -rfv include\nrm -rfv lib"
   },
   {
     "pkgname": "zsync",

@@ -140,7 +140,7 @@ license: GPL-3.0-or-later
 summary: Automatic Language-Agnostic Subtitle Synchronization
 web-url: https://github.com/kaegi/alass
 git-url: https://github.com/kaegi/alass
-dep-pkg: ffmpeg
+dep-pkg: ffmpeg-dev
 dep-upp: git
 bsystem: cargo
 binbstd: 1
@@ -683,7 +683,7 @@ parallel: 1
 installed: no
 ---
 pkgname: bullet
-pkgtype: exe
+pkgtype: lib
 version: 3.25
 license: Zlib
 summary: Physics SDK
@@ -1991,7 +1991,7 @@ parallel: 1
 installed: no
 ---
 pkgname: ffmpeg
-pkgtype: exe+lib
+pkgtype: exe
 version: 7.0
 license: GPL-2.0-or-later
 summary: A complete, cross-platform solution to record, convert and stream audio and video
@@ -1999,7 +1999,23 @@ web-url: https://ffmpeg.org/
 git-url: https://github.com/FFmpeg/FFmpeg
 src-url: https://ffmpeg.org/releases/ffmpeg-7.0.tar.xz
 src-sha: 4426a94dd2c814945456600c8adfc402bee65ec14a70e8c531ec9a2cd651da7b
-dep-pkg: libmp3lame libtheora libvorbis libspeex librav1e libdav1d libx264 libx265 libopus libxvid libvpx libwebp libtiff libpng libjpeg-turbo libgif libxml2 sdl2
+dep-pkg: libmp3lame libtheora libvorbis libspeex librav1e libdav1d libx264 libx265 libopus libxvid libvpx libwebp libtiff libpng libjpeg-turbo libgif libxml2 libsdl2
+dep-upp: nasm curl bsdtar gmake
+bsystem: gmake
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: ffmpeg-dev
+pkgtype: exe
+version: 7.0
+license: GPL-2.0-or-later
+summary: A complete, cross-platform solution to record, convert and stream audio and video
+web-url: https://ffmpeg.org/
+git-url: https://github.com/FFmpeg/FFmpeg
+src-url: https://ffmpeg.org/releases/ffmpeg-7.0.tar.xz
+src-sha: 4426a94dd2c814945456600c8adfc402bee65ec14a70e8c531ec9a2cd651da7b
+dep-pkg: libmp3lame libtheora libvorbis libspeex librav1e libdav1d libx264 libx265 libopus libxvid libvpx libwebp libtiff libpng libjpeg-turbo libgif libxml2 libsdl2
 dep-upp: nasm curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
@@ -2807,7 +2823,7 @@ parallel: 1
 installed: no
 ---
 pkgname: glslang
-pkgtype: exe
+pkgtype: lib
 version: 14.2.0
 license: BSD-3-Clause GPL-3.0-or-later MIT Apache-2.0
 summary: OpenGL and OpenGL ES reference compiler for shading languages
@@ -3775,22 +3791,6 @@ api-min: 26
 parallel: 1
 installed: no
 ---
-pkgname: ixwebsocket
-pkgtype: exe
-version: 11.3.2
-license: BSD-3-Clause
-summary: WebSocket client and server, and HTTP client command-line tool
-web-url: https://github.com/machinezone/IXWebSocket
-git-url: https://github.com/machinezone/IXWebSocket
-src-url: https://github.com/machinezone/IXWebSocket/archive/refs/tags/v11.3.2.tar.gz
-src-sha: 07d5e9f4cf492069c39c3953fbb3700a9cf8ec8949343998888e54ef37b03223
-dep-pkg: openssl-dev libz
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: jbig2dec
 pkgtype: exe+lib
 version: 0.20
@@ -3929,21 +3929,6 @@ src-sha: ce297cada71e1dca33cd7759e55b28518d2bf317cdced1f3b3f79f40fa1958b5
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
-parallel: 1
-installed: no
----
-pkgname: kcp
-pkgtype: exe
-version: 1.7
-license: MIT
-summary: A Fast and Reliable ARQ Protocol
-web-url: https://github.com/skywind3000/kcp
-git-url: https://github.com/skywind3000/kcp
-src-url: https://github.com/skywind3000/kcp/archive/refs/tags/1.7.tar.gz
-src-sha: b4d26994d95599ab0c44e1f93002f9fda275094a879d66c192d79d596529199e
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -4127,6 +4112,21 @@ src-sha: dccd1ad67d2639e47fe0cbc93d74f202d6d6f0c3759fb0237affb7b1a2b1379e
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: libLIEF
+pkgtype: lib
+version: 0.15.1
+license: Apache-2.0
+summary: Library to Instrument Executable Formats
+web-url: https://github.com/lief-project/LIEF
+git-url: https://github.com/lief-project/LIEF
+src-url: https://github.com/lief-project/LIEF/archive/refs/tags/0.15.1.tar.gz
+src-sha: 28653b59afc8b8b255251f21a0f3cbfbdec05dd988fb3f473e22dde28f427ad8
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -5476,6 +5476,22 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libixwebsocket
+pkgtype: lib
+version: 11.3.2
+license: BSD-3-Clause
+summary: WebSocket client and server, and HTTP client command-line tool
+web-url: https://github.com/machinezone/IXWebSocket
+git-url: https://github.com/machinezone/IXWebSocket
+src-url: https://github.com/machinezone/IXWebSocket/archive/refs/tags/v11.3.2.tar.gz
+src-sha: 07d5e9f4cf492069c39c3953fbb3700a9cf8ec8949343998888e54ef37b03223
+dep-pkg: openssl-dev libz
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libjansson
 pkgtype: lib
 version: 2.14
@@ -5548,6 +5564,21 @@ src-url: https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.2.tar.gz
 src-sha: 95e807f63143856dc4d161c071cca01115d2c6405b3d3209854ac6989dc6bb91
 dep-pkg: libjpeg-turbo libwebp libpng libgif liblcms2 libbrotli libhwy openexr
 dep-upp: git curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libkcp
+pkgtype: lib
+version: 1.7
+license: MIT
+summary: A Fast and Reliable ARQ Protocol
+web-url: https://github.com/skywind3000/kcp
+git-url: https://github.com/skywind3000/kcp
+src-url: https://github.com/skywind3000/kcp/archive/refs/tags/1.7.tar.gz
+src-sha: b4d26994d95599ab0c44e1f93002f9fda275094a879d66c192d79d596529199e
+dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
 parallel: 1
@@ -6582,6 +6613,21 @@ src-url: https://github.com/sass/libsass/archive/refs/tags/3.6.6.tar.gz
 src-sha: 11f0bb3709a4f20285507419d7618f3877a425c0131ea8df40fe6196129df15d
 dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autotools
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libsdl2
+pkgtype: lib
+version: 2.30.4
+license: Zlib
+summary: A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D
+web-url: https://www.libsdl.org/
+git-url: https://github.com/libsdl-org/SDL
+src-url: https://www.libsdl.org/release/SDL2-2.30.4.tar.gz
+src-sha: 59c89d0ed40d4efb23b7318aa29fe7039dbbc098334b14f17f1e7e561da31a26
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no
@@ -7735,19 +7781,6 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: lief
-pkgtype: exe
-version: 2024.09.11
-license: Apache-2.0
-summary: Library to Instrument Executable Formats
-web-url: https://github.com/lief-project/LIEF
-git-url: https://github.com/lief-project/LIEF
-dep-upp: git cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: lighttpd
 pkgtype: exe
 version: 1.4.76
@@ -8290,7 +8323,7 @@ web-url: https://www.mpg123.de/
 git-url: https://github.com/madebr/mpg123
 src-url: https://www.mpg123.de/download/mpg123-1.32.6.tar.bz2
 src-sha: ccdd1d0abc31d73d8b435fc658c79049d0a905b30669b6a42a03ad169dc609e6
-dep-pkg: sdl2
+dep-pkg: libsdl2
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -8919,7 +8952,7 @@ web-url: https://opencv.org/
 git-url: https://github.com/opencv/opencv
 src-url: https://github.com/opencv/opencv/archive/refs/tags/4.9.0.tar.gz
 src-sha: ddf76f9dffd322c7c3cb1f721d0887f62d747b82059342213138dc190f28bc6c
-dep-pkg: eigen3 libtbb openjpeg openexr openblas ffmpeg
+dep-pkg: eigen3 libtbb openjpeg openexr openblas ffmpeg-dev
 dep-upp: python3 android-sdk curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -9008,10 +9041,10 @@ parallel: 1
 installed: no
 ---
 pkgname: openssl-dev
-pkgtype: lib
+pkgtype: exe
 version: 3.3.0
 license: Apache-2.0
-summary: Cryptography and SSL/TLS Toolkit
+summary: Cryptography and SSL/TLS library
 web-url: https://www.openssl.org/
 git-url: https://github.com/openssl/openssl
 src-url: https://www.openssl.org/source/openssl-3.3.0.tar.gz
@@ -9713,7 +9746,7 @@ parallel: 1
 installed: no
 ---
 pkgname: rang
-pkgtype: exe
+pkgtype: lib
 version: 3.2
 license: Unlicense
 summary: A Minimal, Header only Modern c++ library for terminal goodies
@@ -10094,21 +10127,6 @@ src-sha: 2adc1dec0d2c63cbffa94204b212926f2735a59753494fca72c3cfe4001d472f
 dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
-parallel: 1
-installed: no
----
-pkgname: sdl2
-pkgtype: lib
-version: 2.30.4
-license: Zlib
-summary: A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D
-web-url: https://www.libsdl.org/
-git-url: https://github.com/libsdl-org/SDL
-src-url: https://www.libsdl.org/release/SDL2-2.30.4.tar.gz
-src-sha: 59c89d0ed40d4efb23b7318aa29fe7039dbbc098334b14f17f1e7e561da31a26
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -11575,8 +11593,9 @@ version: 5.4.6
 license: LGPL-2.1-or-later
 summary: A free, general-purpose data compression with a high compression ratio
 web-url: https://tukaani.org/xz
-src-url: https://mirrors.aliyun.com/macports/distfiles/xz/xz-5.4.6.tar.bz2
-src-sha: 913851b274e8e1d31781ec949f1c23e8dbcf0ecf6e73a2436dc21769dd3e6f49
+src-url: https://downloads.sourceforge.net/project/lzmautils/xz-5.4.6.tar.gz
+src-uri: https://archive.org/download/xz-5.4.6/xz-5.4.6.tar.gz
+src-sha: aeba3e03bf8140ddedf62a0a367158340520f6b384f75ca6045ccc6c0d43fd5c
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
