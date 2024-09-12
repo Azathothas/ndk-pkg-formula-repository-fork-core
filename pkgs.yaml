@@ -1637,7 +1637,7 @@
   pkgtype: exe
   version: 8.8.0
   license: curl
-  summary: Get a file from an HTTP, HTTPS or FTP server
+  summary: A command-line tool for transferring data from/to an HTTP, HTTPS or FTP server
   web-url: https://curl.haxx.se/
   git-url: https://github.com/curl/curl
   src-url: https://curl.haxx.se/download/curl-8.8.0.tar.bz2
@@ -1671,9 +1671,9 @@
     rm -rf share/aclocal
     rm -rf share/man/man3
   caveats: |-
-    If curl is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers=<DNS-SERVERS> argument to curl like below
+    If curl is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers <DNS-SERVERS> argument to curl like below
 
-    curl --dns-servers=8.8.8.8 https://example.com
+    curl --dns-servers 1.1.1.1,8.8.8.8 https://example.com
 - pkgname: curlie
   pkgtype: pie
   version: 1.7.2
@@ -5963,7 +5963,6 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: gsed -i 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure
   install: |-
     configure \
         --enable-optimize \
@@ -9825,6 +9824,14 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
+  onstart: |-
+    [ "$TERMUX" = 1 ] || return 0
+
+    bsdtar() {
+        # https://github.com/termux/termux-packages/issues/1054
+        run pkg install -y proot
+        run proot --link2symlink bsdtar "$@"
+    }
   install: |-
     configure \
         --with-iconv="$libiconv_INSTALL_DIR" \

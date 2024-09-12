@@ -1313,7 +1313,7 @@ pkgname: curl
 pkgtype: exe
 version: 8.8.0
 license: curl
-summary: Get a file from an HTTP, HTTPS or FTP server
+summary: A command-line tool for transferring data from/to an HTTP, HTTPS or FTP server
 web-url: https://curl.haxx.se/
 git-url: https://github.com/curl/curl
 src-url: https://curl.haxx.se/download/curl-8.8.0.tar.bz2

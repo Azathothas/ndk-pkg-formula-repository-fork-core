@@ -1434,7 +1434,7 @@
     "pkgtype": "exe",
     "version": "8.8.0",
     "license": "curl",
-    "summary": "Get a file from an HTTP, HTTPS or FTP server",
+    "summary": "A command-line tool for transferring data from/to an HTTP, HTTPS or FTP server",
     "web-url": "https://curl.haxx.se/",
     "git-url": "https://github.com/curl/curl",
     "src-url": "https://curl.haxx.se/download/curl-8.8.0.tar.bz2",
@@ -1447,7 +1447,7 @@
     "dopatch": "gsed -i 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure",
     "install": "configure \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-optimize \\\n    --enable-pthreads \\\n    --enable-ares \\\n    --with-default-ssl-backend=openssl \\\n    --with-ssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-nghttp2 \\\n    --without-nghttp3 \\\n    --without-ngtcp2 \\\n    --without-quiche \\\n    --without-libpsl \\\n    --without-librtmp \\\n    --without-libidn2",
     "dotweak": "rm -rf include\nrm -rf lib\nrm -rf bin/curl-config\nrm -rf share/aclocal\nrm -rf share/man/man3",
-    "caveats": "If curl is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers=<DNS-SERVERS> argument to curl like below\n\ncurl --dns-servers=8.8.8.8 https://example.com"
+    "caveats": "If curl is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers <DNS-SERVERS> argument to curl like below\n\ncurl --dns-servers 1.1.1.1,8.8.8.8 https://example.com"
   },
   {
     "pkgname": "curlie",
@@ -5099,7 +5099,6 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure",
     "install": "configure \\\n    --enable-optimize \\\n    --enable-pthreads \\\n    --enable-ares \\\n    --with-default-ssl-backend=openssl \\\n    --with-ssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-nghttp2 \\\n    --without-nghttp3 \\\n    --without-ngtcp2 \\\n    --without-quiche \\\n    --without-libpsl \\\n    --without-librtmp \\\n    --without-libidn2",
     "dotweak": "rm -rf bin/curl\nrm -rf share/man/man1/curl.1\ncd lib/pkgconfig\ngsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lnghttp2||g' -e 's|-lzstd||g' -e 's|-lz||g' -e 's|-lbrotlidec||g' -e 's|-lbrotlicommon||g' libcurl.pc\nprintf 'Requires: libnghttp2 libcares libzstd libz libbrotlidec openssl\\n' >> libcurl.pc"
   },
@@ -8269,6 +8268,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
+    "onstart": "[ \"$TERMUX\" = 1 ] || return 0\n\nbsdtar() {\n    # https://github.com/termux/termux-packages/issues/1054\n    run pkg install -y proot\n    run proot --link2symlink bsdtar \"$@\"\n}",
     "install": "configure \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-zlib \\\n    --without-lzma \\\n    --without-python \\\n    --without-readline \\\n    --without-coverage \\\n    --without-debug \\\n    --enable-ipv6 LIBS=\"'-liconv -lm'\"",
     "dotweak": "gsed -i '/^Requires: /d'                    lib/pkgconfig/libxml-2.0.pc\ngsed -i -e 's|-liconv|-ldl|g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc\nprintf 'Requires: libiconv libz\\n' >>       lib/pkgconfig/libxml-2.0.pc"
   },
