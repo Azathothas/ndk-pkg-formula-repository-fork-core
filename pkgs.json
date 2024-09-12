@@ -2188,7 +2188,7 @@
   },
   {
     "pkgname": "ffmpeg-dev",
-    "pkgtype": "exe",
+    "pkgtype": "lib",
     "version": "7.0",
     "license": "GPL-2.0-or-later",
     "summary": "A complete, cross-platform solution to record, convert and stream audio and video",
@@ -9871,7 +9871,7 @@
   },
   {
     "pkgname": "openssl-dev",
-    "pkgtype": "exe",
+    "pkgtype": "lib",
     "version": "3.3.0",
     "license": "Apache-2.0",
     "summary": "Cryptography and SSL/TLS library",
