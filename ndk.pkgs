@@ -89,12 +89,12 @@ installed: no
 ---
 pkgname: adig
 pkgtype: exe
-version: 1.31.0
-summary: A command-line tool that allows you to perform DNS lookups from the command line
+version: 1.33.1
+summary: A command-line tool that allows you to perform DNS lookups
 web-url: https://c-ares.org/
 git-url: https://github.com/c-ares/c-ares
-src-url: https://github.com/c-ares/c-ares/archive/refs/tags/v1.31.0.tar.gz
-src-sha: 1b38c1f69f75215a6829afd507ff28ce81079c118163d117a10948423bc340d2
+src-url: https://github.com/c-ares/c-ares/archive/refs/tags/v1.33.1.tar.gz
+src-sha: b3d127d8357863eb465053ce9308b79d9b00314f92ec09df056221a1a45c2fef
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -177,6 +177,22 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
+pkgname: aom
+pkgtype: lib
+version: 3.9.1
+license: BSD-2-Clause
+summary: Codec library for encoding and decoding AV1 video streams
+web-url: https://aomedia.googlesource.com/aom
+git-url: https://github.com/jbeich/aom
+src-url: https://github.com/jbeich/aom/archive/refs/tags/v3.9.1.tar.gz
+src-sha: dcbc52dbb5bcfb79e83529c6357c7f170718f0fac21ad882d9ac410e5158296f
+dep-pkg: libjxl libvmaf
+dep-upp: nasm perl curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: apkeep
 pkgtype: exe
 version: 0.8.0
@@ -247,7 +263,7 @@ web-url: https://aria2.github.io
 git-url: https://github.com/aria2/aria2
 src-url: https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz
 src-sha: 60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b
-dep-pkg: gnutls libcares libxml2 libz
+dep-pkg: libgnutls libcares libxml2 libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -507,7 +523,7 @@ web-url: https://www.isc.org/downloads/bind
 git-url: https://github.com/isc-projects/bind9
 src-url: https://downloads.isc.org/isc/bind9/9.18.27/bind-9.18.27.tar.xz
 src-sha: ea3f3d8cfa2f6ae78c8722751d008f54bc17a3aed2be3f7399eb7bf5f4cda8f1
-dep-pkg: libnghttp2 openssl-dev json-c libxml2 libidn2 libuv libglob
+dep-pkg: openssl-dev libnghttp2 libjson-c libxml2 libidn2 libuv libglob
 dep-upp: perl curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -563,7 +579,7 @@ parallel: 1
 installed: no
 ---
 pkgname: blockhash
-pkgtype: pie
+pkgtype: exe
 version: 0.3.3
 license: MIT
 summary: A perceptual image hash calculation tool based on algorithm descibed in Block Mean Value Based Image Perceptual Hashing by Bian Yang, Fan Gu and Xiamu Niu
@@ -572,7 +588,8 @@ git-url: https://github.com/commonsmachinery/blockhash
 src-url: https://github.com/commonsmachinery/blockhash/archive/refs/tags/v0.3.3.tar.gz
 src-sha: 3c48af7bdb1f673b2f3c9f8c0bfa9107a7019b54ac3b4e30964bc0707debdd3a
 dep-pkg: imagemagick
-dep-upp: python3 curl bsdtar
+dep-upp: curl bsdtar python3
+bsystem: waf
 binbstd: 1
 parallel: 1
 installed: no
@@ -1028,7 +1045,7 @@ web-url: https://www.cmake.org/
 git-url: https://github.com/Kitware/CMake
 src-url: https://github.com/Kitware/CMake/releases/download/v3.30.3/cmake-3.30.3.tar.gz
 src-sha: 6d5de15b6715091df7f5441007425264bdd477809f80333fdf95f846aaff88e4
-dep-pkg: libarchive libexpat libcurl libuv libz jsoncpp rhash ncurses openssl-dev
+dep-pkg: libarchive libexpat libcurl libuv libz jsoncpp librhash ncurses openssl-dev
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -1175,21 +1192,6 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: cpu_features
-pkgtype: lib
-version: 0.9.0
-license: Apache-2.0
-summary: Cross platform C99 library to get cpu features at runtime
-web-url: https://github.com/google/cpu_features
-git-url: https://github.com/google/cpu_features
-src-url: https://github.com/google/cpu_features/archive/v0.9.0.tar.gz
-src-sha: bdb3484de8297c49b59955c3b22dba834401bc2df984ef5cfc17acbe69c5018e
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: cpuid
 pkgtype: pie
 version: 2.2.8
@@ -1206,7 +1208,7 @@ parallel: 1
 installed: no
 ---
 pkgname: cpuinfo
-pkgtype: exe+lib
+pkgtype: pie
 version: 2024.09.18
 license: BSD-2-Clause
 summary: CPU INFOrmation library
@@ -1311,13 +1313,13 @@ installed: no
 ---
 pkgname: curl
 pkgtype: exe
-version: 8.8.0
+version: 8.10.0
 license: curl
 summary: A command-line tool for transferring data from/to an HTTP, HTTPS or FTP server
 web-url: https://curl.haxx.se/
 git-url: https://github.com/curl/curl
-src-url: https://curl.haxx.se/download/curl-8.8.0.tar.bz2
-src-sha: 40d3792d38cfa244d8f692974a567e9a5f3387c547579f1124e95ea2a1020d0d
+src-url: https://curl.haxx.se/download/curl-8.10.0.tar.bz2
+src-sha: be30a51f7bbe8819adf5a8e8cc6991393ede31f782b8de7b46235cc1eb7beb9f
 dep-pkg: libnghttp2 libcares libzstd libz libbrotli openssl-dev
 dep-upp: perl curl bsdtar gmake gmake
 bsystem: configure
@@ -1731,21 +1733,6 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: eigen3
-pkgtype: lib
-version: 3.4.0
-license: MPL-2.0
-summary: A C++ template library for linear algebra:matrices, vectors, numerical solvers, and related algorithms
-web-url: https://eigen.tuxfamily.org/
-git-url: https://gitlab.com/libeigen/eigen
-src-url: https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
-src-sha: 8586084f71f9bde545ee7fa6d00288b264a2b7ac3607b974e54d13e7162c1c72
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: elvish
 pkgtype: pie
 version: 0.20.1
@@ -1839,7 +1826,7 @@ parallel: 1
 installed: no
 ---
 pkgname: exhale
-pkgtype: exe+lib
+pkgtype: exe
 version: 1.1.9
 summary: Open source xHE-AAC encoder
 web-url: https://gitlab.com/ecodis/exhale
@@ -2101,7 +2088,7 @@ parallel: 1
 installed: no
 ---
 pkgname: flac
-pkgtype: exe+lib
+pkgtype: exe
 version: 1.4.3
 license: GFDL-1.2-or-later
 summary: Free lossless audio codec
@@ -2177,7 +2164,7 @@ parallel: 1
 installed: no
 ---
 pkgname: fontconfig
-pkgtype: exe+lib
+pkgtype: exe
 version: 2.15.0
 license: MIT
 summary: XML-based font configuration tools
@@ -2185,7 +2172,7 @@ web-url: https://wiki.freedesktop.org/www/Software/fontconfig
 git-url: https://gitlab.freedesktop.org/fontconfig/fontconfig
 src-url: https://www.freedesktop.org/software/fontconfig/release/fontconfig-2.15.0.tar.xz
 src-sha: 63a0658d0e06e0fa886106452b58ef04f21f58202ea02a94c39de0d3335d7c0e
-dep-pkg: json-c libfreetype libexpat libuuid libintl
+dep-pkg: libfreetype libjson-c libexpat libuuid libintl
 dep-upp: gettext-tools python3 gperf curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -2502,9 +2489,9 @@ web-url: https://github.com/util-linux/util-linux
 git-url: https://github.com/util-linux/util-linux
 src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.1.tar.xz
 src-sha: 59e676aa53ccb44b6c39f0ffe01a8fa274891c91bef1474752fad92461def24f
-dep-upp: curl bsdtar gmake
-bsystem: gmake
-binbstd: 1
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -2603,17 +2590,18 @@ installed: no
 ---
 pkgname: ghostscript
 pkgtype: exe+lib
-version: 10.03.0
+version: 10.03.1
 license: AGPL-3.0-or-later
-summary: Interpreter for PostScript and PDF
+summary: An interpreter for PostScript and PDF
 web-url: https://www.ghostscript.com/
 git-url: https://github.com/ArtifexSoftware/ghostpdl-downloads
-src-url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10030/ghostpdl-10.03.0.tar.xz
-src-sha: 854fd1958711b9b5108c052a6d552b906f1e3ebf3262763febf347d77618639d
-dep-pkg: jbig2dec libjpeg-turbo libidn libtesseract liblanginfo
-dep-upp: patch libz curl bsdtar gmake gmake
+src-url: https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs10031/ghostpdl-10.03.1.tar.xz
+src-sha: 05eee45268f6bb2c6189f9a40685c4608ca089443a93f2af5f5194d83dc368db
+dep-pkg: libidn liblcms2 libjbig2dec libfontconfig libtesseract liblanginfo
+dep-upp: libz curl bsdtar patch gmake gmake
 bsystem: configure
 binbstd: 1
+xxflags: -std=c++11
 parallel: 1
 installed: no
 ---
@@ -2923,28 +2911,10 @@ web-url: https://www.gnupg.org
 git-url: https://dev.gnupg.org/source/gnupg
 src-url: https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.5.tar.bz2
 src-sha: f68f7d75d06cb1635c336d34d844af97436c3f64ea14bcb7c869782f96f44277
-dep-pkg: libgcrypt libassuan libksba libiconv libbz2 libz npth readline
+dep-pkg: libgcrypt libassuan libksba libnpth libiconv libbz2 libz readline
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: gnutls
-pkgtype: exe+lib
-version: 3.8.4
-license: LGPL-2.1-or-later GPL-3.0-only
-summary: GNU Transport Layer Security (TLS) Library
-web-url: https://www.gnutls.org/
-git-url: https://github.com/gnutls/gnutls
-src-url: https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.4.tar.xz
-src-sha: 2bea4e154794f3f00180fa2a5c51fe8b005ac7a31cd58bd44cdfa7f36ebc3a9b
-dep-pkg: libtasn1 libidn2 nettle p11-kit
-dep-upp: curl bsdtar gmake gmake
-bsystem: configure
-binbstd: 0
-ldflags: -liconv
-api-min: 24
 parallel: 1
 installed: no
 ---
@@ -3684,21 +3654,6 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: imath
-pkgtype: lib
-version: 3.1.11
-license: BSD-3-Clause
-summary: Library of 2D and 3D vector, matrix, and math operations
-web-url: https://www.openexr.com/
-git-url: https://github.com/AcademySoftwareFoundation/Imath
-src-url: https://github.com/AcademySoftwareFoundation/Imath/archive/refs/tags/v3.1.11.tar.gz
-src-sha: 9057849585e49b8b85abe7cc1e76e22963b01bfdc3b6d83eac90c499cd760063
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: imlib2
 pkgtype: lib
 version: 1.12.2
@@ -3792,7 +3747,7 @@ parallel: 1
 installed: no
 ---
 pkgname: jbig2dec
-pkgtype: exe+lib
+pkgtype: exe
 version: 0.20
 license: AGPL-3.0-or-later
 summary: JBIG2 decoder and library (for monochrome documents)
@@ -3866,21 +3821,6 @@ src-sha: 478c9ca129fd2e3443fe27314b455e211e0d8c60bc8ff7df703873deeee580c2
 dep-pkg: oniguruma
 dep-upp: bison curl bsdtar gmake gmake
 bsystem: configure
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: json-c
-pkgtype: lib
-version: 0.17
-license: MIT
-summary: A JSON parser for C
-web-url: https://github.com/json-c/json-c
-git-url: https://github.com/json-c/json-c
-src-url: https://github.com/json-c/json-c/archive/json-c-0.17.tar.gz
-src-sha: fc1b9ed57f4cda51c52ec9b3b012f6973bd8d80fb70f363c5ca2754342389eb1
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no
@@ -4053,7 +3993,7 @@ parallel: 1
 installed: no
 ---
 pkgname: ldns
-pkgtype: lib
+pkgtype: exe
 version: 1.8.3
 license: BSD-3-Clause
 summary: DNS library written in C
@@ -4066,22 +4006,6 @@ dep-upp: swig curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 0
-installed: no
----
-pkgname: leptonica
-pkgtype: lib
-version: 1.84.1
-license: BSD-2-Clause
-summary: Image processing and image analysis library
-web-url: http://www.leptonica.org/
-git-url: https://github.com/DanBloomberg/leptonica
-src-url: https://github.com/DanBloomberg/leptonica/releases/download/1.84.1/leptonica-1.84.1.tar.gz
-src-sha: 2b3e1254b1cca381e77c819b59ca99774ff43530209b9aeb511e1d46588a64f6
-dep-pkg: libwebp libgif openjpeg
-dep-upp: pkg-config curl bsdtar gmake gmake
-bsystem: configure
-binbstd: 0
-parallel: 1
 installed: no
 ---
 pkgname: less
@@ -4115,6 +4039,21 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
+pkgname: libImath
+pkgtype: lib
+version: 3.1.11
+license: BSD-3-Clause
+summary: Library of 2D and 3D vector, matrix, and math operations
+web-url: https://www.openexr.com/
+git-url: https://github.com/AcademySoftwareFoundation/Imath
+src-url: https://github.com/AcademySoftwareFoundation/Imath/archive/refs/tags/v3.1.11.tar.gz
+src-sha: 9057849585e49b8b85abe7cc1e76e22963b01bfdc3b6d83eac90c499cd760063
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libLIEF
 pkgtype: lib
 version: 0.15.1
@@ -4125,6 +4064,21 @@ git-url: https://github.com/lief-project/LIEF
 src-url: https://github.com/lief-project/LIEF/archive/refs/tags/0.15.1.tar.gz
 src-sha: 28653b59afc8b8b255251f21a0f3cbfbdec05dd988fb3f473e22dde28f427ad8
 dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libSvtAv1
+pkgtype: lib
+version: 2.1.2
+license: BSD-3-Clause
+summary: AV1 encoder
+web-url: https://gitlab.com/AOMediaCodec/SVT-AV1
+git-url: https://gitlab.com/AOMediaCodec/SVT-AV1
+src-url: https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v2.1.2/SVT-AV1-v2.1.2.tar.bz2
+src-sha: a1d95875f7539d49f7c8fdec0623fbf984804a168da6289705d53268e3b38412
+dep-upp: yasm curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
 parallel: 1
@@ -4175,7 +4129,7 @@ parallel: 1
 installed: no
 ---
 pkgname: libaom
-pkgtype: exe+lib
+pkgtype: lib
 version: 3.9.1
 license: BSD-2-Clause
 summary: Codec library for encoding and decoding AV1 video streams
@@ -4499,12 +4453,12 @@ installed: no
 ---
 pkgname: libcares
 pkgtype: lib
-version: 1.31.0
+version: 1.33.1
 summary: Asynchronous DNS library
 web-url: https://c-ares.org/
 git-url: https://github.com/c-ares/c-ares
-src-url: https://github.com/c-ares/c-ares/archive/refs/tags/v1.31.0.tar.gz
-src-sha: 1b38c1f69f75215a6829afd507ff28ce81079c118163d117a10948423bc340d2
+src-url: https://github.com/c-ares/c-ares/archive/refs/tags/v1.33.1.tar.gz
+src-sha: b3d127d8357863eb465053ce9308b79d9b00314f92ec09df056221a1a45c2fef
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -4520,6 +4474,21 @@ web-url: https://github.com/PJK/libcbor
 git-url: https://github.com/PJK/libcbor
 src-url: https://github.com/PJK/libcbor/archive/refs/tags/v0.11.0.tar.gz
 src-sha: 89e0a83d16993ce50651a7501355453f5250e8729dfc8d4a251a78ea23bb26d7
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libccd
+pkgtype: lib
+version: 2.1
+license: BSD-3-Clause
+summary: Collision detection between two convex shapes
+web-url: https://github.com/danfis/libccd
+git-url: https://github.com/danfis/libccd
+src-url: https://github.com/danfis/libccd/archive/refs/tags/v2.1.tar.gz
+src-sha: 542b6c47f522d581fbf39e51df32c7d1256ac0c626e7c2b41f1040d4b9d50d1e
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -4600,6 +4569,21 @@ src-sha: c4f70bbae4c6afee3a524e65be31ae495201fd26687cb8429d7aded8be96306a
 dep-upp: curl bsdtar python3 ninja
 dep-pym: meson
 bsystem: meson
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libcpu_features
+pkgtype: lib
+version: 0.9.0
+license: Apache-2.0
+summary: Cross platform C99 library to get cpu features at runtime
+web-url: https://github.com/google/cpu_features
+git-url: https://github.com/google/cpu_features
+src-url: https://github.com/google/cpu_features/archive/v0.9.0.tar.gz
+src-sha: bdb3484de8297c49b59955c3b22dba834401bc2df984ef5cfc17acbe69c5018e
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no
@@ -4774,7 +4758,7 @@ pkgname: libeigen
 pkgtype: lib
 version: 3.4.0
 license: MPL-2.0
-summary: C++ template library for linear algebra
+summary: A C++ template library for linear algebra (matrices, vectors, numerical solvers, and related algorithms)
 web-url: https://eigen.tuxfamily.org/
 git-url: https://gitlab.com/libeigen/eigen
 src-url: https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz
@@ -5144,6 +5128,23 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libgnutls
+pkgtype: lib
+version: 3.8.4
+license: LGPL-2.1-or-later GPL-3.0-only
+summary: GNU Transport Layer Security (TLS) Library
+web-url: https://www.gnutls.org/
+git-url: https://github.com/gnutls/gnutls
+src-url: https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.4.tar.xz
+src-sha: 2bea4e154794f3f00180fa2a5c51fe8b005ac7a31cd58bd44cdfa7f36ebc3a9b
+dep-pkg: libtasn1 libidn2 libnettle
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+api-min: 24
+parallel: 1
+installed: no
+---
 pkgname: libgpg-error
 pkgtype: lib
 version: 1.49
@@ -5212,6 +5213,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libgumbo
+pkgtype: lib
+version: 0.10.1
+license: Apache-2.0
+summary: C99 library for parsing HTML5
+web-url: https://github.com/google/gumbo-parser
+git-url: https://github.com/google/gumbo-parser
+src-url: https://github.com/google/gumbo-parser/archive/v0.10.1.tar.gz
+src-sha: 28463053d44a5dfbc4b77bcf49c8cee119338ffa636cc17fc3378421d714efad
+dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
+bsystem: autotools
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libharfbuzz
 pkgtype: lib
 version: 8.5.0
@@ -5231,14 +5247,14 @@ installed: no
 ---
 pkgname: libheif
 pkgtype: lib
-version: 1.17.6
+version: 1.18.2
 license: LGPL-3.0-only
 summary: ISO/IEC 23008-12:2017 HEIF file format decoder and encoder
 web-url: https://www.libde265.org/
 git-url: https://github.com/strukturag/libheif
-src-url: https://github.com/strukturag/libheif/releases/download/v1.17.6/libheif-1.17.6.tar.gz
-src-sha: 8390baf4913eda0a183e132cec62b875fb2ef507ced5ddddc98dfd2f17780aee
-dep-pkg: libde265 libx265 librav1e libdav1d svt-av1 libaom
+src-url: https://github.com/strukturag/libheif/releases/download/v1.18.2/libheif-1.18.2.tar.gz
+src-sha: c4002a622bec9f519f29d84bfdc6024e33fd67953a5fb4dc2c2f11f67d5e45bf
+dep-pkg: libaom libx265 libde265 librav1e libdav1d libSvtAv1
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -5523,6 +5539,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libjbig2dec
+pkgtype: lib
+version: 0.20
+license: AGPL-3.0-or-later
+summary: JBIG2 decoder and library (for monochrome documents)
+web-url: https://jbig2dec.com/
+git-url: https://github.com/ArtifexSoftware/jbig2dec
+src-url: https://github.com/ArtifexSoftware/jbig2dec/archive/refs/tags/0.20.tar.gz
+src-sha: a9705369a6633aba532693450ec802c562397e1b824662de809ede92f67aff21
+dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
+bsystem: autogen
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libjpeg
 pkgtype: lib
 version: 9f
@@ -5553,6 +5584,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libjson-c
+pkgtype: lib
+version: 0.17
+license: MIT
+summary: A JSON parser for C
+web-url: https://github.com/json-c/json-c
+git-url: https://github.com/json-c/json-c
+src-url: https://github.com/json-c/json-c/archive/json-c-0.17.tar.gz
+src-sha: bca9a584a8da64d8dff50082a06f6cea26fb735f74924afc6d01ae6be7a75885
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libjxl
 pkgtype: lib
 version: 0.10.2
@@ -5562,7 +5608,7 @@ web-url: https://jpeg.org/jpegxl/index.html
 git-url: https://github.com/libjxl/libjxl
 src-url: https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.2.tar.gz
 src-sha: 95e807f63143856dc4d161c071cca01115d2c6405b3d3209854ac6989dc6bb91
-dep-pkg: libjpeg-turbo libwebp libpng libgif liblcms2 libbrotli libhwy openexr
+dep-pkg: libjpeg-turbo libopenexr libwebp libpng libgif liblcms2 libbrotli libhwy
 dep-upp: git curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -5596,6 +5642,21 @@ src-sha: cf72510b8ebb4eb6693eef765749d83677a03c79291a311040a5bfd79baab763
 dep-pkg: libgpg-error
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libkvazaar
+pkgtype: lib
+version: 2.3.1
+license: BSD-3-Clause
+summary: An open-source HEVC encoder
+web-url: https://github.com/ultravideo/kvazaar
+git-url: https://github.com/ultravideo/kvazaar
+src-url: https://github.com/ultravideo/kvazaar/archive/refs/tags/v2.3.1.tar.gz
+src-sha: c5a1699d0bd50bc6bdba485b3438a5681a43d7b2c4fd6311a144740bfa59c9cc
+dep-upp: libtool nasm curl bsdtar gmake gm4 perl autoconf automake gmake
+bsystem: autogen
 binbstd: 0
 parallel: 1
 installed: no
@@ -5642,6 +5703,22 @@ dep-upp: swig curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 0
+installed: no
+---
+pkgname: libleptonica
+pkgtype: lib
+version: 1.84.1
+license: BSD-2-Clause
+summary: Image processing and image analysis library
+web-url: http://www.leptonica.org/
+git-url: https://github.com/DanBloomberg/leptonica
+src-url: https://github.com/DanBloomberg/leptonica/releases/download/1.84.1/leptonica-1.84.1.tar.gz
+src-sha: 2b3e1254b1cca381e77c819b59ca99774ff43530209b9aeb511e1d46588a64f6
+dep-pkg: libgif libpng libtiff libwebp libjpeg-turbo libopenjpeg
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
 installed: no
 ---
 pkgname: libleveldb
@@ -5755,7 +5832,7 @@ parallel: 1
 installed: no
 ---
 pkgname: liblzo
-pkgtype: exe+lib
+pkgtype: lib
 version: 2.10
 license: GPL-2.0-or-later
 summary: Real-time data compression library
@@ -5954,6 +6031,22 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libminizip-ng
+pkgtype: lib
+version: 4.0.7
+license: Zlib
+summary: Zip file manipulation library with minizip 1.x compatibility layer
+web-url: https://github.com/zlib-ng/minizip-ng
+git-url: https://github.com/zlib-ng/minizip-ng
+src-url: https://github.com/zlib-ng/minizip-ng/archive/refs/tags/4.0.7.tar.gz
+src-sha: a87f1f734f97095fe1ef0018217c149d53d0f78438bcb77af38adc21dff2dfbc
+dep-pkg: libiconv libzstd liblzma libbz2 libz
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libmnl
 pkgtype: lib
 version: 1.0.5
@@ -6027,6 +6120,36 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libmujs
+pkgtype: lib
+version: 1.3.4
+summary: Embeddable Javascript interpreter
+web-url: https://www.mujs.com/
+git-url: https://github.com/ccxvii/mujs
+src-url: https://github.com/ccxvii/mujs/archive/refs/tags/1.3.4.tar.gz
+src-sha: c015475880f6a382e706169c94371a7dd6cc22078832f6e0865af8289c2ef42b
+dep-upp: curl bsdtar gmake
+bsystem: gmake
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: libmupdf
+pkgtype: lib
+version: 1.24.9
+license: AGPL-3.0-or-later
+summary: The ultimate library for managing PDF documents
+web-url: https://mupdf.com/
+git-url: git://git.ghostscript.com/mupdf.git
+src-url: https://mupdf.com/downloads/archive/mupdf-1.24.9-source.tar.gz
+src-sha: 0b446aa0eecc114e9969dccd70c9789358fccb6589a81d470dc941a0874da98a
+dep-pkg: openssl-dev libtesseract libjbig2dec libharfbuzz libgumbo libmujs
+dep-upp: curl bsdtar gmake
+bsystem: gmake
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: libnet
 pkgtype: lib
 version: 1.3
@@ -6057,6 +6180,52 @@ binbstd: 1
 parallel: 0
 installed: no
 ---
+pkgname: libnettle
+pkgtype: lib
+version: 3.10
+license: GPL-2.0-or-later
+summary: Low-level cryptographic library
+web-url: https://www.lysator.liu.se/~nisse/nettle
+git-url: https://git.lysator.liu.se/nettle/nettle
+src-url: https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz
+src-sha: b4c518adb174e484cb4acea54118f02380c7133771e7e9beb98a0787194ee47c
+dep-pkg: libgmp
+dep-upp: gm4 curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libnfc
+pkgtype: lib
+version: 1.8.0
+license: LGPL-3.0-or-later
+summary: Low level NFC SDK and Programmers API
+web-url: https://github.com/nfc-tools/libnfc
+git-url: https://github.com/nfc-tools/libnfc
+src-url: https://github.com/nfc-tools/libnfc/releases/download/libnfc-1.8.0/libnfc-1.8.0.tar.bz2
+src-sha: 6d9ad31c86408711f0a60f05b1933101c7497683c2e0d8917d1611a3feba3dd5
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libnfs
+pkgtype: lib
+version: 5.0.3
+license: LGPL-2.1-or-later
+summary: C client library for NFS
+web-url: https://github.com/sahlberg/libnfs
+git-url: https://github.com/sahlberg/libnfs
+src-url: https://github.com/sahlberg/libnfs/archive/refs/tags/libnfs-5.0.3.tar.gz
+src-sha: d945cb4f4c8f82ee1f3640893a168810f794a28e1010bb007ec5add345e9df3e
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libnghttp2
 pkgtype: lib
 version: 1.61.0
@@ -6067,6 +6236,35 @@ git-url: https://github.com/nghttp2/nghttp2
 src-url: https://github.com/nghttp2/nghttp2/releases/download/v1.61.0/nghttp2-1.61.0.tar.gz
 src-sha: aa7594c846e56a22fbf3d6e260e472268808d3b49d5e0ed339f589e9cc9d484c
 dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libnghttp3
+pkgtype: lib
+version: 1.5.0
+license: MIT
+summary: HTTP/3 library written in C
+web-url: https://github.com/ngtcp2/nghttp3
+git-url: https://github.com/ngtcp2/nghttp3
+src-url: https://github.com/ngtcp2/nghttp3/releases/download/v1.5.0/nghttp3-1.5.0.tar.gz
+src-sha: 13d68a48867d2eb0679b81e2e6e065de074abc64246fb11417c3e40988e5ff23
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libngtcp2
+pkgtype: lib
+version: 2024.09.18
+license: MIT
+summary: QUIC library written in C
+web-url: https://github.com/ngtcp2/ngtcp2
+git-url: https://github.com/ngtcp2/ngtcp2
+dep-pkg: libev libnghttp3
+dep-upp: git cmake ninja
 bsystem: cmake
 binbstd: 0
 parallel: 1
@@ -6105,6 +6303,36 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libnova
+pkgtype: lib
+version: 0.15.0
+license: LGPL-2.0-or-later GPL-2.0-or-later
+summary: A general purpose, double precision, Celestial Mechanics, Astrometry and Astrodynamics library
+web-url: https://libnova.sourceforge.net/
+src-url: https://downloads.sourceforge.net/project/libnova/libnova/v%200.15.0/libnova-0.15.0.tar.gz
+src-sha: 7c5aa33e45a3e7118d77df05af7341e61784284f1e8d0d965307f1663f415bb1
+dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
+bsystem: autotools
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libnpth
+pkgtype: lib
+version: 1.6
+license: LGPL-2.1-or-later
+summary: New GNU portable threads library
+web-url: https://gnupg.org
+git-url: https://dev.gnupg.org/source/npth
+src-url: https://gnupg.org/ftp/gcrypt/npth/npth-1.6.tar.bz2
+src-sha: 1393abd9adcf0762d34798dc34fdcf4d0d22a8410721e76f1e3afcd1daa4e2d1
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+ldflags: -Wl,--undefined-version
+parallel: 1
+installed: no
+---
 pkgname: libobstack
 pkgtype: lib
 version: 1.2.3
@@ -6120,6 +6348,23 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libode
+pkgtype: lib
+version: 0.16.5
+license: LGPL-2.1-or-later BSD-3-Clause
+summary: Simulating articulated rigid body dynamics
+web-url: https://www.ode.org/
+src-url: https://bitbucket.org/odedevs/ode/downloads/ode-0.16.5.tar.gz
+src-sha: ba875edd164570958795eeaa70f14853bfc34cc9871f8adde8da47e12bd54679
+fix-url: https://raw.githubusercontent.com/termux/termux-packages/master/packages/libode/CMakeLists.patch
+fix-sha: 78e7b307fd107c9de4a4caf353d9495bfc37bd4bbd2f7c26ff77d3d5af1913f3
+dep-pkg: libccd
+dep-upp: curl bsdtar patch cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libogg
 pkgtype: lib
 version: 1.3.5
@@ -6129,6 +6374,84 @@ web-url: https://www.xiph.org/ogg
 git-url: https://github.com/xiph/ogg
 src-url: https://github.com/xiph/ogg/releases/download/v1.3.5/libogg-1.3.5.tar.gz
 src-sha: 0eb4b4b9420a0f51db142ba3f9c64b333f826532dc0f48c6410ae51f4799b664
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: liboggz
+pkgtype: lib
+version: 1.1.1
+license: BSD-3-Clause
+summary: C library for manipulating Ogg files
+web-url: https://www.xiph.org/oggz/
+src-url: https://downloads.xiph.org/releases/liboggz/liboggz-1.1.1.tar.gz
+src-uri: https://ftp.osuosl.org/pub/xiph/releases/liboggz/liboggz-1.1.1.tar.gz
+src-sha: 6bafadb1e0a9ae4ac83304f38621a5621b8e8e32927889e65a98706d213d415a
+dep-pkg: libogg
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libolm
+pkgtype: lib
+version: 3.2.16
+license: Apache-2.0
+summary: An implementation of the Double Ratchet cryptographic ratchet
+web-url: https://gitlab.matrix.org/matrix-org/olm
+git-url: https://gitlab.matrix.org/matrix-org/olm
+src-url: https://gitlab.matrix.org/matrix-org/olm/-/archive/3.2.16/olm-3.2.16.tar.gz
+src-sha: 1e90f9891009965fd064be747616da46b232086fe270b77605ec9bda34272a68
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libopenblas
+pkgtype: lib
+version: 0.3.27
+license: BSD-3-Clause
+summary: Optimized BLAS library
+web-url: https://www.openblas.net
+git-url: https://github.com/xianyi/OpenBLAS
+src-url: https://github.com/xianyi/OpenBLAS/archive/refs/tags/v0.3.27.tar.gz
+src-sha: aa2d68b1564fe2b13bc292672608e9cdeeeb6dc34995512e65c3b10f4599e897
+dep-upp: curl bsdtar gmake
+bsystem: gmake
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: libopencolorio
+pkgtype: lib
+version: 2.3.2
+license: BSD-3-Clause
+summary: Color management solution geared towards motion picture production
+web-url: https://opencolorio.org/
+git-url: https://github.com/AcademySoftwareFoundation/OpenColorIO
+src-url: https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v2.3.2.tar.gz
+src-sha: 6bbf4e7fa4ea2f743a238cb22aff44890425771a2f57f62cece1574e46ceec2f
+dep-pkg: libImath libexpat libyaml-cpp libpystring libminizip-ng
+dep-upp: git curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libopenexr
+pkgtype: lib
+version: 3.2.4
+license: BSD-3-Clause
+summary: High dynamic-range image file format
+web-url: https://www.openexr.com/
+git-url: https://github.com/AcademySoftwareFoundation/openexr
+src-url: https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.2.4.tar.gz
+src-sha: 81e6518f2c4656fdeaf18a018f135e96a96e7f66dbe1c1f05860dd94772176cc
+dep-pkg: libImath libz libdeflate
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -6151,6 +6474,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libopenjpeg
+pkgtype: lib
+version: 2.5.2
+license: BSD-2-Clause
+summary: Library for JPEG-2000 image manipulation
+web-url: https://www.openjpeg.org/
+git-url: https://github.com/uclouvain/openjpeg
+src-url: https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.2.tar.gz
+src-sha: 90e3896fed910c376aaf79cdd98bdfdaf98c6472efd8e1debf0a854938cbda6a
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libopus
 pkgtype: lib
 version: 1.5.2
@@ -6162,6 +6500,52 @@ src-url: https://downloads.xiph.org/releases/opus/opus-1.5.2.tar.gz
 src-sha: 65c1d2f78b9f2fb20082c38cbe47c951ad5839345876e46941612ee87f9a7ce1
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libopusenc
+pkgtype: lib
+version: 0.2.1
+license: BSD-3-Clause
+summary: C library for encoding .opus files
+web-url: https://opus-codec.org/
+src-url: https://archive.mozilla.org/pub/opus/libopusenc-0.2.1.tar.gz
+src-sha: 8298db61a8d3d63e41c1a80705baa8ce9ff3f50452ea7ec1c19a564fe106cbb9
+dep-pkg: libopus
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: liborc
+pkgtype: lib
+version: 0.4.38
+license: BSD-3-Clause
+summary: Oil Runtime Compiler (ORC)
+web-url: https://gstreamer.freedesktop.org/projects/orc.html
+src-url: https://gstreamer.freedesktop.org/src/orc/orc-0.4.38.tar.xz
+src-sha: a55a98d4772567aa3faed8fb84d540c3db77eaba16d3e2e10b044fbc9228668d
+dep-upp: curl bsdtar python3 ninja
+dep-pym: meson
+bsystem: meson
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libp11-kit
+pkgtype: lib
+version: 0.25.5
+license: BSD-3-Clause
+summary: Library to load and enumerate PKCS#11 modules
+web-url: https://p11-glue.freedesktop.org
+git-url: https://github.com/p11-glue/p11-kit
+src-url: https://github.com/p11-glue/p11-kit/releases/download/0.25.5/p11-kit-0.25.5.tar.xz
+src-sha: 04d0a86450cdb1be018f26af6699857171a188ac6d5b8c90786a60854e1198e5
+dep-upp: curl bsdtar python3 ninja
+dep-pym: meson
+bsystem: meson
 binbstd: 0
 parallel: 1
 installed: no
@@ -6231,7 +6615,7 @@ pkgname: libphysfs
 pkgtype: lib
 version: 3.2.0
 license: Zlib
-summary: Library to provide abstract access to various archives
+summary: C library to provide abstract access to various archives
 web-url: https://icculus.org/physfs/
 git-url: https://github.com/icculus/physfs
 src-url: https://github.com/icculus/physfs/archive/refs/tags/release-3.2.0.tar.gz
@@ -6398,6 +6782,19 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libpystring
+pkgtype: lib
+version: 1.1.4
+summary: C++ functions matching the interface and behavior of python string methods with std::string
+web-url: https://github.com/imageworks/pystring
+git-url: https://github.com/imageworks/pystring
+src-url: https://github.com/imageworks/pystring/archive/refs/tags/v1.1.4.tar.gz
+src-sha: 49da0fe2a049340d3c45cce530df63a2278af936003642330287b68cefd788fb
+dep-upp: curl bsdtar
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libqalculate
 pkgtype: lib
 version: 5.1.1
@@ -6550,6 +6947,21 @@ src-sha: 7b031dac64a59eb6ee3304f7ffb75dad33ab8c9d279c847f92c89fb846068f97
 dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autotools
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: librhash
+pkgtype: lib
+version: 1.4.4
+license: 0BSD
+summary: Library for computing and verifying hash sums of files
+web-url: http://rhash.sourceforge.net
+git-url: https://github.com/rhash/RHash
+src-url: https://github.com/rhash/RHash/archive/v1.4.4.tar.gz
+src-sha: 8e7d1a8ccac0143c8fe9b68ebac67d485df119ea17a613f4038cda52f84ef52a
+dep-upp: curl bsdtar gmake
+bsystem: gmake
+binbstd: 1
 parallel: 1
 installed: no
 ---
@@ -6743,7 +7155,7 @@ pkgname: libspectre
 pkgtype: lib
 version: 0.2.12
 license: GPL-2.0-or-later
-summary: Small library for rendering Postscript documents
+summary: A small library for rendering Postscript documents
 web-url: https://wiki.freedesktop.org/www/Software/libspectre/
 git-url: https://gitlab.freedesktop.org/libspectre/libspectre
 src-url: https://libspectre.freedesktop.org/releases/libspectre-0.2.12.tar.gz
@@ -6991,7 +7403,7 @@ web-url: https://github.com/tesseract-ocr/tesseract
 git-url: https://github.com/tesseract-ocr/tesseract
 src-url: https://github.com/tesseract-ocr/tesseract/archive/refs/tags/5.4.1.tar.gz
 src-sha: c4bc2a81c12a472f445b7c2fb4705a08bd643ef467f51ec84f0e148bd368051b
-dep-pkg: leptonica pango libglob cpu_features
+dep-pkg: libleptonica libcpu_features
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -7168,6 +7580,36 @@ git-url: https://github.com/njh/twolame
 src-url: https://github.com/njh/twolame/releases/download/0.4.0/twolame-0.4.0.tar.gz
 src-sha: cc35424f6019a88c6f52570b63e1baf50f62963a3eac52a03a800bb070d7c87d
 dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libuchardet
+pkgtype: lib
+version: 0.0.8
+summary: Encoding detector library
+web-url: https://www.freedesktop.org/wiki/Software/uchardet/
+git-url: https://gitlab.freedesktop.org/uchardet/uchardet
+src-url: https://www.freedesktop.org/software/uchardet/releases/uchardet-0.0.8.tar.xz
+src-sha: e97a60cfc00a1c147a674b097bb1422abd9fa78a2d9ce3f3fdcc2e78a34ac5f0
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libunbound
+pkgtype: lib
+version: 1.21.0
+license: BSD-3-Clause
+summary: Validating, recursive, caching DNS resolver
+web-url: https://www.unbound.net
+git-url: https://github.com/NLnetLabs/unbound
+src-url: https://nlnetlabs.nl/downloads/unbound/unbound-1.21.0.tar.gz
+src-sha: e7dca7d6b0f81bdfa6fa64ebf1053b5a999a5ae9278a87ef182425067ea14521
+dep-pkg: libnghttp2 libevent libexpat
+dep-upp: gm4 flex bison libtool curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 1
@@ -7636,6 +8078,21 @@ src-url: https://github.com/yaml/libyaml/releases/download/0.2.5/yaml-0.2.5.tar.
 src-sha: c642ae9b75fee120b2d96c712538bd2cf283228d2337df2cf2988e3c02678ef4
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libyaml-cpp
+pkgtype: lib
+version: 0.8.0
+license: MIT
+summary: YAML parser and emitter written in C++ for YAML 1.2 spec
+web-url: https://github.com/jbeder/yaml-cpp
+git-url: https://github.com/jbeder/yaml-cpp
+src-url: https://github.com/jbeder/yaml-cpp/archive/refs/tags/0.8.0.tar.gz
+src-sha: fbe74bbdcee21d656715688706da3c8becfd946d92cd44705cc6098bb23b3a16
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no
@@ -8218,22 +8675,6 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: minizip-ng
-pkgtype: lib
-version: 4.0.7
-license: Zlib
-summary: Zip file manipulation library with minizip 1.x compatibility layer
-web-url: https://github.com/zlib-ng/minizip-ng
-git-url: https://github.com/zlib-ng/minizip-ng
-src-url: https://github.com/zlib-ng/minizip-ng/archive/refs/tags/4.0.7.tar.gz
-src-sha: a87f1f734f97095fe1ef0018217c149d53d0f78438bcb77af38adc21dff2dfbc
-dep-pkg: libzstd libbz2 libz
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: mm-wiki
 pkgtype: pie
 version: 0.2.1
@@ -8285,7 +8726,7 @@ parallel: 1
 installed: no
 ---
 pkgname: mozjpeg
-pkgtype: exe+lib
+pkgtype: lib
 version: 4.1.5
 license: BSD-3-Clause
 summary: Improved JPEG encoder
@@ -8375,6 +8816,21 @@ src-sha: a349cd9af28add2334c7009e331335af4a5b97d8558b2e9804d05f3b33d97925
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: mujs
+pkgtype: exe
+version: 1.3.4
+summary: Embeddable Javascript interpreter
+web-url: https://www.mujs.com/
+git-url: https://github.com/ccxvii/mujs
+src-url: https://github.com/ccxvii/mujs/archive/refs/tags/1.3.4.tar.gz
+src-sha: c015475880f6a382e706169c94371a7dd6cc22078832f6e0865af8289c2ef42b
+dep-pkg: readline
+dep-upp: curl bsdtar gmake
+bsystem: gmake
+binbstd: 1
 parallel: 1
 installed: no
 ---
@@ -8587,22 +9043,6 @@ binbstd: 1
 parallel: 0
 installed: no
 ---
-pkgname: nettle
-pkgtype: lib
-version: 3.10
-license: GPL-2.0-or-later
-summary: Low-level cryptographic library
-web-url: https://www.lysator.liu.se/~nisse/nettle
-git-url: https://git.lysator.liu.se/nettle/nettle
-src-url: https://ftp.gnu.org/gnu/nettle/nettle-3.10.tar.gz
-src-sha: b4c518adb174e484cb4acea54118f02380c7133771e7e9beb98a0787194ee47c
-dep-pkg: libgmp
-dep-upp: gm4 curl bsdtar gmake gmake
-bsystem: configure
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: nghttp2
 pkgtype: exe+lib
 version: 1.61.0
@@ -8621,19 +9061,6 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: nghttp3
-pkgtype: exe+lib
-version: 2024.09.18
-license: MIT
-summary: HTTP/3 library written in C
-web-url: https://github.com/ngtcp2/nghttp3
-git-url: https://github.com/ngtcp2/nghttp3
-dep-upp: git cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: nginx
 pkgtype: exe
 version: 1.27.0
@@ -8647,20 +9074,6 @@ dep-pkg: openssl-dev libz libpcre2 libcrypt libglob
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
-parallel: 1
-installed: no
----
-pkgname: ngtcp2
-pkgtype: lib
-version: 2024.09.18
-license: MIT
-summary: QUIC library written in C
-web-url: https://github.com/ngtcp2/ngtcp2
-git-url: https://github.com/ngtcp2/ngtcp2
-dep-pkg: libev nghttp3
-dep-upp: git cmake ninja
-bsystem: cmake
-binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -8709,22 +9122,6 @@ dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
 api-min: 26
-parallel: 1
-installed: no
----
-pkgname: npth
-pkgtype: lib
-version: 1.6
-license: LGPL-2.1-or-later
-summary: New GNU portable threads library
-web-url: https://gnupg.org
-git-url: https://dev.gnupg.org/source/npth
-src-url: https://gnupg.org/ftp/gcrypt/npth/npth-1.6.tar.bz2
-src-sha: 1393abd9adcf0762d34798dc34fdcf4d0d22a8410721e76f1e3afcd1daa4e2d1
-dep-upp: curl bsdtar gmake gmake
-bsystem: configure
-binbstd: 0
-ldflags: -Wl,--undefined-version
 parallel: 1
 installed: no
 ---
@@ -8852,6 +9249,22 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: oggz
+pkgtype: exe
+version: 1.1.1
+license: BSD-3-Clause
+summary: Command-line tool for manipulating Ogg files
+web-url: https://www.xiph.org/oggz/
+src-url: https://downloads.xiph.org/releases/liboggz/liboggz-1.1.1.tar.gz
+src-uri: https://ftp.osuosl.org/pub/xiph/releases/liboggz/liboggz-1.1.1.tar.gz
+src-sha: 6bafadb1e0a9ae4ac83304f38621a5621b8e8e32927889e65a98706d213d415a
+dep-pkg: libogg
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: okta-aws-cli
 pkgtype: pie
 version: 2.1.2
@@ -8863,6 +9276,21 @@ src-url: https://github.com/okta/okta-aws-cli/archive/refs/tags/v2.1.2.tar.gz
 src-sha: e1d35e3007bac39fbedc436475712fca03706429bd34a1cfad4bdbd004bab81a
 dep-upp: curl bsdtar golang
 bsystem: go
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: onefetch
+pkgtype: exe
+version: 2.20.0
+license: MIT
+summary: Command-line Git information tool
+web-url: https://github.com/o2sh/onefetch
+git-url: https://github.com/o2sh/onefetch
+src-url: https://github.com/o2sh/onefetch/archive/refs/tags/2.20.0.tar.gz
+src-sha: 385bc8f11c3e1cf168ef6d4c64263ded44af948184a990611c1b30fe6c46e37e
+dep-upp: curl bsdtar cmake ninja
+bsystem: cargo cmake
 binbstd: 1
 parallel: 1
 installed: no
@@ -8912,23 +9340,8 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: openblas
-pkgtype: lib
-version: 0.3.27
-license: BSD-3-Clause
-summary: Optimized BLAS library
-web-url: https://www.openblas.net
-git-url: https://github.com/xianyi/OpenBLAS
-src-url: https://github.com/xianyi/OpenBLAS/archive/refs/tags/v0.3.27.tar.gz
-src-sha: aa2d68b1564fe2b13bc292672608e9cdeeeb6dc34995512e65c3b10f4599e897
-dep-upp: curl bsdtar gmake
-bsystem: gmake
-binbstd: 1
-parallel: 1
-installed: no
----
 pkgname: opencolorio
-pkgtype: lib
+pkgtype: exe
 version: 2.3.2
 license: BSD-3-Clause
 summary: Color management solution geared towards motion picture production
@@ -8936,7 +9349,7 @@ web-url: https://opencolorio.org/
 git-url: https://github.com/AcademySoftwareFoundation/OpenColorIO
 src-url: https://github.com/AcademySoftwareFoundation/OpenColorIO/archive/v2.3.2.tar.gz
 src-sha: 6bbf4e7fa4ea2f743a238cb22aff44890425771a2f57f62cece1574e46ceec2f
-dep-pkg: openexr liblcms2 libexpat pystring minizip-ng
+dep-pkg: libopenexr liblcms2 libexpat libyaml-cpp libpystring libminizip-ng
 dep-upp: git curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -8952,7 +9365,7 @@ web-url: https://opencv.org/
 git-url: https://github.com/opencv/opencv
 src-url: https://github.com/opencv/opencv/archive/refs/tags/4.9.0.tar.gz
 src-sha: ddf76f9dffd322c7c3cb1f721d0887f62d747b82059342213138dc190f28bc6c
-dep-pkg: eigen3 libtbb openjpeg openexr openblas ffmpeg-dev
+dep-pkg: libtbb libeigen libopenexr libopenjpeg libopenblas ffmpeg-dev
 dep-upp: python3 android-sdk curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -8960,7 +9373,7 @@ parallel: 1
 installed: no
 ---
 pkgname: openexr
-pkgtype: lib
+pkgtype: exe
 version: 3.2.4
 license: BSD-3-Clause
 summary: High dynamic-range image file format
@@ -8968,7 +9381,7 @@ web-url: https://www.openexr.com/
 git-url: https://github.com/AcademySoftwareFoundation/openexr
 src-url: https://github.com/AcademySoftwareFoundation/openexr/archive/refs/tags/v3.2.4.tar.gz
 src-sha: 81e6518f2c4656fdeaf18a018f135e96a96e7f66dbe1c1f05860dd94772176cc
-dep-pkg: imath libz libdeflate
+dep-pkg: libImath libz libdeflate
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -9070,7 +9483,7 @@ parallel: 0
 installed: no
 ---
 pkgname: openssl@1.1
-pkgtype: exe+lib
+pkgtype: exe
 version: 1.1.1w
 license: OpenSSL
 summary: Cryptography and SSL/TLS Toolkit
@@ -9084,17 +9497,17 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
-pkgname: p11-kit
-pkgtype: lib
-version: 0.24.1
+pkgname: orcc
+pkgtype: pie
+version: 0.4.38
 license: BSD-3-Clause
-summary: Library to load and enumerate PKCS#11 modules
-web-url: https://p11-glue.freedesktop.org
-git-url: https://github.com/p11-glue/p11-kit
-src-url: https://github.com/p11-glue/p11-kit/releases/download/0.24.1/p11-kit-0.24.1.tar.xz
-src-sha: d8be783efd5cd4ae534cee4132338e3f40f182c3205d23b200094ec85faaaef8
-dep-upp: curl bsdtar gmake gmake
-bsystem: configure
+summary: Oil Runtime Compiler (ORC)
+web-url: https://gstreamer.freedesktop.org/projects/orc.html
+src-url: https://gstreamer.freedesktop.org/src/orc/orc-0.4.38.tar.xz
+src-sha: a55a98d4772567aa3faed8fb84d540c3db77eaba16d3e2e10b044fbc9228668d
+dep-upp: curl bsdtar python3 ninja
+dep-pym: meson
+bsystem: meson
 binbstd: 0
 parallel: 1
 installed: no
@@ -9625,19 +10038,6 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: pystring
-pkgtype: lib
-version: 1.1.4
-summary: C++ functions matching the interface and behavior of python string methods with std::string
-web-url: https://github.com/imageworks/pystring
-git-url: https://github.com/imageworks/pystring
-src-url: https://github.com/imageworks/pystring/archive/refs/tags/v1.1.4.tar.gz
-src-sha: 49da0fe2a049340d3c45cce530df63a2278af936003642330287b68cefd788fb
-dep-upp: curl bsdtar
-binbstd: 1
-parallel: 1
-installed: no
----
 pkgname: python3
 pkgtype: pie
 version: 3.11.7
@@ -9836,7 +10236,7 @@ parallel: 1
 installed: no
 ---
 pkgname: readline
-pkgtype: readline
+pkgtype: lib
 version: 8.2.10
 license: GPL-3.0-or-later
 summary: Library for command-line editing
@@ -9882,7 +10282,7 @@ parallel: 1
 installed: no
 ---
 pkgname: rhash
-pkgtype: exe+lib
+pkgtype: exe
 version: 1.4.4
 license: 0BSD
 summary: Utility for computing and verifying hash sums of files
@@ -9939,6 +10339,21 @@ dep-pkg: readline
 dep-upp: curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autotools
 binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: robin-map
+pkgtype: lib
+version: 1.3.0
+license: MIT
+summary: C++ implementation of a fast hash map and hash set
+web-url: https://github.com/Tessil/robin-map
+git-url: https://github.com/Tessil/robin-map
+src-url: https://github.com/Tessil/robin-map/archive/refs/tags/v1.3.0.tar.gz
+src-sha: a8424ad3b0affd4c57ed26f0f3d8a29604f0e1f2ef2089f497f614b1c94c7236
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -10067,6 +10482,23 @@ dep-pkg: libcpuinfo
 dep-upp: git cmake ninja
 bsystem: cmake
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: samurai
+pkgtype: exe
+version: 1.2
+license: Apache-2.0
+summary: Ninja-compatible build tool written in C
+web-url: https://github.com/michaelforney/samurai
+git-url: https://github.com/michaelforney/samurai
+src-url: https://github.com/michaelforney/samurai/releases/download/1.2/samurai-1.2.tar.gz
+src-sha: 3b8cf51548dfc49b7efe035e191ff5e1963ebc4fe8f6064a5eefc5343eaf78a5
+fix-url: https://raw.githubusercontent.com/termux/termux-packages/master/packages/samurai/0e98a83a8e5e32898ef52764acef48d1db2d960d.patch
+fix-sha: 870b7f988e470839a59f3ee764b835c8574e5427513e066477179b2bc23edd85
+dep-upp: curl bsdtar patch gmake
+bsystem: gmake
+binbstd: 1
 parallel: 1
 installed: no
 ---
@@ -10273,6 +10705,22 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
+pkgname: sndfile
+pkgtype: exe
+version: 1.2.2
+license: LGPL-2.1-or-later
+summary: A set of tools for reading and writing files containing sampled sound (such as MS Windows WAV and the Apple/SGI AIFF format)
+web-url: http://libsndfile.github.io/libsndfile/
+git-url: https://github.com/libsndfile/libsndfile
+src-url: https://github.com/libsndfile/libsndfile/releases/download/1.2.2/libsndfile-1.2.2.tar.xz
+src-sha: 3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e
+dep-pkg: libopus libflac libvorbis
+dep-upp: python3 curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: soundtouch
 pkgtype: lib
 version: 2.3.1
@@ -10445,14 +10893,14 @@ parallel: 1
 installed: no
 ---
 pkgname: svt-av1
-pkgtype: lib
-version: 2.0.0
+pkgtype: exe
+version: 2.1.2
 license: BSD-3-Clause
 summary: AV1 encoder
 web-url: https://gitlab.com/AOMediaCodec/SVT-AV1
 git-url: https://gitlab.com/AOMediaCodec/SVT-AV1
-src-url: https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v2.0.0/SVT-AV1-v2.0.0.tar.bz2
-src-sha: f9c076c377e504be15e195db8dd36d91233bc37cb8e82530382f38bc1926df02
+src-url: https://gitlab.com/AOMediaCodec/SVT-AV1/-/archive/v2.1.2/SVT-AV1-v2.1.2.tar.bz2
+src-sha: a1d95875f7539d49f7c8fdec0623fbf984804a168da6289705d53268e3b38412
 dep-upp: yasm curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -10699,6 +11147,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: tinysearch
+pkgtype: exe
+version: 0.8.2
+license: Apache-2.0
+summary: A lightweight, fast, full-text search engine for static websites built with Rust and Wasm
+web-url: https://github.com/tinysearch/tinysearch
+git-url: https://github.com/tinysearch/tinysearch
+src-url: https://github.com/tinysearch/tinysearch/archive/refs/tags/v0.8.2.tar.gz
+src-sha: 103214d77f0624bbb7e396667136156fdb8c8c7abeb6860adb231bf2a00b256d
+dep-upp: curl bsdtar
+bsystem: cargo
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: tlrc
 pkgtype: exe
 version: 1.9.2
@@ -10816,9 +11279,9 @@ git-url: https://github.com/tlwg/libdatrie
 src-url: https://github.com/tlwg/libdatrie/releases/download/v0.2.13/libdatrie-0.2.13.tar.xz
 src-sha: 12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be
 dep-pkg: libiconv
-dep-upp: curl bsdtar gmake
-bsystem: gmake
-binbstd: 1
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -10831,7 +11294,7 @@ web-url: https://tsl0922.github.io/ttyd
 git-url: https://github.com/tsl0922/ttyd
 src-url: https://github.com/tsl0922/ttyd/archive/refs/tags/1.7.7.tar.gz
 src-sha: 039dd995229377caee919898b7bd54484accec3bba49c118e2d5cd6ec51e3650
-dep-pkg: json-c libwebsockets
+dep-pkg: libjson-c libwebsockets
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -10930,14 +11393,14 @@ installed: no
 ---
 pkgname: unbound
 pkgtype: exe
-version: 1.20.0
+version: 1.21.0
 license: BSD-3-Clause
 summary: Validating, recursive, caching DNS resolver
 web-url: https://www.unbound.net
 git-url: https://github.com/NLnetLabs/unbound
-src-url: https://nlnetlabs.nl/downloads/unbound/unbound-1.20.0.tar.gz
-src-sha: 56b4ceed33639522000fd96775576ddf8782bb3617610715d7f1e777c5ec1dbf
-dep-pkg: libnghttp2 libevent libexpat libmnl openssl-dev
+src-url: https://nlnetlabs.nl/downloads/unbound/unbound-1.21.0.tar.gz
+src-sha: e7dca7d6b0f81bdfa6fa64ebf1053b5a999a5ae9278a87ef182425067ea14521
+dep-pkg: libnghttp2 libevent libexpat libmnl
 dep-upp: gm4 flex bison libtool curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -11598,21 +12061,6 @@ src-uri: https://archive.org/download/xz-5.4.6/xz-5.4.6.tar.gz
 src-sha: aeba3e03bf8140ddedf62a0a367158340520f6b384f75ca6045ccc6c0d43fd5c
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: yaml-cpp
-pkgtype: lib
-version: 0.8.0
-license: MIT
-summary: YAML parser and emitter written in C++ for YAML 1.2 spec
-web-url: https://github.com/jbeder/yaml-cpp
-git-url: https://github.com/jbeder/yaml-cpp
-src-url: https://github.com/jbeder/yaml-cpp/archive/refs/tags/0.8.0.tar.gz
-src-sha: fbe74bbdcee21d656715688706da3c8becfd946d92cd44705cc6098bb23b3a16
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no
