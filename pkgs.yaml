@@ -193,15 +193,15 @@
   parallel: "1"
   install: gow -X main.version=$PACKAGE_VERSION
 - pkgname: aom
-  pkgtype: lib
-  version: 3.9.1
+  pkgtype: exe
+  version: 3.10.0
   license: BSD-2-Clause
-  summary: Codec library for encoding and decoding AV1 video streams
+  summary: command-line tools for encoding and decoding AV1 video streams
   web-url: https://aomedia.googlesource.com/aom
   git-url: https://github.com/jbeich/aom
-  src-url: https://github.com/jbeich/aom/archive/refs/tags/v3.9.1.tar.gz
-  src-sha: dcbc52dbb5bcfb79e83529c6357c7f170718f0fac21ad882d9ac410e5158296f
-  dep-pkg: libjxl libvmaf
+  src-url: https://github.com/jbeich/aom/archive/refs/tags/v3.10.0.tar.gz
+  src-sha: d1f2bd34b61ff1e58e72946825accd5f5fc23212055bf78161f6fa5b6d93b925
+  dep-pkg: libvmaf
   dep-upp: nasm perl curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -213,9 +213,10 @@
         -DENABLE_TESTDATA=OFF \
         -DENABLE_TOOLS=ON \
         -DENABLE_EXAMPLES=ON \
+        -DCONFIG_TUNE_VMAF=1 \
         -DCONFIG_RUNTIME_CPU_DETECT=0 \
-        -DCONFIG_AV1_ENCODER=ON \
-        -DBUILD_SHARED_LIBS=ON
+        -DBUILD_SHARED_LIBS=OFF
+  dotweak: rm -rf include/ lib/
 - pkgname: apkeep
   pkgtype: exe
   version: 0.8.0
@@ -9137,7 +9138,7 @@
   web-url: https://git.osgeo.org/gitea/rttopo/librttopo
   git-url: https://git.osgeo.org/gitea/rttopo/librttopo
   src-url: https://git.osgeo.org/gitea/rttopo/librttopo/archive/librttopo-1.1.0.tar.gz
-  src-sha: 2e2fcabb48193a712a6c76ac9a9be2a53f82e32f91a2bc834d9f1b4fa9cd879f
+  src-sha: 60b49acb493c1ab545116fb0b0d223ee115166874902ad8165eb39e9fd98eaa9
   dep-pkg: geos
   dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
   bsystem: autogen
