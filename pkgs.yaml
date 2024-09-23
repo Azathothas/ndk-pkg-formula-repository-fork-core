@@ -1,6 +1,6 @@
 - pkgname: ARM_NEON_2_x86_SSE
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   summary: The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions
   web-url: https://github.com/intel/ARM_NEON_2_x86_SSE
   git-url: https://github.com/intel/ARM_NEON_2_x86_SSE
@@ -153,7 +153,7 @@
     done
 - pkgname: alass
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   license: GPL-3.0-or-later
   summary: Automatic Language-Agnostic Subtitle Synchronization
   web-url: https://github.com/kaegi/alass
@@ -398,7 +398,7 @@
   install: cargow install
 - pkgname: base16
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   summary: base16 encoder and decoder
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -762,7 +762,7 @@
         abi="$abi"
 - pkgname: boringssl
   pkgtype: exe+lib
-  version: 2024.09.22
+  version: 2024.09.23
   summary: A fork of OpenSSL that is designed to meet Google needs
   web-url: https://boringssl.googlesource.com/boringssl/
   git-url: https://github.com/google/boringssl
@@ -1312,7 +1312,7 @@
   git-url: https://github.com/Kitware/CMake
   src-url: https://github.com/Kitware/CMake/releases/download/v3.30.3/cmake-3.30.3.tar.gz
   src-sha: 6d5de15b6715091df7f5441007425264bdd477809f80333fdf95f846aaff88e4
-  dep-pkg: libarchive libexpat libcurl libuv libz jsoncpp librhash ncurses openssl-dev
+  dep-pkg: libarchive libexpat libcurl libuv libz libjsoncpp librhash ncurses openssl-dev
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -1513,7 +1513,7 @@
   install: gow ./cmd/cpuid
 - pkgname: cpuinfo
   pkgtype: pie
-  version: 2024.09.22
+  version: 2024.09.23
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -2149,7 +2149,7 @@
   install: cargow install
 - pkgname: easyutils
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   summary: A collections of easy to use command-line utilities
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -2835,7 +2835,7 @@
   install: cmakew
 - pkgname: fp16
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: MIT
   summary: A header-only C/C++ library for conversion to/from half-precision floating point formats
   web-url: https://github.com/Maratyszcza/FP16
@@ -2911,7 +2911,7 @@
   install: configure
 - pkgname: fxdiv
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: MIT
   summary: A header-only library for division via fixed-point multiplication by inverse
   web-url: https://github.com/Maratyszcza/FXdiv
@@ -3418,7 +3418,7 @@
   binbstd: "1"
   parallel: "1"
   install: configure --program-prefix=g LIBS="'-lintl -liconv'"
-  dotweak: cd bin && ln -s gindent indent
+  dotweak: ln -s gindent bin/indent
 - pkgname: git
   pkgtype: exe
   version: 2.45.2
@@ -3720,7 +3720,7 @@
         --without-dmalloc \
         --with-included-regex \
         --program-prefix=g
-  dotweak: cd bin && ln -s gm4 m4
+  dotweak: ln -s gm4 bin/m4
 - pkgname: gmake
   pkgtype: exe
   version: 4.4.1
@@ -3737,10 +3737,10 @@
   parallel: "1"
   dopatch: "patch -p0 <<EOF\n--- src/job.c.origin\t2024-04-22 16:23:48.474827263 +0800\n+++ src/job.c\t2024-04-22 16:25:06.996893603 +0800\n@@ -2427,18 +2427,6 @@\n           break;\n         }\n \n-    /* execvp() will use a default PATH if none is set; emulate that.  */\n-    if (p == NULL)\n-      {\n-        size_t l = confstr (_CS_PATH, NULL, 0);\n-        if (l)\n-          {\n-            char *dp = alloca (l);\n-            confstr (_CS_PATH, dp, l);\n-            p = dp;\n-          }\n-      }\n-\n     cmd = (char *)find_in_given_path (argv[0], p, NULL, 0);\n   }\n \nEOF"
   install: configure --program-prefix=g --without-guile --without-dmalloc
-  dotweak: cd bin && ln -s gmake make
+  dotweak: ln -s gmake bin/make
 - pkgname: gn
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   summary: A meta-build system for generating build files for ninja
   web-url: https://gn.googlesource.com/gn
   git-url: https://gn.googlesource.com/gn
@@ -3890,7 +3890,7 @@
   install: "export GOROOT_BOOTSTRAP=\"$(go env GOROOT)\"\n\nrun ./make.bash\nrun cd ..\nrun rm -rf _\nrun rm bin/go*\nrun mv bin/android_*/* bin/\nrun rm -rf bin/android_*\nrun rm -rf src/debug/elf/testdata\nrun rm -rf src/debug/dwarf/testdata\nrun rm -rf src/runtime/pprof/testdata\nrun rm -rf src/runtime/race/race_linux*.syso\nrun rm -rf src/runtime/race/internal/amd64v1/race_*.syso\nrun rm -rf src/runtime/race/internal/amd64v3/race_*.syso\nrun rm -rf pkg/obj \n\nfor item in $(ls pkg/tool)\ndo\n    case $item in\n        android_*) ;;\n        *)  run rm -rf \"pkg/tool/$item\"\n    esac\ndone\n\nrun cd ..\nrun install -d \"$PACKAGE_INSTALL_DIR/\"\nrun mv src/*   \"$PACKAGE_INSTALL_DIR/\"\n\n# override temporarily\n__check_elf_files() {\n    :\n}"
 - pkgname: gomobile
   pkgtype: pie
-  version: 2024.09.22
+  version: 2024.09.23
   summary: A tool for building and running mobile apps written in Go
   web-url: https://github.com/golang/mobile
   git-url: https://github.com/golang/mobile
@@ -4294,7 +4294,7 @@
         --with-included-regex \
         --disable-acl \
         --disable-assert
-  dotweak: cd bin && ln -s gsed sed
+  dotweak: ln -s gsed bin/sed
 - pkgname: gtar
   pkgtype: exe
   version: "1.35"
@@ -4334,7 +4334,7 @@
   parallel: "1"
   dopatch: gsed -i '/config\.h/a \#include<string.h>' src/resuse.c
   install: configure --program-prefix=g
-  dotweak: cd bin && ln -s gtime time
+  dotweak: ln -s gtime bin/time
 - pkgname: gzip
   pkgtype: exe
   version: "1.13"
@@ -4882,29 +4882,6 @@
         -Dman=false \
         -Dgtk_doc=disabled \
         -Dintrospection=disabled
-- pkgname: jsoncpp
-  pkgtype: lib
-  version: 1.9.5
-  license: MIT
-  summary: A C++ library for interacting with JSON
-  web-url: https://github.com/open-source-parsers/jsoncpp
-  git-url: https://github.com/open-source-parsers/jsoncpp
-  src-url: https://github.com/open-source-parsers/jsoncpp/archive/1.9.5.tar.gz
-  src-sha: f409856e5920c18d0c2fb85276e24ee607d2a09b5e7d5f0a371368903c275da2
-  dep-upp: curl bsdtar cmake ninja
-  bsystem: cmake
-  binbstd: "0"
-  parallel: "1"
-  install: |-
-    cmakew \
-        -DJSONCPP_WITH_EXAMPLE=OFF \
-        -DJSONCPP_WITH_TESTS=OFF \
-        -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF \
-        -DJSONCPP_WITH_WARNING_AS_ERROR=OFF \
-        -DJSONCPP_WITH_PKGCONFIG_SUPPORT=ON \
-        -DJSONCPP_WITH_CMAKE_PACKAGE=ON \
-        -DJSONCPP_USE_SECURE_MEMORY=ON \
-        -DJSONCPP_WITH_STRICT_ISO=ON
 - pkgname: jump
   pkgtype: pie
   version: 0.51.0
@@ -5495,7 +5472,7 @@
     run install_incs include/b64/*:b64
 - pkgname: libbcrypt
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: CC0-1.0
   summary: A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface
   web-url: https://www.openwall.com/crypt
@@ -5701,7 +5678,7 @@
         -DCARES_STATIC_PIC=ON \
         -DCARES_BUILD_TOOLS=OFF \
         -DCARES_BUILD_TESTS=OFF
-  dotweak: cd lib && ln -s libcares_static.a libcares.a
+  dotweak: ln -s libcares_static.a bin/libcares.a
 - pkgname: libcbor
   pkgtype: lib
   version: 0.11.0
@@ -5851,7 +5828,7 @@
     cmakew -DBUILD_PIC=ON -DBUILD_SHARED_LIBS=ON
 - pkgname: libcpuinfo
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -6116,7 +6093,7 @@
   dotweak: gsed -i '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc
 - pkgname: libexecinfo
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: 0BSD
   summary: A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc
   web-url: https://github.com/leleliu008/libexecinfo
@@ -6546,7 +6523,7 @@
     EOF
 - pkgname: libglob
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   summary: glob(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html
   git-url: https://github.com/leleliu008/libglob
@@ -6987,7 +6964,7 @@
   dotweak: "run install -d lib/pkgconfig/\ncat >          lib/pkgconfig/libintl.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
 - pkgname: libintl-lite
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: BSL-1.0
   summary: A simple (but less powerful) GNU gettext libintl replacement
   web-url: https://github.com/j-jorge/libintl-lite
@@ -7200,6 +7177,29 @@
         -DDISABLE_WERROR=ON \
         -DENABLE_RDRAND=ON \
         -DENABLE_THREADING=ON
+- pkgname: libjsoncpp
+  pkgtype: lib
+  version: 1.9.5
+  license: MIT
+  summary: A C++ library for interacting with JSON
+  web-url: https://github.com/open-source-parsers/jsoncpp
+  git-url: https://github.com/open-source-parsers/jsoncpp
+  src-url: https://github.com/open-source-parsers/jsoncpp/archive/1.9.5.tar.gz
+  src-sha: f409856e5920c18d0c2fb85276e24ee607d2a09b5e7d5f0a371368903c275da2
+  dep-upp: curl bsdtar cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    cmakew \
+        -DJSONCPP_WITH_EXAMPLE=OFF \
+        -DJSONCPP_WITH_TESTS=OFF \
+        -DJSONCPP_WITH_POST_BUILD_UNITTEST=OFF \
+        -DJSONCPP_WITH_WARNING_AS_ERROR=OFF \
+        -DJSONCPP_WITH_PKGCONFIG_SUPPORT=ON \
+        -DJSONCPP_WITH_CMAKE_PACKAGE=ON \
+        -DJSONCPP_USE_SECURE_MEMORY=ON \
+        -DJSONCPP_WITH_STRICT_ISO=ON
 - pkgname: libjxl
   pkgtype: lib
   version: 0.10.2
@@ -7285,7 +7285,7 @@
   install: configure
 - pkgname: liblanginfo
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   summary: langinfo.h and its implementation from android ndk source code
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html
   git-url: https://github.com/leleliu008/liblanginfo
@@ -7595,7 +7595,7 @@
     cmakew -DBUILD_SHARED_LIBS=ON  -DCURL_INCLUDE_DIRS="$libcurl_INCLUDE_DIR" -DCURL_LIBRARIES="'$CURL_LIBRARIES'"
 - pkgname: libmesalink
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: BSD-3-Clause
   summary: memory-safe and OpenSSL-compatible TLS library
   web-url: https://mesalink.io
@@ -7645,7 +7645,7 @@
   install: configure
 - pkgname: libmill
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: MIT
   summary: Go-style concurrency in C
   web-url: https://github.com/sustrik/libmill
@@ -8122,7 +8122,7 @@
         -DENABLE_LIB_ONLY=ON
 - pkgname: libngtcp2
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: MIT
   summary: QUIC library written in C
   web-url: https://github.com/ngtcp2/ngtcp2
@@ -8789,7 +8789,7 @@
   web-url: https://github.com/protocolbuffers/protobuf
   git-url: https://github.com/protocolbuffers/protobuf
   git-sha: 2434ef2adf0c74149b9d547ac5fb545a1ff8b6b5
-  dep-pkg: libz jsoncpp abseil
+  dep-pkg: libz libjsoncpp abseil
   dep-upp: git cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -8959,7 +8959,7 @@
         -DBUILD_SHARED_LIBS=ON
 - pkgname: libquiche
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: BSD-2-Clause
   summary: Savoury implementation of the QUIC transport protocol and HTTP/3
   web-url: https://github.com/cloudflare/quiche
@@ -10398,7 +10398,7 @@
     mv libwmflite-0.2.so.7 libwmflite-0.2.so
 - pkgname: libwordexp
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   summary: wordexp(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html
   git-url: https://github.com/leleliu008/libwordexp
@@ -10937,7 +10937,7 @@
     gow -tags linux -X github.com/lightningnetwork/lnd/build.Commit=v$PACKAGE_VERSION ./cmd/lncli
 - pkgname: lodepng
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: Zlib
   summary: PNG encoder and decoder in C and C++
   web-url: https://github.com/lvandeve/lodepng
@@ -12018,7 +12018,7 @@
     ln -s ncursesw.pc ncurses.pc
 - pkgname: ndk-pkg-core
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   license: Apache-2.0
   summary: core utils for ndk-pkg
   web-url: https://github.com/leleliu008/ndk-pkg
@@ -12899,7 +12899,7 @@
     gmakew install DEST_HOME="$PACKAGE_INSTALL_DIR"
 - pkgname: packcc
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   license: MIT
   summary: A packrat parser generator for C
   web-url: https://github.com/enechaev/packcc
@@ -13104,7 +13104,7 @@
     run install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp
 - pkgname: pegof
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
   web-url: https://github.com/dolik-rce/pegof
   git-url: https://github.com/dolik-rce/pegof
@@ -13158,11 +13158,8 @@
     install_bins pigz
     install_mans pigz.1
   dotweak: |-
-    cd bin
-    ln -sf pigz unpigz
-    cd -
-    cd share/man/man1
-    ln -sf pigz.1 unpigz.1
+    ln -sf pigz bin/unpigz
+    ln -sf pigz.1 share/man/man1/unpigz.1
 - pkgname: pjsip
   pkgtype: lib
   version: 2.11.1
@@ -13224,7 +13221,8 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  install: configure && cd "$PACKAGE_INSTALL_DIR/bin" && ln -s pkgconf pkg-config
+  install: configure
+  dotweak: ln -s pkgconf bin/pkg-config
 - pkgname: plog
   pkgtype: lib
   version: 1.1.10
@@ -13336,7 +13334,7 @@
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: ppkg
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   license: Apache-2.0
   summary: A portable package manager for Unix-like systems
   web-url: https://github.com/leleliu008/ppkg
@@ -13623,7 +13621,7 @@
   web-url: https://github.com/protocolbuffers/protobuf
   git-url: https://github.com/protocolbuffers/protobuf
   git-sha: 2434ef2adf0c74149b9d547ac5fb545a1ff8b6b5
-  dep-pkg: libz jsoncpp abseil
+  dep-pkg: libz libjsoncpp abseil
   dep-upp: git cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -13649,7 +13647,7 @@
         -Dprotobuf_JSONCPP_PROVIDER=package
 - pkgname: psimd
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: MIT
   summary: Portable 128-bit SIMD intrinsics
   web-url: https://github.com/Maratyszcza/psimd
@@ -13661,7 +13659,7 @@
   install: cmakew
 - pkgname: pthreadpool
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: BSD-2-Clause
   summary: A portable and efficient thread pool implementation
   web-url: https://github.com/Maratyszcza/pthreadpool
@@ -13681,7 +13679,7 @@
         -DPTHREADPOOL_LIBRARY_TYPE=shared
 - pkgname: pup
   pkgtype: pie
-  version: 2024.09.22
+  version: 2024.09.23
   license: MIT
   summary: Parse HTML at the command-line
   web-url: https://github.com/EricChiang/pup
@@ -14272,7 +14270,7 @@
   install: cargow install --locked
 - pkgname: ruy
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: Apache-2.0
   summary: matrix multiplication library
   web-url: https://github.com/google/ruy
@@ -14469,7 +14467,7 @@
     fi
 - pkgname: sjpeg
   pkgtype: exe+lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: Apache-2.0
   summary: simple jpeg encoder
   web-url: https://github.com/webmproject/sjpeg
@@ -14484,7 +14482,7 @@
     cmakew -DBUILD_SHARED_LIBS=OFF -DSJPEG_BUILD_EXAMPLES=ON  -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: skcms
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: BSD
   summary: SkCMS
   web-url: https://skia.googlesource.com/skcms.git
@@ -14899,7 +14897,7 @@
     run install_mans man/*.1 man/*.5 man/*.7
 - pkgname: sysinfo
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   summary: A command-line tool to get your currently running system information
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -15407,7 +15405,7 @@
   install: cargow install --path crates/typos-cli
 - pkgname: uctags
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   license: GPL-2.0-or-later
   summary: Maintained ctags implementation
   web-url: https://github.com/universal-ctags/ctags
@@ -15472,7 +15470,7 @@
     gmakew -f makefile install-lib   DESTDIR="$PACKAGE_INSTALL_DIR"
 - pkgname: uppm
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15486,7 +15484,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.2
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15501,7 +15499,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.3
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15516,7 +15514,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.4
   pkgtype: exe
-  version: 2024.09.22
+  version: 2024.09.23
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15550,7 +15548,7 @@
   install: configure --without-preflight --without-systemd
 - pkgname: utf8.h
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: Unlicense
   summary: single header utf8 string functions for C and C++
   web-url: https://github.com/sheredom/utf8.h
@@ -15717,7 +15715,7 @@
   git-url: https://github.com/tristanpenman/valijson
   src-url: https://github.com/tristanpenman/valijson/archive/refs/tags/v1.0.2.tar.gz
   src-sha: 35d86e54fc727f1265226434dc996e33000a570f833537a25c8b702b0b824431
-  dep-pkg: jsoncpp
+  dep-pkg: libjsoncpp
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -16220,7 +16218,7 @@
         --with-libxml-prefix="$libxml2_INSTALL_DIR" \
         --with-libxslt-prefix="$libxslt_INSTALL_DIR" \
         LIBS="'$(pkg-config --libs libxml-2.0)'"
-  dotweak: cd bin && ln -s xml xmlstarlet
+  dotweak: ln -s xml bin/xmlstarlet
 - pkgname: xmlutils
   pkgtype: exe
   version: 2.12.8
@@ -16284,7 +16282,7 @@
     install_mans "$PACKAGE_WORKING_DIR/src/doc/xmlwf.1"
 - pkgname: xnnpack
   pkgtype: lib
-  version: 2024.09.22
+  version: 2024.09.23
   license: BSD-3-Clause
   summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
   web-url: https://github.com/google/XNNPACK
@@ -16332,7 +16330,7 @@
         --enable-jtethreads
 - pkgname: xpup
   pkgtype: pie
-  version: 2024.09.22
+  version: 2024.09.23
   license: Apache-2.0
   summary: A command line XML parsing tool
   web-url: https://github.com/ericchiang/xpup
