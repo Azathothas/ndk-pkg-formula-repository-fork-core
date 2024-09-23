@@ -112,10 +112,7 @@
         -DCARES_STATIC_PIC=ON \
         -DCARES_BUILD_TOOLS=ON \
         -DCARES_BUILD_TESTS=OFF
-  dotweak: |-
-    rm -rf include
-    rm -rf lib
-    rm -rf share/man/man3
+  dotweak: rm -rf include/ lib/ share/man/man3/
 - pkgname: ag
   pkgtype: exe
   version: 2.2.0
@@ -407,9 +404,7 @@
   binbstd: "0"
   parallel: "1"
   install: cmakew
-  dotweak: |-
-    rm -rf lib
-    rm -rf include
+  dotweak: rm -rf include/ lib/
 - pkgname: base64
   pkgtype: exe
   version: "1.5"
@@ -535,7 +530,7 @@
     gmakew clean
     gmakew install CC="$CC" CFLAGS="'$CFLAGS $CPPFLAGS'" LDFLAGS="'$LDFLAGS -lz'" PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: berkeley-db
-  pkgtype: lib
+  pkgtype: exe
   version: 18.1.40
   license: BSD-3-Clause
   summary: A high-performance key/value database
@@ -557,6 +552,7 @@
         --enable-compat185 \
         --enable-smallbuild \
         db_cv_atomic=gcc-builtin
+  dotweak: rm -rf include/ lib/
 - pkgname: bgrep
   pkgtype: exe
   version: "0.2"
@@ -567,10 +563,10 @@
   src-url: https://github.com/tmbinc/bgrep/archive/bgrep-0.2.tar.gz
   src-sha: 24c02393fb436d7a2eb02c6042ec140f9502667500b13a59795388c1af91f9ba
   dep-upp: curl bsdtar
-  binbstd: "1"
+  binbstd: "0"
   parallel: "1"
   install: |-
-    run $CC $CFLAGS $CPPFLAGS $LDFLAGS -o bgrep bgrep.c
+    run $CC $CFLAGS $CPPFLAGS $LDFLAGS -o bgrep ../bgrep.c
     install_bins bgrep
 - pkgname: binaryen
   pkgtype: exe
@@ -683,8 +679,8 @@
   dep-upp: curl bsdtar python3
   bsystem: waf
   binbstd: "1"
+  ldflags: -lomp -ldl
   parallel: "1"
-  prepare: export ANDROID_NDK_COMPILER_ARGS="$ANDROID_NDK_COMPILER_ARGS -lomp -ldl"
   install: |-
     waf configure --prefix=$PACKAGE_INSTALL_DIR
     waf
@@ -852,10 +848,11 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
+  dopatch: gsed -i 's/RUNTIME DESTINATION/RUNTIME COMPONENT bin DESTINATION/' CMakeLists.txt
+  prepare: |-
+    CMAKE_BUILD_TARGETS=brotli
+    CMAKE_INSTALL_COMPONENTS=bin
   install: cmakew -DBUILD_SHARED_LIBS=OFF
-  dotweak: |-
-    rm -rf include/
-    rm -rf lib/
 - pkgname: bsdtar
   pkgtype: exe
   version: 3.7.4
@@ -897,11 +894,7 @@
         --with-lzo2 \
         --with-zstd \
         --with-iconv
-  dotweak: |-
-    run rm -rf lib
-    run rm -rf include
-    run rm -rf share/man/man3
-    run rm -rf share/man/man5
+  dotweak: rm -rf include/ lib/ share/man/man3/ share/man/man5/
 - pkgname: bullet
   pkgtype: lib
   version: "3.25"
@@ -1857,16 +1850,13 @@
   bsystem: meson
   binbstd: "0"
   parallel: "1"
-  dopatch: gsed -i 's|libdav1d|libdav1d.get_static_lib()|' tools/meson.build
   install: |-
     mesonw \
         -Denable_asm=true \
         -Denable_tools=true \
         -Denable_tests=false \
         -Denable_examples=false
-  dotweak: |-
-    rm -rf include
-    rm -rf lib
+  dotweak: rm -rf include/ lib/
 - pkgname: delta
   pkgtype: exe
   version: 0.17.0
@@ -2461,8 +2451,12 @@
   dep-upp: nasm curl bsdtar gmake
   bsystem: gmake
   binbstd: "1"
+  ldflags: -ldl
   parallel: "1"
-  install: |-
+  dopatch: |-
+    gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure
+    gsed -i "s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|" configure
+  prepare: |-
     unset CONFIGURE_EXTRA_ARGS
 
     case $TARGET_PLATFORM_ARCH in
@@ -2470,12 +2464,7 @@
         armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;
         i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;
     esac
-
-    gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure
-    gsed -i "s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|" configure
-
-    export ANDROID_NDK_COMPILER_ARGS="$ANDROID_NDK_COMPILER_ARGS -ldl"
-
+  install: |-
     if run ./configure \
         --prefix="$PACKAGE_INSTALL_DIR" \
         --sysroot="$SYSROOT" \
@@ -3275,9 +3264,7 @@
         --enable-namespacing \
         --enable-nls \
         --enable-relocatable
-  dotweak: |-
-    rm -rf lib
-    rm -rf include
+  dotweak: rm -rf include/ lib/
 - pkgname: gf
   pkgtype: pie
   version: 2.7.2
@@ -3616,13 +3603,6 @@
   binbstd: "0"
   parallel: "1"
   dopatch: |-
-    gsed -i "s|link_with : libgio|link_with : libgio.get_static_lib()|" gio/meson.build
-    gsed -i "s|link_with : libglib|link_with : libglib.get_static_lib()|" glib/meson.build
-    gsed -i "s|link_with : libgobject|link_with : libgobject.get_static_lib()|" gobject/meson.build
-    gsed -i "s|link_with : libgmodule|link_with : libgmodule.get_static_lib()|" gmodule/meson.build
-    gsed -i "s|link_with : libgthread|link_with : libgthread.get_static_lib()|" gthread/meson.build
-    gsed -i "s|link_with: libgirepository,|link_with: libgirepository.get_static_lib(),|" girepository/meson.build
-
     gsed -i "s|cc.find_library('resolv')|declare_dependency(link_args : ['-lresolv'])|" gio/meson.build
 
     gsed -i "/libffi_dep =/c libffi_dep = cc.find_library('ffi', static : true, dirs: ['$libffi_LIBRARY_DIR'])" meson.build
@@ -3644,9 +3624,7 @@
         -Dtests=false \
         -Dinstalled_tests=false \
         -Dbsymbolic_functions=false
-  dotweak: |-
-    rm -rfv lib
-    rm -rfv include
+  dotweak: rm -rf include/ lib/
 - pkgname: glog
   pkgtype: lib
   version: 0.6.0
@@ -4236,19 +4214,18 @@
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: grpc-plugins
   pkgtype: pie
-  version: 1.62.2
+  version: 1.64.0
   license: Apache-2.0
   summary: grpc plugins
   web-url: https://grpc.io
   git-url: https://github.com/grpc/grpc
-  src-url: https://github.com/grpc/grpc/archive/refs/tags/v1.62.2.tar.gz
-  src-sha: e5d5e0dd96fe9452fe24cc8c827381dca484c54d171fb512a198025fec81a3c8
-  dep-pkg: abseil openssl-dev re2 libprotobuf libcares
+  src-url: https://github.com/grpc/grpc/archive/refs/tags/v1.64.0.tar.gz
+  src-sha: d5509e40fb24f6390deeef8a88668124f4ec77d2ebb3b1a957b235a2f08b70c0
+  dep-pkg: libprotobuf.a libcares openssl-dev re2
   dep-upp: grpc-plugins curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  prepare: printf 'INPUT(%s -l:liblog.so)\n' "$libprotobuf_LIBRARY_DIR/libutf8_validity.a" > ../lib/liblog.a
   install: |-
     cmakew \
         -DCMAKE_CXX_STANDARD=17 \
@@ -4268,10 +4245,9 @@
         -DgRPC_BUILD_GRPC_PYTHON_PLUGIN=ON \
         -DgRPC_BUILD_GRPC_CSHARP_PLUGIN=ON \
         -DgRPC_BUILD_GRPC_OBJECTIVE_C_PLUGIN=ON \
-        -DBUILD_SHARED_LIBS=OFF
-  dotweak: |-
-    rm -rf include
-    rm -rf lib
+        -DBUILD_SHARED_LIBS=OFF \
+        -DPROTOBUF_PROTOC_EXECUTABLE="$(command -v protoc)"
+  dotweak: rm -rf include/ lib/
 - pkgname: gsed
   pkgtype: exe
   version: "4.9"
@@ -4953,7 +4929,7 @@
   git-url: https://github.com/krb5/krb5
   src-url: https://kerberos.org/dist/krb5/1.21/krb5-1.21.2.tar.gz
   src-sha: 9560941a9d843c0243a71b17a7ac6fe31c7cebb5bce3983db79e52ae7e850491
-  dep-pkg: readline openssl-dev berkeley-db libglob
+  dep-pkg: readline openssl-dev libdb libglob
   dep-upp: gm4 bison perl curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
@@ -5008,9 +4984,7 @@
         --enable-frontend \
         --enable-nasm \
         LIBS=-lm
-  dotweak: |-
-    rm -rf include
-    rm -rf lib
+  dotweak: rm -rf include/ lib/
 - pkgname: lazygit
   pkgtype: pie
   version: 0.42.0
@@ -5678,7 +5652,7 @@
         -DCARES_STATIC_PIC=ON \
         -DCARES_BUILD_TOOLS=OFF \
         -DCARES_BUILD_TESTS=OFF
-  dotweak: ln -s libcares_static.a bin/libcares.a
+  dotweak: ln -s libcares_static.a lib/libcares.a
 - pkgname: libcbor
   pkgtype: lib
   version: 0.11.0
@@ -5935,8 +5909,8 @@
         --without-librtmp \
         --without-libidn2
   dotweak: |-
-    rm -rf bin/curl
-    rm -rf share/man/man1/curl.1
+    rm -f bin/curl share/man/man1/curl.1
+
     cd lib/pkgconfig
     gsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lnghttp2||g' -e 's|-lzstd||g' -e 's|-lz||g' -e 's|-lbrotlidec||g' -e 's|-lbrotlicommon||g' libcurl.pc
     printf 'Requires: libnghttp2 libcares libzstd libz libbrotlidec openssl\n' >> libcurl.pc
@@ -5976,6 +5950,29 @@
         -Denable_tools=false \
         -Denable_tests=false \
         -Denable_examples=false
+- pkgname: libdb
+  pkgtype: lib
+  version: 18.1.40
+  license: AGPL-3.0-only
+  summary: High performance key/value database
+  web-url: https://www.oracle.com/database/technologies/related/berkeleydb.html
+  src-url: https://download.oracle.com/berkeley-db/db-18.1.40.tar.gz
+  src-uri: https://fossies.org/linux/misc/db-18.1.40.tar.gz
+  src-sha: 0cecb2ef0c67b166de93732769abdeba0555086d51de1090df325e18ee8da9c8
+  dep-upp: curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    configure only \
+        --enable-cxx \
+        --enable-stl=no \
+        --enable-dbm \
+        --enable-hash \
+        --enable-compat185 \
+        --enable-smallbuild
+    gmakew
+    gmakew install_lib install_include
 - pkgname: libde265
   pkgtype: lib
   version: 1.0.15
@@ -7535,9 +7532,7 @@
   do12345: configure --disable-zlib --disable-bzlib --disable-xzlib
   prepare: export FILE_COMPILE="$NATIVE_INSTALL_DIR/bin/file"
   install: configure --enable-zlib --disable-bzlib --disable-xzlib
-  dotweak: |-
-    rm -rf bin
-    rm -rf share/man/man1
+  dotweak: rm -rf bin/ share/man/man1/
 - pkgname: libmaxminddb
   pkgtype: lib
   version: 1.10.0
@@ -8823,6 +8818,38 @@
         -Dprotobuf_ABSL_PROVIDER=package \
         -Dprotobuf_JSONCPP_PROVIDER=package \
         -Dprotobuf_BUILD_SHARED_LIBS=ON
+- pkgname: libprotobuf.a
+  pkgtype: lib
+  version: "26.1"
+  license: BSD-3-Clause
+  summary: Protocol Buffers(data interchange format) compiler and library developed by Google
+  web-url: https://github.com/protocolbuffers/protobuf
+  git-url: https://github.com/protocolbuffers/protobuf
+  git-sha: 2434ef2adf0c74149b9d547ac5fb545a1ff8b6b5
+  dep-pkg: libz libjsoncpp abseil
+  dep-upp: git cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  do12345: |-
+    cmakew \
+        -DCMAKE_CXX_STANDARD=17 \
+        -Dprotobuf_WITH_ZLIB=ON \
+        -Dprotobuf_BUILD_TESTS=OFF \
+        -Dprotobuf_BUILD_EXAMPLES=OFF \
+        -Dprotobuf_BUILD_LIBPROTOC=ON \
+        -Dprotobuf_BUILD_SHARED_LIBS=OFF
+  install: |-
+    cmakew \
+        -DCMAKE_CXX_STANDARD=17 \
+        -Dprotobuf_WITH_ZLIB=ON \
+        -Dprotobuf_BUILD_TESTS=OFF \
+        -Dprotobuf_BUILD_EXAMPLES=OFF \
+        -Dprotobuf_BUILD_PROTOC_BINARIES=ON \
+        -Dprotobuf_BUILD_LIBPROTOC=ON \
+        -Dprotobuf_ABSL_PROVIDER=package \
+        -Dprotobuf_JSONCPP_PROVIDER=package \
+        -Dprotobuf_BUILD_SHARED_LIBS=OFF
 - pkgname: libpsl
   pkgtype: lib
   version: 0.21.5
@@ -9065,9 +9092,7 @@
         -DRE2C_BUILD_RE2GO=OFF \
         -DRE2C_BUILD_RE2RUST=OFF \
         -DRE2C_REBUILD_DOCS=OFF
-  dotweak: |-
-    rm -rf bin
-    rm -rf share/man
+  dotweak: rm -rf bin/ share/man/
 - pkgname: libressl
   pkgtype: lib
   version: 3.9.2
@@ -12491,12 +12516,11 @@
   dep-upp: git curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
+  ldflags: -ldeflate
   parallel: "1"
   dopatch: |-
     MINIZIP_LIBRARIES="$(pkg-config --libs-only-l minizip-ng)"
     gsed -i "s|INTERFACE ZLIB::ZLIB|INTERFACE ZLIB::ZLIB $MINIZIP_LIBRARIES|" share/cmake/modules/Findminizip-ng.cmake
-
-    export ANDROID_NDK_COMPILER_ARGS="$ANDROID_NDK_COMPILER_ARGS -ldeflate"
   install: |-
     cmakew \
         -Dpystring_INCLUDE_DIR="$libpystring_INCLUDE_DIR/pystring" \
@@ -12508,10 +12532,7 @@
         -DOCIO_BUILD_PYTHON=OFF \
         -DOCIO_WARNING_AS_ERROR=OFF \
         -DBUILD_SHARED_LIBS=OFF
-  dotweak: |-
-    rm -rf include/
-    rm -rf lib/
-    rm -rf share/OpenColorIO/
+  dotweak: rm -rf include/ lib/ share/OpenColorIO/
 - pkgname: opencv
   pkgtype: lib
   version: 4.9.0
@@ -13421,9 +13442,7 @@
     )
     EOF
   install: cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=ON  -DBUILD_SHARED_LIBS=OFF
-  dotweak: |-
-    rm -rf include/
-    rm -rf lib/
+  dotweak: rm -rf include/ lib/
 - pkgname: proj7
   pkgtype: lib
   version: 7.2.1
@@ -14605,9 +14624,7 @@
         -DBUILD_SHARED_LIBS=OFF \
         -DENABLE_PACKAGE_CONFIG=ON \
         -DINSTALL_PKGCONFIG_MODULE=OFF
-  dotweak: |-
-    rm -rf include/
-    rm -rf lib/
+  dotweak: rm -rf include/ lib/
 - pkgname: soundtouch
   pkgtype: lib
   version: 2.3.1
@@ -14682,9 +14699,7 @@
   parallel: "1"
   dopatch: gsed -i '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' sqlite3.c
   install: configure --disable-editline --enable-readline --enable-static-shell LIBS=-lm
-  dotweak: |-
-    rm -rf include
-    rm -rf lib
+  dotweak: rm -rf include/ lib/
 - pkgname: starship
   pkgtype: exe
   version: 1.19.0
@@ -15140,9 +15155,7 @@
         -DTINYALSA_BUILD_UTILS=ON \
         -DTINYALSA_BUILD_EXAMPLES=OFF \
         -DTINYALSA_USES_PLUGINS=ON
-  dotweak: |-
-    rm -rf include
-    rm -rf lib
+  dotweak: rm -rf include/ lib/
 - pkgname: tinysearch
   pkgtype: exe
   version: 0.8.2
@@ -16161,9 +16174,7 @@
         -DENABLE_CLI=ON \
         -DENABLE_SHARED=ON \
         -DENABLE_ASSEMBLY=OFF
-  dotweak: |-
-    rm -rf include
-    rm -rf lib
+  dotweak: rm -rf include/ lib/
 - pkgname: xh
   pkgtype: exe
   version: 0.22.0
@@ -16433,9 +16444,7 @@
         --enable-static \
         --enable-assembler \
         --enable-threads=posix
-  dotweak: |-
-    rm -rf include
-    rm -rf lib
+  dotweak: rm -rf include/ lib/
 - pkgname: yasm
   pkgtype: exe
   version: 1.3.0
@@ -16650,9 +16659,7 @@
         -DZSTD_ZLIB_SUPPORT=ON \
         -DZSTD_LZMA_SUPPORT=ON \
         -DZSTD_LZ4_SUPPORT=OFF
-  dotweak: |-
-    rm -rfv include
-    rm -rfv lib
+  dotweak: rm -rf include/ lib/
 - pkgname: zsync
   pkgtype: exe
   version: 0.6.2

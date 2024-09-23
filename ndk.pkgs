@@ -471,7 +471,7 @@ parallel: 1
 installed: no
 ---
 pkgname: berkeley-db
-pkgtype: lib
+pkgtype: exe
 version: 18.1.40
 license: BSD-3-Clause
 summary: A high-performance key/value database
@@ -495,7 +495,7 @@ git-url: https://github.com/tmbinc/bgrep
 src-url: https://github.com/tmbinc/bgrep/archive/bgrep-0.2.tar.gz
 src-sha: 24c02393fb436d7a2eb02c6042ec140f9502667500b13a59795388c1af91f9ba
 dep-upp: curl bsdtar
-binbstd: 1
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -591,6 +591,7 @@ dep-pkg: imagemagick
 dep-upp: curl bsdtar python3
 bsystem: waf
 binbstd: 1
+ldflags: -lomp -ldl
 parallel: 1
 installed: no
 ---
@@ -1990,6 +1991,7 @@ dep-pkg: libmp3lame libtheora libvorbis libspeex librav1e libdav1d libx264 libx2
 dep-upp: nasm curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
+ldflags: -ldl
 parallel: 1
 installed: no
 ---
@@ -3299,14 +3301,14 @@ installed: no
 ---
 pkgname: grpc-plugins
 pkgtype: pie
-version: 1.62.2
+version: 1.64.0
 license: Apache-2.0
 summary: grpc plugins
 web-url: https://grpc.io
 git-url: https://github.com/grpc/grpc
-src-url: https://github.com/grpc/grpc/archive/refs/tags/v1.62.2.tar.gz
-src-sha: e5d5e0dd96fe9452fe24cc8c827381dca484c54d171fb512a198025fec81a3c8
-dep-pkg: abseil openssl-dev re2 libprotobuf libcares
+src-url: https://github.com/grpc/grpc/archive/refs/tags/v1.64.0.tar.gz
+src-sha: d5509e40fb24f6390deeef8a88668124f4ec77d2ebb3b1a957b235a2f08b70c0
+dep-pkg: libprotobuf.a libcares openssl-dev re2
 dep-upp: grpc-plugins curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -3910,7 +3912,7 @@ web-url: https://web.mit.edu/kerberos
 git-url: https://github.com/krb5/krb5
 src-url: https://kerberos.org/dist/krb5/1.21/krb5-1.21.2.tar.gz
 src-sha: 9560941a9d843c0243a71b17a7ac6fe31c7cebb5bce3983db79e52ae7e850491
-dep-pkg: readline openssl-dev berkeley-db libglob
+dep-pkg: readline openssl-dev libdb libglob
 dep-upp: gm4 bison perl curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -4674,6 +4676,21 @@ src-sha: 2a7e68a17b22d1c060d31a7af84c8e033a145fca1d63ef36d57f0f39eb4dd0df
 dep-upp: nasm curl bsdtar python3 ninja
 dep-pym: meson
 bsystem: meson
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libdb
+pkgtype: lib
+version: 18.1.40
+license: AGPL-3.0-only
+summary: High performance key/value database
+web-url: https://www.oracle.com/database/technologies/related/berkeleydb.html
+src-url: https://download.oracle.com/berkeley-db/db-18.1.40.tar.gz
+src-uri: https://fossies.org/linux/misc/db-18.1.40.tar.gz
+src-sha: 0cecb2ef0c67b166de93732769abdeba0555086d51de1090df325e18ee8da9c8
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
 binbstd: 0
 parallel: 1
 installed: no
@@ -6736,6 +6753,21 @@ parallel: 1
 installed: no
 ---
 pkgname: libprotobuf
+pkgtype: lib
+version: 26.1
+license: BSD-3-Clause
+summary: Protocol Buffers(data interchange format) compiler and library developed by Google
+web-url: https://github.com/protocolbuffers/protobuf
+git-url: https://github.com/protocolbuffers/protobuf
+git-sha: 2434ef2adf0c74149b9d547ac5fb545a1ff8b6b5
+dep-pkg: libz libjsoncpp abseil
+dep-upp: git cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libprotobuf.a
 pkgtype: lib
 version: 26.1
 license: BSD-3-Clause
@@ -9353,6 +9385,7 @@ dep-pkg: libopenexr liblcms2 libexpat libyaml-cpp libpystring libminizip-ng
 dep-upp: git curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
+ldflags: -ldeflate
 parallel: 1
 installed: no
 ---

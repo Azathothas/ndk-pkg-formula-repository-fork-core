@@ -109,7 +109,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DCARES_INSTALL=ON \\\n    -DCARES_SHARED=OFF \\\n    -DCARES_STATIC=ON \\\n    -DCARES_STATIC_PIC=ON \\\n    -DCARES_BUILD_TOOLS=ON \\\n    -DCARES_BUILD_TESTS=OFF",
-    "dotweak": "rm -rf include\nrm -rf lib\nrm -rf share/man/man3"
+    "dotweak": "rm -rf include/ lib/ share/man/man3/"
   },
   {
     "pkgname": "ag",
@@ -410,7 +410,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew",
-    "dotweak": "rm -rf lib\nrm -rf include"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "base64",
@@ -517,7 +517,7 @@
   },
   {
     "pkgname": "berkeley-db",
-    "pkgtype": "lib",
+    "pkgtype": "exe",
     "version": "18.1.40",
     "license": "BSD-3-Clause",
     "summary": "A high-performance key/value database",
@@ -530,7 +530,8 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's| install_docs||' Makefile.in",
-    "install": "configure \\\n    --enable-cxx=no \\\n    --enable-stl=no \\\n    --enable-dbm \\\n    --enable-hash \\\n    --enable-compat185 \\\n    --enable-smallbuild \\\n    db_cv_atomic=gcc-builtin"
+    "install": "configure \\\n    --enable-cxx=no \\\n    --enable-stl=no \\\n    --enable-dbm \\\n    --enable-hash \\\n    --enable-compat185 \\\n    --enable-smallbuild \\\n    db_cv_atomic=gcc-builtin",
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "bgrep",
@@ -543,9 +544,9 @@
     "src-url": "https://github.com/tmbinc/bgrep/archive/bgrep-0.2.tar.gz",
     "src-sha": "24c02393fb436d7a2eb02c6042ec140f9502667500b13a59795388c1af91f9ba",
     "dep-upp": "curl bsdtar",
-    "binbstd": "1",
+    "binbstd": "0",
     "parallel": "1",
-    "install": "run $CC $CFLAGS $CPPFLAGS $LDFLAGS -o bgrep bgrep.c\ninstall_bins bgrep"
+    "install": "run $CC $CFLAGS $CPPFLAGS $LDFLAGS -o bgrep ../bgrep.c\ninstall_bins bgrep"
   },
   {
     "pkgname": "binaryen",
@@ -646,8 +647,8 @@
     "dep-upp": "curl bsdtar python3",
     "bsystem": "waf",
     "binbstd": "1",
+    "ldflags": "-lomp -ldl",
     "parallel": "1",
-    "prepare": "export ANDROID_NDK_COMPILER_ARGS=\"$ANDROID_NDK_COMPILER_ARGS -lomp -ldl\"",
     "install": "waf configure --prefix=$PACKAGE_INSTALL_DIR\nwaf\nwaf install"
   },
   {
@@ -747,8 +748,9 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF",
-    "dotweak": "rm -rf include/\nrm -rf lib/"
+    "dopatch": "gsed -i 's/RUNTIME DESTINATION/RUNTIME COMPONENT bin DESTINATION/' CMakeLists.txt",
+    "prepare": "CMAKE_BUILD_TARGETS=brotli\nCMAKE_INSTALL_COMPONENTS=bin",
+    "install": "cmakew -DBUILD_SHARED_LIBS=OFF"
   },
   {
     "pkgname": "bsdtar",
@@ -767,7 +769,7 @@
     "parallel": "1",
     "prepare": "export ac_cv_sizeof_wchar_t=\"$($CC -E -dM - < /dev/null | sed -n '/__SIZEOF_WCHAR_T__/p' | cut -d ' ' -f3)\"\nexport CPPFLAGS=\"$CPPFLAGS -I$PACKAGE_BSCRIPT_DIR/contrib/android/include\"",
     "install": "configure \\\n    --enable-xattr \\\n    --enable-acl \\\n    --enable-bsdtar=static \\\n    --enable-bsdcat=static \\\n    --enable-bsdcpio=static \\\n    --enable-bsdunzip=static \\\n    --enable-static \\\n    --disable-shared \\\n    --without-mbedtls \\\n    --without-nettle \\\n    --without-libb2 \\\n    --without-xml2 \\\n    --without-cng \\\n    --with-openssl \\\n    --with-expat \\\n    --with-zlib \\\n    --with-lzma \\\n    --with-bz2lib \\\n    --with-lz4 \\\n    --with-lzo2 \\\n    --with-zstd \\\n    --with-iconv",
-    "dotweak": "run rm -rf lib\nrun rm -rf include\nrun rm -rf share/man/man3\nrun rm -rf share/man/man5"
+    "dotweak": "rm -rf include/ lib/ share/man/man3/ share/man/man5/"
   },
   {
     "pkgname": "bullet",
@@ -1579,9 +1581,8 @@
     "bsystem": "meson",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i 's|libdav1d|libdav1d.get_static_lib()|' tools/meson.build",
     "install": "mesonw \\\n    -Denable_asm=true \\\n    -Denable_tools=true \\\n    -Denable_tests=false \\\n    -Denable_examples=false",
-    "dotweak": "rm -rf include\nrm -rf lib"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "delta",
@@ -2171,8 +2172,11 @@
     "dep-upp": "nasm curl bsdtar gmake",
     "bsystem": "gmake",
     "binbstd": "1",
+    "ldflags": "-ldl",
     "parallel": "1",
-    "install": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac\n\ngsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure\n\nexport ANDROID_NDK_COMPILER_ARGS=\"$ANDROID_NDK_COMPILER_ARGS -ldl\"\n\nif run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --disable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --enable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
+    "dopatch": "gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure",
+    "prepare": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac",
+    "install": "if run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --disable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --enable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
   },
   {
     "pkgname": "ffmpeg-dev",
@@ -2774,7 +2778,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "export am_cv_func_iconv_works=yes\nconfigure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=$libiconv_INSTALL_DIR \\\n    --with-libncurses-prefix=$ncurses_INSTALL_DIR \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable",
-    "dotweak": "rm -rf lib\nrm -rf include"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "gf",
@@ -3038,9 +3042,9 @@
     "bsystem": "meson",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i \"s|link_with : libgio|link_with : libgio.get_static_lib()|\" gio/meson.build\ngsed -i \"s|link_with : libglib|link_with : libglib.get_static_lib()|\" glib/meson.build\ngsed -i \"s|link_with : libgobject|link_with : libgobject.get_static_lib()|\" gobject/meson.build\ngsed -i \"s|link_with : libgmodule|link_with : libgmodule.get_static_lib()|\" gmodule/meson.build\ngsed -i \"s|link_with : libgthread|link_with : libgthread.get_static_lib()|\" gthread/meson.build\ngsed -i \"s|link_with: libgirepository,|link_with: libgirepository.get_static_lib(),|\" girepository/meson.build\n\ngsed -i \"s|cc.find_library('resolv')|declare_dependency(link_args : ['-lresolv'])|\" gio/meson.build\n\ngsed -i \"/libffi_dep =/c libffi_dep = cc.find_library('ffi', static : true, dirs: ['$libffi_LIBRARY_DIR'])\" meson.build\ngsed -i \"/libiconv =/c libiconv = cc.find_library('iconv', static : true, dirs: ['$libiconv_LIBRARY_DIR'])\" meson.build\ngsed -i \"/libz_dep =/c libz_dep = cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])\" meson.build\n\ngsed -i '2228,2254d'  meson.build\ngsed -i \"2228a libintl = cc.find_library('intl', static : true, dirs: ['$libintl_LIBRARY_DIR'])\" meson.build\ngsed -i '2229a libintl_deps = [libintl, libiconv]' meson.build",
+    "dopatch": "gsed -i \"s|cc.find_library('resolv')|declare_dependency(link_args : ['-lresolv'])|\" gio/meson.build\n\ngsed -i \"/libffi_dep =/c libffi_dep = cc.find_library('ffi', static : true, dirs: ['$libffi_LIBRARY_DIR'])\" meson.build\ngsed -i \"/libiconv =/c libiconv = cc.find_library('iconv', static : true, dirs: ['$libiconv_LIBRARY_DIR'])\" meson.build\ngsed -i \"/libz_dep =/c libz_dep = cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])\" meson.build\n\ngsed -i '2228,2254d'  meson.build\ngsed -i \"2228a libintl = cc.find_library('intl', static : true, dirs: ['$libintl_LIBRARY_DIR'])\" meson.build\ngsed -i '2229a libintl_deps = [libintl, libiconv]' meson.build",
     "install": "mesonw \\\n    -Dintrospection=disabled \\\n    -Ddocumentation=false \\\n    -Dman-pages=disabled \\\n    -Dnls=disabled \\\n    -Ddtrace=false \\\n    -Dglib_debug=disabled \\\n    -Dglib_assert=false \\\n    -Dtests=false \\\n    -Dinstalled_tests=false \\\n    -Dbsymbolic_functions=false",
-    "dotweak": "rm -rfv lib\nrm -rfv include"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "glog",
@@ -3605,21 +3609,20 @@
   {
     "pkgname": "grpc-plugins",
     "pkgtype": "pie",
-    "version": "1.62.2",
+    "version": "1.64.0",
     "license": "Apache-2.0",
     "summary": "grpc plugins",
     "web-url": "https://grpc.io",
     "git-url": "https://github.com/grpc/grpc",
-    "src-url": "https://github.com/grpc/grpc/archive/refs/tags/v1.62.2.tar.gz",
-    "src-sha": "e5d5e0dd96fe9452fe24cc8c827381dca484c54d171fb512a198025fec81a3c8",
-    "dep-pkg": "abseil openssl-dev re2 libprotobuf libcares",
+    "src-url": "https://github.com/grpc/grpc/archive/refs/tags/v1.64.0.tar.gz",
+    "src-sha": "d5509e40fb24f6390deeef8a88668124f4ec77d2ebb3b1a957b235a2f08b70c0",
+    "dep-pkg": "libprotobuf.a libcares openssl-dev re2",
     "dep-upp": "grpc-plugins curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "printf 'INPUT(%s -l:liblog.so)\\n' \"$libprotobuf_LIBRARY_DIR/libutf8_validity.a\" > ../lib/liblog.a",
-    "install": "cmakew \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -DCMAKE_CXX_STANDARD_REQUIRED=TRUE \\\n    -DgRPC_ABSL_PROVIDER=package \\\n    -DgRPC_CARES_PROVIDER=package \\\n    -DgRPC_PROTOBUF_PROVIDER=package \\\n    -DgRPC_SSL_PROVIDER=package \\\n    -DgRPC_ZLIB_PROVIDER=package \\\n    -DgRPC_RE2_PROVIDER=package \\\n    -DgRPC_INSTALL=ON \\\n    -DgRPC_BUILD_TESTS=OFF \\\n    -DgRPC_BUILD_GRPC_CPP_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_PHP_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_NODE_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_RUBY_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_PYTHON_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_CSHARP_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_OBJECTIVE_C_PLUGIN=ON \\\n    -DBUILD_SHARED_LIBS=OFF",
-    "dotweak": "rm -rf include\nrm -rf lib"
+    "install": "cmakew \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -DCMAKE_CXX_STANDARD_REQUIRED=TRUE \\\n    -DgRPC_ABSL_PROVIDER=package \\\n    -DgRPC_CARES_PROVIDER=package \\\n    -DgRPC_PROTOBUF_PROVIDER=package \\\n    -DgRPC_SSL_PROVIDER=package \\\n    -DgRPC_ZLIB_PROVIDER=package \\\n    -DgRPC_RE2_PROVIDER=package \\\n    -DgRPC_INSTALL=ON \\\n    -DgRPC_BUILD_TESTS=OFF \\\n    -DgRPC_BUILD_GRPC_CPP_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_PHP_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_NODE_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_RUBY_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_PYTHON_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_CSHARP_PLUGIN=ON \\\n    -DgRPC_BUILD_GRPC_OBJECTIVE_C_PLUGIN=ON \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DPROTOBUF_PROTOC_EXECUTABLE=\"$(command -v protoc)\"",
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "gsed",
@@ -4267,7 +4270,7 @@
     "git-url": "https://github.com/krb5/krb5",
     "src-url": "https://kerberos.org/dist/krb5/1.21/krb5-1.21.2.tar.gz",
     "src-sha": "9560941a9d843c0243a71b17a7ac6fe31c7cebb5bce3983db79e52ae7e850491",
-    "dep-pkg": "readline openssl-dev berkeley-db libglob",
+    "dep-pkg": "readline openssl-dev libdb libglob",
     "dep-upp": "gm4 bison perl curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
@@ -4291,7 +4294,7 @@
     "parallel": "1",
     "dopatch": "gsed -i '/lame_init_old/d' include/libmp3lame.sym\ngsed -i 's|-mtune=native||g' configure",
     "install": "configure \\\n    --without-dmalloc \\\n    --enable-frontend \\\n    --enable-nasm \\\n    LIBS=-lm",
-    "dotweak": "rm -rf include\nrm -rf lib"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "lazygit",
@@ -4857,7 +4860,7 @@
     "parallel": "1",
     "dopatch": "gsed -i 's|LIST (APPEND CARES_DEPENDENT_LIBS ${CMAKE_THREAD_LIBS_INIT})|LIST (APPEND CARES_DEPENDENT_LIBS pthread)|' CMakeLists.txt",
     "install": "cmakew \\\n    -DCARES_INSTALL=ON \\\n    -DCARES_SHARED=ON \\\n    -DCARES_STATIC=ON \\\n    -DCARES_STATIC_PIC=ON \\\n    -DCARES_BUILD_TOOLS=OFF \\\n    -DCARES_BUILD_TESTS=OFF",
-    "dotweak": "ln -s libcares_static.a bin/libcares.a"
+    "dotweak": "ln -s libcares_static.a lib/libcares.a"
   },
   {
     "pkgname": "libcbor",
@@ -5070,7 +5073,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure \\\n    --enable-optimize \\\n    --enable-pthreads \\\n    --enable-ares \\\n    --with-default-ssl-backend=openssl \\\n    --with-ssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-nghttp2 \\\n    --without-nghttp3 \\\n    --without-ngtcp2 \\\n    --without-quiche \\\n    --without-libpsl \\\n    --without-librtmp \\\n    --without-libidn2",
-    "dotweak": "rm -rf bin/curl\nrm -rf share/man/man1/curl.1\ncd lib/pkgconfig\ngsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lnghttp2||g' -e 's|-lzstd||g' -e 's|-lz||g' -e 's|-lbrotlidec||g' -e 's|-lbrotlicommon||g' libcurl.pc\nprintf 'Requires: libnghttp2 libcares libzstd libz libbrotlidec openssl\\n' >> libcurl.pc"
+    "dotweak": "rm -f bin/curl share/man/man1/curl.1\n\ncd lib/pkgconfig\ngsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lnghttp2||g' -e 's|-lzstd||g' -e 's|-lz||g' -e 's|-lbrotlidec||g' -e 's|-lbrotlicommon||g' libcurl.pc\nprintf 'Requires: libnghttp2 libcares libzstd libz libbrotlidec openssl\\n' >> libcurl.pc"
   },
   {
     "pkgname": "libdatrie",
@@ -5106,6 +5109,22 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "mesonw \\\n    -Denable_asm=true \\\n    -Denable_tools=false \\\n    -Denable_tests=false \\\n    -Denable_examples=false"
+  },
+  {
+    "pkgname": "libdb",
+    "pkgtype": "lib",
+    "version": "18.1.40",
+    "license": "AGPL-3.0-only",
+    "summary": "High performance key/value database",
+    "web-url": "https://www.oracle.com/database/technologies/related/berkeleydb.html",
+    "src-url": "https://download.oracle.com/berkeley-db/db-18.1.40.tar.gz",
+    "src-uri": "https://fossies.org/linux/misc/db-18.1.40.tar.gz",
+    "src-sha": "0cecb2ef0c67b166de93732769abdeba0555086d51de1090df325e18ee8da9c8",
+    "dep-upp": "curl bsdtar gmake gmake",
+    "bsystem": "configure",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "configure only \\\n    --enable-cxx \\\n    --enable-stl=no \\\n    --enable-dbm \\\n    --enable-hash \\\n    --enable-compat185 \\\n    --enable-smallbuild\ngmakew\ngmakew install_lib install_include"
   },
   {
     "pkgname": "libde265",
@@ -6399,7 +6418,7 @@
     "do12345": "configure --disable-zlib --disable-bzlib --disable-xzlib",
     "prepare": "export FILE_COMPILE=\"$NATIVE_INSTALL_DIR/bin/file\"",
     "install": "configure --enable-zlib --disable-bzlib --disable-xzlib",
-    "dotweak": "rm -rf bin\nrm -rf share/man/man1"
+    "dotweak": "rm -rf bin/ share/man/man1/"
   },
   {
     "pkgname": "libmaxminddb",
@@ -7377,6 +7396,23 @@
     "install": "cmakew \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -Dprotobuf_WITH_ZLIB=ON \\\n    -Dprotobuf_BUILD_TESTS=OFF \\\n    -Dprotobuf_BUILD_EXAMPLES=OFF \\\n    -Dprotobuf_BUILD_PROTOC_BINARIES=OFF \\\n    -Dprotobuf_BUILD_LIBPROTOC=ON \\\n    -Dprotobuf_ABSL_PROVIDER=package \\\n    -Dprotobuf_JSONCPP_PROVIDER=package \\\n    -Dprotobuf_BUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -Dprotobuf_WITH_ZLIB=ON \\\n    -Dprotobuf_BUILD_TESTS=OFF \\\n    -Dprotobuf_BUILD_EXAMPLES=OFF \\\n    -Dprotobuf_BUILD_PROTOC_BINARIES=OFF \\\n    -Dprotobuf_BUILD_LIBPROTOC=ON \\\n    -Dprotobuf_ABSL_PROVIDER=package \\\n    -Dprotobuf_JSONCPP_PROVIDER=package \\\n    -Dprotobuf_BUILD_SHARED_LIBS=ON"
   },
   {
+    "pkgname": "libprotobuf.a",
+    "pkgtype": "lib",
+    "version": "26.1",
+    "license": "BSD-3-Clause",
+    "summary": "Protocol Buffers(data interchange format) compiler and library developed by Google",
+    "web-url": "https://github.com/protocolbuffers/protobuf",
+    "git-url": "https://github.com/protocolbuffers/protobuf",
+    "git-sha": "2434ef2adf0c74149b9d547ac5fb545a1ff8b6b5",
+    "dep-pkg": "libz libjsoncpp abseil",
+    "dep-upp": "git cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "do12345": "cmakew \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -Dprotobuf_WITH_ZLIB=ON \\\n    -Dprotobuf_BUILD_TESTS=OFF \\\n    -Dprotobuf_BUILD_EXAMPLES=OFF \\\n    -Dprotobuf_BUILD_LIBPROTOC=ON \\\n    -Dprotobuf_BUILD_SHARED_LIBS=OFF",
+    "install": "cmakew \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -Dprotobuf_WITH_ZLIB=ON \\\n    -Dprotobuf_BUILD_TESTS=OFF \\\n    -Dprotobuf_BUILD_EXAMPLES=OFF \\\n    -Dprotobuf_BUILD_PROTOC_BINARIES=ON \\\n    -Dprotobuf_BUILD_LIBPROTOC=ON \\\n    -Dprotobuf_ABSL_PROVIDER=package \\\n    -Dprotobuf_JSONCPP_PROVIDER=package \\\n    -Dprotobuf_BUILD_SHARED_LIBS=OFF"
+  },
+  {
     "pkgname": "libpsl",
     "pkgtype": "lib",
     "version": "0.21.5",
@@ -7574,7 +7610,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DRE2C_BUILD_LIBS=ON \\\n    -DRE2C_BUILD_RE2GO=OFF \\\n    -DRE2C_BUILD_RE2RUST=OFF \\\n    -DRE2C_REBUILD_DOCS=OFF\ncmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DRE2C_BUILD_LIBS=ON \\\n    -DRE2C_BUILD_RE2GO=OFF \\\n    -DRE2C_BUILD_RE2RUST=OFF \\\n    -DRE2C_REBUILD_DOCS=OFF",
-    "dotweak": "rm -rf bin\nrm -rf share/man"
+    "dotweak": "rm -rf bin/ share/man/"
   },
   {
     "pkgname": "libressl",
@@ -10213,10 +10249,11 @@
     "dep-upp": "git curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
+    "ldflags": "-ldeflate",
     "parallel": "1",
-    "dopatch": "MINIZIP_LIBRARIES=\"$(pkg-config --libs-only-l minizip-ng)\"\ngsed -i \"s|INTERFACE ZLIB::ZLIB|INTERFACE ZLIB::ZLIB $MINIZIP_LIBRARIES|\" share/cmake/modules/Findminizip-ng.cmake\n\nexport ANDROID_NDK_COMPILER_ARGS=\"$ANDROID_NDK_COMPILER_ARGS -ldeflate\"",
+    "dopatch": "MINIZIP_LIBRARIES=\"$(pkg-config --libs-only-l minizip-ng)\"\ngsed -i \"s|INTERFACE ZLIB::ZLIB|INTERFACE ZLIB::ZLIB $MINIZIP_LIBRARIES|\" share/cmake/modules/Findminizip-ng.cmake",
     "install": "cmakew \\\n    -Dpystring_INCLUDE_DIR=\"$libpystring_INCLUDE_DIR/pystring\" \\\n    -Dpystring_LIBRARY=\"$libpystring_LIBRARY_DIR/libpystring.a\" \\\n    -DOCIO_BUILD_APPS=ON \\\n    -DOCIO_BUILD_DOCS=OFF \\\n    -DOCIO_BUILD_TESTS=OFF \\\n    -DOCIO_BUILD_JAVA=OFF \\\n    -DOCIO_BUILD_PYTHON=OFF \\\n    -DOCIO_WARNING_AS_ERROR=OFF \\\n    -DBUILD_SHARED_LIBS=OFF",
-    "dotweak": "rm -rf include/\nrm -rf lib/\nrm -rf share/OpenColorIO/"
+    "dotweak": "rm -rf include/ lib/ share/OpenColorIO/"
   },
   {
     "pkgname": "opencv",
@@ -10827,7 +10864,7 @@
     "parallel": "1",
     "dopatch": "# https://cmake.org/cmake/help/latest/module/FindTIFF.html\nTIFF_LIBRARIES=\"$(pkg-config --libs-only-l libtiff-4 | tr ' ' ';')\"\n\ncat > cmake/FindTIFF.cmake <<EOF\nset(TIFF_FOUND TRUE)\n\nadd_library(TIFF::TIFF INTERFACE IMPORTED)\nset_target_properties(TIFF::TIFF PROPERTIES\n    INTERFACE_INCLUDE_DIRECTORIES \"$libtiff_INCLUDE_DIR\"\n    INTERFACE_LINK_LIBRARIES      \"$TIFF_LIBRARIES\"\n)\nEOF\n\n# # https://cmake.org/cmake/help/latest/module/FindCURL.html\nCURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl | tr ' ' ';')\"\n\ncat > cmake/FindCURL.cmake <<EOF\nset(CURL_FOUND TRUE)\n\nadd_library(CURL::libcurl INTERFACE IMPORTED)\nset_target_properties(CURL::libcurl PROPERTIES\n    INTERFACE_INCLUDE_DIRECTORIES \"$libcurl_INCLUDE_DIR\"\n    INTERFACE_LINK_LIBRARIES      \"$CURL_LIBRARIES\"\n)\nEOF",
     "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=ON  -DBUILD_SHARED_LIBS=OFF",
-    "dotweak": "rm -rf include/\nrm -rf lib/"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "proj7",
@@ -11711,7 +11748,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DBUILD_PROGRAMS=ON \\\n    -DBUILD_EXAMPLES=ON \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DENABLE_PACKAGE_CONFIG=ON \\\n    -DINSTALL_PKGCONFIG_MODULE=OFF",
-    "dotweak": "rm -rf include/\nrm -rf lib/"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "soundtouch",
@@ -11781,7 +11818,7 @@
     "parallel": "1",
     "dopatch": "gsed -i '/if defined(STRERROR_R_CHAR_P) || defined(__USE_GNU)/c \\#if defined(STRERROR_R_CHAR_P) || (defined(__USE_GNU) && __ANDROID_API__ >= 23)' sqlite3.c",
     "install": "configure --disable-editline --enable-readline --enable-static-shell LIBS=-lm",
-    "dotweak": "rm -rf include\nrm -rf lib"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "starship",
@@ -12181,7 +12218,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DTINYALSA_BUILD_UTILS=ON \\\n    -DTINYALSA_BUILD_EXAMPLES=OFF \\\n    -DTINYALSA_USES_PLUGINS=ON",
-    "dotweak": "rm -rf include\nrm -rf lib"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "tinysearch",
@@ -12991,7 +13028,7 @@
     "parallel": "1",
     "dopatch": "gsed -i 's|cli x265-shared|cli x265-static|' CMakeLists.txt",
     "install": "cmakew \\\n    -DENABLE_PIC=ON \\\n    -DENABLE_CLI=ON \\\n    -DENABLE_SHARED=ON \\\n    -DENABLE_ASSEMBLY=OFF",
-    "dotweak": "rm -rf include\nrm -rf lib"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "xh",
@@ -13197,7 +13234,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure \\\n    --disable-external-sha256 \\\n    --disable-werror \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-assembler \\\n    --enable-threads=posix",
-    "dotweak": "rm -rf include\nrm -rf lib"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "yasm",
@@ -13397,7 +13434,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DZSTD_MULTITHREAD_SUPPORT=ON \\\n    -DZSTD_BUILD_TESTS=OFF \\\n    -DZSTD_BUILD_CONTRIB=OFF \\\n    -DZSTD_BUILD_PROGRAMS=ON \\\n    -DZSTD_BUILD_STATIC=ON \\\n    -DZSTD_BUILD_SHARED=OFF \\\n    -DZSTD_ZLIB_SUPPORT=ON \\\n    -DZSTD_LZMA_SUPPORT=ON \\\n    -DZSTD_LZ4_SUPPORT=OFF",
-    "dotweak": "rm -rfv include\nrm -rfv lib"
+    "dotweak": "rm -rf include/ lib/"
   },
   {
     "pkgname": "zsync",
