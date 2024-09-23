@@ -267,7 +267,6 @@ dep-pkg: libgnutls libcares libxml2 libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
-ldflags: -liconv
 parallel: 1
 installed: no
 ---
@@ -591,7 +590,6 @@ dep-pkg: imagemagick
 dep-upp: curl bsdtar python3
 bsystem: waf
 binbstd: 1
-ldflags: -lomp -ldl
 parallel: 1
 installed: no
 ---
@@ -1046,7 +1044,7 @@ web-url: https://www.cmake.org/
 git-url: https://github.com/Kitware/CMake
 src-url: https://github.com/Kitware/CMake/releases/download/v3.30.3/cmake-3.30.3.tar.gz
 src-sha: 6d5de15b6715091df7f5441007425264bdd477809f80333fdf95f846aaff88e4
-dep-pkg: libarchive libexpat libcurl libuv libz libjsoncpp librhash ncurses openssl-dev
+dep-pkg: libarchive libcurl libuv libz libexpat libjsoncpp librhash ncurses openssl-dev
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -1156,10 +1154,9 @@ git-url: https://github.com/microsoft/cpprestsdk
 src-url: https://github.com/microsoft/cpprestsdk/archive/refs/tags/v2.10.19.tar.gz
 src-sha: 4b0d14e5bfe77ce419affd253366e861968ae6ef2c35ae293727c1415bd145c8
 dep-pkg: websocketpp openssl-dev boost libz
-dep-upp: pkg-config curl bsdtar cmake ninja
+dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
-ldflags: -llog
 parallel: 1
 installed: no
 ---
@@ -1548,7 +1545,7 @@ git-url: https://github.com/ogham/dog
 src-url: https://github.com/ogham/dog/archive/v0.1.0.tar.gz
 src-sha: 82387d38727bac7fcdb080970e84b36de80bfe7923ce83f993a77d9ac7847858
 dep-pkg: openssl-dev
-dep-upp: pkg-config curl bsdtar
+dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
 parallel: 1
@@ -1991,7 +1988,6 @@ dep-pkg: libmp3lame libtheora libvorbis libspeex librav1e libdav1d libx264 libx2
 dep-upp: nasm curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
-ldflags: -ldl
 parallel: 1
 installed: no
 ---
@@ -2189,7 +2185,7 @@ web-url: https://github.com/shlomif/fortune-mod
 git-url: https://github.com/shlomif/fortune-mod
 src-url: https://github.com/shlomif/fortune-mod/releases/download/fortune-mod-3.18.0/fortune-mod-3.18.0.tar.xz
 src-sha: c5a681f1a2601b7186d1f612d2f3a7c42e1189f4326f17a34bccaca98134c42b
-dep-upp: perl pkg-config xsltproc docbook-xsl curl bsdtar perl gmake cmake ninja
+dep-upp: perl xsltproc docbook-xsl curl bsdtar perl gmake cmake ninja
 dep-plm: App::Cpan Path::Tiny App::Docmake
 bsystem: cmake
 binbstd: 0
@@ -5161,7 +5157,6 @@ dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 ccflags: -include pthread.h -include bthread.h
-ldflags: -lbthread
 parallel: 1
 installed: no
 ---
@@ -5392,7 +5387,7 @@ git-url: https://github.com/libimobiledevice/libimobiledevice
 src-url: https://github.com/libimobiledevice/libimobiledevice/releases/download/1.3.0/libimobiledevice-1.3.0.tar.bz2
 src-sha: 53f2640c6365cd9f302a6248f531822dc94a6cced3f17128d4479a77bd75b0f6
 dep-pkg: openssl-dev libusbmuxd
-dep-upp: pkg-config curl bsdtar gmake gmake
+dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 api-min: 24
@@ -5458,7 +5453,6 @@ dep-pkg: libusb readline libimobiledevice-glue
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
-ldflags: -lncurses
 api-min: 24
 parallel: 1
 installed: no
@@ -5958,7 +5952,6 @@ dep-pkg: libexpat
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
-ldflags: -lexpat
 parallel: 1
 installed: no
 ---
@@ -6752,6 +6745,22 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libproj7
+pkgtype: lib
+version: 7.2.1
+license: MIT
+summary: Cartographic Projections Library
+web-url: https://proj.org/
+git-url: https://github.com/OSGeo/PROJ
+src-url: https://github.com/OSGeo/PROJ/releases/download/7.2.1/proj-7.2.1.tar.gz
+src-sha: b384f42e5fb9c6d01fe5fa4d31da2e91329668863a684f97be5d4760dbbf0a14
+dep-pkg: libsqlite3 libtiff libcurl
+dep-upp: sqlite3 curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libprotobuf
 pkgtype: lib
 version: 26.1
@@ -6902,7 +6911,6 @@ dep-upp: curl bsdtar python3 ninja
 dep-pym: meson
 bsystem: meson
 binbstd: 0
-ldflags: -lc++_shared
 parallel: 1
 installed: no
 ---
@@ -7176,7 +7184,7 @@ summary: Adds spatial SQL capabilities to SQLite
 web-url: https://www.gaia-gis.it/fossil/libspatialite/index
 src-url: https://www.gaia-gis.it/gaia-sins/libspatialite-sources/libspatialite-5.1.0.tar.gz
 src-sha: 43be2dd349daffe016dd1400c5d11285828c22fea35ca5109f21f3ed50605080
-dep-pkg: libfreexl librttopo libxml2 libminizip proj7
+dep-pkg: libfreexl librttopo libxml2 libminizip libproj7
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -7973,7 +7981,6 @@ dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
 xxflags: -std=c++11
-ldflags: -liconv
 parallel: 1
 installed: no
 ---
@@ -8050,6 +8057,21 @@ src-sha: 43ad877b018bc63deb2468d71f95219c2fac196876ef36d1bee51d226173ec93
 dep-pkg: libiconv libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libxnnpack
+pkgtype: lib
+version: 2024.09.23
+license: BSD-3-Clause
+summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
+web-url: https://github.com/google/XNNPACK
+git-url: https://github.com/google/XNNPACK
+git-sha: 71f70de09ca17f125d3c24ccceeb12045a674d0c
+dep-pkg: libcpuinfo fp16 fxdiv pthreadpool
+dep-upp: git cmake ninja
+bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no
@@ -8967,7 +8989,7 @@ web-url: https://dev.yorhel.nl/ncdu
 src-url: https://dev.yorhel.nl/download/ncdu-1.16.tar.gz
 src-sha: 2b915752a183fae014b5e5b1f0a135b4b408de7488c716e325217c2513980fd4
 dep-pkg: ncurses
-dep-upp: pkg-config curl bsdtar gmake gmake
+dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 1
@@ -9385,7 +9407,6 @@ dep-pkg: libopenexr liblcms2 libexpat libyaml-cpp libpystring libminizip-ng
 dep-upp: git curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
-ldflags: -ldeflate
 parallel: 1
 installed: no
 ---
@@ -9916,7 +9937,7 @@ git-url: https://github.com/Xfennec/progress
 src-url: https://github.com/Xfennec/progress/archive/v0.17.tar.gz
 src-sha: ee9538fce98895dcf0d108087d3ee2e13f5c08ed94c983f0218a7a3d153b725d
 dep-pkg: ncurses libwordexp
-dep-upp: pkg-config curl bsdtar gmake
+dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
 parallel: 1
@@ -11417,7 +11438,7 @@ summary: Maintained ctags implementation
 web-url: https://github.com/universal-ctags/ctags
 git-url: https://github.com/universal-ctags/ctags
 dep-pkg: libjansson libyaml libxml2
-dep-upp: pkg-config git gmake gm4 perl autoconf automake gmake
+dep-upp: git gmake gm4 perl autoconf automake gmake
 bsystem: autogen
 binbstd: 0
 api-min: 24
@@ -11989,21 +12010,6 @@ git-url: https://github.com/libexpat/libexpat
 src-url: https://github.com/libexpat/libexpat/releases/download/R_2_6_2/expat-2.6.2.tar.lz
 src-sha: d276ffa9602e0c5f289f33fab7b3a9c86da446092642a09cd3c0c8e51f50d862
 dep-upp: patch curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: xnnpack
-pkgtype: lib
-version: 2024.09.23
-license: BSD-3-Clause
-summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
-web-url: https://github.com/google/XNNPACK
-git-url: https://github.com/google/XNNPACK
-git-sha: 71f70de09ca17f125d3c24ccceeb12045a674d0c
-dep-pkg: libcpuinfo fp16 fxdiv pthreadpool
-dep-upp: git cmake ninja
 bsystem: cmake
 binbstd: 0
 parallel: 1

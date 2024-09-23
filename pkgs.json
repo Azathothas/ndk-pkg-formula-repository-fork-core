@@ -290,9 +290,7 @@
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
-    "ldflags": "-liconv",
     "parallel": "1",
-    "prepare": "printf 'INPUT(-lc++_static -lc++abi)\\n' > ../lib/libc++.a",
     "install": "configure --disable-libaria2 --enable-static --disable-shared LIBS=-ldl",
     "caveats": "If aria2c is a fully statically linked executable, to get it working on Android 8 and later, you need to run aria2c like below\n\naria2c --async-dns=true --async-dns-server=8.8.8.8 https://example.com"
   },
@@ -312,7 +310,6 @@
     "binbstd": "0",
     "api-min": "24",
     "parallel": "1",
-    "prepare": "printf 'INPUT(%s -l:libssl.a -l:libcrypto.a -ldl)\\n' \"$libpcap_LIBRARY_DIR/libpcap.a\" > ../lib/libpcap.a",
     "install": "configure"
   },
   {
@@ -647,7 +644,6 @@
     "dep-upp": "curl bsdtar python3",
     "bsystem": "waf",
     "binbstd": "1",
-    "ldflags": "-lomp -ldl",
     "parallel": "1",
     "install": "waf configure --prefix=$PACKAGE_INSTALL_DIR\nwaf\nwaf install"
   },
@@ -1146,12 +1142,11 @@
     "git-url": "https://github.com/Kitware/CMake",
     "src-url": "https://github.com/Kitware/CMake/releases/download/v3.30.3/cmake-3.30.3.tar.gz",
     "src-sha": "6d5de15b6715091df7f5441007425264bdd477809f80333fdf95f846aaff88e4",
-    "dep-pkg": "libarchive libexpat libcurl libuv libz libjsoncpp librhash ncurses openssl-dev",
+    "dep-pkg": "libarchive libcurl libuv libz libexpat libjsoncpp librhash ncurses openssl-dev",
     "dep-upp": "curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "LIBCURL=\"$(pkg-config --libs-only-l libcurl)\"\nLIBARCHIVE=\"$(pkg-config --libs-only-l libarchive)\"\nprintf 'INPUT(%s %s)\\n' \"$LIBCURL\" \"$LIBARCHIVE\" > ../lib/libpthread.a",
     "install": "cmakew \\\n    -DBUILD_QtDialog=OFF \\\n    -DBUILD_CursesDialog=ON \\\n    -DCMake_BUILD_LTO=ON \\\n    -DCMAKE_USE_OPENSSL=ON \\\n    -DCMAKE_USE_SYSTEM_CURL=ON \\\n    -DCMAKE_USE_SYSTEM_EXPAT=ON \\\n    -DCMAKE_USE_SYSTEM_FORM=ON \\\n    -DCMAKE_USE_SYSTEM_JSONCPP=ON \\\n    -DCMAKE_USE_SYSTEM_LIBARCHIVE=ON \\\n    -DCMAKE_USE_SYSTEM_LIBRHASH=ON \\\n    -DCMAKE_USE_SYSTEM_LIBUV=ON \\\n    -DCMAKE_USE_SYSTEM_ZLIB=ON"
   },
   {
@@ -1266,10 +1261,9 @@
     "src-url": "https://github.com/microsoft/cpprestsdk/archive/refs/tags/v2.10.19.tar.gz",
     "src-sha": "4b0d14e5bfe77ce419affd253366e861968ae6ef2c35ae293727c1415bd145c8",
     "dep-pkg": "websocketpp openssl-dev boost libz",
-    "dep-upp": "pkg-config curl bsdtar cmake ninja",
+    "dep-upp": "curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
-    "ldflags": "-llog",
     "parallel": "1",
     "dopatch": "gsed -i 's|ANDROID|XXXX|' Release/cmake/cpprest_find_openssl.cmake",
     "install": "export OPENSSL_ROOT_DIR=\"$openssl_dev_INSTALL_DIR\"\ncmakew -DBUILD_TESTS=OFF -DBUILD_SAMPLES=OFF"
@@ -1693,7 +1687,7 @@
     "src-url": "https://github.com/ogham/dog/archive/v0.1.0.tar.gz",
     "src-sha": "82387d38727bac7fcdb080970e84b36de80bfe7923ce83f993a77d9ac7847858",
     "dep-pkg": "openssl-dev",
-    "dep-upp": "pkg-config curl bsdtar",
+    "dep-upp": "curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
     "parallel": "1",
@@ -2022,7 +2016,6 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "CURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl)\"\ngsed -i \"s|\\${CURL_LIBRARIES}|$CURL_LIBRARIES|\" src/CMakeLists.txt",
     "install": "cmakew \\\n    -DEXIV2_ENABLE_NLS=OFF \\\n    -DEXIV2_ENABLE_XMP=ON \\\n    -DEXIV2_ENABLE_PNG=ON \\\n    -DEXIV2_ENABLE_SSH=ON \\\n    -DEXIV2_ENABLE_CURL=ON \\\n    -DEXIV2_ENABLE_BMFF=ON \\\n    -DEXIV2_ENABLE_VIDEO=ON \\\n    -DEXIV2_ENABLE_LENSDATA=ON \\\n    -DEXIV2_ENABLE_WEBREADY=ON \\\n    -DEXIV2_ENABLE_PRINTUCS2=ON \\\n    -DEXIV2_BUILD_EXIV2_COMMAND=ON \\\n    -DEXIV2_BUILD_SAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF"
   },
   {
@@ -2172,7 +2165,6 @@
     "dep-upp": "nasm curl bsdtar gmake",
     "bsystem": "gmake",
     "binbstd": "1",
-    "ldflags": "-ldl",
     "parallel": "1",
     "dopatch": "gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure",
     "prepare": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac",
@@ -2392,7 +2384,7 @@
     "git-url": "https://github.com/shlomif/fortune-mod",
     "src-url": "https://github.com/shlomif/fortune-mod/releases/download/fortune-mod-3.18.0/fortune-mod-3.18.0.tar.xz",
     "src-sha": "c5a681f1a2601b7186d1f612d2f3a7c42e1189f4326f17a34bccaca98134c42b",
-    "dep-upp": "perl pkg-config xsltproc docbook-xsl curl bsdtar perl gmake cmake ninja",
+    "dep-upp": "perl xsltproc docbook-xsl curl bsdtar perl gmake cmake ninja",
     "dep-plm": "App::Cpan Path::Tiny App::Docmake",
     "bsystem": "cmake",
     "binbstd": "0",
@@ -2916,7 +2908,7 @@
     "binbstd": "1",
     "parallel": "1",
     "dopatch": "printf '%s' '\nLS0tIHJ1bi1jb21tYW5kLmMJMjAyMy0wNi0wMSAxNTowMzowNS4wMDAwMDAwMDAgKzA4MDAKKysr\nIHJ1bi1jb21tYW5kLmNoYW5nZWQJMjAyMy0wNy0yMSAwMToxMToxNy41MjcxNDY0NzcgKzA4MDAK\nQEAgLTUxNyw4ICs1MTcsNiBAQAogI2Vsc2UKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJ\nR19TRVRNQVNLLCAmYWxsLCAmYXMtPm9sZCksCiAJCSJibG9ja2luZyBhbGwgc2lnbmFscyIpOwot\nCUNIRUNLX0JVRyhwdGhyZWFkX3NldGNhbmNlbHN0YXRlKFBUSFJFQURfQ0FOQ0VMX0RJU0FCTEUs\nICZhcy0+Y3MpLAotCQkiZGlzYWJsaW5nIGNhbmNlbGxhdGlvbiIpOwogI2VuZGlmCiB9CiAKQEAg\nLTUyOCw4ICs1MjYsNiBAQAogCWlmIChzaWdwcm9jbWFzayhTSUdfU0VUTUFTSywgJmFzLT5vbGQs\nIE5VTEwpKQogCQlkaWVfZXJybm8oInNpZ3Byb2NtYXNrIik7CiAjZWxzZQotCUNIRUNLX0JVRyhw\ndGhyZWFkX3NldGNhbmNlbHN0YXRlKGFzLT5jcywgTlVMTCksCi0JCSJyZS1lbmFibGluZyBjYW5j\nZWxsYXRpb24iKTsKIAlDSEVDS19CVUcocHRocmVhZF9zaWdtYXNrKFNJR19TRVRNQVNLLCAmYXMt\nPm9sZCwgTlVMTCksCiAJCSJyZXN0b3Jpbmcgc2lnbmFsIG1hc2siKTsKICNlbmRpZgo=' | base64 -d | patch -p0\n\ngsed -i '/uname_S := /c uname_S := Linux' config.mak.uname\ngsed -i \"/uname_N := /c uname_M := $TARGET_PLATFORM_ARCH\" config.mak.uname",
-    "prepare": "# to bypass git error: cannot run test program while cross compiling\nexport ac_cv_fread_reads_directories=yes\nexport ac_cv_header_libintl_h=no\nexport ac_cv_iconv_omits_bom=no\nexport ac_cv_snprintf_returns_bogus=no\n\nexport ac_cv_lib_curl_curl_global_init=yes\n\nexport ac_cv_prog_CURL_CONFIG=\"$libcurl_INSTALL_DIR/bin/curl-config\"\n\nLIBCURL_LIBS=\"$(pkg-config --libs libcurl)\"\nprintf 'LIBCURL_LIBS=%s\\n' \"$LIBCURL_LIBS\"\n\nexport LDFLAGS=\"$LDFLAGS $LIBCURL_LIBS\"\n\nexport NO_NSEC=1\nexport NO_GETTEXT=1\nexport NO_INSTALL_HARDLINKS=1",
+    "prepare": "# to bypass git error: cannot run test program while cross compiling\nexport ac_cv_fread_reads_directories=yes\nexport ac_cv_header_libintl_h=no\nexport ac_cv_iconv_omits_bom=no\nexport ac_cv_snprintf_returns_bogus=no\n\nexport ac_cv_lib_curl_curl_global_init=yes\n\nexport ac_cv_prog_CURL_CONFIG=\"$libcurl_INSTALL_DIR/bin/curl-config\"\n\nexport NO_NSEC=1\nexport NO_GETTEXT=1\nexport NO_INSTALL_HARDLINKS=1",
     "install": "configure \\\n    --with-zlib=\"$libz_INSTALL_DIR\" \\\n    --with-curl=\"$libcurl_INSTALL_DIR\" \\\n    --with-expat=\"$libexpat_INSTALL_DIR\" \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-openssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-libpcre2=\"$libpcre2_INSTALL_DIR\" \\\n    --without-tcltk",
     "caveats": "The following environment variables should be set if you move/copy this software to other location\n\nGIT_INSTALLED_DIR=/somewhere\n\nexport GIT_EXEC_PATH=\"$GIT_INSTALLED_DIR/libexec/git-core\"\nexport GIT_TEMPLATE_DIR=\"$GIT_INSTALLED_DIR/share/git-core/templates\"\nexport GIT_CONFIG_NOSYSTEM=1"
   },
@@ -3022,7 +3014,7 @@
     "bsystem": "meson",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i \"/libiconv =/c libiconv = dependency('libiconv', method : 'pkg-config')\" meson.build\ngsed -i \"s|dependency('zlib')|cc.find_library('z', static : true, dirs : ['$libz_LIBRARY_DIR'])|\" meson.build\ngsed -i '2139,2165d'  meson.build\ngsed -i \"2139a libintl = cc.find_library('intl',  dirs: ['$libintl_LIBRARY_DIR'])\" meson.build\ngsed -i '2140a libintl_deps = [libintl, libiconv]' meson.build",
+    "dopatch": "gsed -i '2139,2165d'  meson.build\ngsed -i \"2139a libintl = cc.find_library('intl',  dirs: ['$libintl_LIBRARY_DIR'])\" meson.build\ngsed -i '2140a libintl_deps = [libintl, libiconv]' meson.build",
     "install": "mesonw \\\n    -Dnls=disabled \\\n    -Dman=false \\\n    -Dgtk_doc=false \\\n    -Ddtrace=false \\\n    -Dglib_debug=disabled \\\n    -Dglib_assert=false \\\n    -Dtests=false \\\n    -Dinstalled_tests=false \\\n    -Dbsymbolic_functions=false",
     "dotweak": "gsed -i 's|libiconv|libintl libffi libz|' lib/pkgconfig/glib-2.0.pc"
   },
@@ -3804,7 +3796,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure --enable-libcurl LIBS=\"'$(pkg-config --libs libcurl)'\""
+    "install": "configure --enable-libcurl"
   },
   {
     "pkgname": "httpx",
@@ -5303,7 +5295,6 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "CURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl)\"\ngsed -i \"s|\\${CURL_LIBRARIES}|$CURL_LIBRARIES|\" src/CMakeLists.txt",
     "install": "cmakew \\\n    -DEXIV2_ENABLE_NLS=OFF \\\n    -DEXIV2_ENABLE_XMP=ON \\\n    -DEXIV2_ENABLE_PNG=ON \\\n    -DEXIV2_ENABLE_SSH=ON \\\n    -DEXIV2_ENABLE_CURL=ON \\\n    -DEXIV2_ENABLE_BMFF=ON \\\n    -DEXIV2_ENABLE_VIDEO=ON \\\n    -DEXIV2_ENABLE_LENSDATA=ON \\\n    -DEXIV2_ENABLE_WEBREADY=ON \\\n    -DEXIV2_ENABLE_PRINTUCS2=ON \\\n    -DEXIV2_BUILD_EXIV2_COMMAND=OFF \\\n    -DEXIV2_BUILD_SAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DEXIV2_ENABLE_NLS=OFF \\\n    -DEXIV2_ENABLE_XMP=ON \\\n    -DEXIV2_ENABLE_PNG=ON \\\n    -DEXIV2_ENABLE_SSH=ON \\\n    -DEXIV2_ENABLE_CURL=ON \\\n    -DEXIV2_ENABLE_BMFF=ON \\\n    -DEXIV2_ENABLE_VIDEO=ON \\\n    -DEXIV2_ENABLE_LENSDATA=ON \\\n    -DEXIV2_ENABLE_WEBREADY=ON \\\n    -DEXIV2_ENABLE_PRINTUCS2=ON \\\n    -DEXIV2_BUILD_EXIV2_COMMAND=OFF \\\n    -DEXIV2_BUILD_SAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
   },
   {
@@ -5640,7 +5631,6 @@
     "bsystem": "configure",
     "binbstd": "0",
     "ccflags": "-include pthread.h -include bthread.h",
-    "ldflags": "-lbthread",
     "parallel": "1",
     "dopatch": "cp src/syscfg/lock-obj-pub.arm-unknown-linux-androideabi.h src/syscfg/lock-obj-pub.armv7a-unknown-linux-androideabi.h\ncp src/syscfg/lock-obj-pub.aarch64-unknown-linux-gnu.h     src/syscfg/lock-obj-pub.aarch64-unknown-linux-android.h\ncp src/syscfg/lock-obj-pub.i686-unknown-linux-gnu.h        src/syscfg/lock-obj-pub.i686-unknown-linux-android.h\ncp src/syscfg/lock-obj-pub.x86_64-unknown-linux-gnu.h      src/syscfg/lock-obj-pub.x86_64-unknown-linux-android.h",
     "install": "configure \\\n    --disable-build-timestamp \\\n    --disable-languages \\\n    --disable-werror \\\n    --disable-tests \\\n    --enable-doc \\\n    --enable-threads=posix \\\n    --enable-install-gpg-error-config"
@@ -5893,7 +5883,7 @@
     "src-url": "https://github.com/libimobiledevice/libimobiledevice/releases/download/1.3.0/libimobiledevice-1.3.0.tar.bz2",
     "src-sha": "53f2640c6365cd9f302a6248f531822dc94a6cced3f17128d4479a77bd75b0f6",
     "dep-pkg": "openssl-dev libusbmuxd",
-    "dep-upp": "pkg-config curl bsdtar gmake gmake",
+    "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "api-min": "24",
@@ -5965,7 +5955,6 @@
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
-    "ldflags": "-lncurses",
     "api-min": "24",
     "parallel": "1",
     "install": "configure"
@@ -6477,8 +6466,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i 's|find_package(CURL)|find_package(CURL CONFIG)|' CMakeLists.txt",
-    "install": "CURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl | tr ' ' ';')\"\ncmakew -DBUILD_SHARED_LIBS=OFF -DCURL_INCLUDE_DIRS=\"$libcurl_INCLUDE_DIR\" -DCURL_LIBRARIES=\"'$CURL_LIBRARIES'\"\ncmakew -DBUILD_SHARED_LIBS=ON  -DCURL_INCLUDE_DIRS=\"$libcurl_INCLUDE_DIR\" -DCURL_LIBRARIES=\"'$CURL_LIBRARIES'\""
+    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
   },
   {
     "pkgname": "libmesalink",
@@ -6507,7 +6495,6 @@
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
-    "ldflags": "-lexpat",
     "parallel": "1",
     "install": "configure \\\n    --disable-xmltest \\\n    --with-libxml2=no \\\n    --with-libexpat=yes \\\n    --with-xml-prefix=\"$libexpat_INSTALL_DIR\""
   },
@@ -7241,7 +7228,6 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "printf 'INPUT(-licudata %s -lc++_shared)\\n' \"$(pkg-config --libs-only-l protobuf)\" > ../../lib/libpthread.a",
     "install": "cmakew \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -DREGENERATE_METADATA=OFF \\\n    -DBUILD_GEOCODER=OFF \\\n    -DBUILD_STATIC_LIB=ON \\\n    -DUSE_POSIX_THREAD=ON \\\n    -DUSE_ICU_REGEXP=ON \\\n    -DUSE_BOOST=ON \\\n    -DUSE_RE2=OFF"
   },
   {
@@ -7377,6 +7363,24 @@
     "parallel": "1",
     "dopatch": "gsed -i '/add_subdirectory(man)/d' CMakeLists.txt",
     "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON\ncmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF"
+  },
+  {
+    "pkgname": "libproj7",
+    "pkgtype": "lib",
+    "version": "7.2.1",
+    "license": "MIT",
+    "summary": "Cartographic Projections Library",
+    "web-url": "https://proj.org/",
+    "git-url": "https://github.com/OSGeo/PROJ",
+    "src-url": "https://github.com/OSGeo/PROJ/releases/download/7.2.1/proj-7.2.1.tar.gz",
+    "src-sha": "b384f42e5fb9c6d01fe5fa4d31da2e91329668863a684f97be5d4760dbbf0a14",
+    "dep-pkg": "libsqlite3 libtiff libcurl",
+    "dep-upp": "sqlite3 curl bsdtar cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "dopatch": "gsed -i '/add_subdirectory(man)/d' CMakeLists.txt",
+    "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON"
   },
   {
     "pkgname": "libprotobuf",
@@ -7542,7 +7546,6 @@
     "dep-pym": " meson",
     "bsystem": "meson",
     "binbstd": "0",
-    "ldflags": "-lc++_shared",
     "parallel": "1",
     "install": "mesonw"
   },
@@ -7679,7 +7682,7 @@
     "bsystem": "autogen",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure --with-geosconfig=\"$geos_INSTALL_DIR/bin/geos-config\" LIBS=\"'$(pkg-config --libs geos)'\" ac_cv_search_GEOSContext_setErrorMessageHandler_r=yes"
+    "install": "configure --with-geosconfig=\"$geos_INSTALL_DIR/bin/geos-config\""
   },
   {
     "pkgname": "libsamplerate",
@@ -7838,12 +7841,12 @@
     "web-url": "https://www.gaia-gis.it/fossil/libspatialite/index",
     "src-url": "https://www.gaia-gis.it/gaia-sins/libspatialite-sources/libspatialite-5.1.0.tar.gz",
     "src-sha": "43be2dd349daffe016dd1400c5d11285828c22fea35ca5109f21f3ed50605080",
-    "dep-pkg": "libfreexl librttopo libxml2 libminizip proj7",
+    "dep-pkg": "libfreexl librttopo libxml2 libminizip libproj7",
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "LIBS_PROJ=\"$(pkg-config --libs proj)\"\nLIBS_GEOS=\"$(pkg-config --libs geos)\"\nLIBS_FREEXL=\"$(pkg-config --libs freexl)\"\nconfigure \\\n    --with-geosconfig=\"$geos_INSTALL_DIR/bin/geos-config\" \\\n    LIBS=\"'$LIBS_PROJ $LIBS_FREEXL -llog'\" \\\n    ac_cv_search_GEOSCoveredBy=\"'$LIBS_GEOS'\" \\\n    ac_cv_search_GEOSDelaunayTriangulation=\"'$LIBS_GEOS'\" \\\n    ac_cv_search_GEOSContext_setErrorMessageHandler_r=\"'$LIBS_GEOS'\" \\\n    ac_cv_search_GEOSFrechetDistance_r=\"'$LIBS_GEOS'\""
+    "install": "configure --with-geosconfig=\"$geos_INSTALL_DIR/bin/geos-config\""
   },
   {
     "pkgname": "libspectre",
@@ -8707,7 +8710,6 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "xxflags": "-std=c++11",
-    "ldflags": "-liconv",
     "parallel": "1",
     "prepare": "export CXXFLAGS=\"$CXXFLAGS -I$libxml2_INCLUDE_DIR/libxml2\"",
     "install": "cmakew -DWITH_ZLIB=ON -DMODERN_ICONV_RUN=0"
@@ -8797,6 +8799,23 @@
     "onstart": "[ \"$TERMUX\" = 1 ] || return 0\n\nbsdtar() {\n    # https://github.com/termux/termux-packages/issues/1054\n    run pkg install -y proot\n    run proot --link2symlink bsdtar \"$@\"\n}",
     "install": "configure \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-zlib \\\n    --without-lzma \\\n    --without-python \\\n    --without-readline \\\n    --without-coverage \\\n    --without-debug \\\n    --enable-ipv6 LIBS=\"'-liconv -lm'\"",
     "dotweak": "gsed -i '/^Requires: /d'                    lib/pkgconfig/libxml-2.0.pc\ngsed -i -e 's|-liconv|-ldl|g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc\nprintf 'Requires: libiconv libz\\n' >>       lib/pkgconfig/libxml-2.0.pc"
+  },
+  {
+    "pkgname": "libxnnpack",
+    "pkgtype": "lib",
+    "version": "2024.09.23",
+    "license": "BSD-3-Clause",
+    "summary": "High-efficiency floating-point neural network inference operators for mobile, server, and web",
+    "web-url": "https://github.com/google/XNNPACK",
+    "git-url": "https://github.com/google/XNNPACK",
+    "git-sha": "71f70de09ca17f125d3c24ccceeb12045a674d0c",
+    "dep-pkg": "libcpuinfo fp16 fxdiv pthreadpool",
+    "dep-upp": "git cmake ninja",
+    "bsystem": "cmake",
+    "binbstd": "0",
+    "parallel": "1",
+    "dopatch": "gsed -i 's|CMAKE_C_STANDARD 99|CMAKE_C_STANDARD 11|' CMakeLists.txt\ngsed -i 's|-march=armv6 -mfpu=vfp|-march=armv7-a -mfpu=neon|' CMakeLists.txt",
+    "install": "cmakew \\\n    -DXNNPACK_USE_SYSTEM_LIBS=ON \\\n    -DXNNPACK_ENABLE_ASSEMBLY=ON \\\n    -DXNNPACK_ENABLE_MEMOPT=ON \\\n    -DXNNPACK_ENABLE_SPARSE=ON \\\n    -DXNNPACK_BUILD_TESTS=OFF \\\n    -DXNNPACK_BUILD_BENCHMARKS=OFF \\\n    -DXNNPACK_ENABLE_ARM_BF16=OFF"
   },
   {
     "pkgname": "libxslt",
@@ -8915,7 +8934,7 @@
     "developer": "Jean-loup Gailly <jloup@gailly.net>\nMark Adler <madler@alumni.caltech.edu>",
     "dopatch": "gsed -i 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt\ngsed -i 's|zlib)|zlibstatic)|' CMakeLists.txt",
     "install": "cmakew",
-    "dotweak": "cp lib/pkgconfig/zlib.pc lib/pkgconfig/libz.pc"
+    "dotweak": "ln -s zlib.pc lib/pkgconfig/libz.pc"
   },
   {
     "pkgname": "libz3",
@@ -9697,7 +9716,6 @@
     "bsystem": "go",
     "binbstd": "1",
     "parallel": "1",
-    "prepare": "printf 'INPUT(%s -l:libssl.a -l:libcrypto.a -ldl)\\n' \"$libpcap_LIBRARY_DIR/libpcap.a\" > ../../lib/libpcap.a",
     "install": "gow ./cmd/naabu"
   },
   {
@@ -9792,7 +9810,7 @@
     "src-url": "https://dev.yorhel.nl/download/ncdu-1.16.tar.gz",
     "src-sha": "2b915752a183fae014b5e5b1f0a135b4b408de7488c716e325217c2513980fd4",
     "dep-pkg": "ncurses",
-    "dep-upp": "pkg-config curl bsdtar gmake gmake",
+    "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
@@ -10249,9 +10267,7 @@
     "dep-upp": "git curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
-    "ldflags": "-ldeflate",
     "parallel": "1",
-    "dopatch": "MINIZIP_LIBRARIES=\"$(pkg-config --libs-only-l minizip-ng)\"\ngsed -i \"s|INTERFACE ZLIB::ZLIB|INTERFACE ZLIB::ZLIB $MINIZIP_LIBRARIES|\" share/cmake/modules/Findminizip-ng.cmake",
     "install": "cmakew \\\n    -Dpystring_INCLUDE_DIR=\"$libpystring_INCLUDE_DIR/pystring\" \\\n    -Dpystring_LIBRARY=\"$libpystring_LIBRARY_DIR/libpystring.a\" \\\n    -DOCIO_BUILD_APPS=ON \\\n    -DOCIO_BUILD_DOCS=OFF \\\n    -DOCIO_BUILD_TESTS=OFF \\\n    -DOCIO_BUILD_JAVA=OFF \\\n    -DOCIO_BUILD_PYTHON=OFF \\\n    -DOCIO_WARNING_AS_ERROR=OFF \\\n    -DBUILD_SHARED_LIBS=OFF",
     "dotweak": "rm -rf include/ lib/ share/OpenColorIO/"
   },
@@ -10451,7 +10467,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "run mv makefile.linux_any_cpu makefile.machine\ngsed -i 's|getpass(\"\")|\"\"|g' CPP/7zip/UI/Console/UserInputUtils.cpp\nprintf 'INPUT(%s)\\n' '-liconv' > ../lib/libpthread.a",
+    "dopatch": "run mv makefile.linux_any_cpu makefile.machine\ngsed -i 's|getpass(\"\")|\"\"|g' CPP/7zip/UI/Console/UserInputUtils.cpp",
     "install": "gmakew all3 CC=\"'$CC $CFLAGS -DANDROID_NDK -D_UINT64_T_DECLARED $CPPFLAGS $LDFLAGS'\" CXX=\"'$CXX $CXXFLAGS -DANDROID_NDK -D_UINT64_T_DECLARED $CPPFLAGS $LDFLAGS'\"\necho $?\ngmakew install DEST_HOME=\"$PACKAGE_INSTALL_DIR\""
   },
   {
@@ -10841,7 +10857,7 @@
     "src-url": "https://github.com/Xfennec/progress/archive/v0.17.tar.gz",
     "src-sha": "ee9538fce98895dcf0d108087d3ee2e13f5c08ed94c983f0218a7a3d153b725d",
     "dep-pkg": "ncurses libwordexp",
-    "dep-upp": "pkg-config curl bsdtar gmake",
+    "dep-upp": "curl bsdtar gmake",
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
@@ -10862,7 +10878,6 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "# https://cmake.org/cmake/help/latest/module/FindTIFF.html\nTIFF_LIBRARIES=\"$(pkg-config --libs-only-l libtiff-4 | tr ' ' ';')\"\n\ncat > cmake/FindTIFF.cmake <<EOF\nset(TIFF_FOUND TRUE)\n\nadd_library(TIFF::TIFF INTERFACE IMPORTED)\nset_target_properties(TIFF::TIFF PROPERTIES\n    INTERFACE_INCLUDE_DIRECTORIES \"$libtiff_INCLUDE_DIR\"\n    INTERFACE_LINK_LIBRARIES      \"$TIFF_LIBRARIES\"\n)\nEOF\n\n# # https://cmake.org/cmake/help/latest/module/FindCURL.html\nCURL_LIBRARIES=\"$(pkg-config --libs-only-l libcurl | tr ' ' ';')\"\n\ncat > cmake/FindCURL.cmake <<EOF\nset(CURL_FOUND TRUE)\n\nadd_library(CURL::libcurl INTERFACE IMPORTED)\nset_target_properties(CURL::libcurl PROPERTIES\n    INTERFACE_INCLUDE_DIRECTORIES \"$libcurl_INCLUDE_DIR\"\n    INTERFACE_LINK_LIBRARIES      \"$CURL_LIBRARIES\"\n)\nEOF",
     "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=ON  -DBUILD_SHARED_LIBS=OFF",
     "dotweak": "rm -rf include/ lib/"
   },
@@ -12100,7 +12115,6 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "printf 'INPUT(-ldl)\\n' > ../lib/libm.a",
     "install": "cmakew \\\n    -DWITH_CRYPTO=ON \\\n    -DWITH_SMI=OFF \\\n    -DWITH_CAP_NG=OFF \\\n    -DENABLE_SMB=OFF"
   },
   {
@@ -12184,7 +12198,6 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "printf 'INPUT(-lsharpyuv)\\n' > ../lib/libm.a",
     "install": "cmakew \\\n    -Dlzw=ON \\\n    -Dzlib=ON \\\n    -Dzstd=ON \\\n    -Dlzma=ON \\\n    -Dwebp=ON \\\n    -Djpeg=ON \\\n    -Djbig=ON \\\n    -Dlerc=ON \\\n    -Dtiff-docs=OFF \\\n    -Dtiff-tools=ON \\\n    -Dtiff-tests=ON \\\n    -Dtiff-contrib=ON \\\n    -DBUILD_SHARED_LIBS=OFF"
   },
   {
@@ -12480,7 +12493,7 @@
     "web-url": "https://github.com/universal-ctags/ctags",
     "git-url": "https://github.com/universal-ctags/ctags",
     "dep-pkg": "libjansson libyaml libxml2",
-    "dep-upp": "pkg-config git gmake gm4 perl autoconf automake gmake",
+    "dep-upp": "git gmake gm4 perl autoconf automake gmake",
     "bsystem": "autogen",
     "binbstd": "0",
     "api-min": "24",
@@ -13080,7 +13093,7 @@
     "binbstd": "1",
     "parallel": "1",
     "dopatch": "gsed -i 's|xmlErrorPtr error|const xmlError * error|'  src/xmlstar.h\ngsed -i 's|xmlErrorPtr error|const xmlError * error|'  src/xml.c\ngsed -i 's|xmlChar \\*\\*array;|const xmlChar **array;|' src/xml_elem.c\ngsed -i 's|xmlChar \\*name)|const xmlChar *name)|'      src/xml_elem.c",
-    "install": "configure \\\n    --with-libxml-prefix=\"$libxml2_INSTALL_DIR\" \\\n    --with-libxslt-prefix=\"$libxslt_INSTALL_DIR\" \\\n    LIBS=\"'$(pkg-config --libs libxml-2.0)'\"",
+    "install": "configure \\\n    --with-libxml-prefix=\"$libxml2_INSTALL_DIR\" \\\n    --with-libxslt-prefix=\"$libxslt_INSTALL_DIR\"",
     "dotweak": "ln -s xml bin/xmlstarlet"
   },
   {
@@ -13118,23 +13131,6 @@
     "parallel": "1",
     "dopatch": "patch -p0 <<EOF\n--- ConfigureChecks.cmake.orign 2024-04-02 08:58:53.499986940 +0000\n+++ ConfigureChecks.cmake       2024-04-02 09:21:47.648735869 +0000\n@@ -46,12 +46,32 @@\n endif(WORDS_BIGENDIAN)\n \n if(HAVE_SYS_TYPES_H)\n-    check_symbol_exists(\"off_t\" \"sys/types.h\" off_t)\n-    check_symbol_exists(\"size_t\" \"sys/types.h\" size_t)\n+    check_c_source_compiles(\"\n+        #include <sys/types.h>\n+        int main() {\n+           off_t x;\n+            return 0;\n+        }\"\n+       HAVE_OFF_T)\n+    check_c_source_compiles(\"\n+        #include <sys/types.h>\n+        int main() {\n+           size_t x;\n+            return 0;\n+        }\"\n+       HAVE_SIZE_T)\n else(HAVE_SYS_TYPES_H)\n+    set(HAVE_OFF_T 0)\n+    set(HAVE_SIZE_T 0)\n+endif(HAVE_SYS_TYPES_H)\n+\n+if (NOT HAVE_OFF_T)\n     set(off_t \"long\")\n+endif()\n+\n+if (NOT HAVE_SIZE_T)\n     set(size_t \"unsigned\")\n-endif(HAVE_SYS_TYPES_H)\n+endif()\n \n check_c_source_compiles(\"\n         #include <stdlib.h>  /* for NULL */\nEOF",
     "install": "cmakew \\\n    -DEXPAT_BUILD_DOCS=OFF \\\n    -DEXPAT_BUILD_TOOLS=ON \\\n    -DEXPAT_BUILD_TESTS=OFF \\\n    -DEXPAT_BUILD_FUZZERS=OFF \\\n    -DEXPAT_BUILD_EXAMPLES=OFF \\\n    -DEXPAT_SHARED_LIBS=OFF \\\n    -DEXPAT_ENABLE_INSTALL=OFF\ninstall_bins xmlwf/xmlwf\ninstall_mans \"$PACKAGE_WORKING_DIR/src/doc/xmlwf.1\""
-  },
-  {
-    "pkgname": "xnnpack",
-    "pkgtype": "lib",
-    "version": "2024.09.23",
-    "license": "BSD-3-Clause",
-    "summary": "High-efficiency floating-point neural network inference operators for mobile, server, and web",
-    "web-url": "https://github.com/google/XNNPACK",
-    "git-url": "https://github.com/google/XNNPACK",
-    "git-sha": "71f70de09ca17f125d3c24ccceeb12045a674d0c",
-    "dep-pkg": "libcpuinfo fp16 fxdiv pthreadpool",
-    "dep-upp": "git cmake ninja",
-    "bsystem": "cmake",
-    "binbstd": "0",
-    "parallel": "1",
-    "dopatch": "gsed -i 's|CMAKE_C_STANDARD 99|CMAKE_C_STANDARD 11|' CMakeLists.txt\ngsed -i 's|-march=armv6 -mfpu=vfp|-march=armv7-a -mfpu=neon|' CMakeLists.txt\nprintf 'INPUT(-llog)\\n' > ../lib/libm.a",
-    "install": "cmakew \\\n    -DXNNPACK_USE_SYSTEM_LIBS=ON \\\n    -DXNNPACK_ENABLE_ASSEMBLY=ON \\\n    -DXNNPACK_ENABLE_MEMOPT=ON \\\n    -DXNNPACK_ENABLE_SPARSE=ON \\\n    -DXNNPACK_BUILD_TESTS=OFF \\\n    -DXNNPACK_BUILD_BENCHMARKS=OFF \\\n    -DXNNPACK_ENABLE_ARM_BF16=OFF"
   },
   {
     "pkgname": "xorriso",
