@@ -548,6 +548,8 @@
         --enable-hash \
         --enable-compat185 \
         --enable-smallbuild \
+        --enable-static \
+        --disable-shared \
         db_cv_atomic=gcc-builtin
   dotweak: rm -rf include/ lib/
 - pkgname: bgrep
@@ -1543,15 +1545,11 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    export LDFLAGS="$LDFLAGS $libintl_LIBRARY_DIR/libintl.a $libiconv_LIBRARY_DIR/libiconv.a"
     configure \
         --with-bash-completion \
         --with-ncurses \
         --with-libintl-prefix="$libintl_INSTALL_DIR" \
-        --with-libiconv-prefix="$libiconv_INSTALL_DIR" \
-        CURSES_LIBS="$ncurses_LIBRARY_DIR/libncurses.a" \
-        PANEL_LIBS="$ncurses_LIBRARY_DIR/libpanel.a" \
-        MENU_LIBS="$ncurses_LIBRARY_DIR/libmenu.a"
+        --with-libiconv-prefix="$libiconv_INSTALL_DIR"
 - pkgname: crowbook
   pkgtype: exe
   version: 0.16.1
@@ -3093,20 +3091,6 @@
   binbstd: "0"
   parallel: "1"
   install: cmakew -DBUILD_BOTH_LIBS=ON
-- pkgname: geos
-  pkgtype: lib
-  version: 3.12.2
-  license: LGPL-2.1-or-later
-  summary: Geometry Engine
-  web-url: https://trac.osgeo.org/geos
-  git-url: https://github.com/libgeos/geos
-  src-url: https://download.osgeo.org/geos/geos-3.12.2.tar.bz2
-  src-sha: 34c7770bf0090ee88488af98767d08e779f124fa33437e0aabec8abd4609fec6
-  dep-upp: curl bsdtar cmake ninja
-  bsystem: cmake
-  binbstd: "0"
-  parallel: "1"
-  install: cmakew
 - pkgname: germanium
   pkgtype: pie
   version: 1.2.2
@@ -3391,7 +3375,7 @@
   bsystem: configure
   binbstd: "1"
   parallel: "1"
-  install: configure --program-prefix=g LIBS="'-lintl -liconv'"
+  install: configure --program-prefix=g
   dotweak: ln -s gindent bin/indent
 - pkgname: git
   pkgtype: exe
@@ -4361,10 +4345,10 @@
   src-url: https://github.com/wahern/hexdump/archive/refs/tags/rel-20181215.tar.gz
   src-sha: 882975323317f595093125467d7b9604f78bded7ba1005f5fc17e33358cdb0fa
   dep-upp: curl bsdtar
-  binbstd: "1"
+  binbstd: "0"
   parallel: "1"
   install: |-
-    run $CC $LDFLAGS -DHEXDUMP_MAIN $CPPFLAGS $CFLAGS -o hexdump   hexdump.c
+    run $CC $LDFLAGS -DHEXDUMP_MAIN $CPPFLAGS $CFLAGS -o hexdump ../hexdump.c
     install_bins hexdump
 - pkgname: hexyl
   pkgtype: exe
@@ -4394,7 +4378,7 @@
   bsystem: autogen
   binbstd: "0"
   parallel: "1"
-  install: configure --disable-static --enable-unicode LIBS="$ncurses_LIBRARY_DIR/libncursesw.a"
+  install: configure --disable-static --enable-unicode
 - pkgname: htslib
   pkgtype: lib
   version: "1.20"
@@ -6380,6 +6364,22 @@
   dotweak: |-
     rm -rf share/info
     rm -rf share/man/man1
+- pkgname: libgeos
+  pkgtype: lib
+  version: 3.12.2
+  license: LGPL-2.1-or-later
+  summary: Geometry Engine
+  web-url: https://trac.osgeo.org/geos
+  git-url: https://github.com/libgeos/geos
+  src-url: https://download.osgeo.org/geos/geos-3.12.2.tar.bz2
+  src-sha: 34c7770bf0090ee88488af98767d08e779f124fa33437e0aabec8abd4609fec6
+  dep-upp: curl bsdtar cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    cmakew -DBUILD_GEOSOP=OFF -DBUILD_SHARED_LIBS=OFF
+    cmakew -DBUILD_GEOSOP=OFF -DBUILD_SHARED_LIBS=ON
 - pkgname: libgeotiff
   pkgtype: lib
   version: 1.7.3
@@ -9039,7 +9039,7 @@
         --enable-jpeg \
         --enable-lcms \
         --enable-jasper \
-        --enable-examples LIBS=-lc++_shared
+        --disable-examples
 - pkgname: libre
   pkgtype: lib
   version: 3.13.0
@@ -9152,12 +9152,12 @@
   git-url: https://git.osgeo.org/gitea/rttopo/librttopo
   src-url: https://git.osgeo.org/gitea/rttopo/librttopo/archive/librttopo-1.1.0.tar.gz
   src-sha: 60b49acb493c1ab545116fb0b0d223ee115166874902ad8165eb39e9fd98eaa9
-  dep-pkg: geos
+  dep-pkg: libgeos
   dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
   bsystem: autogen
   binbstd: "0"
   parallel: "1"
-  install: configure --with-geosconfig="$geos_INSTALL_DIR/bin/geos-config"
+  install: configure --with-geosconfig="$libgeos_INSTALL_DIR/bin/geos-config"
 - pkgname: libsamplerate
   pkgtype: lib
   version: 0.2.2
@@ -9341,7 +9341,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  install: configure --with-geosconfig="$geos_INSTALL_DIR/bin/geos-config"
+  install: configure --with-geosconfig="$libgeos_INSTALL_DIR/bin/geos-config"
 - pkgname: libspectre
   pkgtype: lib
   version: 0.2.12
@@ -11541,9 +11541,8 @@
   binbstd: "1"
   parallel: "1"
   dopatch: gsed -i 's|ac_sys_system=`uname -s`|ac_sys_system=$host|' configure
-  install: |-
-    export LD="$CC"
-    configure
+  prepare: export LD="$CC"
+  install: configure
 - pkgname: mpg123
   pkgtype: exe
   version: 1.32.6
@@ -11848,10 +11847,10 @@
   bsystem: autogen
   binbstd: "1"
   parallel: "1"
-  install: |-
+  prepare: |-
     export ac_cv_prog_AR="$AR"
     export ac_cv_prog_RANLIB="$RANLIB"
-
+  install: |-
     configure \
         --disable-profiling \
         --enable-lto \
@@ -11919,13 +11918,15 @@
         ac_cv_header_unistd_h=yes \
         ac_cv_header_sys_time_h=yes
   dopatch: gsed -i 's|cf_ok_build_cc=unknown|cf_ok_build_cc=yes|' configure
-  install: |-
+  prepare: |-
     export BUILD_CC="$CC_FOR_BUILD"
     export BUILD_CFLAGS="$CFLAGS_FOR_BUILD"
     export BUILD_CPPFLAGS="$CPPFLAGS_FOR_BUILD"
     export BUILD_LDFLAGS="$LDFLAGS_FOR_BUILD"
     unset  BUILD_LIBS
+
     unset  TERMINFO
+  install: |-
     configure \
         --with-pkg-config-libdir="$PACKAGE_INSTALL_DIR/lib/pkgconfig" \
         --with-cxx-shared \
@@ -11946,25 +11947,18 @@
         --disable-gnat-projects \
         --disable-echo
   dotweak: |-
-    cd include
-
     for item in curses.h ncurses.h form.h menu.h panel.h term.h termcap.h
     do
-        ln -s "ncursesw/$item" "$item"
+        ln -s "ncursesw/$item" "include/$item"
     done
-
-    cd -
-    cd lib
 
     for item in libncurses libpanel libmenu libform
     do
-        ln -s "${item}w.a"  "${item}.a"
-        ln -s "${item}w.so" "${item}.so"
+        ln -s "${item}w.a"  "lib/${item}.a"
+        ln -s "${item}w.so" "lib/${item}.so"
     done
 
-    cd -
-    cd lib/pkgconfig
-    ln -s ncursesw.pc ncurses.pc
+    ln -s ncursesw.pc lib/pkgconfig/ncurses.pc
 - pkgname: ncurses@6.4
   pkgtype: lib
   version: "6.4"
@@ -12105,7 +12099,6 @@
   api-min: "26"
   parallel: "1"
   install: |-
-    gsed -i 's|-lpcap|-l:libpcap.a -l:libssl.a -l:libcrypto.a -ldl|' src/MakeApp.mk
     gmakew clean
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR" CXX="$CXX" CXXFLAGS="'$CXXFLAGS -std=c++14'" CPPFLAGS="'$CPPFLAGS -Dindex=strchr -Drindex=strrchr -D_GNU_SOURCE -Dquad_t=int64_t -Du_quad_t=uint64_t'"
 - pkgname: netpbm
@@ -12617,10 +12610,10 @@
         -DOPENEXR_INSTALL_EXAMPLES=ON \
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: openjpeg
-  pkgtype: lib
+  pkgtype: exe
   version: 2.5.2
   license: BSD-2-Clause
-  summary: Library for JPEG-2000 image manipulation
+  summary: A collection of tools for JPEG-2000 image manipulation
   web-url: https://www.openjpeg.org/
   git-url: https://github.com/uclouvain/openjpeg
   src-url: https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.2.tar.gz
@@ -12633,22 +12626,23 @@
   dopatch: |-
     gsed -i '/ftello/d' ../include/ndk-pkg-common.h
     gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
+
     gsed -i 's|TIFF_LIBRARIES|PC_TIFF_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt
     gsed -i 's|LCMS2_LIBRARIES|PC_LCMS2_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt
-    gsed -i 's|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}|target_link_libraries(${exe} ${OPENJPEG_LIBRARY_NAME}_static|' src/bin/jp2/CMakeLists.txt
   install: |-
     cmakew \
-        -DBUILD_DOC=OFF \
+        -DBUILD_DOC=ON \
         -DBUILD_JAVA=OFF \
         -DBUILD_JPIP=OFF \
         -DBUILD_JPIP_SERVER=OFF \
         -DBUILD_CODEC=ON \
         -DBUILD_VIEWER=OFF \
-        -DBUILD_SHARED_LIBS=ON \
+        -DBUILD_SHARED_LIBS=OFF \
         -DBUILD_STATIC_LIBS=ON \
         -DBUILD_UNIT_TESTS=OFF \
         -DBUILD_LUTS_GENERATOR=OFF \
         -DBUILD_PKGCONFIG_FILES=ON
+  dotweak: rm -rf include/ lib/ share/man/man3/
 - pkgname: openlibm
   pkgtype: lib
   version: 0.8.3
@@ -12925,7 +12919,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    run $CC $CPPFLAGS $CFLAGS $LDFLAGS -static -o packcc $PACKAGE_BSCRIPT_DIR/packcc.c
+    run $CC $CPPFLAGS $CFLAGS $LDFLAGS -static -o packcc ../packcc.c
     install_bins packcc
 - pkgname: pango
   pkgtype: lib
@@ -13191,9 +13185,8 @@
   bsystem: configure
   binbstd: "1"
   parallel: "1"
-  install: |-
-    export LD="$CC"
-    configure --disable-libwebrtc
+  prepare: export LD="$CC"
+  install: configure --disable-libwebrtc
 - pkgname: pkg-config
   pkgtype: exe
   version: 0.29.2
@@ -13413,173 +13406,6 @@
   parallel: "1"
   install: cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=ON  -DBUILD_SHARED_LIBS=OFF
   dotweak: rm -rf include/ lib/
-- pkgname: proj7
-  pkgtype: lib
-  version: 7.2.1
-  license: MIT
-  summary: Cartographic Projections Library
-  web-url: https://proj.org/
-  git-url: https://github.com/OSGeo/PROJ
-  src-url: https://github.com/OSGeo/PROJ/releases/download/7.2.1/proj-7.2.1.tar.gz
-  src-sha: b384f42e5fb9c6d01fe5fa4d31da2e91329668863a684f97be5d4760dbbf0a14
-  dep-pkg: libsqlite3 libtiff libcurl
-  dep-upp: sqlite3 curl bsdtar cmake ninja
-  bsystem: cmake
-  binbstd: "0"
-  parallel: "1"
-  dopatch: |-
-    # https://cmake.org/cmake/help/latest/module/FindCURL.html
-    printf '%s\n' '
-    if (CURL_INCLUDE_DIRS AND CURL_LIBRARIES)
-        set(CURL_FOUND TRUE)
-    else()
-        pkg_check_modules(PKG_CONFIG_CURL QUIET libcurl)
-
-        message("PKG_CONFIG_CURL_FOUND=${PKG_CONFIG_CURL_FOUND}")
-        message("PKG_CONFIG_CURL_INCLUDE_DIRS=${PKG_CONFIG_CURL_INCLUDE_DIRS}")
-        message("PKG_CONFIG_CURL_LIBRARY_DIRS=${PKG_CONFIG_CURL_LIBRARY_DIRS}")
-        message("PKG_CONFIG_CURL_INCLUDEDIR=${PKG_CONFIG_CURL_INCLUDEDIR}")
-        message("PKG_CONFIG_CURL_LIBDIR=${PKG_CONFIG_CURL_LIBDIR}")
-        message("PKG_CONFIG_CURL_VERSION=${PKG_CONFIG_CURL_VERSION}")
-        message("PKG_CONFIG_CURL_LIBRARIES=${PKG_CONFIG_CURL_LIBRARIES}")
-        message("PKG_CONFIG_CURL_LINK_LIBRARIES=${PKG_CONFIG_CURL_LINK_LIBRARIES}")
-
-        if (PKG_CONFIG_CURL_FOUND)
-            if (PKG_CONFIG_CURL_INCLUDE_DIRS)
-                set(CURL_INCLUDE_DIRS "${PKG_CONFIG_CURL_INCLUDE_DIRS}")
-            elseif (PKG_CONFIG_CURL_INCLUDEDIR)
-                set(CURL_INCLUDE_DIRS "${PKG_CONFIG_CURL_INCLUDEDIR}")
-            else()
-                find_path(CURL_INCLUDE_DIRS curl/curl.h)
-            endif()
-
-            # https://sourceware.org/bugzilla/show_bug.cgi?id=21264
-
-            set(CURL_LIBRARIES )
-
-            foreach(item ${PKG_CONFIG_CURL_LINK_LIBRARIES})
-                    if(item MATCHES "/.*libm\\.(a|so|dylib)")
-                    list(APPEND CURL_LIBRARIES "-lm")
-                elseif(item MATCHES "/.*libdl\\.(a|so|dylib)")
-                    list(APPEND CURL_LIBRARIES "-ldl")
-                elseif(item MATCHES "/.*librt\\.(a|so|dylib)")
-                    list(APPEND CURL_LIBRARIES "-lrt")
-                elseif(item MATCHES "/.*libpthread\\.(a|so|dylib)")
-                    list(APPEND CURL_LIBRARIES "-lpthread")
-                elseif(item MATCHES "/.*\\.framework")
-                    get_filename_component(LIBRARY_FILENAME_PREFIX ${item} NAME_WLE)
-                    message(STATUS "${LIBRARY_FILENAME_PREFIX}")
-                    list(APPEND CURL_LIBRARIES "-framework ${LIBRARY_FILENAME_PREFIX}")
-                elseif(item MATCHES "-framework .*")
-                    list(APPEND CURL_LIBRARIES "${item}")
-                elseif(item MATCHES "/.*")
-                    get_filename_component(LIBRARY_FILENAME ${item} NAME)
-
-                    message(STATUS "${LIBRARY_FILENAME}")
-
-                    if (NOT TARGET  CURL::${LIBRARY_FILENAME})
-                        add_library(CURL::${LIBRARY_FILENAME} UNKNOWN IMPORTED)
-                        set_target_properties(CURL::${LIBRARY_FILENAME} PROPERTIES IMPORTED_LOCATION "${item}")
-                    endif()
-
-                    list(APPEND CURL_LIBRARIES CURL::${LIBRARY_FILENAME})
-                endif()
-            endforeach()
-
-            if (NOT TARGET  CURL::libcurl)
-                add_library(CURL::libcurl INTERFACE IMPORTED)
-                set_target_properties(CURL::libcurl PROPERTIES
-                    INTERFACE_INCLUDE_DIRECTORIES "${CURL_INCLUDE_DIRS}"
-                    INTERFACE_LINK_LIBRARIES      "${CURL_LIBRARIES}"
-                )
-            endif()
-
-            if (PKG_CONFIG_CURL_VERSION)
-                set(CURL_VERSION_STRING ${PKG_CONFIG_CURL_VERSION})
-            endif()
-        endif()
-    endif()
-
-    include(FindPackageHandleStandardArgs)
-    find_package_handle_standard_args(CURL REQUIRED_VARS CURL_LIBRARIES CURL_INCLUDE_DIRS VERSION_VAR CURL_VERSION)
-
-    mark_as_advanced(CURL_INCLUDE_DIRS CURL_LIBRARIES)
-    ' > cmake/FindCURL.cmake
-
-    # https://cmake.org/cmake/help/latest/module/FindTIFF.html
-    cat > cmake/FindTIFF.cmake <<EOF
-    if (TIFF_INCLUDE_DIRS AND TIFF_LIBRARIES)
-        set(TIFF_FOUND TRUE)
-    else()
-        include(FindPkgConfig)
-        pkg_check_modules(PKG_CONFIG_TIFF QUIET libtiff-4)
-
-        if (PKG_CONFIG_TIFF_FOUND)
-            if (PKG_CONFIG_TIFF_INCLUDE_DIRS)
-                set(TIFF_INCLUDE_DIRS "\${PKG_CONFIG_TIFF_INCLUDE_DIRS}")
-            elseif (PKG_CONFIG_TIFF_INCLUDEDIR)
-                set(TIFF_INCLUDE_DIRS "\${PKG_CONFIG_TIFF_INCLUDEDIR}")
-            else()
-                find_path(TIFF_INCLUDE_DIRS tiff.h)
-            endif()
-
-            set(TIFF_LIBRARIES )
-
-            foreach(item \${PKG_CONFIG_TIFF_LINK_LIBRARIES})
-                # https://sourceware.org/bugzilla/show_bug.cgi?id=21264
-                    if(item MATCHES ".*libm\\.a")
-                elseif(item MATCHES ".*libpthread\\.a")
-                elseif(item MATCHES "/.*")
-                    get_filename_component(LIBRARY_FILENAME \${item} NAME)
-
-                    if (NOT TARGET  TIFF::\${LIBRARY_FILENAME})
-                        add_library(TIFF::\${LIBRARY_FILENAME} UNKNOWN IMPORTED)
-                        set_target_properties(TIFF::\${LIBRARY_FILENAME} PROPERTIES IMPORTED_LOCATION "\${item}")
-                    endif()
-
-                    list(APPEND TIFF_LIBRARIES TIFF::\${LIBRARY_FILENAME})
-                endif()
-            endforeach()
-
-            if (NOT TARGET  TIFF::TIFF)
-                add_library(TIFF::TIFF INTERFACE IMPORTED)
-                set_target_properties(TIFF::TIFF PROPERTIES
-                    INTERFACE_INCLUDE_DIRECTORIES "\${TIFF_INCLUDE_DIRS}"
-                    INTERFACE_LINK_LIBRARIES      "\${TIFF_LIBRARIES}"
-                )
-            endif()
-
-            if (PKG_CONFIG_TIFF_VERSION)
-                set(TIFF_VERSION \${PKG_CONFIG_TIFF_VERSION})
-            endif()
-        endif()
-    endif()
-
-    include(FindPackageHandleStandardArgs)
-    find_package_handle_standard_args(TIFF REQUIRED_VARS TIFF_LIBRARIES TIFF_INCLUDE_DIRS VERSION_VAR TIFF_VERSION)
-
-    mark_as_advanced(TIFF_INCLUDE_DIRS TIFF_LIBRARIES)
-    EOF
-
-    gsed -i 's|${TIFF_LIBRARY}|TIFF::TIFF|' src/lib_proj.cmake
-    gsed -i 's|${CURL_LIBRARY}|CURL::libcurl|' src/lib_proj.cmake
-  install: cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_TESTING=OFF
-  dotweak: |-
-    install -d lib/pkgconfig
-    cat >      lib/pkgconfig/proj.pc <<EOF
-    prefix=\${pcfiledir}/../..
-    libdir=\${prefix}/lib
-    includedir=\${prefix}/include
-    datarootdir=\${prefix}/share
-    datadir=\${datarootdir}/proj
-
-    Name: PROJ
-    Description: Coordinate transformation software library
-    Version: $PACKAGE_VERSION
-    Requires: sqlite3 libtiff-4 libcurl
-    Libs: -L\${libdir} -lproj -lc++ -ldl -lm
-    Cflags: -I\${includedir}
-    EOF
 - pkgname: proot2
   pkgtype: exe
   version: 5.1.107

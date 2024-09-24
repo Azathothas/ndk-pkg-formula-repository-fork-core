@@ -2448,21 +2448,6 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: geos
-pkgtype: lib
-version: 3.12.2
-license: LGPL-2.1-or-later
-summary: Geometry Engine
-web-url: https://trac.osgeo.org/geos
-git-url: https://github.com/libgeos/geos
-src-url: https://download.osgeo.org/geos/geos-3.12.2.tar.bz2
-src-sha: 34c7770bf0090ee88488af98767d08e779f124fa33437e0aabec8abd4609fec6
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: germanium
 pkgtype: pie
 version: 1.2.2
@@ -3428,7 +3413,7 @@ git-url: https://github.com/wahern/hexdump
 src-url: https://github.com/wahern/hexdump/archive/refs/tags/rel-20181215.tar.gz
 src-sha: 882975323317f595093125467d7b9604f78bded7ba1005f5fc17e33358cdb0fa
 dep-upp: curl bsdtar
-binbstd: 1
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -5007,6 +4992,21 @@ src-url: https://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz
 src-sha: 74b1081d21fff13ae4bd7c16e5d6e504a4c26f7cde1dca0d963a484174bbcacd
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libgeos
+pkgtype: lib
+version: 3.12.2
+license: LGPL-2.1-or-later
+summary: Geometry Engine
+web-url: https://trac.osgeo.org/geos
+git-url: https://github.com/libgeos/geos
+src-url: https://download.osgeo.org/geos/geos-3.12.2.tar.bz2
+src-sha: 34c7770bf0090ee88488af98767d08e779f124fa33437e0aabec8abd4609fec6
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no
@@ -7032,7 +7032,7 @@ web-url: https://git.osgeo.org/gitea/rttopo/librttopo
 git-url: https://git.osgeo.org/gitea/rttopo/librttopo
 src-url: https://git.osgeo.org/gitea/rttopo/librttopo/archive/librttopo-1.1.0.tar.gz
 src-sha: 60b49acb493c1ab545116fb0b0d223ee115166874902ad8165eb39e9fd98eaa9
-dep-pkg: geos
+dep-pkg: libgeos
 dep-upp: libtool curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autogen
 binbstd: 0
@@ -9443,10 +9443,10 @@ parallel: 1
 installed: no
 ---
 pkgname: openjpeg
-pkgtype: lib
+pkgtype: exe
 version: 2.5.2
 license: BSD-2-Clause
-summary: Library for JPEG-2000 image manipulation
+summary: A collection of tools for JPEG-2000 image manipulation
 web-url: https://www.openjpeg.org/
 git-url: https://github.com/uclouvain/openjpeg
 src-url: https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.2.tar.gz
@@ -9952,22 +9952,6 @@ web-url: https://proj.org/
 git-url: https://github.com/OSGeo/PROJ
 src-url: https://github.com/OSGeo/PROJ/releases/download/9.4.1/proj-9.4.1.tar.gz
 src-sha: ffe20170ee2b952207adf8a195e2141eab12cda181e49fdeb54425d98c7171d7
-dep-pkg: libsqlite3 libtiff libcurl
-dep-upp: sqlite3 curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: proj7
-pkgtype: lib
-version: 7.2.1
-license: MIT
-summary: Cartographic Projections Library
-web-url: https://proj.org/
-git-url: https://github.com/OSGeo/PROJ
-src-url: https://github.com/OSGeo/PROJ/releases/download/7.2.1/proj-7.2.1.tar.gz
-src-sha: b384f42e5fb9c6d01fe5fa4d31da2e91329668863a684f97be5d4760dbbf0a14
 dep-pkg: libsqlite3 libtiff libcurl
 dep-upp: sqlite3 curl bsdtar cmake ninja
 bsystem: cmake
