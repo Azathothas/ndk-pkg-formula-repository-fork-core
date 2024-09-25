@@ -28,7 +28,7 @@
     "ppflags": "-include stdlib.h -include string.h",
     "parallel": "1",
     "dopatch": "gsed -i '203c return 0;' src/aalinuxkbd.c",
-    "install": "configure --without-x --with-ncurses=\"$ncurses_INSTALL_DIR\""
+    "install": "configure --without-x --with-ncurses=\"$ncurses_6_4_INSTALL_DIR\""
   },
   {
     "pkgname": "abseil",
@@ -44,7 +44,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DABSL_PROPAGATE_CXX_STD=ON \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -DCMAKE_CXX_STANDARD_REQUIRED=TRUE\ncmakew \\\n    -DABSL_PROPAGATE_CXX_STD=ON \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -DCMAKE_CXX_STANDARD_REQUIRED=TRUE"
+    "install": "cmakew 2 \\\n    -DABSL_PROPAGATE_CXX_STD=ON \\\n    -DCMAKE_CXX_STANDARD=17 \\\n    -DCMAKE_CXX_STANDARD_REQUIRED=TRUE"
   },
   {
     "pkgname": "acl",
@@ -134,7 +134,7 @@
     "pkgtype": "pie",
     "version": "1.2.0",
     "license": "BSD-3-Clause",
-    "summary": "Simple, modern, secure file encryption",
+    "summary": "A simple, modern and secure encryption tool with small explicit keys, no config options, and UNIX-style composability",
     "web-url": "https://filippo.io/age",
     "git-url": "https://github.com/FiloSottile/age",
     "src-url": "https://github.com/FiloSottile/age/archive/refs/tags/v1.2.0.tar.gz",
@@ -143,7 +143,7 @@
     "bsystem": "go",
     "binbstd": "1",
     "parallel": "1",
-    "install": "for item in age age-keygen\ndo\n    gow -X main.Version=v$PACKAGE_VERSION ./cmd/$item\n    run install_mans doc/$item.1\ndone"
+    "install": "gow -X main.Version=v$PACKAGE_VERSION ./cmd/age\ngow -X main.Version=v$PACKAGE_VERSION ./cmd/age-keygen\n\nrun install_mans doc/age.1\nrun install_mans doc/age-keygen.1"
   },
   {
     "pkgname": "alass",
@@ -577,7 +577,7 @@
     "binbstd": "0",
     "api-min": "26",
     "parallel": "1",
-    "dopatch": "for MAKEFILE_AM in $(find lib -name \"Makefile.in\")\ndo\n    gsed -i 's|-release \"$(PACKAGE_VERSION)\"||' \"$MAKEFILE_AM\"\ndone",
+    "dopatch": "find lib -name 'Makefile.in' -exec gsed -i 's|-release \"$(PACKAGE_VERSION)\"||' {} +",
     "install": "configure \\\n    --disable-linux-caps \\\n    --disable-static \\\n    --enable-shared \\\n    --without-python \\\n    --without-gssapi \\\n    --without-lmdb \\\n    --with-zlib \\\n    --with-json-c \\\n    --with-libxml2 \\\n    --with-libidn2=\"$libidn2_INSTALL_DIR\" \\\n    --with-openssl=\"$openssl_dev_INSTALL_DIR\" \\\n    ac_cv_search_idn2_to_ascii_lz=\"'-lidn2 -lunistring -liconv'\""
   },
   {
@@ -676,7 +676,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "boxes",
@@ -693,8 +693,8 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "gsed -i 's|STRIP=true||' src/Makefile\n\nrun cd ../lib/\nrun \"$AR\" x \"$libiconv_INSTALL_DIR/lib/libiconv.a\"\nrun \"$AR\" x \"$libunistring_INSTALL_DIR/lib/libunistring.a\"\nrun \"$AR\" crs libunistring.a *.o\nrun rm -f *.o",
-    "install": "export CPPFLAGS=\"$CPPFLAGS -I. -I../src\"\ngmakew clean\ngmakew CC=\"$CC\" CFLAGS=\"'$CPPFLAGS $CFLAGS'\" LDFLAGS=\"'$LDFLAGS'\"\nrun install_bins out/boxes\nrun install_mans doc/boxes.1\nrun install_etcs boxes-config"
+    "dopatch": "gsed -i 's|STRIP=true||' src/Makefile",
+    "install": "gmakew clean\ngmakew CC=\"$CC\" CFLAGS=\"'$CPPFLAGS -I. -I../src $CFLAGS'\" LDFLAGS=\"'$LDFLAGS'\"\nrun install_bins out/boxes\nrun install_mans doc/boxes.1\nrun install_etcs boxes-config"
   },
   {
     "pkgname": "brook",
@@ -722,12 +722,11 @@
     "git-url": "https://github.com/Canop/broot",
     "src-url": "https://github.com/Canop/broot/archive/refs/tags/v1.39.0.tar.gz",
     "src-sha": "d1d2ccc11543ff4ea645d57a5e78639542a6f510b585a78c31ddb3a24399bf61",
-    "dep-pkg": "libgetloadavg libgit2",
+    "dep-pkg": "libgetloadavg libz",
     "dep-upp": "curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "run cargo fetch --target \"$RUST_TARGET\"\n\nfor f in $CARGO_HOME/registry/src/*/libgit2-sys-*/build.rs ; do\n    gsed -i -E 's/\\.range_version\\(([^)]*)\\.\\.[^)]*\\)/.atleast_version(\\1)/g' \"${f}\"\ndone\n\ngsed -i '/trash/d' Cargo.toml",
     "install": "cargow install --locked"
   },
   {
@@ -745,8 +744,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's/RUNTIME DESTINATION/RUNTIME COMPONENT bin DESTINATION/' CMakeLists.txt",
-    "prepare": "CMAKE_BUILD_TARGETS=brotli\nCMAKE_INSTALL_COMPONENTS=bin",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF"
+    "install": "cmakew -DBUILD_SHARED_LIBS=OFF --targets=brotli --components=bin"
   },
   {
     "pkgname": "bsdtar",
@@ -832,8 +830,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "CMAKE_BUILD_TARGETS='bz2-static bzip2 bzip2recover'\nCMAKE_INSTALL_COMPONENTS='bin man'",
-    "install": "cmakew"
+    "install": "cmakew --targets=bz2-static,bzip2,bzip2recover --components=bin,man"
   },
   {
     "pkgname": "caddy",
@@ -1197,7 +1194,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=ON  -DWITH_EXAMPLES=OFF -DUNIT_TESTING=OFF\ncmakew -DBUILD_SHARED_LIBS=OFF -DWITH_EXAMPLES=OFF -DUNIT_TESTING=OFF"
+    "install": "cmakew 2 -DWITH_EXAMPLES=OFF -DUNIT_TESTING=OFF"
   },
   {
     "pkgname": "coreutils",
@@ -1266,7 +1263,8 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's|ANDROID|XXXX|' Release/cmake/cpprest_find_openssl.cmake",
-    "install": "export OPENSSL_ROOT_DIR=\"$openssl_dev_INSTALL_DIR\"\ncmakew -DBUILD_TESTS=OFF -DBUILD_SAMPLES=OFF"
+    "prepare": "export OPENSSL_ROOT_DIR=\"$openssl_dev_INSTALL_DIR\"",
+    "install": "cmakew -DBUILD_TESTS=OFF -DBUILD_SAMPLES=OFF"
   },
   {
     "pkgname": "cpptoml",
@@ -4386,7 +4384,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DPYTHON=OFF -DDOCS=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DPYTHON=OFF -DDOCS=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DPYTHON=OFF -DDOCS=OFF"
   },
   {
     "pkgname": "libLIEF",
@@ -4418,7 +4416,8 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "export PATH=\"$ANDROID_NDK_TOOLCHAIN_BIND:$PATH\"\ncmakew -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON\ncmakew -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF"
+    "prepare": "export PATH=\"$ANDROID_NDK_TOOLCHAIN_BIND:$PATH\"",
+    "install": "cmakew 2 -DBUILD_APPS=OFF"
   },
   {
     "pkgname": "libaec",
@@ -4484,7 +4483,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DENABLE_DOCS=OFF \\\n    -DENABLE_TESTS=OFF \\\n    -DENABLE_TESTDATA=OFF \\\n    -DENABLE_TOOLS=OFF \\\n    -DENABLE_EXAMPLES=OFF \\\n    -DCONFIG_RUNTIME_CPU_DETECT=0\ncmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DENABLE_DOCS=OFF \\\n    -DENABLE_TESTS=OFF \\\n    -DENABLE_TESTDATA=OFF \\\n    -DENABLE_TOOLS=OFF \\\n    -DENABLE_EXAMPLES=OFF \\\n    -DCONFIG_RUNTIME_CPU_DETECT=0"
+    "install": "cmakew 2 \\\n    -DENABLE_DOCS=OFF \\\n    -DENABLE_TESTS=OFF \\\n    -DENABLE_TESTDATA=OFF \\\n    -DENABLE_TOOLS=OFF \\\n    -DENABLE_EXAMPLES=OFF \\\n    -DCONFIG_RUNTIME_CPU_DETECT=0"
   },
   {
     "pkgname": "libarchive",
@@ -4588,7 +4587,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "libatomic_ops",
@@ -4621,7 +4620,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DAVIF_ENABLE_WERROR=ON \\\n    -DAVIF_CODEC_AOM=ON \\\n    -DAVIF_CODEC_AOM_DECODE=ON \\\n    -DAVIF_CODEC_AOM_ENCODE=ON \\\n    -DAVIF_BUILD_APPS=OFF \\\n    -DAVIF_BUILD_TESTS=OFF \\\n    -DAVIF_BUILD_EXAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DAVIF_ENABLE_WERROR=ON \\\n    -DAVIF_CODEC_AOM=ON \\\n    -DAVIF_CODEC_AOM_DECODE=ON \\\n    -DAVIF_CODEC_AOM_ENCODE=ON \\\n    -DAVIF_BUILD_APPS=OFF \\\n    -DAVIF_BUILD_TESTS=OFF \\\n    -DAVIF_BUILD_EXAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DAVIF_ENABLE_WERROR=ON \\\n    -DAVIF_CODEC_AOM=ON \\\n    -DAVIF_CODEC_AOM_DECODE=ON \\\n    -DAVIF_CODEC_AOM_ENCODE=ON \\\n    -DAVIF_BUILD_APPS=OFF \\\n    -DAVIF_BUILD_TESTS=OFF \\\n    -DAVIF_BUILD_EXAMPLES=OFF"
   },
   {
     "pkgname": "libb2",
@@ -4683,7 +4682,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "libbluray",
@@ -4717,7 +4716,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's/RUNTIME DESTINATION/RUNTIME EXCLUDE_FROM_ALL DESTINATION/' CMakeLists.txt",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "libbthread",
@@ -4765,8 +4764,7 @@
     "binbstd": "0",
     "parallel": "1",
     "developer": "Julian Seward <jseward@acm.org>",
-    "prepare": "CMAKE_BUILD_TARGETS='bz2-shared bz2-static'\nCMAKE_INSTALL_COMPONENTS='lib dev'",
-    "install": "cmakew"
+    "install": "cmakew --targets=bz2-shared,bz2-static --components=lib,dev"
   },
   {
     "pkgname": "libcaca",
@@ -4852,7 +4850,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DWITH_EXAMPLES=OFF"
   },
   {
     "pkgname": "libccd",
@@ -4869,7 +4867,7 @@
     "binbstd": "0",
     "parallel": "1",
     "prepare": "if [ \"$TARGET_PLATFORM_NBIT\" = 64 ] ; then\n    CMAKE_EXTRA_ARGS='-DENABLE_DOUBLE_PRECISION=ON'\nelse\n    CMAKE_EXTRA_ARGS='-DENABLE_DOUBLE_PRECISION=OFF'\nfi",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF $CMAKE_EXTRA_ARGS\ncmakew -DBUILD_SHARED_LIBS=ON  $CMAKE_EXTRA_ARGS"
+    "install": "cmakew 2 $CMAKE_EXTRA_ARGS"
   },
   {
     "pkgname": "libcddb",
@@ -4920,7 +4918,7 @@
     "binbstd": "0",
     "api-min": "23",
     "parallel": "1",
-    "install": "cmakew \\\n    -DPEDANTIC=ON \\\n    -DWERROR=OFF \\\n    -DLIB_MAN=OFF \\\n    -DLIB_RUN=ON \\\n    -DCERF_CPP=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DPEDANTIC=ON \\\n    -DWERROR=OFF \\\n    -DLIB_MAN=OFF \\\n    -DLIB_RUN=ON \\\n    -DCERF_CPP=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DPEDANTIC=ON \\\n    -DWERROR=OFF \\\n    -DLIB_MAN=OFF \\\n    -DLIB_RUN=ON \\\n    -DCERF_CPP=OFF"
   },
   {
     "pkgname": "libcfitsio",
@@ -4969,7 +4967,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_PIC=ON -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_PIC=ON -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DBUILD_PIC=ON"
   },
   {
     "pkgname": "libcpuinfo",
@@ -4984,7 +4982,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt",
-    "install": "cmakew \\\n    -DCPUINFO_BUILD_TOOLS=OFF \\\n    -DCPUINFO_BUILD_UNIT_TESTS=OFF \\\n    -DCPUINFO_BUILD_MOCK_TESTS=OFF \\\n    -DCPUINFO_BUILD_BENCHMARKS=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DCPUINFO_BUILD_TOOLS=OFF \\\n    -DCPUINFO_BUILD_UNIT_TESTS=OFF \\\n    -DCPUINFO_BUILD_MOCK_TESTS=OFF \\\n    -DCPUINFO_BUILD_BENCHMARKS=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DCPUINFO_BUILD_TOOLS=OFF \\\n    -DCPUINFO_BUILD_UNIT_TESTS=OFF \\\n    -DCPUINFO_BUILD_MOCK_TESTS=OFF \\\n    -DCPUINFO_BUILD_BENCHMARKS=OFF"
   },
   {
     "pkgname": "libcrc32c",
@@ -5000,7 +4998,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DCRC32C_USE_GLOG=OFF \\\n    -DCRC32C_BUILD_TESTS=OFF \\\n    -DCRC32C_BUILD_BENCHMARKS=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DCRC32C_USE_GLOG=OFF \\\n    -DCRC32C_BUILD_TESTS=OFF \\\n    -DCRC32C_BUILD_BENCHMARKS=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DCRC32C_USE_GLOG=OFF \\\n    -DCRC32C_BUILD_TESTS=OFF \\\n    -DCRC32C_BUILD_BENCHMARKS=OFF"
   },
   {
     "pkgname": "libcroco",
@@ -5116,7 +5114,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DENABLE_SDL=OFF -DDISABLE_SSE=ON -DENABLE_ENCODER=OFF -DENABLE_DECODER=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DENABLE_SDL=OFF -DDISABLE_SSE=ON -DENABLE_ENCODER=OFF -DENABLE_DECODER=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DENABLE_SDL=OFF -DDISABLE_SSE=ON -DENABLE_ENCODER=OFF -DENABLE_DECODER=OFF"
   },
   {
     "pkgname": "libdeflate",
@@ -5245,7 +5243,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/add_subdirectory(src\\/app)/d' CMakeLists.txt",
-    "install": "cmakew -DBUILD_SHARED_LIBS=ON\ncmakew -DBUILD_SHARED_LIBS=OFF"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "libexif",
@@ -5279,7 +5277,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DEXIV2_ENABLE_NLS=OFF \\\n    -DEXIV2_ENABLE_XMP=ON \\\n    -DEXIV2_ENABLE_PNG=ON \\\n    -DEXIV2_ENABLE_SSH=ON \\\n    -DEXIV2_ENABLE_CURL=ON \\\n    -DEXIV2_ENABLE_BMFF=ON \\\n    -DEXIV2_ENABLE_VIDEO=ON \\\n    -DEXIV2_ENABLE_LENSDATA=ON \\\n    -DEXIV2_ENABLE_WEBREADY=ON \\\n    -DEXIV2_ENABLE_PRINTUCS2=ON \\\n    -DEXIV2_BUILD_EXIV2_COMMAND=OFF \\\n    -DEXIV2_BUILD_SAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DEXIV2_ENABLE_NLS=OFF \\\n    -DEXIV2_ENABLE_XMP=ON \\\n    -DEXIV2_ENABLE_PNG=ON \\\n    -DEXIV2_ENABLE_SSH=ON \\\n    -DEXIV2_ENABLE_CURL=ON \\\n    -DEXIV2_ENABLE_BMFF=ON \\\n    -DEXIV2_ENABLE_VIDEO=ON \\\n    -DEXIV2_ENABLE_LENSDATA=ON \\\n    -DEXIV2_ENABLE_WEBREADY=ON \\\n    -DEXIV2_ENABLE_PRINTUCS2=ON \\\n    -DEXIV2_BUILD_EXIV2_COMMAND=OFF \\\n    -DEXIV2_BUILD_SAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DEXIV2_ENABLE_NLS=OFF \\\n    -DEXIV2_ENABLE_XMP=ON \\\n    -DEXIV2_ENABLE_PNG=ON \\\n    -DEXIV2_ENABLE_SSH=ON \\\n    -DEXIV2_ENABLE_CURL=ON \\\n    -DEXIV2_ENABLE_BMFF=ON \\\n    -DEXIV2_ENABLE_VIDEO=ON \\\n    -DEXIV2_ENABLE_LENSDATA=ON \\\n    -DEXIV2_ENABLE_WEBREADY=ON \\\n    -DEXIV2_ENABLE_PRINTUCS2=ON \\\n    -DEXIV2_BUILD_EXIV2_COMMAND=OFF \\\n    -DEXIV2_BUILD_SAMPLES=OFF"
   },
   {
     "pkgname": "libexpat",
@@ -5296,7 +5294,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "patch -p0 <<EOF\n--- ConfigureChecks.cmake.orign 2024-04-02 08:58:53.499986940 +0000\n+++ ConfigureChecks.cmake       2024-04-02 09:21:47.648735869 +0000\n@@ -46,12 +46,32 @@\n endif(WORDS_BIGENDIAN)\n \n if(HAVE_SYS_TYPES_H)\n-    check_symbol_exists(\"off_t\" \"sys/types.h\" off_t)\n-    check_symbol_exists(\"size_t\" \"sys/types.h\" size_t)\n+    check_c_source_compiles(\"\n+        #include <sys/types.h>\n+        int main() {\n+           off_t x;\n+            return 0;\n+        }\"\n+       HAVE_OFF_T)\n+    check_c_source_compiles(\"\n+        #include <sys/types.h>\n+        int main() {\n+           size_t x;\n+            return 0;\n+        }\"\n+       HAVE_SIZE_T)\n else(HAVE_SYS_TYPES_H)\n+    set(HAVE_OFF_T 0)\n+    set(HAVE_SIZE_T 0)\n+endif(HAVE_SYS_TYPES_H)\n+\n+if (NOT HAVE_OFF_T)\n     set(off_t \"long\")\n+endif()\n+\n+if (NOT HAVE_SIZE_T)\n     set(size_t \"unsigned\")\n-endif(HAVE_SYS_TYPES_H)\n+endif()\n \n check_c_source_compiles(\"\n         #include <stdlib.h>  /* for NULL */\nEOF",
-    "install": "cmakew \\\n    -DEXPAT_BUILD_DOCS=OFF \\\n    -DEXPAT_BUILD_TOOLS=OFF \\\n    -DEXPAT_BUILD_TESTS=OFF \\\n    -DEXPAT_BUILD_FUZZERS=OFF \\\n    -DEXPAT_BUILD_EXAMPLES=OFF \\\n    -DEXPAT_SHARED_LIBS=OFF\ncmakew \\\n    -DEXPAT_BUILD_DOCS=OFF \\\n    -DEXPAT_BUILD_TOOLS=OFF \\\n    -DEXPAT_BUILD_TESTS=OFF \\\n    -DEXPAT_BUILD_FUZZERS=OFF \\\n    -DEXPAT_BUILD_EXAMPLES=OFF \\\n    -DEXPAT_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DEXPAT_BUILD_DOCS=OFF \\\n    -DEXPAT_BUILD_TOOLS=OFF \\\n    -DEXPAT_BUILD_TESTS=OFF \\\n    -DEXPAT_BUILD_FUZZERS=OFF \\\n    -DEXPAT_BUILD_EXAMPLES=OFF"
   },
   {
     "pkgname": "libffi",
@@ -5468,7 +5466,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_GEOSOP=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_GEOSOP=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DBUILD_GEOSOP=OFF"
   },
   {
     "pkgname": "libgeotiff",
@@ -5565,7 +5563,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DGLM_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=ON\ncmakew -DGLM_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=OFF",
+    "install": "cmakew 2 -DGLM_BUILD_TESTS=OFF",
     "dotweak": "install -d lib/pkgconfig\ncat >      lib/pkgconfig/glm.pc <<EOF\nprefix=$PACKAGE_INSTALL_DIR\nincludedir=\\${prefix}/include\n\nName: GLM\nDescription: OpenGL Mathematics\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -lglm\nEOF"
   },
   {
@@ -5669,7 +5667,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/add_subdirectory(tests)/d' CMakeLists.txt",
-    "install": "cmakew -DGRAPHITE2_NFILEFACE=ON -DBUILD_SHARED_LIBS=ON\ncmakew -DGRAPHITE2_NFILEFACE=ON -DBUILD_SHARED_LIBS=OFF",
+    "install": "cmakew 2 -DGRAPHITE2_NFILEFACE=ON",
     "dotweak": "gsed -i 's|-lgraphite2|-lgraphite2 -lc++|' lib/pkgconfig/graphite2.pc"
   },
   {
@@ -5740,8 +5738,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "CMAKE_ARGS='-DWITH_DAV1D=ON -DWITH_RAV1E=ON -DWITH_SvtEnc=ON -DWITH_GDK_PIXBUF=OFF -DENABLE_PLUGIN_LOADING=OFF -DWITH_EXAMPLES=OFF'",
-    "install": "cmakew $CMAKE_ARGS -DBUILD_SHARED_LIBS=OFF\ncmakew $CMAKE_ARGS -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DWITH_DAV1D=ON -DWITH_RAV1E=ON -DWITH_SvtEnc=ON -DWITH_GDK_PIXBUF=OFF -DENABLE_PLUGIN_LOADING=OFF -DWITH_EXAMPLES=OFF"
   },
   {
     "pkgname": "libhexdump",
@@ -5771,7 +5768,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DDISABLE_TESTS=ON -DBUILD_SHARED_LIBS=OFF\ncmakew -DDISABLE_TESTS=ON -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DDISABLE_TESTS=ON"
   },
   {
     "pkgname": "libhwy",
@@ -5787,7 +5784,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DHWY_ENABLE_TESTS=OFF \\\n    -DHWY_ENABLE_EXAMPLES=OFF \\\n    -DHWY_ENABLE_CONTRIB=ON \\\n    -DHWY_ENABLE_INSTALL=ON \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DHWY_ENABLE_TESTS=OFF \\\n    -DHWY_ENABLE_EXAMPLES=OFF \\\n    -DHWY_ENABLE_CONTRIB=ON \\\n    -DHWY_ENABLE_INSTALL=ON \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DHWY_ENABLE_TESTS=OFF \\\n    -DHWY_ENABLE_EXAMPLES=OFF \\\n    -DHWY_ENABLE_CONTRIB=ON \\\n    -DHWY_ENABLE_INSTALL=ON"
   },
   {
     "pkgname": "libiconv",
@@ -6007,7 +6004,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=OFF\ncmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON"
   },
   {
     "pkgname": "libjansson",
@@ -6089,8 +6086,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "CMAKE_INSTALL_COMPONENTS='lib include'",
-    "install": "cmakew \\\n    -DWITH_JAVA=OFF \\\n    -DENABLE_STATIC=ON \\\n    -DENABLE_SHARED=ON"
+    "install": "cmakew \\\n    -DWITH_JAVA=OFF \\\n    -DENABLE_STATIC=ON \\\n    -DENABLE_SHARED=ON \\\n    --components=lib,include"
   },
   {
     "pkgname": "libjson-c",
@@ -6139,8 +6135,8 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "run git clone --depth 1 https://github.com/webmproject/sjpeg third_party/sjpeg\n\nCMAKE_ARGS=\"\n    -DBUILD_TESTING=OFF\n    -DJPEGXL_ENABLE_JNI=OFF\n    -DJPEGXL_ENABLE_SJPEG=ON\n    -DJPEGXL_ENABLE_SKCMS=OFF\n    -DJPEGXL_ENABLE_TOOLS=OFF\n    -DJPEGXL_ENABLE_EXAMPLES=OFF\n    -DJPEGXL_ENABLE_MANPAGES=OFF\n    -DJPEGXL_ENABLE_BENCHMARK=OFF\n    -DJPEGXL_WARNINGS_AS_ERRORS=OFF\n    -DJPEGXL_FORCE_SYSTEM_BROTLI=ON\n    -DJPEGXL_FORCE_SYSTEM_LCMS2=ON\n    -DJPEGXL_FORCE_SYSTEM_HWY=ON\n    -DJPEGXL_VERSION=$PACKAGE_VERSION\n    -DSJPEG_ANDROID_NDK_PATH=$ANDROID_NDK_HOME\"",
-    "install": "cmakew $CMAKE_ARGS -DBUILD_SHARED_LIBS=OFF\ncmakew $CMAKE_ARGS -DBUILD_SHARED_LIBS=ON"
+    "prepare": "run git clone --depth 1 https://github.com/webmproject/sjpeg third_party/sjpeg",
+    "install": "cmakew 2 \\\n    -DJPEGXL_ENABLE_JNI=OFF \\\n    -DJPEGXL_ENABLE_SJPEG=ON \\\n    -DJPEGXL_ENABLE_SKCMS=OFF \\\n    -DJPEGXL_ENABLE_TOOLS=OFF \\\n    -DJPEGXL_ENABLE_EXAMPLES=OFF \\\n    -DJPEGXL_ENABLE_MANPAGES=OFF \\\n    -DJPEGXL_ENABLE_BENCHMARK=OFF \\\n    -DJPEGXL_WARNINGS_AS_ERRORS=OFF \\\n    -DJPEGXL_FORCE_SYSTEM_BROTLI=ON \\\n    -DJPEGXL_FORCE_SYSTEM_LCMS2=ON \\\n    -DJPEGXL_FORCE_SYSTEM_HWY=ON \\\n    -DJPEGXL_VERSION=$PACKAGE_VERSION \\\n    -DSJPEG_ANDROID_NDK_PATH=\"$ANDROID_NDK_HOME\""
   },
   {
     "pkgname": "libkcp",
@@ -6254,7 +6250,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DENABLE_GIF=ON \\\n    -DENABLE_PNG=ON \\\n    -DENABLE_TIFF=ON \\\n    -DENABLE_WEBP=ON \\\n    -DENABLE_JPEG=ON \\\n    -DENABLE_OPENJPEG=ON \\\n    -DBUILD_PROG=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DENABLE_GIF=ON \\\n    -DENABLE_PNG=ON \\\n    -DENABLE_TIFF=ON \\\n    -DENABLE_WEBP=ON \\\n    -DENABLE_JPEG=ON \\\n    -DENABLE_OPENJPEG=ON \\\n    -DBUILD_PROG=OFF \\\n    -DBUILD_SHARED_LIBS=ON",
+    "install": "cmakew 2 \\\n    -DENABLE_GIF=ON \\\n    -DENABLE_PNG=ON \\\n    -DENABLE_TIFF=ON \\\n    -DENABLE_WEBP=ON \\\n    -DENABLE_JPEG=ON \\\n    -DENABLE_OPENJPEG=ON \\\n    -DBUILD_PROG=OFF",
     "dotweak": "cd lib/pkgconfig && mv lept_Release.pc lept.pc"
   },
   {
@@ -6273,7 +6269,7 @@
     "binbstd": "0",
     "xxflags": "-Wno-error=unused-but-set-variable",
     "parallel": "1",
-    "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DLEVELDB_BUILD_TESTS=OFF \\\n    -DLEVELDB_BUILD_BENCHMARKS=OFF\ncmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DLEVELDB_BUILD_TESTS=OFF \\\n    -DLEVELDB_BUILD_BENCHMARKS=OFF"
+    "install": "cmakew 2 \\\n    -DLEVELDB_BUILD_TESTS=OFF \\\n    -DLEVELDB_BUILD_BENCHMARKS=OFF"
   },
   {
     "pkgname": "liblinear",
@@ -6466,7 +6462,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "libmesalink",
@@ -6573,7 +6569,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|' CMakeLists.txt",
-    "install": "cmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DBUILD_EXAMPLES=OFF"
   },
   {
     "pkgname": "libminizip",
@@ -6607,7 +6603,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DMZ_FETCH_LIBS=OFF \\\n    -DMZ_LIB_SUFFIX=-ng \\\n    -DMZ_LIBCOMP=OFF \\\n    -DMZ_BZIP2=ON \\\n    -DMZ_ZSTD=ON \\\n    -DMZ_LZMA=ON \\\n    -DMZ_ZLIB=ON \\\n    -DMZ_OPENSSL=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DMZ_FETCH_LIBS=OFF \\\n    -DMZ_LIB_SUFFIX=-ng \\\n    -DMZ_LIBCOMP=OFF \\\n    -DMZ_BZIP2=ON \\\n    -DMZ_ZSTD=ON \\\n    -DMZ_LZMA=ON \\\n    -DMZ_ZLIB=ON \\\n    -DMZ_OPENSSL=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DMZ_FETCH_LIBS=OFF \\\n    -DMZ_LIB_SUFFIX=-ng \\\n    -DMZ_LIBCOMP=OFF \\\n    -DMZ_BZIP2=ON \\\n    -DMZ_ZSTD=ON \\\n    -DMZ_LZMA=ON \\\n    -DMZ_ZLIB=ON \\\n    -DMZ_OPENSSL=OFF"
   },
   {
     "pkgname": "libmnl",
@@ -6808,7 +6804,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/stdio\\.h/a \\#include<sys/uio.h>' lib/pdu.c\ngsed -i '/stdio\\.h/a \\#include<sys/uio.h>' lib/socket.c",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "libnghttp2",
@@ -6891,7 +6887,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DNNG_TESTS=OFF \\\n    -DNNG_ENABLE_TLS=ON \\\n    -DNNG_ENABLE_HTTP=ON \\\n    -DBUILD_SHARED_LIBS=ON\ncmakew \\\n    -DNNG_TESTS=OFF \\\n    -DNNG_ENABLE_TLS=ON \\\n    -DNNG_ENABLE_HTTP=ON \\\n    -DBUILD_SHARED_LIBS=OFF"
+    "install": "cmakew 2 \\\n    -DNNG_TESTS=OFF \\\n    -DNNG_ENABLE_TLS=ON \\\n    -DNNG_ENABLE_HTTP=ON"
   },
   {
     "pkgname": "libnova",
@@ -6958,7 +6954,7 @@
     "binbstd": "0",
     "parallel": "1",
     "prepare": "if [ \"$TARGET_PLATFORM_NBIT\" = 64 ] ; then\n    CMAKE_EXTRA_ARGS='-DENABLE_DOUBLE_PRECISION=ON'\nelse\n    CMAKE_EXTRA_ARGS='-DENABLE_DOUBLE_PRECISION=OFF'\nfi",
-    "install": "cmakew \\\n    -DODE_WITH_DEMOS=OFF \\\n    -DODE_WITH_TESTS=OFF \\\n    -DODE_WITH_LIBCCD=ON \\\n    -DODE_WITH_LIBCCD_SYSTEM=ON \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    $CMAKE_EXTRA_ARGS\ncmakew \\\n    -DODE_WITH_DEMOS=OFF \\\n    -DODE_WITH_TESTS=OFF \\\n    -DODE_WITH_LIBCCD=ON \\\n    -DODE_WITH_LIBCCD_SYSTEM=ON \\\n    -DBUILD_SHARED_LIBS=ON \\\n    $CMAKE_EXTRA_ARGS"
+    "install": "cmakew 2 \\\n    -DODE_WITH_DEMOS=OFF \\\n    -DODE_WITH_TESTS=OFF \\\n    -DODE_WITH_LIBCCD=ON \\\n    -DODE_WITH_LIBCCD_SYSTEM=ON \\\n    $CMAKE_EXTRA_ARGS"
   },
   {
     "pkgname": "libogg",
@@ -6975,7 +6971,7 @@
     "binbstd": "0",
     "parallel": "1",
     "developer": "Monty <monty@xiph.org>\nGreg Maxwell <greg@xiph.org>\nRalph Giles <giles@xiph.org>\nCristian Adam <cristian.adam@gmail.com>\nTim Terriberry <tterribe@xiph.org>",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "liboggz",
@@ -7044,7 +7040,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -Dpystring_INCLUDE_DIR=\"$libpystring_INCLUDE_DIR/pystring\" \\\n    -Dpystring_LIBRARY=\"$libpystring_LIBRARY_DIR/libpystring.so\" \\\n    -DOCIO_BUILD_APPS=OFF \\\n    -DOCIO_BUILD_DOCS=OFF \\\n    -DOCIO_BUILD_TESTS=OFF \\\n    -DOCIO_BUILD_JAVA=OFF \\\n    -DOCIO_BUILD_PYTHON=OFF \\\n    -DOCIO_WARNING_AS_ERROR=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -Dpystring_INCLUDE_DIR=\"$libpystring_INCLUDE_DIR/pystring\" \\\n    -Dpystring_LIBRARY=\"$libpystring_LIBRARY_DIR/libpystring.so\" \\\n    -DOCIO_BUILD_APPS=OFF \\\n    -DOCIO_BUILD_DOCS=OFF \\\n    -DOCIO_BUILD_TESTS=OFF \\\n    -DOCIO_BUILD_JAVA=OFF \\\n    -DOCIO_BUILD_PYTHON=OFF \\\n    -DOCIO_WARNING_AS_ERROR=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -Dpystring_INCLUDE_DIR=\"$libpystring_INCLUDE_DIR/pystring\" \\\n    -Dpystring_LIBRARY=\"$libpystring_LIBRARY_DIR/libpystring.so\" \\\n    -DOCIO_BUILD_APPS=OFF \\\n    -DOCIO_BUILD_DOCS=OFF \\\n    -DOCIO_BUILD_TESTS=OFF \\\n    -DOCIO_BUILD_JAVA=OFF \\\n    -DOCIO_BUILD_PYTHON=OFF \\\n    -DOCIO_WARNING_AS_ERROR=OFF"
   },
   {
     "pkgname": "libopenexr",
@@ -7061,7 +7057,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DDOCS=OFF \\\n    -DOPENEXR_INSTALL=ON \\\n    -DOPENEXR_INSTALL_TOOLS=OFF \\\n    -DOPENEXR_INSTALL_EXAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DDOCS=OFF \\\n    -DOPENEXR_INSTALL=ON \\\n    -DOPENEXR_INSTALL_TOOLS=OFF \\\n    -DOPENEXR_INSTALL_EXAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DDOCS=OFF \\\n    -DOPENEXR_INSTALL=ON \\\n    -DOPENEXR_INSTALL_TOOLS=OFF \\\n    -DOPENEXR_INSTALL_EXAMPLES=OFF"
   },
   {
     "pkgname": "libopenh264",
@@ -7362,7 +7358,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/add_subdirectory(man)/d' CMakeLists.txt",
-    "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON\ncmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF"
+    "install": "cmakew 2 -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF"
   },
   {
     "pkgname": "libproj7",
@@ -7380,7 +7376,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/add_subdirectory(man)/d' CMakeLists.txt",
-    "install": "cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF"
   },
   {
     "pkgname": "libprotobuf",
@@ -7497,8 +7493,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "CMAKE_BUILD_TARGETS='libqpdf libqpdf_static'\nCMAKE_INSTALL_COMPONENTS='lib dev'",
-    "install": "cmakew \\\n    -DINSTALL_MANUAL=OFF \\\n    -DINSTALL_EXAMPLES=OFF \\\n    -DINSTALL_PKGCONFIG=ON \\\n    -DINSTALL_CMAKE_PACKAGE=ON \\\n    -DBUILD_DOC=OFF \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DBUILD_STATIC_LIBS=ON \\\n    -DUSE_IMPLICIT_CRYPTO=OFF \\\n    -DREQUIRE_CRYPTO_OPENSSL=ON"
+    "install": "cmakew \\\n    -DINSTALL_MANUAL=OFF \\\n    -DINSTALL_EXAMPLES=OFF \\\n    -DINSTALL_PKGCONFIG=ON \\\n    -DINSTALL_CMAKE_PACKAGE=ON \\\n    -DBUILD_DOC=OFF \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DBUILD_STATIC_LIBS=ON \\\n    -DUSE_IMPLICIT_CRYPTO=OFF \\\n    -DREQUIRE_CRYPTO_OPENSSL=ON\\\n    --targets=libqpdf,libqpdf_static \\\n    --components=lib,dev"
   },
   {
     "pkgname": "libqrencode",
@@ -7515,7 +7510,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DWITH_TOOLS=OFF \\\n    -DWITH_TESTS=OFF \\\n    -DWITHOUT_PNG=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DWITH_TOOLS=OFF \\\n    -DWITH_TESTS=OFF \\\n    -DWITHOUT_PNG=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DWITH_TOOLS=OFF \\\n    -DWITH_TESTS=OFF \\\n    -DWITHOUT_PNG=OFF"
   },
   {
     "pkgname": "libquiche",
@@ -7612,7 +7607,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DRE2C_BUILD_LIBS=ON \\\n    -DRE2C_BUILD_RE2GO=OFF \\\n    -DRE2C_BUILD_RE2RUST=OFF \\\n    -DRE2C_REBUILD_DOCS=OFF\ncmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DRE2C_BUILD_LIBS=ON \\\n    -DRE2C_BUILD_RE2GO=OFF \\\n    -DRE2C_BUILD_RE2RUST=OFF \\\n    -DRE2C_REBUILD_DOCS=OFF",
+    "install": "cmakew 2 \\\n    -DRE2C_BUILD_LIBS=ON \\\n    -DRE2C_BUILD_RE2GO=OFF \\\n    -DRE2C_BUILD_RE2RUST=OFF \\\n    -DRE2C_REBUILD_DOCS=OFF",
     "dotweak": "rm -rf bin/ share/man/"
   },
   {
@@ -7698,7 +7693,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DLIBSAMPLERATE_EXAMPLES=OFF \\\n    -DBUILD_TESTING=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DLIBSAMPLERATE_EXAMPLES=OFF \\\n    -DBUILD_TESTING=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DLIBSAMPLERATE_EXAMPLES=OFF"
   },
   {
     "pkgname": "libsass",
@@ -7762,7 +7757,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=ON\ncmakew -DBUILD_SHARED_LIBS=OFF"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "libsmi",
@@ -7796,7 +7791,7 @@
     "binbstd": "0",
     "xxflags": "-Wno-error=sign-compare",
     "parallel": "1",
-    "install": "cmakew \\\n    -DSNAPPY_BUILD_BENCHMARKS=OFF \\\n    -DSNAPPY_BUILD_TESTS=OFF \\\n    -DSNAPPY_FUZZING_BUILD=OFF \\\n    -DSNAPPY_INSTALL=ON \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DSNAPPY_BUILD_BENCHMARKS=OFF \\\n    -DSNAPPY_BUILD_TESTS=OFF \\\n    -DSNAPPY_FUZZING_BUILD=OFF \\\n    -DSNAPPY_INSTALL=ON \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DSNAPPY_BUILD_BENCHMARKS=OFF \\\n    -DSNAPPY_BUILD_TESTS=OFF \\\n    -DSNAPPY_FUZZING_BUILD=OFF \\\n    -DSNAPPY_INSTALL=ON"
   },
   {
     "pkgname": "libsndfile",
@@ -7813,7 +7808,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DBUILD_PROGRAMS=OFF \\\n    -DBUILD_EXAMPLES=OFF \\\n    -DENABLE_PACKAGE_CONFIG=ON \\\n    -DINSTALL_PKGCONFIG_MODULE=ON\ncmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DBUILD_PROGRAMS=OFF \\\n    -DBUILD_EXAMPLES=OFF \\\n    -DENABLE_PACKAGE_CONFIG=ON \\\n    -DINSTALL_PKGCONFIG_MODULE=ON"
+    "install": "cmakew 2 \\\n    -DBUILD_PROGRAMS=OFF \\\n    -DBUILD_EXAMPLES=OFF \\\n    -DENABLE_PACKAGE_CONFIG=ON \\\n    -DINSTALL_PKGCONFIG_MODULE=ON"
   },
   {
     "pkgname": "libsodium",
@@ -8000,7 +7995,7 @@
     "binbstd": "0",
     "ppflags": "-DS_IWRITE=S_IWUSR -D__USE_BSD=1",
     "parallel": "1",
-    "install": "cmakew -DWITH_SYMBOL_VERSIONING=OFF -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON\nrm -rf \"$PACKAGE_INSTALL_DIR/lib/cmake\"\ncmakew -DWITH_SYMBOL_VERSIONING=OFF -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF",
+    "install": "cmakew 2 -DWITH_SYMBOL_VERSIONING=OFF -DWITH_EXAMPLES=OFF",
     "dotweak": "printf 'Requires: openssl, libz\\n' >> lib/pkgconfig/libssh.pc"
   },
   {
@@ -8129,7 +8124,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/TARGETS tesseract DESTINATION/d' CMakeLists.txt",
-    "install": "cmakew \\\n    -DENABLE_LTO=OFF \\\n    -DDISABLE_ARCHIVE=ON \\\n    -DDISABLE_CURL=ON \\\n    -DUSE_SYSTEM_ICU=ON \\\n    -DOPENMP_BUILD=ON \\\n    -DLEPT_TIFF_RESULT=0 \\\n    -DBUILD_TESTS=OFF \\\n    -DBUILD_TRAINING_TOOLS=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DENABLE_LTO=OFF \\\n    -DDISABLE_ARCHIVE=ON \\\n    -DDISABLE_CURL=ON \\\n    -DUSE_SYSTEM_ICU=ON \\\n    -DOPENMP_BUILD=ON \\\n    -DLEPT_TIFF_RESULT=0 \\\n    -DBUILD_TESTS=OFF \\\n    -DBUILD_TRAINING_TOOLS=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DENABLE_LTO=OFF \\\n    -DDISABLE_ARCHIVE=ON \\\n    -DDISABLE_CURL=ON \\\n    -DUSE_SYSTEM_ICU=ON \\\n    -DOPENMP_BUILD=ON \\\n    -DLEPT_TIFF_RESULT=0 \\\n    -DBUILD_TESTS=OFF \\\n    -DBUILD_TRAINING_TOOLS=OFF"
   },
   {
     "pkgname": "libtextstyle",
@@ -8198,7 +8193,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -Dlzw=ON \\\n    -Dzlib=ON \\\n    -Dzstd=ON \\\n    -Dlzma=ON \\\n    -Dwebp=OFF \\\n    -Djpeg=OFF \\\n    -Djbig=OFF \\\n    -Dlerc=OFF \\\n    -Dtiff-docs=OFF \\\n    -Dtiff-tools=OFF \\\n    -Dtiff-tests=OFF \\\n    -Dtiff-contrib=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -Dlzw=ON \\\n    -Dzlib=ON \\\n    -Dzstd=ON \\\n    -Dlzma=ON \\\n    -Dwebp=OFF \\\n    -Djpeg=OFF \\\n    -Djbig=OFF \\\n    -Dlerc=OFF \\\n    -Dtiff-docs=OFF \\\n    -Dtiff-tools=OFF \\\n    -Dtiff-tests=OFF \\\n    -Dtiff-contrib=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -Dlzw=ON \\\n    -Dzlib=ON \\\n    -Dzstd=ON \\\n    -Dlzma=ON \\\n    -Dwebp=OFF \\\n    -Djpeg=OFF \\\n    -Djbig=OFF \\\n    -Dlerc=OFF \\\n    -Dtiff-docs=OFF \\\n    -Dtiff-tools=OFF \\\n    -Dtiff-tests=OFF \\\n    -Dtiff-contrib=OFF"
   },
   {
     "pkgname": "libtinyalsa",
@@ -8213,7 +8208,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DTINYALSA_BUILD_UTILS=OFF \\\n    -DTINYALSA_BUILD_EXAMPLES=OFF \\\n    -DTINYALSA_USES_PLUGINS=ON\ncmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DTINYALSA_BUILD_UTILS=OFF \\\n    -DTINYALSA_BUILD_EXAMPLES=OFF \\\n    -DTINYALSA_USES_PLUGINS=ON"
+    "install": "cmakew 2 \\\n    -DTINYALSA_BUILD_UTILS=OFF \\\n    -DTINYALSA_BUILD_EXAMPLES=OFF \\\n    -DTINYALSA_USES_PLUGINS=ON"
   },
   {
     "pkgname": "libtinyxml2",
@@ -8335,7 +8330,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/add_subdirectory(test)/d' CMakeLists.txt",
-    "install": "cmakew -DBUILD_BINARY=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_BINARY=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DBUILD_BINARY=OFF"
   },
   {
     "pkgname": "libunbound",
@@ -8643,7 +8638,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt",
-    "install": "cmakew \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DWEBP_BUILD_EXTRAS=OFF \\\n    -DWEBP_BUILD_CWEBP=OFF \\\n    -DWEBP_BUILD_DWEBP=OFF \\\n    -DWEBP_BUILD_VWEBP=OFF \\\n    -DWEBP_BUILD_WEBPMUX=OFF \\\n    -DWEBP_BUILD_WEBPINFO=OFF \\\n    -DWEBP_BUILD_GIF2WEBP=OFF \\\n    -DWEBP_BUILD_IMG2WEBP=OFF \\\n    -DWEBP_BUILD_ANIM_UTILS=OFF\ncmakew \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DWEBP_BUILD_EXTRAS=OFF \\\n    -DWEBP_BUILD_CWEBP=OFF \\\n    -DWEBP_BUILD_DWEBP=OFF \\\n    -DWEBP_BUILD_VWEBP=OFF \\\n    -DWEBP_BUILD_WEBPMUX=OFF \\\n    -DWEBP_BUILD_WEBPINFO=OFF \\\n    -DWEBP_BUILD_GIF2WEBP=OFF \\\n    -DWEBP_BUILD_IMG2WEBP=OFF \\\n    -DWEBP_BUILD_ANIM_UTILS=OFF",
+    "install": "cmakew 2 \\\n    -DWEBP_BUILD_EXTRAS=OFF \\\n    -DWEBP_BUILD_CWEBP=OFF \\\n    -DWEBP_BUILD_DWEBP=OFF \\\n    -DWEBP_BUILD_VWEBP=OFF \\\n    -DWEBP_BUILD_WEBPMUX=OFF \\\n    -DWEBP_BUILD_WEBPINFO=OFF \\\n    -DWEBP_BUILD_GIF2WEBP=OFF \\\n    -DWEBP_BUILD_IMG2WEBP=OFF \\\n    -DWEBP_BUILD_ANIM_UTILS=OFF",
     "dotweak": "gsed -i '/^Libs:/s|$| -lm|' lib/pkgconfig/libsharpyuv.pc"
   },
   {
@@ -8966,7 +8961,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "libzim",
@@ -9001,7 +8996,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DENABLE_ZSTD=ON \\\n    -DENABLE_LZMA=ON \\\n    -DENABLE_BZIP2=ON \\\n    -DENABLE_GNUTLS=OFF \\\n    -DENABLE_OPENSSL=OFF \\\n    -DENABLE_MBEDTLS=OFF \\\n    -DENABLE_COMMONCRYPTO=OFF \\\n    -DENABLE_WINDOWS_CRYPTO=OFF \\\n    -DBUILD_DOC=OFF \\\n    -DBUILD_TOOLS=OFF \\\n    -DBUILD_REGRESS=OFF \\\n    -DBUILD_EXAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF\ncmakew \\\n    -DENABLE_ZSTD=ON \\\n    -DENABLE_LZMA=ON \\\n    -DENABLE_BZIP2=ON \\\n    -DENABLE_GNUTLS=OFF \\\n    -DENABLE_OPENSSL=OFF \\\n    -DENABLE_MBEDTLS=OFF \\\n    -DENABLE_COMMONCRYPTO=OFF \\\n    -DENABLE_WINDOWS_CRYPTO=OFF \\\n    -DBUILD_DOC=OFF \\\n    -DBUILD_TOOLS=OFF \\\n    -DBUILD_REGRESS=OFF \\\n    -DBUILD_EXAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 \\\n    -DENABLE_ZSTD=ON \\\n    -DENABLE_LZMA=ON \\\n    -DENABLE_BZIP2=ON \\\n    -DENABLE_GNUTLS=OFF \\\n    -DENABLE_OPENSSL=OFF \\\n    -DENABLE_MBEDTLS=OFF \\\n    -DENABLE_COMMONCRYPTO=OFF \\\n    -DENABLE_WINDOWS_CRYPTO=OFF \\\n    -DBUILD_DOC=OFF \\\n    -DBUILD_TOOLS=OFF \\\n    -DBUILD_REGRESS=OFF \\\n    -DBUILD_EXAMPLES=OFF"
   },
   {
     "pkgname": "libzlog",
@@ -9162,7 +9157,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew \\\n    -DLOG4CPLUS_BUILD_TESTING=OFF \\\n    -DLOG4CPLUS_BUILD_LOGGINGSERVER=OFF \\\n    -DLOG4CPLUS_HAVE_VSNPRINTF=ON \\\n    -DWITH_UNIT_TESTS=OFF \\\n    -DBUILD_SHARED_LIBS=ON\ncmakew \\\n    -DLOG4CPLUS_BUILD_TESTING=OFF \\\n    -DLOG4CPLUS_BUILD_LOGGINGSERVER=ON \\\n    -DLOG4CPLUS_HAVE_VSNPRINTF=ON \\\n    -DWITH_UNIT_TESTS=OFF \\\n    -DBUILD_SHARED_LIBS=OFF"
+    "install": "cmakew 2 \\\n    -DLOG4CPLUS_BUILD_TESTING=OFF \\\n    -DLOG4CPLUS_BUILD_LOGGINGSERVER=OFF \\\n    -DLOG4CPLUS_HAVE_VSNPRINTF=ON \\\n    -DWITH_UNIT_TESTS=OFF"
   },
   {
     "pkgname": "lolcat",
@@ -10156,7 +10151,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's|/${ANDROID_ABI}||' CMakeLists.txt",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_MP4=ON -DWITH_ASF=ON\ncmakew -DBUILD_SHARED_LIBS=ON  -DWITH_MP4=ON -DWITH_ASF=ON"
+    "install": "cmakew 2 -DWITH_MP4=ON -DWITH_ASF=ON"
   },
   {
     "pkgname": "oggz",
@@ -11062,7 +11057,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "CMAKE_INSTALL_COMPONENTS='cli doc'\ncmakew \\\n    -DINSTALL_MANUAL=OFF \\\n    -DINSTALL_EXAMPLES=OFF \\\n    -DINSTALL_PKGCONFIG=OFF \\\n    -DINSTALL_CMAKE_PACKAGE=OFF \\\n    -DBUILD_DOC=OFF \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DBUILD_STATIC_LIBS=ON \\\n    -DUSE_IMPLICIT_CRYPTO=OFF \\\n    -DREQUIRE_CRYPTO_OPENSSL=ON"
+    "install": "cmakew \\\n    -DINSTALL_MANUAL=OFF \\\n    -DINSTALL_EXAMPLES=OFF \\\n    -DINSTALL_PKGCONFIG=OFF \\\n    -DINSTALL_CMAKE_PACKAGE=OFF \\\n    -DBUILD_DOC=OFF \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DBUILD_STATIC_LIBS=ON \\\n    -DUSE_IMPLICIT_CRYPTO=OFF \\\n    -DREQUIRE_CRYPTO_OPENSSL=ON \\\n    --components=cli,doc"
   },
   {
     "pkgname": "qrencode",
@@ -11208,7 +11203,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DRE2_BUILD_TESTING=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DRE2_BUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DRE2_BUILD_TESTING=OFF"
   },
   {
     "pkgname": "re2c",
@@ -11689,7 +11684,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=ON  -DSJPEG_BUILD_EXAMPLES=OFF -DSJPEG_ANDROID_NDK_PATH=\"$ANDROID_NDK_HOME\"\ncmakew -DBUILD_SHARED_LIBS=OFF -DSJPEG_BUILD_EXAMPLES=ON  -DSJPEG_ANDROID_NDK_PATH=\"$ANDROID_NDK_HOME\""
+    "install": "cmakew 2 -DSJPEG_BUILD_EXAMPLES=OFF -DSJPEG_ANDROID_NDK_PATH=\"$ANDROID_NDK_HOME\""
   },
   {
     "pkgname": "skcms",
@@ -11955,8 +11950,8 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's/RUNTIME DESTINATION/RUNTIME COMPONENT bin DESTINATION/' Source/App/CMakeLists.txt",
-    "prepare": "export PATH=\"$ANDROID_NDK_TOOLCHAIN_BIND:$PATH\"\nCMAKE_INSTALL_COMPONENTS=bin",
-    "install": "cmakew -DBUILD_APPS=ON -DBUILD_SHARED_LIBS=OFF"
+    "prepare": "export PATH=\"$ANDROID_NDK_TOOLCHAIN_BIND:$PATH\"",
+    "install": "cmakew -DBUILD_APPS=ON -DBUILD_SHARED_LIBS=OFF --components=bin"
   },
   {
     "pkgname": "swig",
@@ -12034,7 +12029,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_MP4=ON -DWITH_ASF=ON\ncmakew -DBUILD_SHARED_LIBS=ON  -DWITH_MP4=ON -DWITH_ASF=ON"
+    "install": "cmakew 2 -DWITH_MP4=ON -DWITH_ASF=ON"
   },
   {
     "pkgname": "tarlz",
@@ -12631,7 +12626,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DUTF8PROC_INSTALL=ON -DUTF8PROC_ENABLE_TESTING=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DUTF8PROC_INSTALL=ON -DUTF8PROC_ENABLE_TESTING=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DUTF8PROC_INSTALL=ON -DUTF8PROC_ENABLE_TESTING=OFF"
   },
   {
     "pkgname": "utfcpp",
@@ -13279,7 +13274,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DBUILD_SHARED_LIBS=OFF\ncmakew -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2"
   },
   {
     "pkgname": "zip",
@@ -13334,7 +13329,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "install": "cmakew -DZLIB_COMPAT=ON -DZLIB_ENABLE_TESTS=OFF -DBUILD_SHARED_LIBS=OFF\ncmakew -DZLIB_COMPAT=ON -DZLIB_ENABLE_TESTS=OFF -DBUILD_SHARED_LIBS=ON"
+    "install": "cmakew 2 -DZLIB_COMPAT=ON -DZLIB_ENABLE_TESTS=OFF"
   },
   {
     "pkgname": "zola",

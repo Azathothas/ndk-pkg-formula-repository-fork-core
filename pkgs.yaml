@@ -24,7 +24,7 @@
   ppflags: -include stdlib.h -include string.h
   parallel: "1"
   dopatch: gsed -i '203c return 0;' src/aalinuxkbd.c
-  install: configure --without-x --with-ncurses="$ncurses_INSTALL_DIR"
+  install: configure --without-x --with-ncurses="$ncurses_6_4_INSTALL_DIR"
 - pkgname: abseil
   pkgtype: lib
   version: "20240116.2"
@@ -39,14 +39,8 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DABSL_PROPAGATE_CXX_STD=ON \
-        -DBUILD_SHARED_LIBS=ON \
-        -DCMAKE_CXX_STANDARD=17 \
-        -DCMAKE_CXX_STANDARD_REQUIRED=TRUE
-    cmakew \
-        -DABSL_PROPAGATE_CXX_STD=ON \
-        -DBUILD_SHARED_LIBS=OFF \
         -DCMAKE_CXX_STANDARD=17 \
         -DCMAKE_CXX_STANDARD_REQUIRED=TRUE
 - pkgname: acl
@@ -133,7 +127,7 @@
   pkgtype: pie
   version: 1.2.0
   license: BSD-3-Clause
-  summary: Simple, modern, secure file encryption
+  summary: A simple, modern and secure encryption tool with small explicit keys, no config options, and UNIX-style composability
   web-url: https://filippo.io/age
   git-url: https://github.com/FiloSottile/age
   src-url: https://github.com/FiloSottile/age/archive/refs/tags/v1.2.0.tar.gz
@@ -143,11 +137,11 @@
   binbstd: "1"
   parallel: "1"
   install: |-
-    for item in age age-keygen
-    do
-        gow -X main.Version=v$PACKAGE_VERSION ./cmd/$item
-        run install_mans doc/$item.1
-    done
+    gow -X main.Version=v$PACKAGE_VERSION ./cmd/age
+    gow -X main.Version=v$PACKAGE_VERSION ./cmd/age-keygen
+
+    run install_mans doc/age.1
+    run install_mans doc/age-keygen.1
 - pkgname: alass
   pkgtype: exe
   version: 2024.09.25
@@ -596,11 +590,7 @@
   binbstd: "0"
   api-min: "26"
   parallel: "1"
-  dopatch: |-
-    for MAKEFILE_AM in $(find lib -name "Makefile.in")
-    do
-        gsed -i 's|-release "$(PACKAGE_VERSION)"||' "$MAKEFILE_AM"
-    done
+  dopatch: find lib -name 'Makefile.in' -exec gsed -i 's|-release "$(PACKAGE_VERSION)"||' {} +
   install: |-
     configure \
         --disable-linux-caps \
@@ -764,9 +754,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2
 - pkgname: boxes
   pkgtype: exe
   version: 2.3.0
@@ -781,18 +769,10 @@
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
-  dopatch: |-
-    gsed -i 's|STRIP=true||' src/Makefile
-
-    run cd ../lib/
-    run "$AR" x "$libiconv_INSTALL_DIR/lib/libiconv.a"
-    run "$AR" x "$libunistring_INSTALL_DIR/lib/libunistring.a"
-    run "$AR" crs libunistring.a *.o
-    run rm -f *.o
+  dopatch: gsed -i 's|STRIP=true||' src/Makefile
   install: |-
-    export CPPFLAGS="$CPPFLAGS -I. -I../src"
     gmakew clean
-    gmakew CC="$CC" CFLAGS="'$CPPFLAGS $CFLAGS'" LDFLAGS="'$LDFLAGS'"
+    gmakew CC="$CC" CFLAGS="'$CPPFLAGS -I. -I../src $CFLAGS'" LDFLAGS="'$LDFLAGS'"
     run install_bins out/boxes
     run install_mans doc/boxes.1
     run install_etcs boxes-config
@@ -819,19 +799,11 @@
   git-url: https://github.com/Canop/broot
   src-url: https://github.com/Canop/broot/archive/refs/tags/v1.39.0.tar.gz
   src-sha: d1d2ccc11543ff4ea645d57a5e78639542a6f510b585a78c31ddb3a24399bf61
-  dep-pkg: libgetloadavg libgit2
+  dep-pkg: libgetloadavg libz
   dep-upp: curl bsdtar
   bsystem: cargo
   binbstd: "1"
   parallel: "1"
-  dopatch: |-
-    run cargo fetch --target "$RUST_TARGET"
-
-    for f in $CARGO_HOME/registry/src/*/libgit2-sys-*/build.rs ; do
-        gsed -i -E 's/\.range_version\(([^)]*)\.\.[^)]*\)/.atleast_version(\1)/g' "${f}"
-    done
-
-    gsed -i '/trash/d' Cargo.toml
   install: cargow install --locked
 - pkgname: brotli
   pkgtype: exe
@@ -847,10 +819,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i 's/RUNTIME DESTINATION/RUNTIME COMPONENT bin DESTINATION/' CMakeLists.txt
-  prepare: |-
-    CMAKE_BUILD_TARGETS=brotli
-    CMAKE_INSTALL_COMPONENTS=bin
-  install: cmakew -DBUILD_SHARED_LIBS=OFF
+  install: cmakew -DBUILD_SHARED_LIBS=OFF --targets=brotli --components=bin
 - pkgname: bsdtar
   pkgtype: exe
   version: 3.7.4
@@ -989,10 +958,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  prepare: |-
-    CMAKE_BUILD_TARGETS='bz2-static bzip2 bzip2recover'
-    CMAKE_INSTALL_COMPONENTS='bin man'
-  install: cmakew
+  install: cmakew --targets=bz2-static,bzip2,bzip2recover --components=bin,man
 - pkgname: caddy
   pkgtype: pie
   version: 2.8.4
@@ -1369,9 +1335,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=ON  -DWITH_EXAMPLES=OFF -DUNIT_TESTING=OFF
-    cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_EXAMPLES=OFF -DUNIT_TESTING=OFF
+  install: cmakew 2 -DWITH_EXAMPLES=OFF -DUNIT_TESTING=OFF
 - pkgname: coreutils
   pkgtype: exe
   version: "9.5"
@@ -1452,9 +1416,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i 's|ANDROID|XXXX|' Release/cmake/cpprest_find_openssl.cmake
-  install: |-
-    export OPENSSL_ROOT_DIR="$openssl_dev_INSTALL_DIR"
-    cmakew -DBUILD_TESTS=OFF -DBUILD_SAMPLES=OFF
+  prepare: export OPENSSL_ROOT_DIR="$openssl_dev_INSTALL_DIR"
+  install: cmakew -DBUILD_TESTS=OFF -DBUILD_SAMPLES=OFF
 - pkgname: cpptoml
   pkgtype: lib
   version: 0.1.1
@@ -5065,9 +5028,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DPYTHON=OFF -DDOCS=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DPYTHON=OFF -DDOCS=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DPYTHON=OFF -DDOCS=OFF
 - pkgname: libLIEF
   pkgtype: lib
   version: 0.15.1
@@ -5101,10 +5062,8 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    export PATH="$ANDROID_NDK_TOOLCHAIN_BIND:$PATH"
-    cmakew -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON
-    cmakew -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF
+  prepare: export PATH="$ANDROID_NDK_TOOLCHAIN_BIND:$PATH"
+  install: cmakew 2 -DBUILD_APPS=OFF
 - pkgname: libaec
   pkgtype: lib
   version: 1.1.3
@@ -5171,16 +5130,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
-        -DBUILD_SHARED_LIBS=OFF \
-        -DENABLE_DOCS=OFF \
-        -DENABLE_TESTS=OFF \
-        -DENABLE_TESTDATA=OFF \
-        -DENABLE_TOOLS=OFF \
-        -DENABLE_EXAMPLES=OFF \
-        -DCONFIG_RUNTIME_CPU_DETECT=0
-    cmakew \
-        -DBUILD_SHARED_LIBS=ON \
+    cmakew 2 \
         -DENABLE_DOCS=OFF \
         -DENABLE_TESTS=OFF \
         -DENABLE_TESTDATA=OFF \
@@ -5303,9 +5253,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2
 - pkgname: libatomic_ops
   pkgtype: lib
   version: 7.8.2
@@ -5340,24 +5288,14 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DAVIF_ENABLE_WERROR=ON \
         -DAVIF_CODEC_AOM=ON \
         -DAVIF_CODEC_AOM_DECODE=ON \
         -DAVIF_CODEC_AOM_ENCODE=ON \
         -DAVIF_BUILD_APPS=OFF \
         -DAVIF_BUILD_TESTS=OFF \
-        -DAVIF_BUILD_EXAMPLES=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DAVIF_ENABLE_WERROR=ON \
-        -DAVIF_CODEC_AOM=ON \
-        -DAVIF_CODEC_AOM_DECODE=ON \
-        -DAVIF_CODEC_AOM_ENCODE=ON \
-        -DAVIF_BUILD_APPS=OFF \
-        -DAVIF_BUILD_TESTS=OFF \
-        -DAVIF_BUILD_EXAMPLES=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DAVIF_BUILD_EXAMPLES=OFF
 - pkgname: libb2
   pkgtype: lib
   version: 0.98.1
@@ -5433,9 +5371,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2
 - pkgname: libbluray
   pkgtype: lib
   version: 1.3.4
@@ -5465,9 +5401,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i 's/RUNTIME DESTINATION/RUNTIME EXCLUDE_FROM_ALL DESTINATION/' CMakeLists.txt
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2
 - pkgname: libbthread
   pkgtype: lib
   version: "0.2"
@@ -5509,10 +5443,7 @@
   binbstd: "0"
   parallel: "1"
   developer: Julian Seward <jseward@acm.org>
-  prepare: |-
-    CMAKE_BUILD_TARGETS='bz2-shared bz2-static'
-    CMAKE_INSTALL_COMPONENTS='lib dev'
-  install: cmakew
+  install: cmakew --targets=bz2-shared,bz2-static --components=lib,dev
 - pkgname: libcaca
   pkgtype: lib
   version: 0.99.beta20
@@ -5630,9 +5561,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DWITH_EXAMPLES=OFF
 - pkgname: libccd
   pkgtype: lib
   version: "2.1"
@@ -5652,9 +5581,7 @@
     else
         CMAKE_EXTRA_ARGS='-DENABLE_DOUBLE_PRECISION=OFF'
     fi
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF $CMAKE_EXTRA_ARGS
-    cmakew -DBUILD_SHARED_LIBS=ON  $CMAKE_EXTRA_ARGS
+  install: cmakew 2 $CMAKE_EXTRA_ARGS
 - pkgname: libcddb
   pkgtype: lib
   version: 1.3.2
@@ -5703,20 +5630,12 @@
   api-min: "23"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DPEDANTIC=ON \
         -DWERROR=OFF \
         -DLIB_MAN=OFF \
         -DLIB_RUN=ON \
-        -DCERF_CPP=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DPEDANTIC=ON \
-        -DWERROR=OFF \
-        -DLIB_MAN=OFF \
-        -DLIB_RUN=ON \
-        -DCERF_CPP=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DCERF_CPP=OFF
 - pkgname: libcfitsio
   pkgtype: lib
   version: 4.4.0
@@ -5761,9 +5680,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_PIC=ON -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_PIC=ON -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DBUILD_PIC=ON
 - pkgname: libcpuinfo
   pkgtype: lib
   version: 2024.09.25
@@ -5777,18 +5694,11 @@
   parallel: "1"
   dopatch: gsed -i 's|${CMAKE_INSTALL_DATAROOTDIR}|${CMAKE_INSTALL_LIBDIR}/cmake|g' CMakeLists.txt
   install: |-
-    cmakew \
+    cmakew 2 \
         -DCPUINFO_BUILD_TOOLS=OFF \
         -DCPUINFO_BUILD_UNIT_TESTS=OFF \
         -DCPUINFO_BUILD_MOCK_TESTS=OFF \
-        -DCPUINFO_BUILD_BENCHMARKS=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DCPUINFO_BUILD_TOOLS=OFF \
-        -DCPUINFO_BUILD_UNIT_TESTS=OFF \
-        -DCPUINFO_BUILD_MOCK_TESTS=OFF \
-        -DCPUINFO_BUILD_BENCHMARKS=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DCPUINFO_BUILD_BENCHMARKS=OFF
 - pkgname: libcrc32c
   pkgtype: lib
   version: 1.1.2
@@ -5803,16 +5713,10 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DCRC32C_USE_GLOG=OFF \
         -DCRC32C_BUILD_TESTS=OFF \
-        -DCRC32C_BUILD_BENCHMARKS=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DCRC32C_USE_GLOG=OFF \
-        -DCRC32C_BUILD_TESTS=OFF \
-        -DCRC32C_BUILD_BENCHMARKS=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DCRC32C_BUILD_BENCHMARKS=OFF
 - pkgname: libcroco
   pkgtype: lib
   version: 0.6.13
@@ -5950,9 +5854,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DENABLE_SDL=OFF -DDISABLE_SSE=ON -DENABLE_ENCODER=OFF -DENABLE_DECODER=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DENABLE_SDL=OFF -DDISABLE_SSE=ON -DENABLE_ENCODER=OFF -DENABLE_DECODER=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DENABLE_SDL=OFF -DDISABLE_SSE=ON -DENABLE_ENCODER=OFF -DENABLE_DECODER=OFF
 - pkgname: libdeflate
   pkgtype: lib
   version: "1.20"
@@ -6077,9 +5979,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i '/add_subdirectory(src\/app)/d' CMakeLists.txt
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=ON
-    cmakew -DBUILD_SHARED_LIBS=OFF
+  install: cmakew 2
 - pkgname: libexif
   pkgtype: lib
   version: 0.6.24
@@ -6116,7 +6016,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DEXIV2_ENABLE_NLS=OFF \
         -DEXIV2_ENABLE_XMP=ON \
         -DEXIV2_ENABLE_PNG=ON \
@@ -6128,22 +6028,7 @@
         -DEXIV2_ENABLE_WEBREADY=ON \
         -DEXIV2_ENABLE_PRINTUCS2=ON \
         -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
-        -DEXIV2_BUILD_SAMPLES=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DEXIV2_ENABLE_NLS=OFF \
-        -DEXIV2_ENABLE_XMP=ON \
-        -DEXIV2_ENABLE_PNG=ON \
-        -DEXIV2_ENABLE_SSH=ON \
-        -DEXIV2_ENABLE_CURL=ON \
-        -DEXIV2_ENABLE_BMFF=ON \
-        -DEXIV2_ENABLE_VIDEO=ON \
-        -DEXIV2_ENABLE_LENSDATA=ON \
-        -DEXIV2_ENABLE_WEBREADY=ON \
-        -DEXIV2_ENABLE_PRINTUCS2=ON \
-        -DEXIV2_BUILD_EXIV2_COMMAND=OFF \
-        -DEXIV2_BUILD_SAMPLES=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DEXIV2_BUILD_SAMPLES=OFF
 - pkgname: libexpat
   pkgtype: lib
   version: 2.6.2
@@ -6159,20 +6044,12 @@
   parallel: "1"
   dopatch: "patch -p0 <<EOF\n--- ConfigureChecks.cmake.orign 2024-04-02 08:58:53.499986940 +0000\n+++ ConfigureChecks.cmake       2024-04-02 09:21:47.648735869 +0000\n@@ -46,12 +46,32 @@\n endif(WORDS_BIGENDIAN)\n \n if(HAVE_SYS_TYPES_H)\n-    check_symbol_exists(\"off_t\" \"sys/types.h\" off_t)\n-    check_symbol_exists(\"size_t\" \"sys/types.h\" size_t)\n+    check_c_source_compiles(\"\n+        #include <sys/types.h>\n+        int main() {\n+           off_t x;\n+            return 0;\n+        }\"\n+       HAVE_OFF_T)\n+    check_c_source_compiles(\"\n+        #include <sys/types.h>\n+        int main() {\n+           size_t x;\n+            return 0;\n+        }\"\n+       HAVE_SIZE_T)\n else(HAVE_SYS_TYPES_H)\n+    set(HAVE_OFF_T 0)\n+    set(HAVE_SIZE_T 0)\n+endif(HAVE_SYS_TYPES_H)\n+\n+if (NOT HAVE_OFF_T)\n     set(off_t \"long\")\n+endif()\n+\n+if (NOT HAVE_SIZE_T)\n     set(size_t \"unsigned\")\n-endif(HAVE_SYS_TYPES_H)\n+endif()\n \n check_c_source_compiles(\"\n         #include <stdlib.h>  /* for NULL */\nEOF"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DEXPAT_BUILD_DOCS=OFF \
         -DEXPAT_BUILD_TOOLS=OFF \
         -DEXPAT_BUILD_TESTS=OFF \
         -DEXPAT_BUILD_FUZZERS=OFF \
-        -DEXPAT_BUILD_EXAMPLES=OFF \
-        -DEXPAT_SHARED_LIBS=OFF
-    cmakew \
-        -DEXPAT_BUILD_DOCS=OFF \
-        -DEXPAT_BUILD_TOOLS=OFF \
-        -DEXPAT_BUILD_TESTS=OFF \
-        -DEXPAT_BUILD_FUZZERS=OFF \
-        -DEXPAT_BUILD_EXAMPLES=OFF \
-        -DEXPAT_SHARED_LIBS=ON
+        -DEXPAT_BUILD_EXAMPLES=OFF
 - pkgname: libffi
   pkgtype: lib
   version: 3.4.6
@@ -6377,9 +6254,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_GEOSOP=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_GEOSOP=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DBUILD_GEOSOP=OFF
 - pkgname: libgeotiff
   pkgtype: lib
   version: 1.7.3
@@ -6480,9 +6355,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DGLM_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=ON
-    cmakew -DGLM_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=OFF
+  install: cmakew 2 -DGLM_BUILD_TESTS=OFF
   dotweak: |-
     install -d lib/pkgconfig
     cat >      lib/pkgconfig/glm.pc <<EOF
@@ -6624,9 +6497,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i '/add_subdirectory(tests)/d' CMakeLists.txt
-  install: |-
-    cmakew -DGRAPHITE2_NFILEFACE=ON -DBUILD_SHARED_LIBS=ON
-    cmakew -DGRAPHITE2_NFILEFACE=ON -DBUILD_SHARED_LIBS=OFF
+  install: cmakew 2 -DGRAPHITE2_NFILEFACE=ON
   dotweak: gsed -i 's|-lgraphite2|-lgraphite2 -lc++|' lib/pkgconfig/graphite2.pc
 - pkgname: libgsf
   pkgtype: lib
@@ -6701,10 +6572,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  prepare: CMAKE_ARGS='-DWITH_DAV1D=ON -DWITH_RAV1E=ON -DWITH_SvtEnc=ON -DWITH_GDK_PIXBUF=OFF -DENABLE_PLUGIN_LOADING=OFF -DWITH_EXAMPLES=OFF'
-  install: |-
-    cmakew $CMAKE_ARGS -DBUILD_SHARED_LIBS=OFF
-    cmakew $CMAKE_ARGS -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DWITH_DAV1D=ON -DWITH_RAV1E=ON -DWITH_SvtEnc=ON -DWITH_GDK_PIXBUF=OFF -DENABLE_PLUGIN_LOADING=OFF -DWITH_EXAMPLES=OFF
 - pkgname: libhexdump
   pkgtype: lib
   version: "20181215"
@@ -6734,9 +6602,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DDISABLE_TESTS=ON -DBUILD_SHARED_LIBS=OFF
-    cmakew -DDISABLE_TESTS=ON -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DDISABLE_TESTS=ON
 - pkgname: libhwy
   pkgtype: lib
   version: 1.2.0
@@ -6751,18 +6617,11 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DHWY_ENABLE_TESTS=OFF \
         -DHWY_ENABLE_EXAMPLES=OFF \
         -DHWY_ENABLE_CONTRIB=ON \
-        -DHWY_ENABLE_INSTALL=ON \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DHWY_ENABLE_TESTS=OFF \
-        -DHWY_ENABLE_EXAMPLES=OFF \
-        -DHWY_ENABLE_CONTRIB=ON \
-        -DHWY_ENABLE_INSTALL=ON \
-        -DBUILD_SHARED_LIBS=ON
+        -DHWY_ENABLE_INSTALL=ON
 - pkgname: libiconv
   pkgtype: lib
   version: "1.17"
@@ -7019,9 +6878,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=OFF
-    cmakew -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DUSE_TLS=ON -DUSE_OPEN_SSL=ON -DIXWEBSOCKET_INSTALL=ON
 - pkgname: libjansson
   pkgtype: lib
   version: "2.14"
@@ -7120,12 +6977,12 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  prepare: CMAKE_INSTALL_COMPONENTS='lib include'
   install: |-
     cmakew \
         -DWITH_JAVA=OFF \
         -DENABLE_STATIC=ON \
-        -DENABLE_SHARED=ON
+        -DENABLE_SHARED=ON \
+        --components=lib,include
 - pkgname: libjson-c
   pkgtype: lib
   version: "0.17"
@@ -7186,27 +7043,22 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  prepare: |-
-    run git clone --depth 1 https://github.com/webmproject/sjpeg third_party/sjpeg
-
-    CMAKE_ARGS="
-        -DBUILD_TESTING=OFF
-        -DJPEGXL_ENABLE_JNI=OFF
-        -DJPEGXL_ENABLE_SJPEG=ON
-        -DJPEGXL_ENABLE_SKCMS=OFF
-        -DJPEGXL_ENABLE_TOOLS=OFF
-        -DJPEGXL_ENABLE_EXAMPLES=OFF
-        -DJPEGXL_ENABLE_MANPAGES=OFF
-        -DJPEGXL_ENABLE_BENCHMARK=OFF
-        -DJPEGXL_WARNINGS_AS_ERRORS=OFF
-        -DJPEGXL_FORCE_SYSTEM_BROTLI=ON
-        -DJPEGXL_FORCE_SYSTEM_LCMS2=ON
-        -DJPEGXL_FORCE_SYSTEM_HWY=ON
-        -DJPEGXL_VERSION=$PACKAGE_VERSION
-        -DSJPEG_ANDROID_NDK_PATH=$ANDROID_NDK_HOME"
+  prepare: run git clone --depth 1 https://github.com/webmproject/sjpeg third_party/sjpeg
   install: |-
-    cmakew $CMAKE_ARGS -DBUILD_SHARED_LIBS=OFF
-    cmakew $CMAKE_ARGS -DBUILD_SHARED_LIBS=ON
+    cmakew 2 \
+        -DJPEGXL_ENABLE_JNI=OFF \
+        -DJPEGXL_ENABLE_SJPEG=ON \
+        -DJPEGXL_ENABLE_SKCMS=OFF \
+        -DJPEGXL_ENABLE_TOOLS=OFF \
+        -DJPEGXL_ENABLE_EXAMPLES=OFF \
+        -DJPEGXL_ENABLE_MANPAGES=OFF \
+        -DJPEGXL_ENABLE_BENCHMARK=OFF \
+        -DJPEGXL_WARNINGS_AS_ERRORS=OFF \
+        -DJPEGXL_FORCE_SYSTEM_BROTLI=ON \
+        -DJPEGXL_FORCE_SYSTEM_LCMS2=ON \
+        -DJPEGXL_FORCE_SYSTEM_HWY=ON \
+        -DJPEGXL_VERSION=$PACKAGE_VERSION \
+        -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: libkcp
   pkgtype: lib
   version: "1.7"
@@ -7318,24 +7170,14 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DENABLE_GIF=ON \
         -DENABLE_PNG=ON \
         -DENABLE_TIFF=ON \
         -DENABLE_WEBP=ON \
         -DENABLE_JPEG=ON \
         -DENABLE_OPENJPEG=ON \
-        -DBUILD_PROG=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DENABLE_GIF=ON \
-        -DENABLE_PNG=ON \
-        -DENABLE_TIFF=ON \
-        -DENABLE_WEBP=ON \
-        -DENABLE_JPEG=ON \
-        -DENABLE_OPENJPEG=ON \
-        -DBUILD_PROG=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DBUILD_PROG=OFF
   dotweak: cd lib/pkgconfig && mv lept_Release.pc lept.pc
 - pkgname: libleveldb
   pkgtype: lib
@@ -7353,12 +7195,7 @@
   xxflags: -Wno-error=unused-but-set-variable
   parallel: "1"
   install: |-
-    cmakew \
-        -DBUILD_SHARED_LIBS=OFF \
-        -DLEVELDB_BUILD_TESTS=OFF \
-        -DLEVELDB_BUILD_BENCHMARKS=OFF
-    cmakew \
-        -DBUILD_SHARED_LIBS=ON \
+    cmakew 2 \
         -DLEVELDB_BUILD_TESTS=OFF \
         -DLEVELDB_BUILD_BENCHMARKS=OFF
 - pkgname: liblinear
@@ -7558,9 +7395,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2
 - pkgname: libmesalink
   pkgtype: lib
   version: 2024.09.25
@@ -7672,9 +7507,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i 's|${CMAKE_INSTALL_DATADIR}/pkgconfig|${CMAKE_INSTALL_LIBDIR}/pkgconfig|' CMakeLists.txt
-  install: |-
-    cmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DBUILD_EXAMPLES=OFF
 - pkgname: libminizip
   pkgtype: lib
   version: 1.3.1
@@ -7705,7 +7538,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DMZ_FETCH_LIBS=OFF \
         -DMZ_LIB_SUFFIX=-ng \
         -DMZ_LIBCOMP=OFF \
@@ -7713,18 +7546,7 @@
         -DMZ_ZSTD=ON \
         -DMZ_LZMA=ON \
         -DMZ_ZLIB=ON \
-        -DMZ_OPENSSL=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DMZ_FETCH_LIBS=OFF \
-        -DMZ_LIB_SUFFIX=-ng \
-        -DMZ_LIBCOMP=OFF \
-        -DMZ_BZIP2=ON \
-        -DMZ_ZSTD=ON \
-        -DMZ_LZMA=ON \
-        -DMZ_ZLIB=ON \
-        -DMZ_OPENSSL=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DMZ_OPENSSL=OFF
 - pkgname: libmnl
   pkgtype: lib
   version: 1.0.5
@@ -8044,9 +7866,7 @@
   dopatch: |-
     gsed -i '/stdio\.h/a \#include<sys/uio.h>' lib/pdu.c
     gsed -i '/stdio\.h/a \#include<sys/uio.h>' lib/socket.c
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2
 - pkgname: libnghttp2
   pkgtype: lib
   version: 1.61.0
@@ -8147,16 +7967,10 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DNNG_TESTS=OFF \
         -DNNG_ENABLE_TLS=ON \
-        -DNNG_ENABLE_HTTP=ON \
-        -DBUILD_SHARED_LIBS=ON
-    cmakew \
-        -DNNG_TESTS=OFF \
-        -DNNG_ENABLE_TLS=ON \
-        -DNNG_ENABLE_HTTP=ON \
-        -DBUILD_SHARED_LIBS=OFF
+        -DNNG_ENABLE_HTTP=ON
 - pkgname: libnova
   pkgtype: lib
   version: 0.15.0
@@ -8221,19 +8035,11 @@
         CMAKE_EXTRA_ARGS='-DENABLE_DOUBLE_PRECISION=OFF'
     fi
   install: |-
-    cmakew \
+    cmakew 2 \
         -DODE_WITH_DEMOS=OFF \
         -DODE_WITH_TESTS=OFF \
         -DODE_WITH_LIBCCD=ON \
         -DODE_WITH_LIBCCD_SYSTEM=ON \
-        -DBUILD_SHARED_LIBS=OFF \
-        $CMAKE_EXTRA_ARGS
-    cmakew \
-        -DODE_WITH_DEMOS=OFF \
-        -DODE_WITH_TESTS=OFF \
-        -DODE_WITH_LIBCCD=ON \
-        -DODE_WITH_LIBCCD_SYSTEM=ON \
-        -DBUILD_SHARED_LIBS=ON \
         $CMAKE_EXTRA_ARGS
 - pkgname: libogg
   pkgtype: lib
@@ -8254,9 +8060,7 @@
     Ralph Giles <giles@xiph.org>
     Cristian Adam <cristian.adam@gmail.com>
     Tim Terriberry <tterribe@xiph.org>
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2
 - pkgname: liboggz
   pkgtype: lib
   version: 1.1.1
@@ -8332,7 +8136,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -Dpystring_INCLUDE_DIR="$libpystring_INCLUDE_DIR/pystring" \
         -Dpystring_LIBRARY="$libpystring_LIBRARY_DIR/libpystring.so" \
         -DOCIO_BUILD_APPS=OFF \
@@ -8340,18 +8144,7 @@
         -DOCIO_BUILD_TESTS=OFF \
         -DOCIO_BUILD_JAVA=OFF \
         -DOCIO_BUILD_PYTHON=OFF \
-        -DOCIO_WARNING_AS_ERROR=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -Dpystring_INCLUDE_DIR="$libpystring_INCLUDE_DIR/pystring" \
-        -Dpystring_LIBRARY="$libpystring_LIBRARY_DIR/libpystring.so" \
-        -DOCIO_BUILD_APPS=OFF \
-        -DOCIO_BUILD_DOCS=OFF \
-        -DOCIO_BUILD_TESTS=OFF \
-        -DOCIO_BUILD_JAVA=OFF \
-        -DOCIO_BUILD_PYTHON=OFF \
-        -DOCIO_WARNING_AS_ERROR=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DOCIO_WARNING_AS_ERROR=OFF
 - pkgname: libopenexr
   pkgtype: lib
   version: 3.2.4
@@ -8367,18 +8160,11 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DDOCS=OFF \
         -DOPENEXR_INSTALL=ON \
         -DOPENEXR_INSTALL_TOOLS=OFF \
-        -DOPENEXR_INSTALL_EXAMPLES=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DDOCS=OFF \
-        -DOPENEXR_INSTALL=ON \
-        -DOPENEXR_INSTALL_TOOLS=OFF \
-        -DOPENEXR_INSTALL_EXAMPLES=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DOPENEXR_INSTALL_EXAMPLES=OFF
 - pkgname: libopenh264
   pkgtype: lib
   version: 2.4.1
@@ -8744,9 +8530,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i '/add_subdirectory(man)/d' CMakeLists.txt
-  install: |-
-    cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON
-    cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF
+  install: cmakew 2 -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF
 - pkgname: libproj7
   pkgtype: lib
   version: 7.2.1
@@ -8762,9 +8546,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i '/add_subdirectory(man)/d' CMakeLists.txt
-  install: |-
-    cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DENABLE_TIFF=ON -DENABLE_CURL=ON -DBUILD_EXAMPLES=OFF -DBUILD_APPS=OFF
 - pkgname: libprotobuf
   pkgtype: lib
   version: "26.1"
@@ -8934,9 +8716,6 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  prepare: |-
-    CMAKE_BUILD_TARGETS='libqpdf libqpdf_static'
-    CMAKE_INSTALL_COMPONENTS='lib dev'
   install: |-
     cmakew \
         -DINSTALL_MANUAL=OFF \
@@ -8947,7 +8726,9 @@
         -DBUILD_SHARED_LIBS=ON \
         -DBUILD_STATIC_LIBS=ON \
         -DUSE_IMPLICIT_CRYPTO=OFF \
-        -DREQUIRE_CRYPTO_OPENSSL=ON
+        -DREQUIRE_CRYPTO_OPENSSL=ON\
+        --targets=libqpdf,libqpdf_static \
+        --components=lib,dev
 - pkgname: libqrencode
   pkgtype: lib
   version: 4.1.1
@@ -8963,16 +8744,10 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DWITH_TOOLS=OFF \
         -DWITH_TESTS=OFF \
-        -DWITHOUT_PNG=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DWITH_TOOLS=OFF \
-        -DWITH_TESTS=OFF \
-        -DWITHOUT_PNG=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DWITHOUT_PNG=OFF
 - pkgname: libquiche
   pkgtype: lib
   version: 2024.09.25
@@ -9068,14 +8843,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
-        -DBUILD_SHARED_LIBS=OFF \
-        -DRE2C_BUILD_LIBS=ON \
-        -DRE2C_BUILD_RE2GO=OFF \
-        -DRE2C_BUILD_RE2RUST=OFF \
-        -DRE2C_REBUILD_DOCS=OFF
-    cmakew \
-        -DBUILD_SHARED_LIBS=ON \
+    cmakew 2 \
         -DRE2C_BUILD_LIBS=ON \
         -DRE2C_BUILD_RE2GO=OFF \
         -DRE2C_BUILD_RE2RUST=OFF \
@@ -9171,15 +8939,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew \
-        -DLIBSAMPLERATE_EXAMPLES=OFF \
-        -DBUILD_TESTING=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DLIBSAMPLERATE_EXAMPLES=OFF \
-        -DBUILD_TESTING=OFF \
-        -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DLIBSAMPLERATE_EXAMPLES=OFF
 - pkgname: libsass
   pkgtype: lib
   version: 3.6.6
@@ -9237,9 +8997,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=ON
-    cmakew -DBUILD_SHARED_LIBS=OFF
+  install: cmakew 2
 - pkgname: libsmi
   pkgtype: lib
   version: 0.5.0
@@ -9270,18 +9028,11 @@
   xxflags: -Wno-error=sign-compare
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DSNAPPY_BUILD_BENCHMARKS=OFF \
         -DSNAPPY_BUILD_TESTS=OFF \
         -DSNAPPY_FUZZING_BUILD=OFF \
-        -DSNAPPY_INSTALL=ON \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DSNAPPY_BUILD_BENCHMARKS=OFF \
-        -DSNAPPY_BUILD_TESTS=OFF \
-        -DSNAPPY_FUZZING_BUILD=OFF \
-        -DSNAPPY_INSTALL=ON \
-        -DBUILD_SHARED_LIBS=ON
+        -DSNAPPY_INSTALL=ON
 - pkgname: libsndfile
   pkgtype: lib
   version: 1.2.2
@@ -9297,14 +9048,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
-        -DBUILD_SHARED_LIBS=OFF \
-        -DBUILD_PROGRAMS=OFF \
-        -DBUILD_EXAMPLES=OFF \
-        -DENABLE_PACKAGE_CONFIG=ON \
-        -DINSTALL_PKGCONFIG_MODULE=ON
-    cmakew \
-        -DBUILD_SHARED_LIBS=ON \
+    cmakew 2 \
         -DBUILD_PROGRAMS=OFF \
         -DBUILD_EXAMPLES=OFF \
         -DENABLE_PACKAGE_CONFIG=ON \
@@ -9508,10 +9252,7 @@
   binbstd: "0"
   ppflags: -DS_IWRITE=S_IWUSR -D__USE_BSD=1
   parallel: "1"
-  install: |-
-    cmakew -DWITH_SYMBOL_VERSIONING=OFF -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON
-    rm -rf "$PACKAGE_INSTALL_DIR/lib/cmake"
-    cmakew -DWITH_SYMBOL_VERSIONING=OFF -DWITH_EXAMPLES=OFF -DBUILD_SHARED_LIBS=OFF
+  install: cmakew 2 -DWITH_SYMBOL_VERSIONING=OFF -DWITH_EXAMPLES=OFF
   dotweak: 'printf ''Requires: openssl, libz\n'' >> lib/pkgconfig/libssh.pc'
 - pkgname: libssh2
   pkgtype: lib
@@ -9689,7 +9430,7 @@
   parallel: "1"
   dopatch: gsed -i '/TARGETS tesseract DESTINATION/d' CMakeLists.txt
   install: |-
-    cmakew \
+    cmakew 2 \
         -DENABLE_LTO=OFF \
         -DDISABLE_ARCHIVE=ON \
         -DDISABLE_CURL=ON \
@@ -9697,18 +9438,7 @@
         -DOPENMP_BUILD=ON \
         -DLEPT_TIFF_RESULT=0 \
         -DBUILD_TESTS=OFF \
-        -DBUILD_TRAINING_TOOLS=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DENABLE_LTO=OFF \
-        -DDISABLE_ARCHIVE=ON \
-        -DDISABLE_CURL=ON \
-        -DUSE_SYSTEM_ICU=ON \
-        -DOPENMP_BUILD=ON \
-        -DLEPT_TIFF_RESULT=0 \
-        -DBUILD_TESTS=OFF \
-        -DBUILD_TRAINING_TOOLS=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DBUILD_TRAINING_TOOLS=OFF
 - pkgname: libtextstyle
   pkgtype: lib
   version: 0.22.5
@@ -9782,7 +9512,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -Dlzw=ON \
         -Dzlib=ON \
         -Dzstd=ON \
@@ -9794,22 +9524,7 @@
         -Dtiff-docs=OFF \
         -Dtiff-tools=OFF \
         -Dtiff-tests=OFF \
-        -Dtiff-contrib=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -Dlzw=ON \
-        -Dzlib=ON \
-        -Dzstd=ON \
-        -Dlzma=ON \
-        -Dwebp=OFF \
-        -Djpeg=OFF \
-        -Djbig=OFF \
-        -Dlerc=OFF \
-        -Dtiff-docs=OFF \
-        -Dtiff-tools=OFF \
-        -Dtiff-tests=OFF \
-        -Dtiff-contrib=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -Dtiff-contrib=OFF
 - pkgname: libtinyalsa
   pkgtype: lib
   version: 2.0.0
@@ -9823,13 +9538,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
-        -DBUILD_SHARED_LIBS=OFF \
-        -DTINYALSA_BUILD_UTILS=OFF \
-        -DTINYALSA_BUILD_EXAMPLES=OFF \
-        -DTINYALSA_USES_PLUGINS=ON
-    cmakew \
-        -DBUILD_SHARED_LIBS=ON \
+    cmakew 2 \
         -DTINYALSA_BUILD_UTILS=OFF \
         -DTINYALSA_BUILD_EXAMPLES=OFF \
         -DTINYALSA_USES_PLUGINS=ON
@@ -9957,9 +9666,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i '/add_subdirectory(test)/d' CMakeLists.txt
-  install: |-
-    cmakew -DBUILD_BINARY=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_BINARY=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DBUILD_BINARY=OFF
 - pkgname: libunbound
   pkgtype: lib
   version: 1.21.0
@@ -10324,19 +10031,7 @@
   parallel: "1"
   dopatch: gsed -i 's|CMAKE_INSTALL_DATADIR|CMAKE_INSTALL_LIBDIR|' CMakeLists.txt
   install: |-
-    cmakew \
-        -DBUILD_SHARED_LIBS=OFF \
-        -DWEBP_BUILD_EXTRAS=OFF \
-        -DWEBP_BUILD_CWEBP=OFF \
-        -DWEBP_BUILD_DWEBP=OFF \
-        -DWEBP_BUILD_VWEBP=OFF \
-        -DWEBP_BUILD_WEBPMUX=OFF \
-        -DWEBP_BUILD_WEBPINFO=OFF \
-        -DWEBP_BUILD_GIF2WEBP=OFF \
-        -DWEBP_BUILD_IMG2WEBP=OFF \
-        -DWEBP_BUILD_ANIM_UTILS=OFF
-    cmakew \
-        -DBUILD_SHARED_LIBS=ON \
+    cmakew 2 \
         -DWEBP_BUILD_EXTRAS=OFF \
         -DWEBP_BUILD_CWEBP=OFF \
         -DWEBP_BUILD_DWEBP=OFF \
@@ -10755,9 +10450,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2
 - pkgname: libzim
   pkgtype: lib
   version: 9.2.2
@@ -10789,7 +10482,7 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DENABLE_ZSTD=ON \
         -DENABLE_LZMA=ON \
         -DENABLE_BZIP2=ON \
@@ -10801,22 +10494,7 @@
         -DBUILD_DOC=OFF \
         -DBUILD_TOOLS=OFF \
         -DBUILD_REGRESS=OFF \
-        -DBUILD_EXAMPLES=OFF \
-        -DBUILD_SHARED_LIBS=OFF
-    cmakew \
-        -DENABLE_ZSTD=ON \
-        -DENABLE_LZMA=ON \
-        -DENABLE_BZIP2=ON \
-        -DENABLE_GNUTLS=OFF \
-        -DENABLE_OPENSSL=OFF \
-        -DENABLE_MBEDTLS=OFF \
-        -DENABLE_COMMONCRYPTO=OFF \
-        -DENABLE_WINDOWS_CRYPTO=OFF \
-        -DBUILD_DOC=OFF \
-        -DBUILD_TOOLS=OFF \
-        -DBUILD_REGRESS=OFF \
-        -DBUILD_EXAMPLES=OFF \
-        -DBUILD_SHARED_LIBS=ON
+        -DBUILD_EXAMPLES=OFF
 - pkgname: libzlog
   pkgtype: lib
   version: 1.2.17
@@ -10992,18 +10670,11 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    cmakew \
+    cmakew 2 \
         -DLOG4CPLUS_BUILD_TESTING=OFF \
         -DLOG4CPLUS_BUILD_LOGGINGSERVER=OFF \
         -DLOG4CPLUS_HAVE_VSNPRINTF=ON \
-        -DWITH_UNIT_TESTS=OFF \
-        -DBUILD_SHARED_LIBS=ON
-    cmakew \
-        -DLOG4CPLUS_BUILD_TESTING=OFF \
-        -DLOG4CPLUS_BUILD_LOGGINGSERVER=ON \
-        -DLOG4CPLUS_HAVE_VSNPRINTF=ON \
-        -DWITH_UNIT_TESTS=OFF \
-        -DBUILD_SHARED_LIBS=OFF
+        -DWITH_UNIT_TESTS=OFF
 - pkgname: lolcat
   pkgtype: exe
   version: "1.2"
@@ -12402,9 +12073,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i 's|/${ANDROID_ABI}||' CMakeLists.txt
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_MP4=ON -DWITH_ASF=ON
-    cmakew -DBUILD_SHARED_LIBS=ON  -DWITH_MP4=ON -DWITH_ASF=ON
+  install: cmakew 2 -DWITH_MP4=ON -DWITH_ASF=ON
 - pkgname: oggz
   pkgtype: exe
   version: 1.1.1
@@ -13638,7 +13307,6 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    CMAKE_INSTALL_COMPONENTS='cli doc'
     cmakew \
         -DINSTALL_MANUAL=OFF \
         -DINSTALL_EXAMPLES=OFF \
@@ -13648,7 +13316,8 @@
         -DBUILD_SHARED_LIBS=OFF \
         -DBUILD_STATIC_LIBS=ON \
         -DUSE_IMPLICIT_CRYPTO=OFF \
-        -DREQUIRE_CRYPTO_OPENSSL=ON
+        -DREQUIRE_CRYPTO_OPENSSL=ON \
+        --components=cli,doc
 - pkgname: qrencode
   pkgtype: exe
   version: 4.1.1
@@ -13799,9 +13468,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DRE2_BUILD_TESTING=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DRE2_BUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DRE2_BUILD_TESTING=OFF
 - pkgname: re2c
   pkgtype: exe
   version: "3.1"
@@ -14292,9 +13959,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=ON  -DSJPEG_BUILD_EXAMPLES=OFF -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
-    cmakew -DBUILD_SHARED_LIBS=OFF -DSJPEG_BUILD_EXAMPLES=ON  -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
+  install: cmakew 2 -DSJPEG_BUILD_EXAMPLES=OFF -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: skcms
   pkgtype: lib
   version: 2024.09.25
@@ -14631,10 +14296,8 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i 's/RUNTIME DESTINATION/RUNTIME COMPONENT bin DESTINATION/' Source/App/CMakeLists.txt
-  prepare: |-
-    export PATH="$ANDROID_NDK_TOOLCHAIN_BIND:$PATH"
-    CMAKE_INSTALL_COMPONENTS=bin
-  install: cmakew -DBUILD_APPS=ON -DBUILD_SHARED_LIBS=OFF
+  prepare: export PATH="$ANDROID_NDK_TOOLCHAIN_BIND:$PATH"
+  install: cmakew -DBUILD_APPS=ON -DBUILD_SHARED_LIBS=OFF --components=bin
 - pkgname: swig
   pkgtype: exe
   version: 4.2.1
@@ -14743,9 +14406,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF -DWITH_MP4=ON -DWITH_ASF=ON
-    cmakew -DBUILD_SHARED_LIBS=ON  -DWITH_MP4=ON -DWITH_ASF=ON
+  install: cmakew 2 -DWITH_MP4=ON -DWITH_ASF=ON
 - pkgname: tarlz
   pkgtype: exe
   version: "0.25"
@@ -15377,9 +15038,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DUTF8PROC_INSTALL=ON -DUTF8PROC_ENABLE_TESTING=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DUTF8PROC_INSTALL=ON -DUTF8PROC_ENABLE_TESTING=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DUTF8PROC_INSTALL=ON -DUTF8PROC_ENABLE_TESTING=OFF
 - pkgname: utfcpp
   pkgtype: lib
   version: 4.0.5
@@ -16273,9 +15932,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DBUILD_SHARED_LIBS=OFF
-    cmakew -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2
 - pkgname: zip
   pkgtype: exe
   version: 3.0.11
@@ -16336,9 +15993,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  install: |-
-    cmakew -DZLIB_COMPAT=ON -DZLIB_ENABLE_TESTS=OFF -DBUILD_SHARED_LIBS=OFF
-    cmakew -DZLIB_COMPAT=ON -DZLIB_ENABLE_TESTS=OFF -DBUILD_SHARED_LIBS=ON
+  install: cmakew 2 -DZLIB_COMPAT=ON -DZLIB_ENABLE_TESTS=OFF
 - pkgname: zola
   pkgtype: exe
   version: 0.19.2

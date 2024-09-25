@@ -122,7 +122,7 @@ pkgname: age
 pkgtype: pie
 version: 1.2.0
 license: BSD-3-Clause
-summary: Simple, modern, secure file encryption
+summary: A simple, modern and secure encryption tool with small explicit keys, no config options, and UNIX-style composability
 web-url: https://filippo.io/age
 git-url: https://github.com/FiloSottile/age
 src-url: https://github.com/FiloSottile/age/archive/refs/tags/v1.2.0.tar.gz
@@ -660,7 +660,7 @@ web-url: https://dystroy.org/broot/
 git-url: https://github.com/Canop/broot
 src-url: https://github.com/Canop/broot/archive/refs/tags/v1.39.0.tar.gz
 src-sha: d1d2ccc11543ff4ea645d57a5e78639542a6f510b585a78c31ddb3a24399bf61
-dep-pkg: libgetloadavg libgit2
+dep-pkg: libgetloadavg libz
 dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
