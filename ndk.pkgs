@@ -1591,7 +1591,7 @@ git-url: https://gitlab.com/graphviz/graphviz
 src-url: https://gitlab.com/graphviz/graphviz/-/archive/11.0.0/graphviz-11.0.0.tar.bz2
 src-sha: 95173d21922082b0b2649fb24c1dc4bbc1e39504a92903b88df39804778cbb9d
 dep-pkg: gd pango libglob
-dep-upp: gm4 flex bison gawk git python3 libtool curl bsdtar gmake gm4 perl autoconf automake gmake
+dep-upp: libtool gm4 flex bison gawk git python3 curl bsdtar gmake gm4 perl autoconf automake gmake
 bsystem: autogen
 binbstd: 0
 parallel: 1
@@ -3326,6 +3326,7 @@ dep-pkg: libglob
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
+ppflags: -D__USE_FORTIFY_LEVEL=0 -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE
 api-min: 24
 parallel: 1
 installed: no
@@ -4296,6 +4297,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libblkid
+pkgtype: lib
+version: 2.40.2
+license: GPL-2.0-or-later
+summary: DCE compatible Universally Unique Identifier library
+web-url: https://github.com/util-linux/util-linux
+git-url: https://github.com/util-linux/util-linux
+src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+dep-upp: automake libtool curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libbluray
 pkgtype: lib
 version: 1.3.4
@@ -4638,7 +4654,6 @@ web-url: https://linux.thai.net/~thep/datrie/datrie.html
 git-url: https://github.com/tlwg/libdatrie
 src-url: https://github.com/tlwg/libdatrie/releases/download/v0.2.13/libdatrie-0.2.13.tar.xz
 src-sha: 12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be
-dep-pkg: libiconv
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -4851,6 +4866,21 @@ src-url: https://github.com/libexpat/libexpat/releases/download/R_2_6_2/expat-2.
 src-sha: d276ffa9602e0c5f289f33fab7b3a9c86da446092642a09cd3c0c8e51f50d862
 dep-upp: patch curl bsdtar cmake ninja
 bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libfdisk
+pkgtype: lib
+version: 2.40.2
+license: GPL-2.0-or-later
+summary: Library for manipulating disk partition tables
+web-url: https://github.com/util-linux/util-linux
+git-url: https://github.com/util-linux/util-linux
+src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+dep-upp: automake libtool curl bsdtar gmake gmake
+bsystem: configure
 binbstd: 0
 parallel: 1
 installed: no
@@ -5778,7 +5808,6 @@ src-sha: d19d52725800177b89d235161c0af8ae8b2932207e3c9eb87e95b61f1925206d
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
-ppflags: -DMDB_USE_ROBUST=0
 parallel: 1
 installed: no
 ---
@@ -6066,6 +6095,21 @@ web-url: https://netfilter.org/projects/libmnl
 src-url: https://netfilter.org/projects/libmnl/files/libmnl-1.0.5.tar.bz2
 src-sha: 274b9b919ef3152bfb3da3a13c950dd60d6e2bcd54230ffeca298d03b40d0525
 dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libmount
+pkgtype: lib
+version: 2.40.2
+license: GPL-2.0-or-later
+summary: DCE compatible Universally Unique Identifier library
+web-url: https://github.com/util-linux/util-linux
+git-url: https://github.com/util-linux/util-linux
+src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+dep-upp: automake libtool curl bsdtar patch gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 1
@@ -7113,6 +7157,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libsmartcols
+pkgtype: lib
+version: 2.40.2
+license: GPL-2.0-or-later
+summary: DCE compatible Universally Unique Identifier library
+web-url: https://github.com/util-linux/util-linux
+git-url: https://github.com/util-linux/util-linux
+src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+dep-upp: automake libtool curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libsmi
 pkgtype: lib
 version: 0.5.0
@@ -7785,13 +7844,13 @@ installed: no
 ---
 pkgname: libuuid
 pkgtype: lib
-version: 2.39.3
+version: 2.40.2
 license: GPL-2.0-or-later
 summary: DCE compatible Universally Unique Identifier library
 web-url: https://github.com/util-linux/util-linux
 git-url: https://github.com/util-linux/util-linux
-src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.3.tar.xz
-src-sha: 7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f
+src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
 dep-upp: automake libtool curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -8338,7 +8397,7 @@ parallel: 1
 installed: no
 ---
 pkgname: lmdb
-pkgtype: exe+lib
+pkgtype: exe
 version: 0.9.32
 license: OLDAP-2.8
 summary: An extraordinarily fast, memory-efficient, memory-mapped, key-value database
@@ -8348,7 +8407,6 @@ src-sha: 268c849e0b1c375f7545602a45e826c5e5ad9486555c155f46ca836b34294f5f
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
-ppflags: -DMDB_USE_ROBUST=0
 parallel: 1
 installed: no
 ---
@@ -8403,7 +8461,7 @@ git-url: https://github.com/jaseg/lolcat
 src-url: https://github.com/jaseg/lolcat/archive/refs/tags/v1.2.tar.gz
 src-sha: b6e1a0e24479fbdd4eb907531339e2cafc0c00b78d19caf70e8377b8b7546331
 dep-upp: curl bsdtar
-binbstd: 1
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -9706,7 +9764,6 @@ version: 2024.09.26
 summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
 web-url: https://github.com/dolik-rce/pegof
 git-url: https://github.com/dolik-rce/pegof
-git-sha: 06de1f60104b85f61c196aba8c349b2137f146e2
 dep-upp: git cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -11592,13 +11649,13 @@ installed: no
 ---
 pkgname: util-linux
 pkgtype: exe
-version: 2.39.3
+version: 2.40.2
 license: GPL-2.0-or-later
 summary: A collection of Linux utilities
 web-url: https://github.com/util-linux/util-linux
 git-url: https://github.com/util-linux/util-linux
-src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.3.tar.xz
-src-sha: 7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f
+src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
 dep-pkg: readline libcap-ng libz
 dep-upp: automake libtool curl bsdtar patch gmake gmake
 bsystem: configure

@@ -1958,12 +1958,12 @@
   src-url: https://gitlab.com/graphviz/graphviz/-/archive/11.0.0/graphviz-11.0.0.tar.bz2
   src-sha: 95173d21922082b0b2649fb24c1dc4bbc1e39504a92903b88df39804778cbb9d
   dep-pkg: gd pango libglob
-  dep-upp: gm4 flex bison gawk git python3 libtool curl bsdtar gmake gm4 perl autoconf automake gmake
+  dep-upp: libtool gm4 flex bison gawk git python3 curl bsdtar gmake gm4 perl autoconf automake gmake
   bsystem: autogen
   binbstd: "0"
   parallel: "1"
+  prepare: export LDFLAGS="$LDFLAGS --static -static"
   install: |-
-    export LDFLAGS="$LDFLAGS --static -static"
     configure only \
         --disable-swig \
         --disable-php \
@@ -3104,7 +3104,6 @@
     gsed -i '/ftello/d' ../include/ndk-pkg-common.h
     gsed -i '/fseeko/d' ../include/ndk-pkg-common.h
   install: |-
-    export am_cv_func_iconv_works=yes
     configure \
         --with-included-regex \
         --with-included-libxml \
@@ -3177,7 +3176,6 @@
   binbstd: "0"
   parallel: "1"
   install: |-
-    export am_cv_func_iconv_works=yes
     configure \
         --with-included-regex \
         --with-included-libxml \
@@ -3804,10 +3802,8 @@
   binbstd: "1"
   parallel: "1"
   install: |-
-    for item in gobind gomobile
-    do
-        gow ./cmd/$item || return 1
-    done
+    gow ./cmd/gobind
+    gow ./cmd/gomobile
 - pkgname: google-benchmark
   pkgtype: lib
   version: 1.8.4
@@ -3886,10 +3882,8 @@
   binbstd: "1"
   parallel: "1"
   install: |-
-    for item in gosh shfmt
-    do
-        gow ./cmd/$item || return 1
-    done
+    gow ./cmd/gosh
+    gow ./cmd/shfmt
 - pkgname: gotop
   pkgtype: pie
   version: 4.2.0
@@ -4211,11 +4205,10 @@
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
+  ppflags: -D__USE_FORTIFY_LEVEL=0 -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE
   api-min: "24"
   parallel: "1"
   install: |-
-    export CPPFLAGS="$CPPFLAGS -D__USE_FORTIFY_LEVEL=0 -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE"
-
     configure \
         --with-included-regex \
         --with-xattrs \
@@ -4743,11 +4736,7 @@
   bsystem: configure
   binbstd: "1"
   parallel: "1"
-  prepare: |-
-    for h in "$libjpeg_turbo_INCLUDE_DIR"/*.h
-    do
-        ln -sv "$h" "$PACKAGE_WORKING_DIR/include/"
-    done
+  prepare: find "$libjpeg_turbo_INCLUDE_DIR" -name '*.h' -exec ln -sv '{}' "$PACKAGE_WORKING_DIR/include/" \;
   install: configure --with-libjpeg="$PACKAGE_WORKING_DIR"
 - pkgname: jq
   pkgtype: exe
@@ -4830,10 +4819,9 @@
   binbstd: "1"
   parallel: "1"
   install: |-
-    for item in keybase kbfs/kbfsfuse kbfs/kbfsgit/git-remote-keybase
-    do
-        gow -tags production ./$item || return 1
-    done
+    gow -tags production ./keybase
+    gow -tags production ./kbfs/kbfsfuse
+    gow -tags production ./kbfs/kbfsgit/git-remote-keybase
 - pkgname: ko
   pkgtype: pie
   version: 0.15.4
@@ -4864,10 +4852,7 @@
   dopatch: |-
     gsed -i '/search_paths_first"/d' configure
 
-    for item in $(grep '<db.h>' -rl plugins/kdb/db2)
-    do
-        gsed -i 's|<db.h>|<db_185.h>|g' "$item" || return 1
-    done
+    gsed -i 's|<db\.h>|<db_185.h>|g' $(grep '<db\.h>' -rl plugins/kdb/db2)
   prepare: |-
     # int getifaddrs(struct ifaddrs** __list_ptr) __INTRODUCED_IN(24);
     if [ "$TARGET_PLATFORM_VERS" -lt 24 ] ; then
@@ -5372,6 +5357,35 @@
   binbstd: "0"
   parallel: "1"
   install: cmakew 2
+- pkgname: libblkid
+  pkgtype: lib
+  version: 2.40.2
+  license: GPL-2.0-or-later
+  summary: DCE compatible Universally Unique Identifier library
+  web-url: https://github.com/util-linux/util-linux
+  git-url: https://github.com/util-linux/util-linux
+  src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+  src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+  dep-upp: automake libtool curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    configure \
+        --without-python \
+        --without-systemd \
+        --enable-widechar \
+        --enable-libblkid \
+        --disable-all-programs \
+        --disable-bash-completion \
+        --disable-use-tty-group \
+        --disable-chfn-chsh \
+        --disable-login \
+        --disable-su \
+        --disable-runuser \
+        --disable-makeinstall-chown \
+        --disable-makeinstall-setuid
+  dotweak: rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/
 - pkgname: libbluray
   pkgtype: lib
   version: 1.3.4
@@ -5649,9 +5663,8 @@
   bsystem: configure
   binbstd: "1"
   parallel: "1"
-  install: |-
-    export CFLAGS="$CFLAGS $LDFLAGS"
-    configure --enable-reentrant
+  prepare: export CFLAGS="$CFLAGS $LDFLAGS"
+  install: configure --enable-reentrant
 - pkgname: libcgif
   pkgtype: lib
   version: V0.3.0
@@ -5733,9 +5746,9 @@
   parallel: "1"
   install: |-
     configure \
+        --enable-checks \
         --disable-gtk-doc \
-        --disable-Bsymbolic \
-        --enable-checks LIBS=-lpcre2-8
+        --disable-Bsymbolic
 - pkgname: libcrypt
   pkgtype: lib
   version: "1"
@@ -5791,13 +5804,12 @@
   git-url: https://github.com/tlwg/libdatrie
   src-url: https://github.com/tlwg/libdatrie/releases/download/v0.2.13/libdatrie-0.2.13.tar.xz
   src-sha: 12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be
-  dep-pkg: libiconv
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i '/SUBDIRS = /c SUBDIRS = datrie' Makefile.in
-  install: configure LIBS="'-lcharset -liconv'"
+  install: configure
 - pkgname: libdav1d
   pkgtype: lib
   version: 1.4.3
@@ -6050,6 +6062,36 @@
         -DEXPAT_BUILD_TESTS=OFF \
         -DEXPAT_BUILD_FUZZERS=OFF \
         -DEXPAT_BUILD_EXAMPLES=OFF
+- pkgname: libfdisk
+  pkgtype: lib
+  version: 2.40.2
+  license: GPL-2.0-or-later
+  summary: Library for manipulating disk partition tables
+  web-url: https://github.com/util-linux/util-linux
+  git-url: https://github.com/util-linux/util-linux
+  src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+  src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+  dep-upp: automake libtool curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    configure \
+        --without-python \
+        --without-systemd \
+        --enable-widechar \
+        --enable-libuuid \
+        --enable-libfdisk \
+        --disable-all-programs \
+        --disable-bash-completion \
+        --disable-use-tty-group \
+        --disable-chfn-chsh \
+        --disable-login \
+        --disable-su \
+        --disable-runuser \
+        --disable-makeinstall-chown \
+        --disable-makeinstall-setuid
+  dotweak: rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/
 - pkgname: libffi
   pkgtype: lib
   version: 3.4.6
@@ -6324,9 +6366,9 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: find . -name 'CMakeLists.txt' -exec gsed -i 's|C_STANDARD 90|C_STANDARD 99|' {} \;
+  dopatch: find . -name 'CMakeLists.txt' -exec gsed -i 's|C_STANDARD 90|C_STANDARD 99|' {} +
   install: |-
-    cmakew \
+    cmakew 2 \
         -DBUILD_CLI=OFF \
         -DBUILD_TESTS=OFF \
         -DBUILD_FUZZERS=OFF \
@@ -6339,9 +6381,7 @@
         -DUSE_HTTPS=OpenSSL \
         -DUSE_BUNDLED_ZLIB=OFF \
         -DREGEX_BACKEND=pcre2
-  dotweak: |-
-    gsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lz||g' -e 's|-lssh2||g' lib/pkgconfig/libgit2.pc
-    gsed -i -e 's|openssl|libssh2|' -e 's|zlib|libiconv|' lib/pkgconfig/libgit2.pc
+  dotweak: gsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lz||g' -e 's|-lssh2||g' -e 's|openssl|libssh2|' -e 's|zlib|libiconv|' lib/pkgconfig/libgit2.pc
 - pkgname: libglm
   pkgtype: lib
   version: 1.0.1
@@ -6699,8 +6739,7 @@
         --disable-valgrind-tests \
         --disable-code-coverage \
         --enable-doc \
-        --enable-gcc-warnings \
-        LIBS=-liconv
+        --enable-gcc-warnings
 - pkgname: libilbc
   pkgtype: lib
   version: 3.0.4
@@ -7230,13 +7269,12 @@
   dep-upp: curl bsdtar gmake
   bsystem: gmake
   binbstd: "1"
-  ppflags: -DMDB_USE_ROBUST=0
   parallel: "1"
   install: |-
     gmakew clean
-    gmakew CC="$CC" CFLAGS="'$CFLAGS -pthread $CPPFLAGS'" LDFLAGS="'$LDFLAGS'" AR="$AR" SOEXT=.so
+    gmakew CC="$CC" CFLAGS="'$CFLAGS -pthread $CPPFLAGS -DMDB_USE_ROBUST=0'" LDFLAGS="'$LDFLAGS'" AR="$AR"
     install_incs lmdb.h
-    install_libs liblmdb.a liblmdb.so
+    install_libs liblmdb.*
 - pkgname: liblqr
   pkgtype: lib
   version: 0.4.2
@@ -7560,6 +7598,37 @@
   binbstd: "0"
   parallel: "1"
   install: configure
+- pkgname: libmount
+  pkgtype: lib
+  version: 2.40.2
+  license: GPL-2.0-or-later
+  summary: DCE compatible Universally Unique Identifier library
+  web-url: https://github.com/util-linux/util-linux
+  git-url: https://github.com/util-linux/util-linux
+  src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+  src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+  patches: 45dd0f06f899fc5a02ad8e67c5349a1ab7fe75b00ae0e730326b33f873d54c61|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/versionsort.patch
+  dep-upp: automake libtool curl bsdtar patch gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    configure \
+        --without-python \
+        --without-systemd \
+        --enable-widechar \
+        --enable-libblkid \
+        --enable-libmount \
+        --disable-all-programs \
+        --disable-bash-completion \
+        --disable-use-tty-group \
+        --disable-chfn-chsh \
+        --disable-login \
+        --disable-su \
+        --disable-runuser \
+        --disable-makeinstall-chown \
+        --disable-makeinstall-setuid
+  dotweak: rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/
 - pkgname: libmp3lame
   pkgtype: lib
   version: "3.100"
@@ -8232,7 +8301,7 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  install: configure LIBS=-lm
+  install: configure
 - pkgname: libopusenc
   pkgtype: lib
   version: 0.2.1
@@ -8998,6 +9067,35 @@
   binbstd: "0"
   parallel: "1"
   install: cmakew 2
+- pkgname: libsmartcols
+  pkgtype: lib
+  version: 2.40.2
+  license: GPL-2.0-or-later
+  summary: DCE compatible Universally Unique Identifier library
+  web-url: https://github.com/util-linux/util-linux
+  git-url: https://github.com/util-linux/util-linux
+  src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+  src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+  dep-upp: automake libtool curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    configure \
+        --without-python \
+        --without-systemd \
+        --enable-widechar \
+        --enable-libsmartcols \
+        --disable-all-programs \
+        --disable-bash-completion \
+        --disable-use-tty-group \
+        --disable-chfn-chsh \
+        --disable-login \
+        --disable-su \
+        --disable-runuser \
+        --disable-makeinstall-chown \
+        --disable-makeinstall-setuid
+  dotweak: rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/
 - pkgname: libsmi
   pkgtype: lib
   version: 0.5.0
@@ -9129,7 +9227,6 @@
   bsystem: autogen
   binbstd: "0"
   parallel: "1"
-  prepare: export LIBS=-lm
   install: configure
 - pkgname: libspiro
   pkgtype: lib
@@ -9847,13 +9944,13 @@
         -Dsctp_build_programs=false
 - pkgname: libuuid
   pkgtype: lib
-  version: 2.39.3
+  version: 2.40.2
   license: GPL-2.0-or-later
   summary: DCE compatible Universally Unique Identifier library
   web-url: https://github.com/util-linux/util-linux
   git-url: https://github.com/util-linux/util-linux
-  src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.3.tar.xz
-  src-sha: 7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f
+  src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+  src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
   dep-upp: automake libtool curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
@@ -9873,12 +9970,7 @@
         --disable-runuser \
         --disable-makeinstall-chown \
         --disable-makeinstall-setuid
-  dotweak: |-
-    rm -rf bin
-    rm -rf sbin
-    rm -rf share/man/man1
-    rm -rf share/man/man5
-    rm -rf share/man/man8
+  dotweak: rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/
 - pkgname: libuv
   pkgtype: lib
   version: 1.46.0
@@ -9947,7 +10039,7 @@
   binbstd: "0"
   parallel: "1"
   dopatch: gsed -i 's/-mno-ieee-fp//g' configure
-  install: configure LIBS=-lm
+  install: configure
 - pkgname: libvpx
   pkgtype: lib
   version: 1.13.1
@@ -10608,7 +10700,7 @@
   parallel: "1"
   install: cmakew
 - pkgname: lmdb
-  pkgtype: exe+lib
+  pkgtype: exe
   version: 0.9.32
   license: OLDAP-2.8
   summary: An extraordinarily fast, memory-efficient, memory-mapped, key-value database
@@ -10618,12 +10710,12 @@
   dep-upp: curl bsdtar gmake
   bsystem: gmake
   binbstd: "1"
-  ppflags: -DMDB_USE_ROBUST=0
   parallel: "1"
   install: |-
     gmakew clean
-    gmakew CC=$CC XCFLAGS="'$CFLAGS $CPPFLAGS'" LDFLAGS="'$LDFLAGS'" AR=$AR
-    gmakew install prefix=$PACKAGE_INSTALL_DIR
+    gmakew CC=$CC CFLAGS="'$CFLAGS $CPPFLAGS -DMDB_USE_ROBUST=0'" LDFLAGS="'$LDFLAGS'" AR=$AR
+    install_bins mdb_stat mdb_copy mdb_dump mdb_load
+    install_mans mdb_*.1
 - pkgname: lnd
   pkgtype: pie
   version: 0.15.0
@@ -10684,13 +10776,11 @@
   src-url: https://github.com/jaseg/lolcat/archive/refs/tags/v1.2.tar.gz
   src-sha: b6e1a0e24479fbdd4eb907531339e2cafc0c00b78d19caf70e8377b8b7546331
   dep-upp: curl bsdtar
-  binbstd: "1"
+  binbstd: "0"
   parallel: "1"
   install: |-
-    run rm -rf lolcat
-    run rm -rf censor
-    run $CC $LDFLAGS -static -o lolcat lolcat.c -lm
-    run $CC $LDFLAGS -static -o censor censor.c
+    run $CC $CPPFLAGS $CFLAGS $LDFLAGS -o lolcat ../lolcat.c -lm
+    run $CC $CPPFLAGS $CFLAGS $LDFLAGS -o censor ../censor.c
     run install_bins lolcat censor
 - pkgname: lrzip
   pkgtype: exe
@@ -10982,11 +11072,7 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: |-
-    gsed -i 's|sysinfo|get_sys_info|' src/conf.h
-    gsed -i 's|sysinfo|get_sys_info|' src/help.c
-    gsed -i 's|sysinfo|get_sys_info|' src/lzop.c
-    gsed -i 's|sysinfo|get_sys_info|' src/djgpp2.c
+  dopatch: gsed -i 's|sysinfo|get_sys_info|' src/conf.h src/help.c src/lzop.c src/djgpp2.c
   install: cmakew
 - pkgname: magic_enum
   pkgtype: lib
@@ -12788,20 +12874,10 @@
   summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
   web-url: https://github.com/dolik-rce/pegof
   git-url: https://github.com/dolik-rce/pegof
-  git-sha: 06de1f60104b85f61c196aba8c349b2137f146e2
   dep-upp: git cmake ninja
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: |-
-    gsed -i '/add_executable(pegof_test/,$d' CMakeLists.txt
-
-    #gsed -i 's|-fsanitize=undefined|-fsanitize=undefined -static-libsan|' CMakeLists.txt
-
-    cat >> CMakeLists.txt <<EOF
-    include(GNUInstallDirs)
-    install(TARGETS pegof RUNTIME DESTINATION "\${CMAKE_INSTALL_BINDIR}")
-    EOF
   install: cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: pget
   pkgtype: pie
@@ -13357,14 +13433,14 @@
     gsed -i 's|include/quickjs|include|g' Makefile
     gsed -i 's|$(HOST_CC) $(LDFLAGS)|$(HOST_CC) -B/usr/bin $(LDFLAGS)|' Makefile
     # https://newbedev.com/how-to-specify-alternate-linker-command-when-linking-with-cc
-  install: |-
+  prepare: |-
     export HOST_CC="$CC_FOR_BUILD"
     export CC="$CC $CPPFLAGS $CFLAGS $LDFLAGS"
 
     unset CFLAGS
     unset CPPFLAGS
     unset LDFLAGS
-
+  install: |-
     gmakew clean
     gmakew install HOST_CC="'$HOST_CC'" CC="'$CC'" "AR=$AR" "STRIP=$STRIP" LDFLAGS=-Wl,-v CROSS_PREFIX=xxx PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: ragel
@@ -14122,7 +14198,6 @@
         -DSPDLOG_BUILD_TESTS=OFF \
         -DSPDLOG_BUILD_EXAMPLE=OFF \
         -DSPDLOG_BUILD_SHARED=ON
-    run rm -rf *
     cmakew \
         -DSPDLOG_FMT_EXTERNAL=ON \
         -DSPDLOG_BUILD_BENCH=OFF \
@@ -14143,7 +14218,7 @@
   bsystem: autogen
   binbstd: "0"
   parallel: "1"
-  install: configure --enable-binaries LIBS=-lm
+  install: configure --enable-binaries
 - pkgname: sqlite3
   pkgtype: exe
   version: 3.46.0
@@ -15072,14 +15147,14 @@
   install: install_incs src/*.h
 - pkgname: util-linux
   pkgtype: exe
-  version: 2.39.3
+  version: 2.40.2
   license: GPL-2.0-or-later
   summary: A collection of Linux utilities
   web-url: https://github.com/util-linux/util-linux
   git-url: https://github.com/util-linux/util-linux
-  src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.3.tar.xz
-  src-sha: 7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f
-  patches: 45dd0f06f899fc5a02ad8e67c5349a1ab7fe75b00ae0e730326b33f873d54c61|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/versionsort.patch a8785e6b9ca0e8d786540d797163e3083d447d9de0204d62a95118e13ef663d8|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/sys-utils-irq-common.patch 693a928594f021a73cabc67d23e38288c278f80a0e641dfbee459ffb788e6c7f|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/sys-utils-ipcutils.h.patch 89da79bcd2427f146147cefdb6ceb4765d26410bced0322280353da853ca0d06|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/sys-utils-ipcutils.c.patch 115d5c747fb0b261dfeb87b00a4a7b0dfc2c8cbaa90b8875b4db348f82f3a2dd|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/sys-utils-ipcmk.c.patch daa7231c63ea5fb51e40e37bd1976b2466cebfdbd17b0fd5d3844e3e09ea6657|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/fix-paths.patch d3d6a92deee736d1da6232ed680cc9bfbd2cc253f7d578295f8c4d51f2582f79|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/lib-ismounted.c.patch 58925a93344e80e15ec9841f3c557bad9b45e6349ea3196781e7c65bd25aecbc|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/misc-utils-lsfd-sock-xinfo.c.patch
+  src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
+  src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+  patches: a8b2bcf9ca30674522443f980600ba2a36410fa908550d534a54f61d6ce292cb|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/configure.patch b275c1b1f6df7c60e96214842745b04f8b82d9aad2fc93c5cff1993fa23dd076|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/fix-cachestat.patch 48eece4fa5767781a71aac63d80bf850794de3728f3a4b93982bc75fb2a11a8b|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/fix-paths.patch d3d6a92deee736d1da6232ed680cc9bfbd2cc253f7d578295f8c4d51f2582f79|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/lib-ismounted.c.patch 58925a93344e80e15ec9841f3c557bad9b45e6349ea3196781e7c65bd25aecbc|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/misc-utils-lsfd-sock-xinfo.c.patch a76cbf0d1bc9cdc9df6ae7225cb1b753fcc6c49d4fa77b921f16d41173470eb6|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/misc-utuls-lsfd-file.c.patch 115d5c747fb0b261dfeb87b00a4a7b0dfc2c8cbaa90b8875b4db348f82f3a2dd|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-ipcmk.c.patch 89da79bcd2427f146147cefdb6ceb4765d26410bced0322280353da853ca0d06|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-ipcutils.c.patch 693a928594f021a73cabc67d23e38288c278f80a0e641dfbee459ffb788e6c7f|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-ipcutils.h.patch a8785e6b9ca0e8d786540d797163e3083d447d9de0204d62a95118e13ef663d8|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-irq-common.patch 45dd0f06f899fc5a02ad8e67c5349a1ab7fe75b00ae0e730326b33f873d54c61|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/versionsort.patch
   dep-pkg: readline libcap-ng libz
   dep-upp: automake libtool curl bsdtar patch gmake gmake
   bsystem: configure
@@ -15102,6 +15177,7 @@
         --disable-ipcs \
         --disable-kill \
         --disable-last \
+        --disable-liblastlog2 \
         --disable-logger \
         --disable-mesg \
         --disable-makeinstall-chown \
@@ -15115,7 +15191,10 @@
         --disable-lsmem \
         --disable-chmem \
         --disable-rfkill \
-        --disable-hwclock-cmos
+        --disable-hwclock-cmos \
+        ac_cv_func_setns=yes \
+        ac_cv_func_unshare=yes \
+        ac_cv_func_uselocale=no
 - pkgname: v8
   pkgtype: lib
   version: 9.9.115.8

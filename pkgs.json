@@ -1735,11 +1735,12 @@
     "src-url": "https://gitlab.com/graphviz/graphviz/-/archive/11.0.0/graphviz-11.0.0.tar.bz2",
     "src-sha": "95173d21922082b0b2649fb24c1dc4bbc1e39504a92903b88df39804778cbb9d",
     "dep-pkg": "gd pango libglob",
-    "dep-upp": "gm4 flex bison gawk git python3 libtool curl bsdtar gmake gm4 perl autoconf automake gmake",
+    "dep-upp": "libtool gm4 flex bison gawk git python3 curl bsdtar gmake gm4 perl autoconf automake gmake",
     "bsystem": "autogen",
     "binbstd": "0",
     "parallel": "1",
-    "install": "export LDFLAGS=\"$LDFLAGS --static -static\"\nconfigure only \\\n    --disable-swig \\\n    --disable-php \\\n    --disable-tcl \\\n    --without-gdk \\\n    --without-gtk \\\n    --without-qt \\\n    --without-x\ngmakew\ngmakew -C cmd/dot dot_static\ninstall_bins cmd/dot/dot_static"
+    "prepare": "export LDFLAGS=\"$LDFLAGS --static -static\"",
+    "install": "configure only \\\n    --disable-swig \\\n    --disable-php \\\n    --disable-tcl \\\n    --without-gdk \\\n    --without-gtk \\\n    --without-qt \\\n    --without-x\ngmakew\ngmakew -C cmd/dot dot_static\ninstall_bins cmd/dot/dot_static"
   },
   {
     "pkgname": "double-conversion",
@@ -2715,7 +2716,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
-    "install": "export am_cv_func_iconv_works=yes\nconfigure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --with-libncurses-prefix=\"$ncurses_INSTALL_DIR\" \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable"
+    "install": "configure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --with-libncurses-prefix=\"$ncurses_INSTALL_DIR\" \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable"
   },
   {
     "pkgname": "gettext-dev",
@@ -2751,7 +2752,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "export am_cv_func_iconv_works=yes\nconfigure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=$libiconv_INSTALL_DIR \\\n    --with-libncurses-prefix=$ncurses_INSTALL_DIR \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable",
+    "install": "configure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=$libiconv_INSTALL_DIR \\\n    --with-libncurses-prefix=$ncurses_INSTALL_DIR \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable",
     "dotweak": "rm -rf include/ lib/"
   },
   {
@@ -3266,7 +3267,7 @@
     "bsystem": "go",
     "binbstd": "1",
     "parallel": "1",
-    "install": "for item in gobind gomobile\ndo\n    gow ./cmd/$item || return 1\ndone"
+    "install": "gow ./cmd/gobind\ngow ./cmd/gomobile"
   },
   {
     "pkgname": "google-benchmark",
@@ -3346,7 +3347,7 @@
     "bsystem": "go",
     "binbstd": "1",
     "parallel": "1",
-    "install": "for item in gosh shfmt\ndo\n    gow ./cmd/$item || return 1\ndone"
+    "install": "gow ./cmd/gosh\ngow ./cmd/shfmt"
   },
   {
     "pkgname": "gotop",
@@ -3631,9 +3632,10 @@
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
+    "ppflags": "-D__USE_FORTIFY_LEVEL=0 -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE",
     "api-min": "24",
     "parallel": "1",
-    "install": "export CPPFLAGS=\"$CPPFLAGS -D__USE_FORTIFY_LEVEL=0 -D__POSIX_VISIBLE=199209 -D__BSD_VISIBLE\"\n\nconfigure \\\n    --with-included-regex \\\n    --with-xattrs \\\n    --without-posix-acls \\\n    --without-selinux \\\n    --disable-acl \\\n    --disable-gcc-warnings"
+    "install": "configure \\\n    --with-included-regex \\\n    --with-xattrs \\\n    --without-posix-acls \\\n    --without-selinux \\\n    --disable-acl \\\n    --disable-gcc-warnings"
   },
   {
     "pkgname": "gtime",
@@ -4133,7 +4135,7 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "prepare": "for h in \"$libjpeg_turbo_INCLUDE_DIR\"/*.h\ndo\n    ln -sv \"$h\" \"$PACKAGE_WORKING_DIR/include/\"\ndone",
+    "prepare": "find \"$libjpeg_turbo_INCLUDE_DIR\" -name '*.h' -exec ln -sv '{}' \"$PACKAGE_WORKING_DIR/include/\" \\;",
     "install": "configure --with-libjpeg=\"$PACKAGE_WORKING_DIR\""
   },
   {
@@ -4217,7 +4219,7 @@
     "bsystem": "go",
     "binbstd": "1",
     "parallel": "1",
-    "install": "for item in keybase kbfs/kbfsfuse kbfs/kbfsgit/git-remote-keybase\ndo\n    gow -tags production ./$item || return 1\ndone"
+    "install": "gow -tags production ./keybase\ngow -tags production ./kbfs/kbfsfuse\ngow -tags production ./kbfs/kbfsgit/git-remote-keybase"
   },
   {
     "pkgname": "ko",
@@ -4249,7 +4251,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/search_paths_first\"/d' configure\n\nfor item in $(grep '<db.h>' -rl plugins/kdb/db2)\ndo\n    gsed -i 's|<db.h>|<db_185.h>|g' \"$item\" || return 1\ndone",
+    "dopatch": "gsed -i '/search_paths_first\"/d' configure\n\ngsed -i 's|<db\\.h>|<db_185.h>|g' $(grep '<db\\.h>' -rl plugins/kdb/db2)",
     "prepare": "# int getifaddrs(struct ifaddrs** __list_ptr) __INTRODUCED_IN(24);\nif [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    ac_cv_header_ifaddrs_h=no\nelse\n    ac_cv_header_ifaddrs_h=yes\nfi",
     "install": "configure \\\n    --enable-dns-for-realm \\\n    --without-system-verto \\\n    --with-readline \\\n    --with-netlib=-lc \\\n    --with-size-optimizations \\\n    --with-system-db \\\n    --enable-static \\\n    --disable-shared \\\n    krb5_cv_attr_constructor_destructor='yes,yes' \\\n    ac_cv_func_regcomp=yes \\\n    ac_cv_printf_positional=yes \\\n    ac_cv_lib_readline_main=yes \\\n    ac_cv_header_ifaddrs_h=\"$ac_cv_header_ifaddrs_h\" LIBS=\"'-ldb -lncurses'\""
   },
@@ -4685,6 +4687,23 @@
     "install": "cmakew 2"
   },
   {
+    "pkgname": "libblkid",
+    "pkgtype": "lib",
+    "version": "2.40.2",
+    "license": "GPL-2.0-or-later",
+    "summary": "DCE compatible Universally Unique Identifier library",
+    "web-url": "https://github.com/util-linux/util-linux",
+    "git-url": "https://github.com/util-linux/util-linux",
+    "src-url": "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz",
+    "src-sha": "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3",
+    "dep-upp": "automake libtool curl bsdtar gmake gmake",
+    "bsystem": "configure",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libblkid \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
+    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
+  },
+  {
     "pkgname": "libbluray",
     "pkgtype": "lib",
     "version": "1.3.4",
@@ -4934,7 +4953,8 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "install": "export CFLAGS=\"$CFLAGS $LDFLAGS\"\nconfigure --enable-reentrant"
+    "prepare": "export CFLAGS=\"$CFLAGS $LDFLAGS\"",
+    "install": "configure --enable-reentrant"
   },
   {
     "pkgname": "libcgif",
@@ -5015,7 +5035,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure \\\n    --disable-gtk-doc \\\n    --disable-Bsymbolic \\\n    --enable-checks LIBS=-lpcre2-8"
+    "install": "configure \\\n    --enable-checks \\\n    --disable-gtk-doc \\\n    --disable-Bsymbolic"
   },
   {
     "pkgname": "libcrypt",
@@ -5059,13 +5079,12 @@
     "git-url": "https://github.com/tlwg/libdatrie",
     "src-url": "https://github.com/tlwg/libdatrie/releases/download/v0.2.13/libdatrie-0.2.13.tar.xz",
     "src-sha": "12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be",
-    "dep-pkg": "libiconv",
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/SUBDIRS = /c SUBDIRS = datrie' Makefile.in",
-    "install": "configure LIBS=\"'-lcharset -liconv'\""
+    "install": "configure"
   },
   {
     "pkgname": "libdav1d",
@@ -5295,6 +5314,23 @@
     "parallel": "1",
     "dopatch": "patch -p0 <<EOF\n--- ConfigureChecks.cmake.orign 2024-04-02 08:58:53.499986940 +0000\n+++ ConfigureChecks.cmake       2024-04-02 09:21:47.648735869 +0000\n@@ -46,12 +46,32 @@\n endif(WORDS_BIGENDIAN)\n \n if(HAVE_SYS_TYPES_H)\n-    check_symbol_exists(\"off_t\" \"sys/types.h\" off_t)\n-    check_symbol_exists(\"size_t\" \"sys/types.h\" size_t)\n+    check_c_source_compiles(\"\n+        #include <sys/types.h>\n+        int main() {\n+           off_t x;\n+            return 0;\n+        }\"\n+       HAVE_OFF_T)\n+    check_c_source_compiles(\"\n+        #include <sys/types.h>\n+        int main() {\n+           size_t x;\n+            return 0;\n+        }\"\n+       HAVE_SIZE_T)\n else(HAVE_SYS_TYPES_H)\n+    set(HAVE_OFF_T 0)\n+    set(HAVE_SIZE_T 0)\n+endif(HAVE_SYS_TYPES_H)\n+\n+if (NOT HAVE_OFF_T)\n     set(off_t \"long\")\n+endif()\n+\n+if (NOT HAVE_SIZE_T)\n     set(size_t \"unsigned\")\n-endif(HAVE_SYS_TYPES_H)\n+endif()\n \n check_c_source_compiles(\"\n         #include <stdlib.h>  /* for NULL */\nEOF",
     "install": "cmakew 2 \\\n    -DEXPAT_BUILD_DOCS=OFF \\\n    -DEXPAT_BUILD_TOOLS=OFF \\\n    -DEXPAT_BUILD_TESTS=OFF \\\n    -DEXPAT_BUILD_FUZZERS=OFF \\\n    -DEXPAT_BUILD_EXAMPLES=OFF"
+  },
+  {
+    "pkgname": "libfdisk",
+    "pkgtype": "lib",
+    "version": "2.40.2",
+    "license": "GPL-2.0-or-later",
+    "summary": "Library for manipulating disk partition tables",
+    "web-url": "https://github.com/util-linux/util-linux",
+    "git-url": "https://github.com/util-linux/util-linux",
+    "src-url": "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz",
+    "src-sha": "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3",
+    "dep-upp": "automake libtool curl bsdtar gmake gmake",
+    "bsystem": "configure",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libuuid \\\n    --enable-libfdisk \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
+    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
   },
   {
     "pkgname": "libffi",
@@ -5545,9 +5581,9 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "find . -name 'CMakeLists.txt' -exec gsed -i 's|C_STANDARD 90|C_STANDARD 99|' {} \\;",
-    "install": "cmakew \\\n    -DBUILD_CLI=OFF \\\n    -DBUILD_TESTS=OFF \\\n    -DBUILD_FUZZERS=OFF \\\n    -DBUILD_EXAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DENABLE_WERROR=OFF \\\n    -DDEPRECATE_HARD=OFF \\\n    -DUSE_SSH=ON \\\n    -DUSE_ICONV=ON \\\n    -DUSE_HTTPS=OpenSSL \\\n    -DUSE_BUNDLED_ZLIB=OFF \\\n    -DREGEX_BACKEND=pcre2",
-    "dotweak": "gsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lz||g' -e 's|-lssh2||g' lib/pkgconfig/libgit2.pc\ngsed -i -e 's|openssl|libssh2|' -e 's|zlib|libiconv|' lib/pkgconfig/libgit2.pc"
+    "dopatch": "find . -name 'CMakeLists.txt' -exec gsed -i 's|C_STANDARD 90|C_STANDARD 99|' {} +",
+    "install": "cmakew 2 \\\n    -DBUILD_CLI=OFF \\\n    -DBUILD_TESTS=OFF \\\n    -DBUILD_FUZZERS=OFF \\\n    -DBUILD_EXAMPLES=OFF \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DENABLE_WERROR=OFF \\\n    -DDEPRECATE_HARD=OFF \\\n    -DUSE_SSH=ON \\\n    -DUSE_ICONV=ON \\\n    -DUSE_HTTPS=OpenSSL \\\n    -DUSE_BUNDLED_ZLIB=OFF \\\n    -DREGEX_BACKEND=pcre2",
+    "dotweak": "gsed -i -e 's|-lssl||g' -e 's|-lcrypto||g' -e 's|-lz||g' -e 's|-lssh2||g' -e 's|openssl|libssh2|' -e 's|zlib|libiconv|' lib/pkgconfig/libgit2.pc"
   },
   {
     "pkgname": "libglm",
@@ -5835,7 +5871,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure \\\n    --with-libunistring-prefix=\"$libunistring_INSTALL_DIR\" \\\n    --disable-valgrind-tests \\\n    --disable-code-coverage \\\n    --enable-doc \\\n    --enable-gcc-warnings \\\n    LIBS=-liconv"
+    "install": "configure \\\n    --with-libunistring-prefix=\"$libunistring_INSTALL_DIR\" \\\n    --disable-valgrind-tests \\\n    --disable-code-coverage \\\n    --enable-doc \\\n    --enable-gcc-warnings"
   },
   {
     "pkgname": "libilbc",
@@ -6302,9 +6338,8 @@
     "dep-upp": "curl bsdtar gmake",
     "bsystem": "gmake",
     "binbstd": "1",
-    "ppflags": "-DMDB_USE_ROBUST=0",
     "parallel": "1",
-    "install": "gmakew clean\ngmakew CC=\"$CC\" CFLAGS=\"'$CFLAGS -pthread $CPPFLAGS'\" LDFLAGS=\"'$LDFLAGS'\" AR=\"$AR\" SOEXT=.so\ninstall_incs lmdb.h\ninstall_libs liblmdb.a liblmdb.so"
+    "install": "gmakew clean\ngmakew CC=\"$CC\" CFLAGS=\"'$CFLAGS -pthread $CPPFLAGS -DMDB_USE_ROBUST=0'\" LDFLAGS=\"'$LDFLAGS'\" AR=\"$AR\"\ninstall_incs lmdb.h\ninstall_libs liblmdb.*"
   },
   {
     "pkgname": "liblqr",
@@ -6619,6 +6654,24 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure"
+  },
+  {
+    "pkgname": "libmount",
+    "pkgtype": "lib",
+    "version": "2.40.2",
+    "license": "GPL-2.0-or-later",
+    "summary": "DCE compatible Universally Unique Identifier library",
+    "web-url": "https://github.com/util-linux/util-linux",
+    "git-url": "https://github.com/util-linux/util-linux",
+    "src-url": "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz",
+    "src-sha": "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3",
+    "patches": "45dd0f06f899fc5a02ad8e67c5349a1ab7fe75b00ae0e730326b33f873d54c61|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/versionsort.patch",
+    "dep-upp": "automake libtool curl bsdtar patch gmake gmake",
+    "bsystem": "configure",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libblkid \\\n    --enable-libmount \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
+    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
   },
   {
     "pkgname": "libmp3lame",
@@ -7108,7 +7161,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure LIBS=-lm"
+    "install": "configure"
   },
   {
     "pkgname": "libopusenc",
@@ -7760,6 +7813,23 @@
     "install": "cmakew 2"
   },
   {
+    "pkgname": "libsmartcols",
+    "pkgtype": "lib",
+    "version": "2.40.2",
+    "license": "GPL-2.0-or-later",
+    "summary": "DCE compatible Universally Unique Identifier library",
+    "web-url": "https://github.com/util-linux/util-linux",
+    "git-url": "https://github.com/util-linux/util-linux",
+    "src-url": "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz",
+    "src-sha": "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3",
+    "dep-upp": "automake libtool curl bsdtar gmake gmake",
+    "bsystem": "configure",
+    "binbstd": "0",
+    "parallel": "1",
+    "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libsmartcols \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
+    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
+  },
+  {
     "pkgname": "libsmi",
     "pkgtype": "lib",
     "version": "0.5.0",
@@ -7891,7 +7961,6 @@
     "bsystem": "autogen",
     "binbstd": "0",
     "parallel": "1",
-    "prepare": "export LIBS=-lm",
     "install": "configure"
   },
   {
@@ -8490,19 +8559,19 @@
   {
     "pkgname": "libuuid",
     "pkgtype": "lib",
-    "version": "2.39.3",
+    "version": "2.40.2",
     "license": "GPL-2.0-or-later",
     "summary": "DCE compatible Universally Unique Identifier library",
     "web-url": "https://github.com/util-linux/util-linux",
     "git-url": "https://github.com/util-linux/util-linux",
-    "src-url": "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.3.tar.xz",
-    "src-sha": "7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f",
+    "src-url": "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz",
+    "src-sha": "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3",
     "dep-upp": "automake libtool curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
     "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libuuid \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
-    "dotweak": "rm -rf bin\nrm -rf sbin\nrm -rf share/man/man1\nrm -rf share/man/man5\nrm -rf share/man/man8"
+    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
   },
   {
     "pkgname": "libuv",
@@ -8571,7 +8640,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's/-mno-ieee-fp//g' configure",
-    "install": "configure LIBS=-lm"
+    "install": "configure"
   },
   {
     "pkgname": "libvpx",
@@ -9100,7 +9169,7 @@
   },
   {
     "pkgname": "lmdb",
-    "pkgtype": "exe+lib",
+    "pkgtype": "exe",
     "version": "0.9.32",
     "license": "OLDAP-2.8",
     "summary": "An extraordinarily fast, memory-efficient, memory-mapped, key-value database",
@@ -9110,9 +9179,8 @@
     "dep-upp": "curl bsdtar gmake",
     "bsystem": "gmake",
     "binbstd": "1",
-    "ppflags": "-DMDB_USE_ROBUST=0",
     "parallel": "1",
-    "install": "gmakew clean\ngmakew CC=$CC XCFLAGS=\"'$CFLAGS $CPPFLAGS'\" LDFLAGS=\"'$LDFLAGS'\" AR=$AR\ngmakew install prefix=$PACKAGE_INSTALL_DIR"
+    "install": "gmakew clean\ngmakew CC=$CC CFLAGS=\"'$CFLAGS $CPPFLAGS -DMDB_USE_ROBUST=0'\" LDFLAGS=\"'$LDFLAGS'\" AR=$AR\ninstall_bins mdb_stat mdb_copy mdb_dump mdb_load\ninstall_mans mdb_*.1"
   },
   {
     "pkgname": "lnd",
@@ -9169,9 +9237,9 @@
     "src-url": "https://github.com/jaseg/lolcat/archive/refs/tags/v1.2.tar.gz",
     "src-sha": "b6e1a0e24479fbdd4eb907531339e2cafc0c00b78d19caf70e8377b8b7546331",
     "dep-upp": "curl bsdtar",
-    "binbstd": "1",
+    "binbstd": "0",
     "parallel": "1",
-    "install": "run rm -rf lolcat\nrun rm -rf censor\nrun $CC $LDFLAGS -static -o lolcat lolcat.c -lm\nrun $CC $LDFLAGS -static -o censor censor.c\nrun install_bins lolcat censor"
+    "install": "run $CC $CPPFLAGS $CFLAGS $LDFLAGS -o lolcat ../lolcat.c -lm\nrun $CC $CPPFLAGS $CFLAGS $LDFLAGS -o censor ../censor.c\nrun install_bins lolcat censor"
   },
   {
     "pkgname": "lrzip",
@@ -9388,7 +9456,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i 's|sysinfo|get_sys_info|' src/conf.h\ngsed -i 's|sysinfo|get_sys_info|' src/help.c\ngsed -i 's|sysinfo|get_sys_info|' src/lzop.c\ngsed -i 's|sysinfo|get_sys_info|' src/djgpp2.c",
+    "dopatch": "gsed -i 's|sysinfo|get_sys_info|' src/conf.h src/help.c src/lzop.c src/djgpp2.c",
     "install": "cmakew"
   },
   {
@@ -10604,12 +10672,10 @@
     "summary": "PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.",
     "web-url": "https://github.com/dolik-rce/pegof",
     "git-url": "https://github.com/dolik-rce/pegof",
-    "git-sha": "06de1f60104b85f61c196aba8c349b2137f146e2",
     "dep-upp": "git cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/add_executable(pegof_test/,$d' CMakeLists.txt\n\n#gsed -i 's|-fsanitize=undefined|-fsanitize=undefined -static-libsan|' CMakeLists.txt\n\ncat >> CMakeLists.txt <<EOF\ninclude(GNUInstallDirs)\ninstall(TARGETS pegof RUNTIME DESTINATION \"\\${CMAKE_INSTALL_BINDIR}\")\nEOF",
     "install": "cmakew -DBUILD_SHARED_LIBS=OFF"
   },
   {
@@ -11091,7 +11157,8 @@
     "binbstd": "1",
     "parallel": "1",
     "dopatch": "gsed -i 's|-g||' Makefile\ngsed -i 's|LIBS+=-ldl -lpthread|LIBS+=-ldl|' Makefile\ngsed -i 's|lib/quickjs|lib|g'         Makefile\ngsed -i 's|include/quickjs|include|g' Makefile\ngsed -i 's|$(HOST_CC) $(LDFLAGS)|$(HOST_CC) -B/usr/bin $(LDFLAGS)|' Makefile\n# https://newbedev.com/how-to-specify-alternate-linker-command-when-linking-with-cc",
-    "install": "export HOST_CC=\"$CC_FOR_BUILD\"\nexport CC=\"$CC $CPPFLAGS $CFLAGS $LDFLAGS\"\n\nunset CFLAGS\nunset CPPFLAGS\nunset LDFLAGS\n\ngmakew clean\ngmakew install HOST_CC=\"'$HOST_CC'\" CC=\"'$CC'\" \"AR=$AR\" \"STRIP=$STRIP\" LDFLAGS=-Wl,-v CROSS_PREFIX=xxx PREFIX=\"$PACKAGE_INSTALL_DIR\""
+    "prepare": "export HOST_CC=\"$CC_FOR_BUILD\"\nexport CC=\"$CC $CPPFLAGS $CFLAGS $LDFLAGS\"\n\nunset CFLAGS\nunset CPPFLAGS\nunset LDFLAGS",
+    "install": "gmakew clean\ngmakew install HOST_CC=\"'$HOST_CC'\" CC=\"'$CC'\" \"AR=$AR\" \"STRIP=$STRIP\" LDFLAGS=-Wl,-v CROSS_PREFIX=xxx PREFIX=\"$PACKAGE_INSTALL_DIR\""
   },
   {
     "pkgname": "ragel",
@@ -11778,7 +11845,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's| OR BUILD_SHARED_LIBS||' CMakeLists.txt",
-    "install": "cmakew \\\n    -DSPDLOG_FMT_EXTERNAL=ON \\\n    -DSPDLOG_BUILD_BENCH=OFF \\\n    -DSPDLOG_BUILD_TESTS=OFF \\\n    -DSPDLOG_BUILD_EXAMPLE=OFF \\\n    -DSPDLOG_BUILD_SHARED=ON\nrun rm -rf *\ncmakew \\\n    -DSPDLOG_FMT_EXTERNAL=ON \\\n    -DSPDLOG_BUILD_BENCH=OFF \\\n    -DSPDLOG_BUILD_TESTS=OFF \\\n    -DSPDLOG_BUILD_EXAMPLE=OFF \\\n    -DSPDLOG_BUILD_SHARED=OFF"
+    "install": "cmakew \\\n    -DSPDLOG_FMT_EXTERNAL=ON \\\n    -DSPDLOG_BUILD_BENCH=OFF \\\n    -DSPDLOG_BUILD_TESTS=OFF \\\n    -DSPDLOG_BUILD_EXAMPLE=OFF \\\n    -DSPDLOG_BUILD_SHARED=ON\ncmakew \\\n    -DSPDLOG_FMT_EXTERNAL=ON \\\n    -DSPDLOG_BUILD_BENCH=OFF \\\n    -DSPDLOG_BUILD_TESTS=OFF \\\n    -DSPDLOG_BUILD_EXAMPLE=OFF \\\n    -DSPDLOG_BUILD_SHARED=OFF"
   },
   {
     "pkgname": "speex",
@@ -11795,7 +11862,7 @@
     "bsystem": "autogen",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure --enable-binaries LIBS=-lm"
+    "install": "configure --enable-binaries"
   },
   {
     "pkgname": "sqlite3",
@@ -12662,21 +12729,21 @@
   {
     "pkgname": "util-linux",
     "pkgtype": "exe",
-    "version": "2.39.3",
+    "version": "2.40.2",
     "license": "GPL-2.0-or-later",
     "summary": "A collection of Linux utilities",
     "web-url": "https://github.com/util-linux/util-linux",
     "git-url": "https://github.com/util-linux/util-linux",
-    "src-url": "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.3.tar.xz",
-    "src-sha": "7b6605e48d1a49f43cc4b4cfc59f313d0dd5402fa40b96810bd572e167dfed0f",
-    "patches": "45dd0f06f899fc5a02ad8e67c5349a1ab7fe75b00ae0e730326b33f873d54c61|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/versionsort.patch a8785e6b9ca0e8d786540d797163e3083d447d9de0204d62a95118e13ef663d8|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/sys-utils-irq-common.patch 693a928594f021a73cabc67d23e38288c278f80a0e641dfbee459ffb788e6c7f|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/sys-utils-ipcutils.h.patch 89da79bcd2427f146147cefdb6ceb4765d26410bced0322280353da853ca0d06|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/sys-utils-ipcutils.c.patch 115d5c747fb0b261dfeb87b00a4a7b0dfc2c8cbaa90b8875b4db348f82f3a2dd|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/sys-utils-ipcmk.c.patch daa7231c63ea5fb51e40e37bd1976b2466cebfdbd17b0fd5d3844e3e09ea6657|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/fix-paths.patch d3d6a92deee736d1da6232ed680cc9bfbd2cc253f7d578295f8c4d51f2582f79|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/lib-ismounted.c.patch 58925a93344e80e15ec9841f3c557bad9b45e6349ea3196781e7c65bd25aecbc|https://raw.githubusercontent.com/termux/termux-packages/master/packages/util-linux/misc-utils-lsfd-sock-xinfo.c.patch",
+    "src-url": "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz",
+    "src-sha": "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3",
+    "patches": "a8b2bcf9ca30674522443f980600ba2a36410fa908550d534a54f61d6ce292cb|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/configure.patch b275c1b1f6df7c60e96214842745b04f8b82d9aad2fc93c5cff1993fa23dd076|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/fix-cachestat.patch 48eece4fa5767781a71aac63d80bf850794de3728f3a4b93982bc75fb2a11a8b|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/fix-paths.patch d3d6a92deee736d1da6232ed680cc9bfbd2cc253f7d578295f8c4d51f2582f79|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/lib-ismounted.c.patch 58925a93344e80e15ec9841f3c557bad9b45e6349ea3196781e7c65bd25aecbc|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/misc-utils-lsfd-sock-xinfo.c.patch a76cbf0d1bc9cdc9df6ae7225cb1b753fcc6c49d4fa77b921f16d41173470eb6|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/misc-utuls-lsfd-file.c.patch 115d5c747fb0b261dfeb87b00a4a7b0dfc2c8cbaa90b8875b4db348f82f3a2dd|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-ipcmk.c.patch 89da79bcd2427f146147cefdb6ceb4765d26410bced0322280353da853ca0d06|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-ipcutils.c.patch 693a928594f021a73cabc67d23e38288c278f80a0e641dfbee459ffb788e6c7f|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-ipcutils.h.patch a8785e6b9ca0e8d786540d797163e3083d447d9de0204d62a95118e13ef663d8|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-irq-common.patch 45dd0f06f899fc5a02ad8e67c5349a1ab7fe75b00ae0e730326b33f873d54c61|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/versionsort.patch",
     "dep-pkg": "readline libcap-ng libz",
     "dep-upp": "automake libtool curl bsdtar patch gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "api-min": "26",
     "parallel": "1",
-    "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --with-ncursesw \\\n    --enable-widechar \\\n    --enable-setpriv \\\n    --disable-agetty \\\n    --disable-ctrlaltdel \\\n    --disable-eject \\\n    --disable-fdformat \\\n    --disable-ipcmk \\\n    --disable-ipcrm \\\n    --disable-ipcs \\\n    --disable-kill \\\n    --disable-last \\\n    --disable-logger \\\n    --disable-mesg \\\n    --disable-makeinstall-chown \\\n    --disable-mountpoint \\\n    --disable-nologin \\\n    --disable-pivot_root \\\n    --disable-poman \\\n    --disable-raw \\\n    --disable-switch_root \\\n    --disable-wall \\\n    --disable-lsmem \\\n    --disable-chmem \\\n    --disable-rfkill \\\n    --disable-hwclock-cmos"
+    "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --with-ncursesw \\\n    --enable-widechar \\\n    --enable-setpriv \\\n    --disable-agetty \\\n    --disable-ctrlaltdel \\\n    --disable-eject \\\n    --disable-fdformat \\\n    --disable-ipcmk \\\n    --disable-ipcrm \\\n    --disable-ipcs \\\n    --disable-kill \\\n    --disable-last \\\n    --disable-liblastlog2 \\\n    --disable-logger \\\n    --disable-mesg \\\n    --disable-makeinstall-chown \\\n    --disable-mountpoint \\\n    --disable-nologin \\\n    --disable-pivot_root \\\n    --disable-poman \\\n    --disable-raw \\\n    --disable-switch_root \\\n    --disable-wall \\\n    --disable-lsmem \\\n    --disable-chmem \\\n    --disable-rfkill \\\n    --disable-hwclock-cmos \\\n    ac_cv_func_setns=yes \\\n    ac_cv_func_unshare=yes \\\n    ac_cv_func_uselocale=no"
   },
   {
     "pkgname": "v8",
