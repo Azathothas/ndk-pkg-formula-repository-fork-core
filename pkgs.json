@@ -11872,20 +11872,19 @@
   {
     "pkgname": "starship",
     "pkgtype": "exe",
-    "version": "1.19.0",
+    "version": "1.20.1",
     "license": "ISC",
     "summary": "The minimal, blazing-fast, and infinitely customizable prompt for any shell",
     "web-url": "https://starship.rs",
     "git-url": "https://github.com/starship/starship",
-    "src-url": "https://github.com/starship/starship/archive/refs/tags/v1.19.0.tar.gz",
-    "src-sha": "cf789791b5c11d6d7a00628590696627bb8f980e3d7c7a0200026787b08aba37",
+    "src-url": "https://github.com/starship/starship/archive/refs/tags/v1.20.1.tar.gz",
+    "src-sha": "851d84be69f9171f10890e3b58b8c5ec6057dd873dc83bfe0bdf965f9844b5dc",
     "dep-pkg": "openssl-dev libgetloadavg",
     "dep-upp": "curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
     "api-min": "24",
     "parallel": "1",
-    "prepare": "export RUSTUP_TOOLCHAIN=1.76",
     "install": "cargow install --locked --no-default-features"
   },
   {
@@ -13366,7 +13365,8 @@
     "parallel": "1",
     "developer": "Jean-loup Gailly <jloup@gailly.net>\nMark Adler <madler@alumni.caltech.edu>",
     "dopatch": "gsed -i 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt",
-    "install": "cmakew"
+    "install": "cmakew",
+    "dotweak": "ln -s zlib.pc lib/pkgconfig/libz.pc"
   },
   {
     "pkgname": "zlib-ng",
