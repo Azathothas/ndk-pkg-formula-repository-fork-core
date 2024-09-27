@@ -291,7 +291,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure --disable-libaria2 --enable-static --disable-shared LIBS=-ldl",
+    "install": "configure --disable-libaria2 LIBS=-ldl",
     "caveats": "If aria2c is a fully statically linked executable, to get it working on Android 8 and later, you need to run aria2c like below\n\naria2c --async-dns=true --async-dns-server=8.8.8.8 https://example.com"
   },
   {
@@ -527,7 +527,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's| install_docs||' Makefile.in",
-    "install": "configure \\\n    --enable-cxx=no \\\n    --enable-stl=no \\\n    --enable-dbm \\\n    --enable-hash \\\n    --enable-compat185 \\\n    --enable-smallbuild \\\n    --enable-static \\\n    --disable-shared \\\n    db_cv_atomic=gcc-builtin",
+    "install": "configure \\\n    --enable-cxx=no \\\n    --enable-stl=no \\\n    --enable-dbm \\\n    --enable-hash \\\n    --enable-compat185 \\\n    --enable-smallbuild \\\n    db_cv_atomic=gcc-builtin",
     "dotweak": "rm -rf include/ lib/"
   },
   {
@@ -661,7 +661,7 @@
     "dep-upp": "curl bsdtar",
     "binbstd": "1",
     "parallel": "1",
-    "do12345": "gsed -i '1a set -x' bootstrap.sh\ngsed -i '1a set -x' tools/build/src/engine/build.sh\nrun ./bootstrap.sh",
+    "do12345": "gsed -i '1a set -x' bootstrap.sh tools/build/src/engine/build.sh\nrun ./bootstrap.sh",
     "dopatch": "# https://stackoverflow.com/questions/32826175/ftello-and-fseeko-android-build-errors\n# https://linux.die.net/man/3/ftello\n# int   fseeko(FILE* __fp, off_t __offset, int __whence) __RENAME(fseeko64) __INTRODUCED_IN(24);\n# off_t ftello(FILE* __fp) __RENAME(ftello64) __INTRODUCED_IN(24);\nif [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    gsed -i 's|BOOST_NOWIDE_FTELL ftello|BOOST_NOWIDE_FTELL ::ftell|' libs/nowide/src/filebuf.cpp\n    gsed -i 's|BOOST_NOWIDE_FTELL fseeko|BOOST_NOWIDE_FTELL ::fseek|' libs/nowide/src/filebuf.cpp\nfi",
     "install": "case $TARGET_PLATFORM_ARCH in\n    armv7a)\n        address_model=32\n        architecture=arm\n        abi=aapcs\n        ;;\n    aarch64)\n        address_model=64\n        architecture=arm\n        abi=aapcs\n        ;;\n    i686)\n        address_model=32\n        architecture=x86\n        abi=sysv\n        ;;\n    x86_64)\n        address_model=64\n        architecture=x86\n        abi=sysv\nesac\n\ncat > project-config.jam <<EOF\nusing clang : $TARGET_PLATFORM_ARCH : $CXX : <compileflags>\"$CXXFLAGS $CPPFLAGS\" <linkflags>\"$LDFLAGS -shared\" <archiver>$AR <ranlib>$RANLIB ;\nEOF\n\nrun ./b2 install \\\n    -q \\\n    -d+2 \\\n    -j$BUILD_NJOBS \\\n    --reconfigure \\\n    --without-python \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    -sICU_PATH=\"$icu4c_INSTALL_DIR\" \\\n    -sICONV_PATH=\"$libiconv_INSTALL_DIR\" \\\n    toolset=clang-$TARGET_PLATFORM_ARCH \\\n    link=static,shared \\\n    variant=release \\\n    threading=multi \\\n    target-os=android \\\n    binary-format=elf \\\n    address-model=\"$address_model\" \\\n    architecture=\"$architecture\" \\\n    abi=\"$abi\""
   },
@@ -762,8 +762,8 @@
     "binbstd": "0",
     "parallel": "1",
     "prepare": "export ac_cv_sizeof_wchar_t=\"$($CC -E -dM - < /dev/null | sed -n '/__SIZEOF_WCHAR_T__/p' | cut -d ' ' -f3)\"\nexport CPPFLAGS=\"$CPPFLAGS -I$PACKAGE_BSCRIPT_DIR/contrib/android/include\"",
-    "install": "configure \\\n    --enable-xattr \\\n    --enable-acl \\\n    --enable-bsdtar=static \\\n    --enable-bsdcat=static \\\n    --enable-bsdcpio=static \\\n    --enable-bsdunzip=static \\\n    --enable-static \\\n    --disable-shared \\\n    --without-mbedtls \\\n    --without-nettle \\\n    --without-libb2 \\\n    --without-xml2 \\\n    --without-cng \\\n    --with-openssl \\\n    --with-expat \\\n    --with-zlib \\\n    --with-lzma \\\n    --with-bz2lib \\\n    --with-lz4 \\\n    --with-lzo2 \\\n    --with-zstd \\\n    --with-iconv",
-    "dotweak": "rm -rf include/ lib/ share/man/man3/ share/man/man5/"
+    "install": "configure \\\n    --enable-xattr \\\n    --enable-acl \\\n    --enable-bsdtar=static \\\n    --enable-bsdcat=static \\\n    --enable-bsdcpio=static \\\n    --enable-bsdunzip=static \\\n    --without-mbedtls \\\n    --without-nettle \\\n    --without-libb2 \\\n    --without-xml2 \\\n    --without-cng \\\n    --with-openssl \\\n    --with-expat \\\n    --with-zlib \\\n    --with-lzma \\\n    --with-bz2lib \\\n    --with-lz4 \\\n    --with-lzo2 \\\n    --with-zstd \\\n    --with-iconv",
+    "dotweak": "rm -rf include/ lib/ share/man/man[35]/"
   },
   {
     "pkgname": "bullet",
@@ -1443,8 +1443,8 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's|-lbrotlidec|-lbrotlidec -lbrotlicommon|' configure",
-    "install": "configure \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-optimize \\\n    --enable-pthreads \\\n    --enable-ares \\\n    --with-default-ssl-backend=openssl \\\n    --with-ssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-nghttp2 \\\n    --without-nghttp3 \\\n    --without-ngtcp2 \\\n    --without-quiche \\\n    --without-libpsl \\\n    --without-librtmp \\\n    --without-libidn2",
-    "dotweak": "rm -rf include\nrm -rf lib\nrm -rf bin/curl-config\nrm -rf share/aclocal\nrm -rf share/man/man3",
+    "install": "configure \\\n    --enable-optimize \\\n    --enable-pthreads \\\n    --enable-ares \\\n    --with-default-ssl-backend=openssl \\\n    --with-ssl=\"$openssl_dev_INSTALL_DIR\" \\\n    --with-nghttp2 \\\n    --without-nghttp3 \\\n    --without-ngtcp2 \\\n    --without-quiche \\\n    --without-libpsl \\\n    --without-librtmp \\\n    --without-libidn2",
+    "dotweak": "rm -rf bin/curl-config include/ lib/ share/aclocal/ share/man/man3/ share/man/man1/curl-config.1",
     "caveats": "If curl is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers <DNS-SERVERS> argument to curl like below\n\ncurl --dns-servers 1.1.1.1,8.8.8.8 https://example.com"
   },
   {
@@ -1623,7 +1623,7 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "# https://github.com/android/ndk/issues/1409\ngsed -i 's|int debug;|int debug __attribute__((common));|' common/includes/debug.h",
+    "dopatch": "gsed -i 's|int debug;|int debug __attribute__((common));|' common/includes/debug.h",
     "install": "configure"
   },
   {
@@ -1839,7 +1839,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "install": "#gmakew -f Makefile.sharedlibrary install INSTALL_PREFIX=\"$PACKAGE_INSTALL_DIR\" OS=Android\ngmakew -f Makefile.cmdline\ninstall_bins duk"
+    "install": "gmakew -f Makefile.cmdline && install_bins duk"
   },
   {
     "pkgname": "dust",
@@ -2184,7 +2184,9 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "install": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac\n\ngsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure\n\nif run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --enable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --disable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
+    "dopatch": "gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure",
+    "prepare": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac",
+    "install": "if run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --enable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --disable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
   },
   {
     "pkgname": "figlet",
@@ -2715,7 +2717,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "gsed -i -e '/ftello/d' -e '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "configure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --with-libncurses-prefix=\"$ncurses_INSTALL_DIR\" \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable"
   },
   {
@@ -2735,7 +2737,7 @@
     "parallel": "1",
     "dopatch": "gsed -i '/SUBDIRS =/s|gettext-tools||g' Makefile.in\ngsed -i '/SUBDIRS =/s|gnulib-tests||g' gettext-tools/Makefile.in",
     "install": "configure \\\n    --with-included-glib \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libcroco \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --with-libncurses-prefix=\"$ncurses_INSTALL_DIR\" \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable",
-    "dotweak": "run install -d lib/pkgconfig/\ncat >          lib/pkgconfig/libintl.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
+    "dotweak": "writepc libintl <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
   },
   {
     "pkgname": "gettext-tools",
@@ -2752,7 +2754,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=$libiconv_INSTALL_DIR \\\n    --with-libncurses-prefix=$ncurses_INSTALL_DIR \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable",
+    "install": "configure \\\n    --with-included-regex \\\n    --with-included-libxml \\\n    --with-included-gettext \\\n    --with-included-libunistring \\\n    --with-libiconv-prefix=$libiconv_INSTALL_DIR \\\n    --with-libncurses-prefix=$ncurses_INSTALL_DIR \\\n    --disable-acl \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-curses \\\n    --enable-threads=posix \\\n    --enable-libasprintf \\\n    --enable-namespacing \\\n    --enable-nls \\\n    --enable-relocatable",
     "dotweak": "rm -rf include/ lib/"
   },
   {
@@ -2872,8 +2874,8 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "install": "configure --program-prefix=g",
-    "dotweak": "ln -s gindent bin/indent"
+    "install": "configure",
+    "dotweak": "ln -s indent bin/gindent"
   },
   {
     "pkgname": "git",
@@ -3087,8 +3089,8 @@
     "api-min": "24",
     "parallel": "1",
     "dopatch": "patch -p1 <<EOF\n--- a/tests/strerror_r.c\n+++ b/tests/strerror_r.c\n@@ -43,7 +43,7 @@\n #endif\n int __xpg_strerror_r (int errnum, char *buf, size_t buflen);\n \n-#elif HAVE_DECL_STRERROR_R && !(__GLIBC__ >= 2 || defined __UCLIBC__ || defined __CYGWIN__)\n+#elif HAVE_DECL_STRERROR_R && !(__GLIBC__ >= 2 || defined __UCLIBC__ || defined __CYGWIN__ || defined __ANDROID__)\n \n /* The system's strerror_r function is OK, except that its third argument\n    is 'int', not 'size_t', or its return type is wrong.  */\nEOF",
-    "install": "configure \\\n    --enable-threads=posix \\\n    --enable-c++ \\\n    --enable-changeword \\\n    --disable-assert \\\n    --disable-gcc-warnings \\\n    --without-dmalloc \\\n    --with-included-regex \\\n    --program-prefix=g",
-    "dotweak": "ln -s gm4 bin/m4"
+    "install": "configure \\\n    --enable-threads=posix \\\n    --enable-c++ \\\n    --enable-changeword \\\n    --disable-assert \\\n    --disable-gcc-warnings \\\n    --without-dmalloc \\\n    --with-included-regex",
+    "dotweak": "ln -s m4 bin/gm4"
   },
   {
     "pkgname": "gmake",
@@ -3106,8 +3108,8 @@
     "api-min": "28",
     "parallel": "1",
     "dopatch": "patch -p0 <<EOF\n--- src/job.c.origin\t2024-04-22 16:23:48.474827263 +0800\n+++ src/job.c\t2024-04-22 16:25:06.996893603 +0800\n@@ -2427,18 +2427,6 @@\n           break;\n         }\n \n-    /* execvp() will use a default PATH if none is set; emulate that.  */\n-    if (p == NULL)\n-      {\n-        size_t l = confstr (_CS_PATH, NULL, 0);\n-        if (l)\n-          {\n-            char *dp = alloca (l);\n-            confstr (_CS_PATH, dp, l);\n-            p = dp;\n-          }\n-      }\n-\n     cmd = (char *)find_in_given_path (argv[0], p, NULL, 0);\n   }\n \nEOF",
-    "install": "configure --program-prefix=g --without-guile --without-dmalloc",
-    "dotweak": "ln -s gmake bin/make"
+    "install": "configure --without-guile --without-dmalloc",
+    "dotweak": "ln -s make bin/gmake"
   },
   {
     "pkgname": "gn",
@@ -3430,7 +3432,7 @@
     "binbstd": "0",
     "api-min": "28",
     "parallel": "1",
-    "install": "configure LIBS=-ldl"
+    "install": "configure"
   },
   {
     "pkgname": "gping",
@@ -3530,7 +3532,7 @@
     "api-min": "23",
     "parallel": "1",
     "install": "configure \\\n    --enable-threads=posix \\\n    --disable-assert \\\n    --disable-gcc-warnings \\\n    --with-included-regex",
-    "dotweak": "gsed -i 's|bash|sh|' bin/egrep\ngsed -i 's|bash|sh|' bin/fgrep"
+    "dotweak": "gsed -i 's|bash|sh|' bin/[ef]grep"
   },
   {
     "pkgname": "grex",
@@ -3615,8 +3617,8 @@
     "ppflags": "-D__USE_FORTIFY_LEVEL=0",
     "api-min": "23",
     "parallel": "1",
-    "install": "configure \\\n    --program-prefix=g \\\n    --without-selinux \\\n    --with-included-regex \\\n    --disable-acl \\\n    --disable-assert",
-    "dotweak": "ln -s gsed bin/sed"
+    "install": "configure \\\n    --without-selinux \\\n    --with-included-regex \\\n    --disable-acl \\\n    --disable-assert",
+    "dotweak": "ln -s sed bin/gsed"
   },
   {
     "pkgname": "gtar",
@@ -3651,8 +3653,8 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i '/config\\.h/a \\#include<string.h>' src/resuse.c",
-    "install": "configure --program-prefix=g",
-    "dotweak": "ln -s gtime bin/time"
+    "install": "configure",
+    "dotweak": "ln -s time bin/gtime"
   },
   {
     "pkgname": "gzip",
@@ -3834,19 +3836,19 @@
   {
     "pkgname": "hurl",
     "pkgtype": "exe",
-    "version": "4.3.0",
+    "version": "5.0.1",
     "license": "Apache-2.0",
     "summary": "Run and Test HTTP Requests with plain text and curl",
     "web-url": "https://hurl.dev",
     "git-url": "https://github.com/Orange-OpenSource/hurl",
-    "src-url": "https://github.com/Orange-OpenSource/hurl/archive/refs/tags/4.3.0.tar.gz",
-    "src-sha": "499f2430ee6b73b0414ab8aa3c9298be8276e7b404b13c76e4c02a86eb1db9cd",
+    "src-url": "https://github.com/Orange-OpenSource/hurl/archive/refs/tags/5.0.1.tar.gz",
+    "src-sha": "2b5a42fc95b74c876257a35d13b603e06f1f2c58e0ca44a2c0bb23d023227c29",
     "dep-pkg": "libcurl libxml2",
     "dep-upp": "curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
     "parallel": "1",
-    "install": "export RUSTUP_TOOLCHAIN=1.78\n\nfor item in hurl hurlfmt\ndo\n    cargow install --locked --path packages/$item\n    install_mans docs/manual/$item.1\ndone"
+    "install": "cargow install --locked --path packages/hurl\ncargow install --locked --path packages/hurlfmt\n\ninstall_mans docs/manual/hurl.1\ninstall_mans docs/manual/hurlfmt.1"
   },
   {
     "pkgname": "hwloc",
@@ -3915,23 +3917,6 @@
     "install": "configure \\\n    --with-cross-build=\"$NATIVE_BCACHED_DIR\" \\\n    --enable-release \\\n    --enable-tools \\\n    --enable-fuzzer \\\n    --disable-tests \\\n    --disable-samples"
   },
   {
-    "pkgname": "id3lib",
-    "pkgtype": "lib",
-    "version": "3.8.3",
-    "license": "LGPL-2.0-or-later",
-    "summary": "An open-source library for manipulating ID3v1 and ID3v2 tags",
-    "web-url": "https://id3lib.sourceforge.io",
-    "src-url": "https://downloads.sourceforge.net/project/id3lib/id3lib/3.8.3/id3lib-3.8.3.tar.gz",
-    "src-sha": "2749cc3c0cd7280b299518b1ddf5a5bcfe2d1100614519b68702230e26c7d079",
-    "dep-pkg": "libiconv libz",
-    "dep-upp": "curl bsdtar gmake gmake",
-    "bsystem": "configure",
-    "binbstd": "0",
-    "parallel": "1",
-    "dopatch": "gsed -i 's/iomanip.h/iomanip/g' configure\n\nfor item in $(grep -l \"unsigned int argc\" examples/*)\ndo\n    gsed -i 's/int main( unsigned int argc,/int main(int argc,/g' \"$item\" \ndone",
-    "install": "configure \\\n    --enable-cxx-warnings=no \\\n    --enable-iso-cxx=no \\\n    --enable-ansi=no \\\n    --enable-debug=no"
-  },
-  {
     "pkgname": "ideviceinstaller",
     "pkgtype": "exe",
     "version": "1.1.1",
@@ -3966,7 +3951,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "gsed -i -e '/ftello/d' -e '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "configure \\\n    --with-freetype=yes \\\n    --with-gvc=no \\\n    --with-modules \\\n    --with-openjp2 \\\n    --with-openexr \\\n    --with-webp=yes \\\n    --with-heic=yes \\\n    --with-gslib \\\n    --with-pango \\\n    --with-lqr \\\n    --without-x \\\n    --without-wmf \\\n    --without-fftw \\\n    --disable-opencl LIBS=-lc++"
   },
   {
@@ -4082,8 +4067,8 @@
     "bsystem": "autogen",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '$d' autogen.sh && ./autogen.sh",
-    "install": "configure only --enable-static --disable-shared --with-libpng=\"$libpng_INSTALL_DIR\"\ngmakew\ngmakew install-man1\ninstall_bins jbig2dec"
+    "dopatch": "gsed -i '$d' autogen.sh",
+    "install": "configure only --with-libpng=\"$libpng_INSTALL_DIR\"\ngmakew\ngmakew install-man1\ninstall_bins jbig2dec"
   },
   {
     "pkgname": "jfrog-cli",
@@ -4105,20 +4090,19 @@
   {
     "pkgname": "jj",
     "pkgtype": "exe",
-    "version": "0.18.0",
+    "version": "0.21.0",
     "license": "Apache-2.0",
     "summary": "A git-compatible distributed version control system",
     "web-url": "https://github.com/martinvonz/jj",
     "git-url": "https://github.com/martinvonz/jj",
-    "src-url": "https://github.com/martinvonz/jj/archive/refs/tags/v0.18.0.tar.gz",
-    "src-sha": "4f81eed321c3aeeb1e0528250f49b703710ebf91ba18238dd46f97b9a59aaa98",
-    "dep-pkg": "libgit2",
+    "src-url": "https://github.com/martinvonz/jj/archive/refs/tags/v0.21.0.tar.gz",
+    "src-sha": "c38d98d7db42f08b799f5c51f33cd8454867bc4862a15aa0897b72f2d32eea0a",
+    "dep-pkg": "openssl-dev",
     "dep-upp": "curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
     "parallel": "1",
-    "prepare": "export LIBGIT2_NO_VENDOR=1\nexport OPENSSL_NO_VENDOR=1\nexport OPENSSL_STATIC=1\nexport LIBGIT2_SYS_USE_PKG_CONFIG=1\nexport LIBSSH2_SYS_USE_PKG_CONFIG=1\nexport LIBZ_SYS_STATIC=1",
-    "install": "cargow install --locked --no-default-features --path cli --bin jj"
+    "install": "cargow install --locked --path cli --bin jj"
   },
   {
     "pkgname": "jpegoptim",
@@ -4504,7 +4488,7 @@
     "parallel": "1",
     "prepare": "export ac_cv_sizeof_wchar_t=\"$($CC -E -dM - < /dev/null | sed -n '/__SIZEOF_WCHAR_T__/p' | cut -d ' ' -f3)\"\nexport CPPFLAGS=\"$CPPFLAGS -I$PACKAGE_BSCRIPT_DIR/contrib/android/include\"",
     "install": "configure \\\n    --enable-xattr \\\n    --enable-acl \\\n    --enable-bsdtar=static \\\n    --enable-bsdcat=static \\\n    --enable-bsdcpio=static \\\n    --enable-bsdunzip=static \\\n    --without-mbedtls \\\n    --without-nettle \\\n    --without-libb2 \\\n    --without-xml2 \\\n    --without-cng \\\n    --with-openssl \\\n    --with-expat \\\n    --with-zlib \\\n    --with-lzma \\\n    --with-bz2lib \\\n    --with-lz4 \\\n    --with-lzo2 \\\n    --with-zstd \\\n    --with-iconv",
-    "dotweak": "gsed -i '/Libs: /s|$| -liconv|' lib/pkgconfig/libarchive.pc\ngsed -i '/Requires:/d'          lib/pkgconfig/libarchive.pc"
+    "dotweak": "gsed -i -e '/Libs: /s|$| -liconv|' -e '/Requires:/d' lib/pkgconfig/libarchive.pc"
   },
   {
     "pkgname": "libargp",
@@ -4699,9 +4683,10 @@
     "dep-upp": "automake libtool curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
+    "api-min": "24",
     "parallel": "1",
     "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libblkid \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
-    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
+    "dotweak": "rm -rf bin/ sbin/ share/man/man[158]/"
   },
   {
     "pkgname": "libbluray",
@@ -5079,6 +5064,7 @@
     "git-url": "https://github.com/tlwg/libdatrie",
     "src-url": "https://github.com/tlwg/libdatrie/releases/download/v0.2.13/libdatrie-0.2.13.tar.xz",
     "src-sha": "12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be",
+    "dep-pkg": "libiconv",
     "dep-upp": "curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
@@ -5328,9 +5314,10 @@
     "dep-upp": "automake libtool curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
+    "api-min": "24",
     "parallel": "1",
     "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libuuid \\\n    --enable-libfdisk \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
-    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
+    "dotweak": "rm -rf bin/ sbin/ share/man/man[158]/"
   },
   {
     "pkgname": "libffi",
@@ -5600,7 +5587,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew 2 -DGLM_BUILD_TESTS=OFF",
-    "dotweak": "install -d lib/pkgconfig\ncat >      lib/pkgconfig/glm.pc <<EOF\nprefix=$PACKAGE_INSTALL_DIR\nincludedir=\\${prefix}/include\n\nName: GLM\nDescription: OpenGL Mathematics\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -lglm\nEOF"
+    "dotweak": "writepc glm <<EOF\nprefix=$PACKAGE_INSTALL_DIR\nincludedir=\\${prefix}/include\n\nName: GLM\nDescription: OpenGL Mathematics\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -lglm\nEOF"
   },
   {
     "pkgname": "libglob",
@@ -5838,7 +5825,24 @@
     "parallel": "1",
     "dopatch": "if [ \"$TARGET_PLATFORM_VERS\" -lt 30 ] ; then\n    gsed -i '1i void* mempcpy(void* dst, const void* src, size_t n) {return memcpy(dst, src, n) + n;}' srclib/canonicalize-lgpl.c\n    gsed -i '1i #include <string.h>' srclib/canonicalize-lgpl.c\nfi",
     "install": "configure --enable-extra-encodings",
-    "dotweak": "install -d lib/pkgconfig\n        cd lib/pkgconfig\n\nfor item in iconv charset\ndo\n    cat > \"lib$item.pc\" <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: lib$item\nURL: ${PACKAGE_WEB_URL}\nDescription: ${PACKAGE_SUMMARY}\nVersion: ${PACKAGE_VERSION}\nLibs: -L\\${libdir} -l$item\nCflags: -I\\${includedir}\nEOF\ndone"
+    "dotweak": "for item in iconv charset\ndo\n    writepc \"lib$item\" <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: lib$item\nURL: ${PACKAGE_WEB_URL}\nDescription: ${PACKAGE_SUMMARY}\nVersion: ${PACKAGE_VERSION}\nLibs: -L\\${libdir} -l$item\nCflags: -I\\${includedir}\nEOF\ndone"
+  },
+  {
+    "pkgname": "libid3",
+    "pkgtype": "lib",
+    "version": "3.8.3",
+    "license": "LGPL-2.0-or-later",
+    "summary": "An open-source library for manipulating ID3v1 and ID3v2 tags",
+    "web-url": "https://id3lib.sourceforge.io",
+    "src-url": "https://downloads.sourceforge.net/project/id3lib/id3lib/3.8.3/id3lib-3.8.3.tar.gz",
+    "src-sha": "2749cc3c0cd7280b299518b1ddf5a5bcfe2d1100614519b68702230e26c7d079",
+    "dep-pkg": "libiconv libz",
+    "dep-upp": "curl bsdtar gmake gmake",
+    "bsystem": "configure",
+    "binbstd": "0",
+    "parallel": "1",
+    "dopatch": "gsed -i 's/iomanip.h/iomanip/g' configure\ngsed -i 's/^int main( unsigned int /int main( int /g' examples/demo_*.cpp",
+    "install": "configure \\\n    --enable-cxx-warnings=no \\\n    --enable-iso-cxx=no \\\n    --enable-ansi=no \\\n    --enable-debug=no"
   },
   {
     "pkgname": "libidn",
@@ -5958,7 +5962,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure \\\n    --with-included-gettext \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --disable-openmp \\\n    --disable-csharp \\\n    --disable-java \\\n    --enable-c++ \\\n    --enable-nls \\\n    --enable-relocatable \\\n    --enable-threads=posix \\\n    --disable-libasprintf",
-    "dotweak": "run install -d lib/pkgconfig/\ncat >          lib/pkgconfig/libintl.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
+    "dotweak": "writepc libintl <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
   },
   {
     "pkgname": "libintl-lite",
@@ -6089,7 +6093,7 @@
     "bsystem": "autogen",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '$d' autogen.sh && ./autogen.sh",
+    "dopatch": "gsed -i '$d' autogen.sh",
     "install": "configure only --without-libpng\ngmakew\ngmakew install-libLTLIBRARIES install-includeHEADERS install-pkgconfigDATA"
   },
   {
@@ -6669,9 +6673,10 @@
     "dep-upp": "automake libtool curl bsdtar patch gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
+    "api-min": "24",
     "parallel": "1",
     "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libblkid \\\n    --enable-libmount \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
-    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
+    "dotweak": "rm -rf bin/ sbin/ share/man/man[158]/"
   },
   {
     "pkgname": "libmp3lame",
@@ -6752,8 +6757,8 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "install": "gmakew clean SO=so\ngmakew build/release/libmujs.a build/release/libmujs.so SO=so CFLAGS=\"'-std=c99 $CFLAGS $CPPFLAGS'\" OPTIM=\ninstall_incs mujs.h\ninstall_libs build/release/libmujs.a build/release/libmujs.so",
-    "dotweak": "install -d lib/pkgconfig\ncat >      lib/pkgconfig/mujs.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: mujs\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lmujs -lm\nEOF"
+    "install": "gmakew clean SO=so\ngmakew build/release/libmujs.a build/release/libmujs.so SO=so CFLAGS=\"'-std=c99 $CFLAGS $CPPFLAGS'\" OPTIM=\ninstall_incs mujs.h\ninstall_libs build/release/libmujs.*",
+    "dotweak": "writepc mujs <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: mujs\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lmujs -lm\nEOF"
   },
   {
     "pkgname": "libmupdf",
@@ -6807,7 +6812,7 @@
     "parallel": "0",
     "dopatch": "# https://stackoverflow.com/questions/9168150/implicit-declaration-using-std-c99\ngsed -i 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile\ngsed -i '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in\ngsed -i '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in\ngsed -i '/^INSTALL =/c INSTALL = install' config.mk.in\ngsed -i '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in\ngsed -i 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile\nrun cp config.mk.in config.mk",
     "install": "gmakew clean\ngmakew lib/util/all CC=\"$CC\" AR=\"$AR\" RANLIB=\"$RANLIB\" CC_FOR_BUILD=\"$CC_FOR_BUILD\" LD_FOR_BUILD=\"$CC_FOR_BUILD\" CFLAGS_FOR_BUILD=\"'$CFLAGS_FOR_BUILD $CPPFLAGS_FOR_BUILD'\" LDFLAGS_FOR_BUILD=\"'$LDFLAGS_FOR_BUILD'\" STATICLIB_TOO=Y\ngmakew -C lib libnetpbm libnetpbm.a  STATICLIB_TOO=Y CC=\"$CC\" AR=\"$AR\" RANLIB=\"$RANLIB\" CC_FOR_BUILD=\"$CC_FOR_BUILD\" LD_FOR_BUILD=\"$CC_FOR_BUILD\" CFLAGS_FOR_BUILD=\"'$CFLAGS_FOR_BUILD $CPPFLAGS_FOR_BUILD'\" LDFLAGS_FOR_BUILD=\"'$LDFLAGS_FOR_BUILD'\"\ngmakew install-dev pkgdir=$PACKAGE_INSTALL_DIR SONAME=libnetpbm.so STATICLIB_TOO=Y",
-    "dotweak": "run mv staticlink/libnetpbm.a lib/\nrun rm -rf staticlink\nrun rm -rf sharedlink\n\nrun install -d lib/pkgconfig\n\ncat > lib/pkgconfig/netpbm.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: Netpbm\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lnetpbm\nRequires: jasper libpng libjpeg libtiff-4 libxml-2.0\nEOF"
+    "dotweak": "run mv staticlink/libnetpbm.a lib/\nrun rm -rf staticlink sharedlink\n\nwritepc netpbm <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: Netpbm\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lnetpbm\nRequires: jasper libpng libjpeg libtiff-4 libxml-2.0\nEOF"
   },
   {
     "pkgname": "libnettle",
@@ -6856,7 +6861,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/stdio\\.h/a \\#include<sys/uio.h>' lib/pdu.c\ngsed -i '/stdio\\.h/a \\#include<sys/uio.h>' lib/socket.c",
+    "dopatch": "gsed -i '/stdio\\.h/a \\#include<sys/uio.h>' lib/pdu.c lib/socket.c",
     "install": "cmakew 2"
   },
   {
@@ -7144,7 +7149,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "gsed -i -e '/ftello/d' -e '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "cmakew \\\n    -DBUILD_DOC=OFF \\\n    -DBUILD_JAVA=OFF \\\n    -DBUILD_JPIP=OFF \\\n    -DBUILD_JPIP_SERVER=OFF \\\n    -DBUILD_CODEC=OFF \\\n    -DBUILD_VIEWER=OFF \\\n    -DBUILD_SHARED_LIBS=ON \\\n    -DBUILD_STATIC_LIBS=ON \\\n    -DBUILD_UNIT_TESTS=OFF \\\n    -DBUILD_LUTS_GENERATOR=OFF \\\n    -DBUILD_PKGCONFIG_FILES=ON"
   },
   {
@@ -7243,7 +7248,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DPCRE_BUILD_PCRE8=ON \\\n    -DPCRE_BUILD_PCRE16=ON \\\n    -DPCRE_BUILD_PCRE32=ON \\\n    -DPCRE_BUILD_PCRECPP=OFF \\\n    -DPCRE_BUILD_PCREGREP=OFF \\\n    -DPCRE_BUILD_TESTS=OFF \\\n    -DPCRE_SUPPORT_VALGRIND=OFF \\\n    -DPCRE_SUPPORT_UNICODE_PROPERTIES=ON \\\n    -DBUILD_SHARED_LIBS=OFF",
-    "dotweak": "install -d lib/pkgconfig\n\nfor item in pcre pcre16 pcre32 pcreposix\ndo\n    cat > \"lib/pkgconfig/lib$item.pc\" <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: lib$item\nURL: $PACKAGE_WEB_URL\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nLibs: -L\\${libdir} -l$item\nLibs.private: -D_THREAD_SAFE -pthread\nCflags: -I\\${includedir}\nEOF\ndone"
+    "dotweak": "for item in pcre pcre16 pcre32 pcreposix\ndo\n    writepc \"lib$item\" <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: lib$item\nURL: $PACKAGE_WEB_URL\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nLibs: -L\\${libdir} -l$item\nLibs.private: -D_THREAD_SAFE -pthread\nCflags: -I\\${includedir}\nEOF\ndone"
   },
   {
     "pkgname": "libpcre2",
@@ -7778,7 +7783,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "gsed -i -e '/ftello/d' -e '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "cmakew -DSDL_STATIC=ON -DSDL_SHARED=ON"
   },
   {
@@ -7822,12 +7827,13 @@
     "git-url": "https://github.com/util-linux/util-linux",
     "src-url": "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz",
     "src-sha": "d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3",
+    "dep-pkg": "liblanginfo",
     "dep-upp": "automake libtool curl bsdtar gmake gmake",
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
     "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libsmartcols \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
-    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
+    "dotweak": "rm -rf bin/ sbin/ share/man/man[158]/"
   },
   {
     "pkgname": "libsmi",
@@ -8011,7 +8017,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "run \"$CC\" -c \"$CFLAGS\" \"$CPPFLAGS\" -o sqlite3.o ../sqlite3.c\nrun \"$CC\" -shared \"$LDFLAGS\" -o libsqlite3.so sqlite3.o\nrun \"$AR\" rsc libsqlite3.a sqlite3.o\n\ninstall_libs libsqlite3.*\ninstall_incs ../*.h",
-    "dotweak": "install -d lib/pkgconfig\ncat >      lib/pkgconfig/sqlite3.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: SQLite\nDescription: SQL database engine\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lsqlite3 -lm\nEOF"
+    "dotweak": "writepc sqlite3 <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: SQLite\nDescription: SQL database engine\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lsqlite3 -lm\nEOF"
   },
   {
     "pkgname": "libsrt",
@@ -8211,7 +8217,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure \\\n    --enable-nls \\\n    --enable-curses \\\n    --enable-namespacing \\\n    --enable-threads=posix \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --with-libncurses-prefix=\"$ncurses_INSTALL_DIR\"",
-    "dotweak": "run install -d lib/pkgconfig/\ncat >          lib/pkgconfig/libtextstyle.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libtextstyle\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -ltextstyle \nRequires: libiconv\nEOF"
+    "dotweak": "writepc libtextstyle <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libtextstyle\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -ltextstyle \nRequires: libiconv\nEOF"
   },
   {
     "pkgname": "libthai",
@@ -8466,7 +8472,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure \\\n    --with-libiconv-prefix=\"$libiconv_INSTALL_DIR\" \\\n    --enable-threads=posix \\\n    --enable-relocatable \\\n    --enable-namespacing",
-    "dotweak": "install -d lib/pkgconfig\ncat >      lib/pkgconfig/libunistring.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libunistring\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lunistring\nRequires: libiconv\nEOF"
+    "dotweak": "writepc libunistring <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libunistring\nDescription: $PACKAGE_SUMMARY\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lunistring\nRequires: libiconv\nEOF"
   },
   {
     "pkgname": "libunwind",
@@ -8535,7 +8541,7 @@
     "binbstd": "0",
     "api-min": "24",
     "parallel": "1",
-    "dopatch": "gsed -i 's|/var/run|/data/local/tmp|' include/usbmuxd-proto.h\ngsed -i 's|/var/run|/data/local/tmp|' src/libusbmuxd.c",
+    "dopatch": "gsed -i 's|/var/run|/data/local/tmp|' include/usbmuxd-proto.h src/libusbmuxd.c",
     "install": "configure"
   },
   {
@@ -8571,7 +8577,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "configure \\\n    --without-python \\\n    --without-systemd \\\n    --enable-widechar \\\n    --enable-libuuid \\\n    --disable-all-programs \\\n    --disable-bash-completion \\\n    --disable-use-tty-group \\\n    --disable-chfn-chsh \\\n    --disable-login \\\n    --disable-su \\\n    --disable-runuser \\\n    --disable-makeinstall-chown \\\n    --disable-makeinstall-setuid",
-    "dotweak": "rm -rf bin/ sbin/ share/man/man1/ share/man/man5/ share/man/man8/"
+    "dotweak": "rm -rf bin/ sbin/ share/man/man[158]/"
   },
   {
     "pkgname": "libuv",
@@ -8672,7 +8678,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "gsed -i -e '/ftello/d' -e '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "configure --disable-tests --disable-apps --disable-man"
   },
   {
@@ -8861,8 +8867,8 @@
     "binbstd": "0",
     "parallel": "1",
     "onstart": "[ \"$TERMUX\" = 1 ] || return 0\n\nbsdtar() {\n    # https://github.com/termux/termux-packages/issues/1054\n    run pkg install -y proot\n    run proot --link2symlink bsdtar \"$@\"\n}",
-    "install": "configure \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-zlib \\\n    --without-lzma \\\n    --without-python \\\n    --without-readline \\\n    --without-coverage \\\n    --without-debug \\\n    --enable-ipv6 LIBS=\"'-liconv -lm'\"",
-    "dotweak": "gsed -i '/^Requires: /d'                    lib/pkgconfig/libxml-2.0.pc\ngsed -i -e 's|-liconv|-ldl|g' -e 's|-lz||g' lib/pkgconfig/libxml-2.0.pc\nprintf 'Requires: libiconv libz\\n' >>       lib/pkgconfig/libxml-2.0.pc"
+    "install": "configure \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-zlib \\\n    --without-lzma \\\n    --without-python \\\n    --without-readline \\\n    --without-coverage \\\n    --without-debug \\\n    --enable-ipv6",
+    "dotweak": "gsed -i 's|-liconv|-liconv -ldl|' lib/pkgconfig/libxml-2.0.pc"
   },
   {
     "pkgname": "libxnnpack",
@@ -8913,7 +8919,7 @@
     "binbstd": "1",
     "parallel": "1",
     "install": "configure \\\n    --disable-idebug \\\n    --disable-iprofile \\\n    --disable-gnuprofile \\\n    --disable-assembly \\\n    --enable-pthread \\\n    ac_cv_prog_ac_yasm=yasm",
-    "dotweak": "install -d lib/pkgconfig\ncat >      lib/pkgconfig/xvidcore.pc <<EOF\nprefix=$PACKAGE_INSTALL_DIR\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: xvidcore\nURL: ${PACKAGE_WEB_URL}\nDescription: ${PACKAGE_SUMMARY}\nVersion: ${PACKAGE_VERSION}\nLibs: -L\\${libdir} -lxvidcore -lm\nCflags: -I\\${includedir}\nEOF"
+    "dotweak": "writepc xvidcore <<EOF\nprefix=$PACKAGE_INSTALL_DIR\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: xvidcore\nURL: ${PACKAGE_WEB_URL}\nDescription: ${PACKAGE_SUMMARY}\nVersion: ${PACKAGE_VERSION}\nLibs: -L\\${libdir} -lxvidcore -lm\nCflags: -I\\${includedir}\nEOF"
   },
   {
     "pkgname": "libxxhash",
@@ -8980,25 +8986,6 @@
     "ppflags": "-DLIBYUV_DISABLE_NEON",
     "parallel": "1",
     "install": "cmakew -DTEST=OFF"
-  },
-  {
-    "pkgname": "libz",
-    "pkgtype": "lib",
-    "version": "1.3.1",
-    "license": "Zlib",
-    "summary": "A general purpose data compression library",
-    "web-url": "https://zlib.net/",
-    "git-url": "https://github.com/madler/zlib",
-    "src-url": "https://zlib.net/fossils/zlib-1.3.1.tar.gz",
-    "src-sha": "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23",
-    "dep-upp": "curl bsdtar cmake ninja",
-    "bsystem": "cmake",
-    "binbstd": "0",
-    "parallel": "1",
-    "developer": "Jean-loup Gailly <jloup@gailly.net>\nMark Adler <madler@alumni.caltech.edu>",
-    "dopatch": "gsed -i 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt\ngsed -i 's|zlib)|zlibstatic)|' CMakeLists.txt",
-    "install": "cmakew",
-    "dotweak": "ln -s zlib.pc lib/pkgconfig/libz.pc"
   },
   {
     "pkgname": "libz3",
@@ -9997,7 +9984,7 @@
     "parallel": "0",
     "dopatch": "# https://stackoverflow.com/questions/9168150/implicit-declaration-using-std-c99\ngsed -i 's|$(CFLAGS)|-D_DARWIN_C_SOURCE|' buildtools/Makefile\ngsed -i '/^CFLAGS_SHLIB =/c CFLAGS_SHLIB = -fPIC' config.mk.in\ngsed -i '/^STRIPFLAG =/c STRIPFLAG = ' config.mk.in\ngsed -i '/^INSTALL =/c INSTALL = install' config.mk.in\ngsed -i '/^LDSHLIB =/c LDSHLIB = -shared ' config.mk.in\ngsed -i 's/mkdir $(PKGDIR)/install -d $(PKGDIR)/' GNUmakefile\nrun cp config.mk.in config.mk",
     "install": "gmakew clean\ngmakew CC=\"$CC\" AR=\"$AR\" RANLIB=\"$RANLIB\" CC_FOR_BUILD=\"$CC_FOR_BUILD\" LD_FOR_BUILD=\"$CC_FOR_BUILD\" CFLAGS_FOR_BUILD=\"'$CFLAGS_FOR_BUILD $CPPFLAGS_FOR_BUILD'\" LDFLAGS_FOR_BUILD=\"'$LDFLAGS_FOR_BUILD'\" TIFFLIB=\"'-ltiff -lzstd -llzma'\" JPEGLIB=-ljpeg PNGLIB=-lpng ZLIB=-lz JASPERLIB=\"'$(pkg-config --libs-only-l jasper)'\" JASPERHDR_DIR=\"$libjasper_INCLUDE_DIR/jasper\"\ngmakew package pkgdir=$PACKAGE_INSTALL_DIR SONAME=libnetpbm.so",
-    "dotweak": "run mv staticlink/libnetpbm.a lib/\nrun rm -rf staticlink\nrun rm -rf sharedlink\nrun rm pkgconfig_template\nrun rm config_template\nrun rm README\nrun rm VERSION\nrun rm pkginfo\n\nrun install -d lib/pkgconfig\n\ncat > lib/pkgconfig/netpbm.pc <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: Netpbm\nDescription: A toolkit for manipulation of graphic images\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lnetpbm\nRequires: jasper libpng libjpeg libtiff-4 libxml-2.0\nEOF"
+    "dotweak": "run mv staticlink/libnetpbm.a lib/\nrun rm -rf staticlink\nrun rm -rf sharedlink\nrun rm pkgconfig_template\nrun rm config_template\nrun rm README\nrun rm VERSION\nrun rm pkginfo"
   },
   {
     "pkgname": "nghttp2",
@@ -10236,7 +10223,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure --enable-static --disable-shared",
+    "install": "configure",
     "dotweak": "rm -rf include/ lib/"
   },
   {
@@ -10389,7 +10376,7 @@
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h\n\ngsed -i 's|TIFF_LIBRARIES|PC_TIFF_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt\ngsed -i 's|LCMS2_LIBRARIES|PC_LCMS2_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt",
+    "dopatch": "gsed -i -e '/ftello/d' -e '/fseeko/d' ../include/ndk-pkg-common.h\ngsed -i 's|TIFF_LIBRARIES|PC_TIFF_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt\ngsed -i 's|LCMS2_LIBRARIES|PC_LCMS2_STATIC_LIBRARIES|' thirdparty/CMakeLists.txt",
     "install": "cmakew \\\n    -DBUILD_DOC=ON \\\n    -DBUILD_JAVA=OFF \\\n    -DBUILD_JPIP=OFF \\\n    -DBUILD_JPIP_SERVER=OFF \\\n    -DBUILD_CODEC=ON \\\n    -DBUILD_VIEWER=OFF \\\n    -DBUILD_SHARED_LIBS=OFF \\\n    -DBUILD_STATIC_LIBS=ON \\\n    -DBUILD_UNIT_TESTS=OFF \\\n    -DBUILD_LUTS_GENERATOR=OFF \\\n    -DBUILD_PKGCONFIG_FILES=ON",
     "dotweak": "rm -rf include/ lib/ share/man/man3/"
   },
@@ -10582,7 +10569,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure \\\n    --enable-xattr \\\n    --disable-gcc-warnings"
+    "install": "configure --enable-xattr --disable-gcc-warnings"
   },
   {
     "pkgname": "patchelf",
@@ -10613,9 +10600,8 @@
     "dep-upp": "curl bsdtar gmake",
     "bsystem": "gmake",
     "binbstd": "1",
-    "xxflags": "-Wno-error=reserved-user-defined-literal",
     "parallel": "1",
-    "install": "gmakew clean\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\" CXX=\"$CXX\" CXXFLAGS=\"'$CXXFLAGS $CPPFLAGS'\" LDFLAGS=\"'$LDFLAGS'\""
+    "install": "gmakew clean\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\" CXX=\"$CXX\" CXXFLAGS=\"'$CXXFLAGS $CPPFLAGS -Wno-error=reserved-user-defined-literal'\" LDFLAGS=\"'$LDFLAGS'\""
   },
   {
     "pkgname": "pcapplusplus",
@@ -12329,7 +12315,7 @@
     "binbstd": "0",
     "api-min": "23",
     "parallel": "1",
-    "dopatch": "gsed -i '1i int getdtablesize();'   compat/imsg.c\ngsed -i '1i #include<sys/endian.h>' compat/htonll.c\ngsed -i '1i #include<sys/endian.h>' compat/ntohll.c",
+    "dopatch": "gsed -i '1i int getdtablesize();'   compat/imsg.c\ngsed -i '1i #include<sys/endian.h>' compat/htonll.c compat/ntohll.c",
     "install": "configure \\\n    --with-TERM=screen-256color \\\n    --enable-utf8proc \\\n    --disable-static \\\n    ac_cv_search_forkpty='-lc' \\\n    ac_cv_search_utf8proc_charwidth='-lutf8proc'",
     "caveats": "To get it working on Termux, you might need to run the following instructions\n\nexport TMUX_TMPDIR=\"$HOME/tmux-tmp-dir\"\ninstall -d \"$TMUX_TMPDIR\"\nln -s ~/../usr/lib/terminfo ~/.terminfo"
   },
@@ -12411,7 +12397,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "gsed -i 's|ifndef __linux__|if 1|' strverscmp.c || return 1\ngsed -i 's|ifndef __linux__|if 1|' tree.h       || return 1",
+    "dopatch": "gsed -i 's|ifndef __linux__|if 1|' tree.h strverscmp.c",
     "install": "gmakew clean\ngmakew install \\\n    PREFIX=\"$PACKAGE_INSTALL_DIR\" \\\n    MANDIR=\"$PACKAGE_INSTALL_DIR/share/man\" \\\n    CC=\"$CC\" \\\n    CFLAGS=\"'$CFLAGS $CPPFLAGS -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64'\" \\\n    LDFLAGS=\"'$LDFLAGS'\""
   },
   {
@@ -12429,7 +12415,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "export LIBS='-lcharset -liconv'\nconfigure only --disable-shared --enable-static\ngmakew -C datrie\ngmakew -C tools install\ngmakew -C man   install"
+    "install": "export LIBS='-lcharset -liconv'\nconfigure only\ngmakew -C datrie\ngmakew -C tools install\ngmakew -C man   install"
   },
   {
     "pkgname": "ttyd",
@@ -12480,7 +12466,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "gsed -i 's|union wait status|int status|' ttyrec.c\n#gsed -i 's|set_progname|setprogname|'     ttytime.c",
+    "dopatch": "gsed -i 's|union wait status|int status|' ttyrec.c",
     "install": "gmakew clean\ngmakew CC=$CC CFLAGS=\"'$CFLAGS $CPPFLAGS -Dset_progname=setprogname $LDFLAGS'\"\ninstall_bins ttyrec ttyplay ttytime"
   },
   {
@@ -12663,7 +12649,7 @@
     "binbstd": "0",
     "api-min": "24",
     "parallel": "1",
-    "dopatch": "gsed -i 's|/var/run|/data/local/tmp|' src/usbmuxd-proto.h\ngsed -i 's|/var/run|/data/local/tmp|' src/main.c\ngsed -i 's|/var/run|/data/local/tmp|' docs/usbmuxd.8\ngsed -i 's|/var/run|/data/local/tmp|' udev/39-usbmuxd.rules.in",
+    "dopatch": "gsed -i 's|/var/run|/data/local/tmp|' src/main.c src/usbmuxd-proto.h docs/usbmuxd.8 udev/39-usbmuxd.rules.in",
     "install": "configure --without-preflight --without-systemd"
   },
   {
@@ -12806,7 +12792,7 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "gsed -i -e '/ftello/d' -e '/fseeko/d' ../include/ndk-pkg-common.h",
     "prepare": "printf '\\n' > ../include.h\n\nrm -f ./src/auto/config.cache\n\nexport vim_cv_toupper_broken=no\nexport vim_cv_getcwd_broken=no\nexport vim_cv_terminfo=yes\nexport vim_cv_tgetent=zero\nexport vim_cv_memmove_handles_overlap=yes\nexport vim_cv_stat_ignores_slash=no\nexport vim_cv_uname_output=Linux",
     "install": "configure \\\n    --with-tlib=ncursesw \\\n    --with-compiledby=ndk-pkg \\\n    --with-features=huge \\\n    --without-x \\\n    --enable-cscope \\\n    --enable-terminal \\\n    --enable-multibyte \\\n    --enable-perlinterp=no \\\n    --enable-rubyinterp=no \\\n    --enable-python3interp \\\n    --enable-luainterp \\\n    --enable-gui=no \\\n    --with-lua-prefix=$lua_INSTALL_DIR"
   },
@@ -12919,7 +12905,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "gsed -i -e '/ftello/d' -e '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "configure --disable-tests --enable-apps --disable-man"
   },
   {
@@ -13019,7 +13005,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "dopatch": "gsed -i '/ftello/d' ../include/ndk-pkg-common.h\ngsed -i '/fseeko/d' ../include/ndk-pkg-common.h",
+    "dopatch": "gsed -i -e '/ftello/d' -e '/fseeko/d' ../include/ndk-pkg-common.h",
     "install": "configure \\\n    --disable-pcre \\\n    --disable-pcre2 \\\n    --enable-threads=posix \\\n    --with-ssl=openssl \\\n    --with-cares \\\n    --with-libidn \\\n    --without-libpsl",
     "caveats": "If wget is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers=<DNS-SERVERS> argument to curl like below\n\nwget --dns-servers=8.8.8.8 https://example.com"
   },
@@ -13140,7 +13126,7 @@
     "bsystem": "configure",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "gsed -i 's|xmlErrorPtr error|const xmlError * error|'  src/xmlstar.h\ngsed -i 's|xmlErrorPtr error|const xmlError * error|'  src/xml.c\ngsed -i 's|xmlChar \\*\\*array;|const xmlChar **array;|' src/xml_elem.c\ngsed -i 's|xmlChar \\*name)|const xmlChar *name)|'      src/xml_elem.c",
+    "dopatch": "gsed -i 's|xmlErrorPtr error|const xmlError * error|'  src/xml.c src/xmlstar.h\ngsed -i 's|xmlChar \\*\\*array;|const xmlChar **array;|' src/xml_elem.c\ngsed -i 's|xmlChar \\*name)|const xmlChar *name)|'      src/xml_elem.c",
     "install": "configure \\\n    --with-libxml-prefix=\"$libxml2_INSTALL_DIR\" \\\n    --with-libxslt-prefix=\"$libxslt_INSTALL_DIR\"",
     "dotweak": "ln -s xml bin/xmlstarlet"
   },
@@ -13160,7 +13146,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-zlib \\\n    --without-lzma \\\n    --without-python \\\n    --without-readline \\\n    --without-coverage \\\n    --without-debug \\\n    --enable-ipv6 \\\n    --enable-static \\\n    --disable-shared \\\n    LIBS=-liconv",
+    "install": "configure \\\n    --with-iconv=\"$libiconv_INSTALL_DIR\" \\\n    --with-zlib \\\n    --without-lzma \\\n    --without-python \\\n    --without-readline \\\n    --without-coverage \\\n    --without-debug \\\n    --enable-ipv6 \\\n    LIBS=-liconv",
     "dotweak": "rm -rfv include\nrm -rfv lib\nrm -rfv bin/xml2-config\nrm -rfv share/aclocal\nrm -rfv share/doc\nrm -rfv share/gtk-doc\nrm -rfv share/man/man1/xml2-config.1"
   },
   {
@@ -13228,7 +13214,7 @@
     "binbstd": "0",
     "parallel": "1",
     "dopatch": "gsed -i 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.am\ngsed -i 's|$(XSLTPROC) --nonet $(srcdir)/xsltproc.xml|touch xsltproc.1|' doc/Makefile.in",
-    "install": "configure \\\n    --enable-static \\\n    --disable-shared \\\n    --without-debug \\\n    --without-mem-debug \\\n    --without-debugger \\\n    --without-crypto \\\n    --without-python \\\n    --with-profiler \\\n    --with-plugins LIBS=-ldl",
+    "install": "configure \\\n    --without-debug \\\n    --without-mem-debug \\\n    --without-debugger \\\n    --without-crypto \\\n    --without-python \\\n    --with-profiler \\\n    --with-plugins LIBS=-ldl",
     "dotweak": "rm -rfv bin/xslt-config\nrm -rfv include\nrm -rfv lib\nrm -rfv share/man/man3\nrm -rfv share/aclocal\nrm -rfv share/doc\nrm -rfv share/gtk-doc"
   },
   {
@@ -13277,7 +13263,7 @@
     "bsystem": "configure",
     "binbstd": "0",
     "parallel": "1",
-    "install": "configure \\\n    --disable-external-sha256 \\\n    --disable-werror \\\n    --disable-shared \\\n    --enable-static \\\n    --enable-assembler \\\n    --enable-threads=posix",
+    "install": "configure \\\n    --disable-external-sha256 \\\n    --disable-werror \\\n    --enable-assembler \\\n    --enable-threads=posix",
     "dotweak": "rm -rf include/ lib/"
   },
   {
@@ -13379,7 +13365,7 @@
     "binbstd": "0",
     "parallel": "1",
     "developer": "Jean-loup Gailly <jloup@gailly.net>\nMark Adler <madler@alumni.caltech.edu>",
-    "dopatch": "gsed -i 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt\ngsed -i 's|zlib)|zlibstatic)|' CMakeLists.txt",
+    "dopatch": "gsed -i 's|/share/pkgconfig|/lib/pkgconfig|' CMakeLists.txt",
     "install": "cmakew"
   },
   {

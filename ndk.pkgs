@@ -3513,13 +3513,13 @@ installed: no
 ---
 pkgname: hurl
 pkgtype: exe
-version: 4.3.0
+version: 5.0.1
 license: Apache-2.0
 summary: Run and Test HTTP Requests with plain text and curl
 web-url: https://hurl.dev
 git-url: https://github.com/Orange-OpenSource/hurl
-src-url: https://github.com/Orange-OpenSource/hurl/archive/refs/tags/4.3.0.tar.gz
-src-sha: 499f2430ee6b73b0414ab8aa3c9298be8276e7b404b13c76e4c02a86eb1db9cd
+src-url: https://github.com/Orange-OpenSource/hurl/archive/refs/tags/5.0.1.tar.gz
+src-sha: 2b5a42fc95b74c876257a35d13b603e06f1f2c58e0ca44a2c0bb23d023227c29
 dep-pkg: libcurl libxml2
 dep-upp: curl bsdtar
 bsystem: cargo
@@ -3582,21 +3582,6 @@ web-url: http://site.icu-project.org/home
 git-url: https://github.com/unicode-org/icu
 src-url: https://github.com/unicode-org/icu/releases/download/release-74-2/icu4c-74_2-src.tgz
 src-sha: 68db082212a96d6f53e35d60f47d38b962e9f9d207a74cfac78029ae8ff5e08c
-dep-upp: curl bsdtar gmake gmake
-bsystem: configure
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: id3lib
-pkgtype: lib
-version: 3.8.3
-license: LGPL-2.0-or-later
-summary: An open-source library for manipulating ID3v1 and ID3v2 tags
-web-url: https://id3lib.sourceforge.io
-src-url: https://downloads.sourceforge.net/project/id3lib/id3lib/3.8.3/id3lib-3.8.3.tar.gz
-src-sha: 2749cc3c0cd7280b299518b1ddf5a5bcfe2d1100614519b68702230e26c7d079
-dep-pkg: libiconv libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -3763,14 +3748,14 @@ installed: no
 ---
 pkgname: jj
 pkgtype: exe
-version: 0.18.0
+version: 0.21.0
 license: Apache-2.0
 summary: A git-compatible distributed version control system
 web-url: https://github.com/martinvonz/jj
 git-url: https://github.com/martinvonz/jj
-src-url: https://github.com/martinvonz/jj/archive/refs/tags/v0.18.0.tar.gz
-src-sha: 4f81eed321c3aeeb1e0528250f49b703710ebf91ba18238dd46f97b9a59aaa98
-dep-pkg: libgit2
+src-url: https://github.com/martinvonz/jj/archive/refs/tags/v0.21.0.tar.gz
+src-sha: c38d98d7db42f08b799f5c51f33cd8454867bc4862a15aa0897b72f2d32eea0a
+dep-pkg: openssl-dev
 dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
@@ -4309,6 +4294,7 @@ src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
 dep-upp: automake libtool curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
+api-min: 24
 parallel: 1
 installed: no
 ---
@@ -4654,6 +4640,7 @@ web-url: https://linux.thai.net/~thep/datrie/datrie.html
 git-url: https://github.com/tlwg/libdatrie
 src-url: https://github.com/tlwg/libdatrie/releases/download/v0.2.13/libdatrie-0.2.13.tar.xz
 src-sha: 12231bb2be2581a7f0fb9904092d24b0ed2a271a16835071ed97bed65267f4be
+dep-pkg: libiconv
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -4882,6 +4869,7 @@ src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
 dep-upp: automake libtool curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
+api-min: 24
 parallel: 1
 installed: no
 ---
@@ -5340,6 +5328,21 @@ web-url: https://www.gnu.org/software/libiconv
 git-url: https://git.savannah.gnu.org/git/libiconv.git
 src-url: https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
 src-sha: 8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libid3
+pkgtype: lib
+version: 3.8.3
+license: LGPL-2.0-or-later
+summary: An open-source library for manipulating ID3v1 and ID3v2 tags
+web-url: https://id3lib.sourceforge.io
+src-url: https://downloads.sourceforge.net/project/id3lib/id3lib/3.8.3/id3lib-3.8.3.tar.gz
+src-sha: 2749cc3c0cd7280b299518b1ddf5a5bcfe2d1100614519b68702230e26c7d079
+dep-pkg: libiconv libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -6112,6 +6115,7 @@ src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
 dep-upp: automake libtool curl bsdtar patch gmake gmake
 bsystem: configure
 binbstd: 0
+api-min: 24
 parallel: 1
 installed: no
 ---
@@ -7166,6 +7170,7 @@ web-url: https://github.com/util-linux/util-linux
 git-url: https://github.com/util-linux/util-linux
 src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
 src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
+dep-pkg: liblanginfo
 dep-upp: automake libtool curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -8223,21 +8228,6 @@ dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
 ppflags: -DLIBYUV_DISABLE_NEON
-parallel: 1
-installed: no
----
-pkgname: libz
-pkgtype: lib
-version: 1.3.1
-license: Zlib
-summary: A general purpose data compression library
-web-url: https://zlib.net/
-git-url: https://github.com/madler/zlib
-src-url: https://zlib.net/fossils/zlib-1.3.1.tar.gz
-src-sha: 9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23
-dep-upp: curl bsdtar cmake ninja
-bsystem: cmake
-binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -9711,7 +9701,6 @@ dep-pkg: libbz2
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
-xxflags: -Wno-error=reserved-user-defined-literal
 parallel: 1
 installed: no
 ---
