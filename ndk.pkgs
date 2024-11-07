@@ -1,6 +1,6 @@
 pkgname: ARM_NEON_2_x86_SSE
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 summary: The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions
 web-url: https://github.com/intel/ARM_NEON_2_x86_SSE
 git-url: https://github.com/intel/ARM_NEON_2_x86_SSE
@@ -18,7 +18,7 @@ summary: A portable ASCII art graphics library
 web-url: https://aa-project.sourceforge.io/aalib/
 src-url: https://downloads.sourceforge.net/project/aa-project/aa-lib/1.4rc5/aalib-1.4rc5.tar.gz
 src-sha: fbddda9230cf6ee2a4f5706b4b11e2190ae45f5eda1f0409dc4f99b35e0a70ee
-dep-pkg: ncurses@6.4
+dep-pkg: libncurses@6.4
 dep-upp: libtool curl bsdtar gmake autotools gmake
 bsystem: autotools
 binbstd: 0
@@ -135,7 +135,7 @@ installed: no
 ---
 pkgname: alass
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 license: GPL-3.0-or-later
 summary: Automatic Language-Agnostic Subtitle Synchronization
 web-url: https://github.com/kaegi/alass
@@ -367,7 +367,7 @@ installed: no
 ---
 pkgname: base16
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 summary: base16 encoder and decoder
 web-url: https://github.com/leleliu008/C-examples
 git-url: https://github.com/leleliu008/C-examples
@@ -400,7 +400,7 @@ web-url: https://www.gnu.org/software/bash
 git-url: https://git.savannah.gnu.org/git/bash.git
 src-url: https://ftp.gnu.org/gnu/bash/bash-5.2.21.tar.gz
 src-sha: c8e31bdc59b69aaffc5b36509905ba3e5cbb12747091d27b4b977f078560d5b8
-dep-pkg: readline
+dep-pkg: libreadline
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -449,7 +449,7 @@ summary: Arbitrary precision numeric processing language
 web-url: https://www.gnu.org/software/bc
 src-url: https://ftp.gnu.org/gnu/bc/bc-1.07.1.tar.gz
 src-sha: 62adfca89b0a1c0164c2cdca59ca210c1d44c3ffc46daf9931cf4942664cb02a
-dep-pkg: readline
+dep-pkg: libreadline
 dep-upp: bison flex ed texinfo curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -612,7 +612,7 @@ installed: no
 ---
 pkgname: boringssl
 pkgtype: exe+lib
-version: 2024.11.06
+version: 2024.11.07
 summary: A fork of OpenSSL that is designed to meet Google needs
 web-url: https://boringssl.googlesource.com/boringssl/
 git-url: https://github.com/google/boringssl
@@ -631,7 +631,7 @@ web-url: https://boxes.thomasjensen.com/
 git-url: https://github.com/ascii-boxes/boxes
 src-url: https://github.com/ascii-boxes/boxes/archive/refs/tags/v2.3.0.tar.gz
 src-sha: e226b4ff91e1260fc80e8312b39cde5a783b96e9f248530eae941b7f1bf6342a
-dep-pkg: libpcre2 libunistring ncurses
+dep-pkg: libpcre2 libunistring libncurses
 dep-lib: -liconv
 dep-upp: gm4 flex bison curl bsdtar gmake
 bsystem: gmake
@@ -1047,7 +1047,7 @@ web-url: https://www.cmake.org/
 git-url: https://github.com/Kitware/CMake
 src-url: https://github.com/Kitware/CMake/releases/download/v3.30.3/cmake-3.30.3.tar.gz
 src-sha: 6d5de15b6715091df7f5441007425264bdd477809f80333fdf95f846aaff88e4
-dep-pkg: libarchive libcurl libuv libz libexpat libjsoncpp librhash ncurses openssl-dev
+dep-pkg: libarchive libcurl libuv libz libexpat libjsoncpp librhash libncurses openssl-dev
 dep-lib: libarchive libcurl
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
@@ -1079,7 +1079,7 @@ web-url: https://github.com/abishekvashok/cmatrix
 git-url: https://github.com/abishekvashok/cmatrix
 src-url: https://github.com/abishekvashok/cmatrix/archive/refs/tags/v2.0.tar.gz
 src-sha: ad93ba39acd383696ab6a9ebbed1259ecf2d3cf9f49d6b97038c66f80749e99a
-dep-pkg: ncurses
+dep-pkg: libncurses
 dep-upp: curl bsdtar gmake autotools gmake
 bsystem: autotools
 binbstd: 0
@@ -1212,7 +1212,7 @@ installed: no
 ---
 pkgname: cpuinfo
 pkgtype: pie
-version: 2024.11.06
+version: 2024.11.07
 license: BSD-2-Clause
 summary: CPU INFOrmation library
 web-url: https://github.com/pytorch/cpuinfo
@@ -1247,7 +1247,7 @@ web-url: https://crosstool-ng.github.io
 git-url: https://github.com/crosstool-ng/crosstool-ng
 src-url: http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.26.0.tar.xz
 src-sha: e8ce69c5c8ca8d904e6923ccf86c53576761b9cf219e2e69235b139c8e1b74fc
-dep-pkg: ncurses libintl
+dep-pkg: libncurses libintl
 dep-upp: gm4 flex bison patch libtool help2man texinfo file gawk gtar gzip bzip2 xz unzip curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -1362,13 +1362,13 @@ installed: no
 ---
 pkgname: d2
 pkgtype: pie
-version: 0.6.5
+version: 0.6.7
 license: MPL-2.0
 summary: A modern diagram scripting language that turns text to diagrams
 web-url: https://github.com/terrastruct/d2
 git-url: https://github.com/terrastruct/d2
-src-url: https://github.com/terrastruct/d2/archive/refs/tags/v0.6.5.tar.gz
-src-sha: bb54639c1e9711fd6d2c88f15abd5d3a31b657d5b182154db60a32ee93ee2713
+src-url: https://github.com/terrastruct/d2/archive/refs/tags/v0.6.7.tar.gz
+src-sha: 2e66d0012202070dccda6b8fdd8f13cbbf316e23d97fa94327908e4e87b685e5
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
@@ -1712,7 +1712,7 @@ installed: no
 ---
 pkgname: easyutils
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 summary: A collections of easy to use command-line utilities
 web-url: https://github.com/leleliu008/C-examples
 git-url: https://github.com/leleliu008/C-examples
@@ -2084,7 +2084,7 @@ web-url: https://fishshell.com/
 git-url: https://github.com/fish-shell/fish-shell
 src-url: https://github.com/fish-shell/fish-shell/releases/download/3.7.1/fish-3.7.1.tar.xz
 src-sha: 614c9f5643cd0799df391395fa6bbc3649427bb839722ce3b114d3bbc1a3b250
-dep-pkg: libpcre2 readline
+dep-pkg: libpcre2 libreadline
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -2201,7 +2201,7 @@ installed: no
 ---
 pkgname: fp16
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: MIT
 summary: A header-only C/C++ library for conversion to/from half-precision floating point formats
 web-url: https://github.com/Maratyszcza/FP16
@@ -2275,7 +2275,7 @@ installed: no
 ---
 pkgname: fxdiv
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: MIT
 summary: A header-only library for division via fixed-point multiplication by inverse
 web-url: https://github.com/Maratyszcza/FXdiv
@@ -2370,7 +2370,7 @@ web-url: https://www.gnu.org/software/gawk
 git-url: https://git.savannah.gnu.org/git/gawk.git
 src-url: https://ftp.gnu.org/gnu/gawk/gawk-5.3.0.tar.xz
 src-sha: ca9c16d3d11d0ff8c69d79dc0b47267e1329a69b39b799895604ed447d3ca90b
-dep-pkg: readline libmpfr
+dep-pkg: libreadline libmpfr
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -2494,7 +2494,7 @@ web-url: https://www.gnu.org/software/gettext
 git-url: https://git.savannah.gnu.org/git/gettext.git
 src-url: https://ftp.gnu.org/gnu/gettext/gettext-0.22.5.tar.gz
 src-sha: ec1705b1e969b83a9f073144ec806151db88127f5e40fe5a94cb6c8fa48996a0
-dep-pkg: ncurses libiconv
+dep-pkg: libncurses libiconv
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -2510,7 +2510,7 @@ web-url: https://www.gnu.org/software/gettext
 git-url: https://git.savannah.gnu.org/git/gettext.git
 src-url: https://ftp.gnu.org/gnu/gettext/gettext-0.22.5.tar.gz
 src-sha: ec1705b1e969b83a9f073144ec806151db88127f5e40fe5a94cb6c8fa48996a0
-dep-pkg: ncurses libiconv
+dep-pkg: libncurses libiconv
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -2526,7 +2526,7 @@ web-url: https://www.gnu.org/software/gettext
 git-url: https://git.savannah.gnu.org/git/gettext.git
 src-url: https://ftp.gnu.org/gnu/gettext/gettext-0.22.5.tar.gz
 src-sha: ec1705b1e969b83a9f073144ec806151db88127f5e40fe5a94cb6c8fa48996a0
-dep-pkg: ncurses libiconv
+dep-pkg: libncurses libiconv
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -2743,8 +2743,8 @@ license: LGPL-2.1-or-later
 summary: A general-purpose, portable utility library which provides many useful data types, macros, type conversions, string utilities, file utilities, a mainloop abstraction, and so on
 web-url: https://developer.gnome.org/glib
 git-url: https://github.com/GNOME/glib
-src-url: https://download.gnome.org/sources/glib/2.78/glib-2.78.0.tar.xz
-src-uri: https://distfiles.macports.org/glib2/glib-2.78.0.tar.xz
+src-url: https://distfiles.macports.org/glib2/glib-2.78.0.tar.xz
+src-uri: https://download.gnome.org/sources/glib/2.78/glib-2.78.0.tar.xz
 src-sha: 44eaab8b720877ce303c5540b657b126f12dc94972d9880b52959f43fb537b30
 dep-pkg: libpcre2 libintl libffi libz
 dep-upp: curl bsdtar python3 ninja
@@ -2852,7 +2852,7 @@ installed: no
 ---
 pkgname: gn
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 summary: A meta-build system for generating build files for ninja
 web-url: https://gn.googlesource.com/gn
 git-url: https://gn.googlesource.com/gn
@@ -2903,7 +2903,7 @@ web-url: https://www.gnupg.org
 git-url: https://dev.gnupg.org/source/gnupg
 src-url: https://www.gnupg.org/ftp/gcrypt/gnupg/gnupg-2.4.5.tar.bz2
 src-sha: f68f7d75d06cb1635c336d34d844af97436c3f64ea14bcb7c869782f96f44277
-dep-pkg: libgcrypt libassuan libksba libnpth libiconv libbz2 libz readline
+dep-pkg: libreadline libgcrypt libassuan libksba libnpth libiconv libbz2 libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -2988,7 +2988,7 @@ installed: no
 ---
 pkgname: gomobile
 pkgtype: pie
-version: 2024.11.06
+version: 2024.11.07
 summary: A tool for building and running mobile apps written in Go
 web-url: https://github.com/golang/mobile
 git-url: https://github.com/golang/mobile
@@ -3175,7 +3175,7 @@ summary: Simulator for Microchip PIC microcontrollers
 web-url: https://gpsim.sourceforge.io/
 src-url: https://downloads.sourceforge.net/project/gpsim/gpsim/0.32.0/gpsim-0.32.1.tar.gz
 src-sha: c704d923ae771fabb7f63775a564dfefd7018a79c914671c4477854420b32e69
-dep-pkg: glib libpopt readline
+dep-pkg: glib libpopt libreadline
 dep-upp: python3 curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 1
@@ -3452,7 +3452,7 @@ web-url: https://htop.dev
 git-url: https://github.com/htop-dev/htop
 src-url: https://github.com/htop-dev/htop/archive/refs/tags/3.3.0.tar.gz
 src-sha: 1e5cc328eee2bd1acff89f860e3179ea24b85df3ac483433f92a29977b14b045
-dep-pkg: ncurses libstrchrnul liblanginfo libexecinfo
+dep-pkg: libncurses libstrchrnul liblanginfo libexecinfo
 dep-upp: curl bsdtar gmake autotools gmake
 bsystem: autogen
 binbstd: 0
@@ -3514,7 +3514,7 @@ web-url: https://hunspell.github.io
 git-url: https://github.com/hunspell/hunspell
 src-url: https://github.com/hunspell/hunspell/archive/v1.7.2.tar.gz
 src-sha: 69fa312d3586c988789266eaf7ffc9861d9f6396c31fc930a014d551b59bbd6e
-dep-pkg: readline libintl liblanginfo
+dep-pkg: libintl libreadline liblanginfo
 dep-upp: gettext-tools libtool xz curl bsdtar gmake autotools gmake
 bsystem: autotools
 binbstd: 0
@@ -3889,7 +3889,7 @@ web-url: https://web.mit.edu/kerberos
 git-url: https://github.com/krb5/krb5
 src-url: https://kerberos.org/dist/krb5/1.21/krb5-1.21.2.tar.gz
 src-sha: 9560941a9d843c0243a71b17a7ac6fe31c7cebb5bce3983db79e52ae7e850491
-dep-pkg: readline openssl-dev libdb libglob
+dep-pkg: libreadline openssl-dev libdb libglob
 dep-upp: gm4 bison perl curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -3966,7 +3966,7 @@ git-url: https://github.com/NLnetLabs/ldns
 src-url: https://nlnetlabs.nl/downloads/ldns/ldns-1.8.3.tar.gz
 src-sha: c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860
 dep-pkg: libpcap
-dep-upp: swig curl bsdtar gmake gmake
+dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 0
@@ -3981,7 +3981,7 @@ web-url: http://www.greenwoodsoftware.com/less/index.html
 git-url: https://github.com/gwsw/less
 src-url: http://www.greenwoodsoftware.com/less/less-643.tar.gz
 src-sha: 2911b5432c836fa084c8a2e68f6cd6312372c026a58faaa98862731c8b6052e8
-dep-pkg: ncurses libpcre2 liblanginfo
+dep-pkg: libncurses libpcre2 liblanginfo
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -4133,9 +4133,7 @@ web-url: https://www.lysator.liu.se/~nisse/misc/
 git-url: https://github.com/argp-standalone/argp-standalone
 src-url: https://github.com/argp-standalone/argp-standalone/archive/refs/tags/1.5.0.tar.gz
 src-sha: c29eae929dfebd575c38174f2c8c315766092cec99a8f987569d0cad3c6d64f6
-fix-url: https://git.alpinelinux.org/aports/plain/main/argp-standalone/gnu89-inline.patch
-fix-sha: 29be7cf514ecebe0c8879e9c510931d5ed03cb5f06ddd230f08b541b168fd5b6
-dep-upp: curl bsdtar patch python3 ninja
+dep-upp: curl bsdtar python3 ninja
 dep-pym: meson
 bsystem: meson
 binbstd: 0
@@ -4266,7 +4264,7 @@ installed: no
 ---
 pkgname: libbcrypt
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: CC0-1.0
 summary: A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface
 web-url: https://www.openwall.com/crypt
@@ -4424,7 +4422,7 @@ web-url: https://people.redhat.com/sgrubb/libcap-ng
 git-url: https://github.com/stevegrubb/libcap-ng
 src-url: https://github.com/stevegrubb/libcap-ng/archive/refs/tags/v0.8.5.tar.gz
 src-sha: e4be07fdd234f10b866433f224d183626003c65634ed0552b02e654a380244c2
-dep-upp: libtool swig curl bsdtar gmake autotools gmake
+dep-upp: libtool curl bsdtar gmake autotools gmake
 bsystem: autogen
 binbstd: 0
 api-min: 23
@@ -4570,7 +4568,7 @@ installed: no
 ---
 pkgname: libcpuinfo
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: BSD-2-Clause
 summary: CPU INFOrmation library
 web-url: https://github.com/pytorch/cpuinfo
@@ -4741,7 +4739,7 @@ summary: BSD-style licensed readline alternative
 web-url: https://thrysoee.dk/editline
 src-url: https://thrysoee.dk/editline/libedit-20210910-3.1.tar.gz
 src-sha: 6792a6a992050762edcca28ff3318cdb7de37dccf7bc30db59fcd7017eed13c5
-dep-pkg: ncurses
+dep-pkg: libncurses
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -4796,7 +4794,7 @@ installed: no
 ---
 pkgname: libexecinfo
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: 0BSD
 summary: A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc
 web-url: https://github.com/leleliu008/libexecinfo
@@ -5129,7 +5127,7 @@ installed: no
 ---
 pkgname: libglob
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 summary: glob(3) implementation
 web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html
 git-url: https://github.com/leleliu008/libglob
@@ -5473,7 +5471,7 @@ installed: no
 ---
 pkgname: libintl-lite
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: BSL-1.0
 summary: A simple (but less powerful) GNU gettext libintl replacement
 web-url: https://github.com/j-jorge/libintl-lite
@@ -5493,7 +5491,7 @@ web-url: https://www.libimobiledevice.org
 git-url: https://github.com/libimobiledevice/libirecovery
 src-url: https://github.com/libimobiledevice/libirecovery/releases/download/1.2.0/libirecovery-1.2.0.tar.bz2
 src-sha: 74448348f8a68b654015fe1952fdc4e0781db20dcf4e1d85ec97d6f91e95eb14
-dep-pkg: libusb readline libimobiledevice-glue
+dep-pkg: libusb libreadline libimobiledevice-glue
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -5656,15 +5654,15 @@ installed: no
 ---
 pkgname: libjxl
 pkgtype: lib
-version: 0.10.2
+version: 0.11.0
 license: BSD-3-Clause
-summary: New file format for still image compression
+summary: A reference implementation of JPEG XL image format (encoder and decoder)
 web-url: https://jpeg.org/jpegxl/index.html
 git-url: https://github.com/libjxl/libjxl
-src-url: https://github.com/libjxl/libjxl/archive/refs/tags/v0.10.2.tar.gz
-src-sha: 95e807f63143856dc4d161c071cca01115d2c6405b3d3209854ac6989dc6bb91
-dep-pkg: libjpeg-turbo libopenexr libwebp libpng libgif liblcms2 libbrotli libhwy
-dep-upp: git curl bsdtar cmake ninja
+src-url: https://github.com/libjxl/libjxl/archive/refs/tags/v0.11.0.tar.gz
+src-sha: 7ce4ec8bb37a435a73ac18c4c9ff56c2dc6c98892bf3f53a328e3eca42efb9cf
+dep-pkg: libhwy libbrotli liblcms2 libwebp libgif libpng libjpeg-turbo libopenexr
+dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
 parallel: 1
@@ -5718,7 +5716,7 @@ installed: no
 ---
 pkgname: liblanginfo
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 summary: langinfo.h and its implementation from android ndk source code
 web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html
 git-url: https://github.com/leleliu008/liblanginfo
@@ -5754,7 +5752,7 @@ git-url: https://github.com/NLnetLabs/ldns
 src-url: https://nlnetlabs.nl/downloads/ldns/ldns-1.8.3.tar.gz
 src-sha: c3f72dd1036b2907e3a56e6acf9dfb2e551256b3c1bbd9787942deeeb70e7860
 dep-pkg: libpcap
-dep-upp: swig curl bsdtar gmake gmake
+dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 0
@@ -5972,7 +5970,7 @@ installed: no
 ---
 pkgname: libmesalink
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: BSD-3-Clause
 summary: memory-safe and OpenSSL-compatible TLS library
 web-url: https://mesalink.io
@@ -6014,7 +6012,7 @@ installed: no
 ---
 pkgname: libmill
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: MIT
 summary: Go-style concurrency in C
 web-url: https://github.com/sustrik/libmill
@@ -6220,6 +6218,36 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
+pkgname: libncurses
+pkgtype: lib
+version: 6.5
+license: MIT
+summary: Text-based UI library
+web-url: https://www.gnu.org/software/ncurses
+git-url: https://github.com/mirror/ncurses
+src-url: https://ftp.gnu.org/gnu/ncurses/ncurses-6.5.tar.gz
+src-sha: 136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6
+dep-upp: gsed grep curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libncurses@6.4
+pkgtype: lib
+version: 6.4
+license: MIT
+summary: Text-based UI library
+web-url: https://www.gnu.org/software/ncurses
+git-url: https://github.com/mirror/ncurses
+src-url: https://ftp.gnu.org/gnu/ncurses/ncurses-6.4.tar.gz
+src-sha: 6931283d9ac87c5073f30b6290c4c75f21632bb4fc3603ac8100812bed248159
+dep-upp: gsed grep curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libnet
 pkgtype: lib
 version: 1.3
@@ -6328,7 +6356,7 @@ installed: no
 ---
 pkgname: libngtcp2
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: MIT
 summary: QUIC library written in C
 web-url: https://github.com/ngtcp2/ngtcp2
@@ -6906,7 +6934,7 @@ web-url: https://qalculate.github.io/
 git-url: https://github.com/Qalculate/libqalculate
 src-url: https://github.com/Qalculate/libqalculate/releases/download/v5.1.1/libqalculate-5.1.1.tar.gz
 src-sha: 04db2d1c8dc0d5a006971bb138aa71d4a944275dde8dbf952ad8b59bf499aba1
-dep-pkg: libintl readline icu4c libxml2 libcurl libgmp libmpfr libbthread
+dep-pkg: libintl libreadline icu4c libxml2 libcurl libgmp libmpfr libbthread
 dep-upp: gettext-tools perl intltool patch curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -6947,7 +6975,7 @@ installed: no
 ---
 pkgname: libquiche
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: BSD-2-Clause
 summary: Savoury implementation of the QUIC transport protocol and HTTP/3
 web-url: https://github.com/cloudflare/quiche
@@ -7032,6 +7060,22 @@ src-url: https://github.com/skvadrik/re2c/releases/download/3.1/re2c-3.1.tar.xz
 src-sha: 0ac299ad359e3f512b06a99397d025cfff81d3be34464ded0656f8a96676c029
 dep-upp: python3 curl bsdtar cmake ninja
 bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libreadline
+pkgtype: lib
+version: 8.2.10
+license: GPL-3.0-or-later
+summary: Library for command-line editing
+web-url: https://www.gnu.org/software/readline
+git-url: https://git.savannah.gnu.org/git/readline.git
+src-url: https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
+src-sha: 3feb7171f16a84ee82ca18a36d7b9be109a52c04f492a053331d7d1095007c35
+dep-pkg: libncurses
+dep-upp: curl bsdtar patch gmake gmake
+bsystem: configure
 binbstd: 0
 parallel: 1
 installed: no
@@ -7538,7 +7582,7 @@ web-url: https://www.gnu.org/software/gettext
 git-url: https://git.savannah.gnu.org/git/gettext.git
 src-url: https://ftp.gnu.org/gnu/gettext/gettext-0.22.5.tar.gz
 src-sha: ec1705b1e969b83a9f073144ec806151db88127f5e40fe5a94cb6c8fa48996a0
-dep-pkg: libiconv ncurses
+dep-pkg: libiconv libncurses
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -8037,7 +8081,7 @@ installed: no
 ---
 pkgname: libwordexp
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 summary: wordexp(3) implementation
 web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html
 git-url: https://github.com/leleliu008/libwordexp
@@ -8143,7 +8187,7 @@ installed: no
 ---
 pkgname: libxnnpack
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: BSD-3-Clause
 summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
 web-url: https://github.com/google/XNNPACK
@@ -8434,7 +8478,7 @@ installed: no
 ---
 pkgname: lodepng
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: Zlib
 summary: PNG encoder and decoder in C and C++
 web-url: https://github.com/lvandeve/lodepng
@@ -8532,7 +8576,7 @@ web-url: https://www.lua.org/
 git-url: https://github.com/lua/lua
 src-url: https://www.lua.org/ftp/lua-5.4.6.tar.gz
 src-sha: 7d5ea1b9cb6aa0b59ca3dde1c6adcb57ef83a1ba8e5432c0ecd06bf439b3ad88
-dep-pkg: readline
+dep-pkg: libreadline
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
@@ -8607,8 +8651,8 @@ web-url: https://invisible-island.net/lynx/
 src-url: https://invisible-mirror.net/archives/lynx/tarballs/lynx2.8.9rel.1.tar.bz2
 src-uri: https://distfiles.macports.org/lynx/lynx2.8.9rel.1.tar.bz2
 src-sha: 387f193d7792f9cfada14c60b0e5c0bff18f227d9257a39483e14fa1aaf79595
-dep-pkg: openssl-dev ncurses libbz2 libz
-dep-upp: openssl curl bsdtar gmake gmake
+dep-pkg: openssl-dev libncurses libbz2 libz
+dep-upp: libopenssl curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 1
@@ -8835,7 +8879,7 @@ web-url: https://mosh.org/
 git-url: https://github.com/mobile-shell/mosh
 src-url: https://mosh.org/mosh-1.4.0.tar.gz
 src-sha: 872e4b134e5df29c8933dff12350785054d2fd2839b5ae6b5587b14db1465ddd
-dep-pkg: openssl-dev ncurses libz libprotobuf liblanginfo
+dep-pkg: openssl-dev libncurses libz libprotobuf liblanginfo
 dep-upp: perl curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -8899,7 +8943,7 @@ web-url: https://mruby.org/
 git-url: https://github.com/mruby/mruby
 src-url: https://github.com/mruby/mruby/archive/3.0.0.tar.gz
 src-sha: 95b798cdd931ef29d388e2b0b267cba4dc469e8722c37d4ef8ee5248bc9075b0
-dep-pkg: readline
+dep-pkg: libreadline
 dep-upp: bison patch curl bsdtar ruby
 bsystem: rake
 binbstd: 1
@@ -8915,7 +8959,7 @@ web-url: https://mruby.org/
 git-url: https://github.com/mruby/mruby
 src-url: https://github.com/mruby/mruby/archive/3.2.0.tar.gz
 src-sha: 3c198e4a31d31fe8524013066fac84a67fe6cd6067d92c25a1c79089744cb608
-dep-pkg: readline
+dep-pkg: libreadline
 dep-upp: bison patch curl bsdtar ruby
 bsystem: rake
 binbstd: 1
@@ -8946,7 +8990,7 @@ web-url: https://www.mujs.com/
 git-url: https://github.com/ccxvii/mujs
 src-url: https://github.com/ccxvii/mujs/archive/refs/tags/1.3.4.tar.gz
 src-sha: c015475880f6a382e706169c94371a7dd6cc22078832f6e0865af8289c2ef42b
-dep-pkg: readline
+dep-pkg: libreadline
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
@@ -8979,7 +9023,7 @@ web-url: https://www.nano-editor.org/
 git-url: https://git.savannah.gnu.org/git/nano.git
 src-url: https://www.nano-editor.org/dist/v8/nano-8.0.tar.xz
 src-sha: c17f43fc0e37336b33ee50a209c701d5beb808adc2d9f089ca831b40539c9ac4
-dep-pkg: ncurses libintl libmagic
+dep-pkg: libncurses libintl libmagic
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -9054,7 +9098,7 @@ summary: NCurses Disk Usage
 web-url: https://dev.yorhel.nl/ncdu
 src-url: https://dev.yorhel.nl/download/ncdu-1.16.tar.gz
 src-sha: 2b915752a183fae014b5e5b1f0a135b4b408de7488c716e325217c2513980fd4
-dep-pkg: ncurses
+dep-pkg: libncurses
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -9070,22 +9114,7 @@ web-url: https://www.gnu.org/software/ncurses
 git-url: https://github.com/mirror/ncurses
 src-url: https://ftp.gnu.org/gnu/ncurses/ncurses-6.5.tar.gz
 src-sha: 136d91bc269a9a5785e5f9e980bc76ab57428f604ce3e5a5a90cebc767971cc6
-dep-upp: gsed grep curl bsdtar gmake gmake
-bsystem: configure
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: ncurses@6.4
-pkgtype: lib
-version: 6.4
-license: MIT
-summary: Text-based UI library
-web-url: https://www.gnu.org/software/ncurses
-git-url: https://github.com/mirror/ncurses
-src-url: https://ftp.gnu.org/gnu/ncurses/ncurses-6.4.tar.gz
-src-sha: 6931283d9ac87c5073f30b6290c4c75f21632bb4fc3603ac8100812bed248159
-dep-upp: gsed grep curl bsdtar gmake gmake
+dep-upp: gsed grep tic curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 parallel: 1
@@ -9093,7 +9122,7 @@ installed: no
 ---
 pkgname: ndk-pkg-core
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 license: Apache-2.0
 summary: core utils for ndk-pkg
 web-url: https://github.com/leleliu008/ndk-pkg
@@ -9140,7 +9169,7 @@ web-url: https://raboof.github.io/nethogs/
 git-url: https://github.com/raboof/nethogs
 src-url: https://github.com/raboof/nethogs/archive/refs/tags/v0.8.7.tar.gz
 src-sha: 957d6afcc220dfbba44c819162f44818051c5b4fb793c47ba98294393986617d
-dep-pkg: libpcap ncurses
+dep-pkg: libpcap libncurses
 dep-lib: openssl
 dep-upp: curl bsdtar gmake
 bsystem: gmake
@@ -9238,7 +9267,7 @@ web-url: https://github.com/jarun/nnn
 git-url: https://github.com/jarun/nnn
 src-url: https://github.com/jarun/nnn/archive/v4.9.tar.gz
 src-sha: 9e25465a856d3ba626d6163046669c0d4010d520f2fb848b0d611e1ec6af1b22
-dep-pkg: readline
+dep-pkg: libreadline
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
@@ -9653,7 +9682,7 @@ installed: no
 ---
 pkgname: packcc
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 license: MIT
 summary: A packrat parser generator for C
 web-url: https://github.com/enechaev/packcc
@@ -9750,7 +9779,7 @@ web-url: https://www.pcre.org/
 git-url: https://github.com/PCRE2Project/pcre2
 src-url: https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.44/pcre2-10.44.tar.bz2
 src-sha: d34f02e113cf7193a1ebf2770d3ac527088d485d4e047ed10e5d217c6ef5de96
-dep-pkg: libz libbz2 readline
+dep-pkg: libz libbz2 libreadline
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -9770,7 +9799,7 @@ installed: no
 ---
 pkgname: pegof
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
 web-url: https://github.com/dolik-rce/pegof
 git-url: https://github.com/dolik-rce/pegof
@@ -9965,7 +9994,7 @@ installed: no
 ---
 pkgname: ppkg
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 license: Apache-2.0
 summary: A portable package manager for Unix-like systems
 web-url: https://github.com/leleliu008/ppkg
@@ -10003,7 +10032,7 @@ web-url: https://github.com/Xfennec/progress
 git-url: https://github.com/Xfennec/progress
 src-url: https://github.com/Xfennec/progress/archive/v0.17.tar.gz
 src-sha: ee9538fce98895dcf0d108087d3ee2e13f5c08ed94c983f0218a7a3d153b725d
-dep-pkg: ncurses libwordexp
+dep-pkg: libncurses libwordexp
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
@@ -10061,7 +10090,7 @@ installed: no
 ---
 pkgname: psimd
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: MIT
 summary: Portable 128-bit SIMD intrinsics
 web-url: https://github.com/Maratyszcza/psimd
@@ -10074,7 +10103,7 @@ installed: no
 ---
 pkgname: pthreadpool
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: BSD-2-Clause
 summary: A portable and efficient thread pool implementation
 web-url: https://github.com/Maratyszcza/pthreadpool
@@ -10087,7 +10116,7 @@ installed: no
 ---
 pkgname: pup
 pkgtype: pie
-version: 2024.11.06
+version: 2024.11.07
 license: MIT
 summary: Parse HTML at the command-line
 web-url: https://github.com/EricChiang/pup
@@ -10341,22 +10370,6 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
-pkgname: readline
-pkgtype: lib
-version: 8.2.10
-license: GPL-3.0-or-later
-summary: Library for command-line editing
-web-url: https://www.gnu.org/software/readline
-git-url: https://git.savannah.gnu.org/git/readline.git
-src-url: https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
-src-sha: 3feb7171f16a84ee82ca18a36d7b9be109a52c04f492a053331d7d1095007c35
-dep-pkg: ncurses
-dep-upp: curl bsdtar patch gmake gmake
-bsystem: configure
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: restic
 pkgtype: pie
 version: 0.16.4
@@ -10441,7 +10454,7 @@ web-url: https://github.com/hanslub42/rlwrap
 git-url: https://github.com/hanslub42/rlwrap
 src-url: https://github.com/hanslub42/rlwrap/archive/refs/tags/0.46.1.tar.gz
 src-sha: c537e8a53df36f1f996601d776203478ad56fab1d67b3c1a63057badb0851cec
-dep-pkg: readline
+dep-pkg: libreadline
 dep-upp: curl bsdtar gmake autotools gmake
 bsystem: autotools
 binbstd: 1
@@ -10539,7 +10552,7 @@ web-url: https://github.com/rakshasa/rtorrent
 git-url: https://github.com/rakshasa/rtorrent
 src-url: https://github.com/rakshasa/rtorrent/releases/download/v0.9.8/rtorrent-0.9.8.tar.gz
 src-sha: 9edf0304bf142215d3bc85a0771446b6a72d0ad8218efbe184b41e4c9c7542af
-dep-pkg: ncurses libcurl libtorrent-rakshasa
+dep-pkg: libncurses libcurl libtorrent-rakshasa
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -10579,7 +10592,7 @@ installed: no
 ---
 pkgname: ruy
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: Apache-2.0
 summary: matrix multiplication library
 web-url: https://github.com/google/ruy
@@ -10761,7 +10774,7 @@ installed: no
 ---
 pkgname: sjpeg
 pkgtype: exe+lib
-version: 2024.11.06
+version: 2024.11.07
 license: Apache-2.0
 summary: simple jpeg encoder
 web-url: https://github.com/webmproject/sjpeg
@@ -10775,7 +10788,7 @@ installed: no
 ---
 pkgname: skcms
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: BSD
 summary: SkCMS
 web-url: https://skia.googlesource.com/skcms.git
@@ -10805,7 +10818,7 @@ web-url: https://github.com/mtoyoda/sl
 git-url: https://github.com/mtoyoda/sl
 src-url: https://github.com/mtoyoda/sl/archive/5.02.tar.gz
 src-sha: 1e5996757f879c81f202a18ad8e982195cf51c41727d3fea4af01fdcbbb5563a
-dep-pkg: ncurses
+dep-pkg: libncurses
 dep-upp: curl bsdtar
 binbstd: 1
 parallel: 1
@@ -10883,7 +10896,7 @@ web-url: https://www.sqlite.org/
 git-url: https://github.com/sqlite/sqlite
 src-url: https://www.sqlite.org/2024/sqlite-autoconf-3460000.tar.gz
 src-sha: 6f8e6a7b335273748816f9b3b62bbdc372a889de8782d7f048c653a447417a7d
-dep-pkg: readline libz
+dep-pkg: libreadline libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -11046,7 +11059,7 @@ installed: no
 ---
 pkgname: sysinfo
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 summary: A command-line tool to get your currently running system information
 web-url: https://github.com/leleliu008/C-examples
 git-url: https://github.com/leleliu008/C-examples
@@ -11234,7 +11247,7 @@ web-url: https://jonas.github.io/tig
 git-url: https://github.com/jonas/tig
 src-url: https://github.com/jonas/tig/releases/download/tig-2.5.10/tig-2.5.10.tar.gz
 src-sha: f655cc1366fc10058a2bd505bb88ca78e653ff7526c1b81774c44b9d841210e3
-dep-pkg: readline libiconv liblanginfo
+dep-pkg: libreadline libiconv liblanginfo
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 1
@@ -11294,7 +11307,7 @@ web-url: https://tmux.github.io
 git-url: https://github.com/tmux/tmux
 src-url: https://github.com/tmux/tmux/releases/download/3.4/tmux-3.4.tar.gz
 src-sha: 551ab8dea0bf505c0ad6b7bb35ef567cdde0ccb84357df142c254f35a23e19aa
-dep-pkg: ncurses libevent utf8proc libglob liblanginfo libgetdtablesize
+dep-pkg: libncurses libevent utf8proc libglob liblanginfo libgetdtablesize
 dep-upp: bison curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -11486,7 +11499,7 @@ installed: no
 ---
 pkgname: uctags
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 license: GPL-2.0-or-later
 summary: Maintained ctags implementation
 web-url: https://github.com/universal-ctags/ctags
@@ -11532,7 +11545,7 @@ installed: no
 ---
 pkgname: uppm
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 license: Apache-2.0
 summary: Universal Prebuild Package Manager
 web-url: https://github.com/leleliu008/uppm
@@ -11546,7 +11559,7 @@ installed: no
 ---
 pkgname: uppm@0.15.2
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 license: Apache-2.0
 summary: Universal Prebuild Package Manager
 web-url: https://github.com/leleliu008/uppm
@@ -11561,7 +11574,7 @@ installed: no
 ---
 pkgname: uppm@0.15.3
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 license: Apache-2.0
 summary: Universal Prebuild Package Manager
 web-url: https://github.com/leleliu008/uppm
@@ -11576,7 +11589,7 @@ installed: no
 ---
 pkgname: uppm@0.15.4
 pkgtype: exe
-version: 2024.11.06
+version: 2024.11.07
 license: Apache-2.0
 summary: Universal Prebuild Package Manager
 web-url: https://github.com/leleliu008/uppm
@@ -11606,7 +11619,7 @@ installed: no
 ---
 pkgname: utf8.h
 pkgtype: lib
-version: 2024.11.06
+version: 2024.11.07
 license: Unlicense
 summary: single header utf8 string functions for C and C++
 web-url: https://github.com/sheredom/utf8.h
@@ -11669,7 +11682,7 @@ web-url: https://github.com/util-linux/util-linux
 git-url: https://github.com/util-linux/util-linux
 src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
 src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
-dep-pkg: readline libcap-ng libz
+dep-pkg: libreadline libcap-ng libz
 dep-upp: automake libtool curl bsdtar patch gmake gmake
 bsystem: configure
 binbstd: 0
@@ -11728,7 +11741,7 @@ web-url: https://www.vim.org/
 git-url: https://github.com/vim/vim
 src-url: https://github.com/vim/vim/archive/refs/tags/v9.1.0500.tar.gz
 src-sha: d6009449df4e28e38b0da3bf5621a65037dec1ec53092f8f56cd1a27f3d91009
-dep-pkg: ncurses libintl python3 lua
+dep-pkg: libncurses libintl python3 lua
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 1
@@ -12087,7 +12100,7 @@ installed: no
 ---
 pkgname: xpup
 pkgtype: pie
-version: 2024.11.06
+version: 2024.11.07
 license: Apache-2.0
 summary: A command line XML parsing tool
 web-url: https://github.com/ericchiang/xpup
@@ -12320,7 +12333,7 @@ web-url: https://www.zsh.org
 git-url: https://github.com/zsh-users/zsh
 src-url: https://downloads.sourceforge.net/project/zsh/zsh/5.9/zsh-5.9.tar.xz
 src-sha: 9b8d1ecedd5b5e81fbf1918e876752a7dd948e05c1a0dba10ab863842d45acd5
-dep-pkg: ncurses libpcre
+dep-pkg: libncurses libpcre
 dep-upp: curl bsdtar gmake autotools gmake
 bsystem: autotools
 binbstd: 0
