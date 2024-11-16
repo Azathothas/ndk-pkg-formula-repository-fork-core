@@ -1177,6 +1177,7 @@ dep-lib: -llog
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
+xxflags: -Wno-deprecated-declarations
 parallel: 1
 installed: no
 ---
@@ -2285,6 +2286,21 @@ src-sha: c38e341c567f5f16bfa64b72fc48bba5e93873d8572522e670e6f320bbc2122f
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: fx
+pkgtype: pie
+version: 35.0.0
+license: MIT
+summary: Terminal JSON viewer
+web-url: https://fx.wtf
+git-url: https://github.com/antonmedv/fx
+src-url: https://github.com/antonmedv/fx/archive/refs/tags/35.0.0.tar.gz
+src-sha: 5ab642bb91ad9c1948de1add2d62acec22d82398e420957c191c1549999eb351
+dep-upp: curl bsdtar golang
+bsystem: go
+binbstd: 1
 parallel: 1
 installed: no
 ---
@@ -5095,6 +5111,16 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libgetsubopt
+pkgtype: lib
+version: 1
+summary: parse suboption arguments from a string
+web-url: https://linux.die.net/man/3/getsubopt
+dep-pkg: libstrchrnul
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: libgif
 pkgtype: lib
 version: 5.2.2
@@ -6385,18 +6411,17 @@ installed: no
 ---
 pkgname: libnl
 pkgtype: lib
-version: 3.9.0
+version: 3.11.0
 license: LGPL-2.1-or-later
 summary: Netlink Library based Linux kernel interfaces
 web-url: https://github.com/thom311/libnl
 git-url: https://github.com/thom311/libnl
-src-url: https://github.com/thom311/libnl/releases/download/libnl3_9_0/libnl-3.9.0.tar.gz
-src-sha: aed507004d728a5cf11eab48ca4bf9e6e1874444e33939b9d3dfed25018ee9bb
+src-url: https://github.com/thom311/libnl/releases/download/libnl3_11_0/libnl-3.11.0.tar.gz
+src-sha: 2a56e1edefa3e68a7c00879496736fdbf62fc94ed3232c0baba127ecfa76874d
 dep-upp: flex bison libtool curl bsdtar gmake autotools gmake
 bsystem: autotools
 binbstd: 0
-ldflags: -Wl,--undefined-version
-api-min: 26
+ccflags: -include sys/select.h
 parallel: 1
 installed: no
 ---
@@ -6942,13 +6967,13 @@ installed: no
 ---
 pkgname: libqalculate
 pkgtype: lib
-version: 5.1.1
+version: 5.3.0
 license: GPL-2.0-or-later
 summary: Library for Qalculate! program
 web-url: https://qalculate.github.io/
 git-url: https://github.com/Qalculate/libqalculate
-src-url: https://github.com/Qalculate/libqalculate/releases/download/v5.1.1/libqalculate-5.1.1.tar.gz
-src-sha: 04db2d1c8dc0d5a006971bb138aa71d4a944275dde8dbf952ad8b59bf499aba1
+src-url: https://github.com/Qalculate/libqalculate/releases/download/v5.3.0/libqalculate-5.3.0.tar.gz
+src-sha: 61dd60b1d43ad3d2944cff9b2f45c9bc646c5a849c621133ef07231e8289e35b
 dep-pkg: libintl libreadline icu4c libxml2 libcurl libgmp libmpfr libbthread
 dep-upp: gettext-tools perl intltool patch curl bsdtar gmake gmake
 bsystem: configure
@@ -7191,13 +7216,13 @@ installed: no
 ---
 pkgname: libsdl2
 pkgtype: lib
-version: 2.30.4
+version: 2.30.9
 license: Zlib
 summary: A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D
 web-url: https://www.libsdl.org/
 git-url: https://github.com/libsdl-org/SDL
-src-url: https://www.libsdl.org/release/SDL2-2.30.4.tar.gz
-src-sha: 59c89d0ed40d4efb23b7318aa29fe7039dbbc098334b14f17f1e7e561da31a26
+src-url: https://www.libsdl.org/release/SDL2-2.30.9.tar.gz
+src-sha: 24b574f71c87a763f50704bbb630cbe38298d544a1f890f099a4696b1d6beba4
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -7309,6 +7334,21 @@ src-url: https://download.libsodium.org/libsodium/releases/libsodium-1.0.19.tar.
 src-sha: 018d79fe0a045cca07331d37bd0cb57b2e838c51bc48fd837a1472e50068bbea
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libsoundtouch
+pkgtype: lib
+version: 2.3.3
+license: LGPL-2.1-or-later
+summary: An open-source audio processing library
+web-url: https://www.surina.net/soundtouch/
+git-url: https://codeberg.org/soundtouch/soundtouch
+src-url: https://www.surina.net/soundtouch/soundtouch-2.3.3.tar.gz
+src-sha: 43b23dfac2f64a3aff55d64be096ffc7b73842c3f5665caff44975633a975a99
+dep-upp: curl bsdtar cmake ninja
+bsystem: cmake
 binbstd: 0
 parallel: 1
 installed: no
@@ -8154,13 +8194,13 @@ installed: no
 ---
 pkgname: libxapian
 pkgtype: lib
-version: 1.4.25
+version: 1.4.26
 license: GPL-2.0-or-later
 summary: C++ search engine library
 web-url: https://xapian.org/
-src-url: https://oligarchy.co.uk/xapian/1.4.25/xapian-core-1.4.25.tar.xz
-src-sha: 0c99dfdd817571cb5689bc412a7e021407938313f38ea3a70fa3bf86410608ee
-dep-pkg: libz
+src-url: https://oligarchy.co.uk/xapian/1.4.26/xapian-core-1.4.26.tar.xz
+src-sha: 9e6a7903806966d16ce220b49377c9c8fad667c8f0ffcb23a3442946269363a7
+dep-pkg: libz libuuid
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -8892,7 +8932,7 @@ license: GPL-3.0-or-later
 summary: Remote terminal application
 web-url: https://mosh.org/
 git-url: https://github.com/mobile-shell/mosh
-src-url: https://mosh.org/mosh-1.4.0.tar.gz
+src-url: https://github.com/mobile-shell/mosh/releases/download/mosh-1.4.0/mosh-1.4.0.tar.gz
 src-sha: 872e4b134e5df29c8933dff12350785054d2fd2839b5ae6b5587b14db1465ddd
 dep-pkg: openssl-dev libncurses libz libprotobuf liblanginfo
 dep-upp: perl curl bsdtar gmake gmake
@@ -10851,21 +10891,6 @@ src-sha: 3799ca9924d3125038880367bf1468e53a1b7e3686a934f098b7e1d286cdb80e
 dep-pkg: libopus libflac libvorbis
 dep-upp: python3 curl bsdtar cmake ninja
 bsystem: cmake
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: soundtouch
-pkgtype: lib
-version: 2.3.1
-license: LGPL-2.1-or-later
-summary: Audio processing library
-web-url: https://www.surina.net/soundtouch/
-git-url: https://codeberg.org/soundtouch/soundtouch
-src-url: https://www.surina.net/soundtouch/soundtouch-2.3.1.tar.gz
-src-sha: 6900996607258496ce126924a19fe9d598af9d892cf3f33d1e4daaa9b42ae0b1
-dep-upp: libtool curl bsdtar gmake autotools gmake
-bsystem: autotools
 binbstd: 0
 parallel: 1
 installed: no

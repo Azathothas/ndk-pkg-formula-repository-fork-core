@@ -917,6 +917,8 @@
     587b67493840871f67375ef3b21aa8b9b6a23c15cafff8724358d719a71bf959|https://raw.githubusercontent.com/termux/termux-packages/master/packages/busybox/0009-networking-httpd-default-port.patch
     102627807d6571d2ff2a1eb6fe9c5dc76a84b182b5bbee537def6f00f0297ff4|https://raw.githubusercontent.com/termux/termux-packages/master/packages/busybox/0011-networking-tftp-no-chroot.patch
     37902a94f75c3e17fa4dc76b88ca4eba359cca6280fec2006f201d8ccce72087|https://raw.githubusercontent.com/termux/termux-packages/master/packages/busybox/0012-util-linux-mount-no-addmntent.patch
+    fb4014b02bfb12c8791f402dbd0e3abb57a494361e0f8cd7e010258cc5eda319|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/busybox/0013-busybox-1.36.1-kernel-6.8.patch
+    11fea0ed7efe00bd611465cff56ff7bc784fc92fd51af76a83853e033632c23c|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/busybox/0014-fix-segfault.patch
   dep-upp: bzip2 curl bsdtar patch gmake
   bsystem: gmake
   binbstd: "1"
@@ -1428,6 +1430,7 @@
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
+  xxflags: -Wno-deprecated-declarations
   parallel: "1"
   dopatch: gsed -i 's|ANDROID|XXXX|' Release/cmake/cpprest_find_openssl.cmake
   prepare: export OPENSSL_ROOT_DIR="$openssl_dev_INSTALL_DIR"
@@ -2850,6 +2853,20 @@
   binbstd: "0"
   parallel: "1"
   install: configure
+- pkgname: fx
+  pkgtype: pie
+  version: 35.0.0
+  license: MIT
+  summary: Terminal JSON viewer
+  web-url: https://fx.wtf
+  git-url: https://github.com/antonmedv/fx
+  src-url: https://github.com/antonmedv/fx/archive/refs/tags/35.0.0.tar.gz
+  src-sha: 5ab642bb91ad9c1948de1add2d62acec22d82398e420957c191c1549999eb351
+  dep-upp: curl bsdtar golang
+  bsystem: go
+  binbstd: "1"
+  parallel: "1"
+  install: gow
 - pkgname: fxdiv
   pkgtype: lib
   version: 2024.11.16
@@ -4263,6 +4280,12 @@
   bsystem: configure
   binbstd: "0"
   parallel: "1"
+  prepare: |-
+    if [ "$TARGET_PLATFORM_ARCH" = 'i686' ] ; then
+        export DEFS=NO_ASM
+    else
+        unset  DEFS
+    fi
   install: configure
 - pkgname: halibut
   pkgtype: exe
@@ -6324,6 +6347,15 @@
   binbstd: "0"
   parallel: "1"
   install: "cat > getloadavg.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        int getloadavg(double loadavg[], int nelem);\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\n# https://android.googlesource.com/platform/bionic/+/master/libc/include/stdlib.h#157\n# https://android.googlesource.com/platform/bionic/+/master/libc/bionic/getloadavg.cpp\ncat > getloadavg.c <<EOF\n#include <stdlib.h>\n#include <sys/sysinfo.h>\n\nint getloadavg(double averages[], int n) {\n    if (n < 0) return -1;\n    if (n > 3) n = 3;\n    struct sysinfo si;\n    if (sysinfo(&si) == -1) return -1;\n    for (int i = 0; i < n; ++i) {\n        averages[i] = (double)(si.loads[i]) / (double)(1 << SI_LOAD_SHIFT);\n    }\n    return n;\n}\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o getloadavg.o getloadavg.c\nrun $AR rsc libgetloadavg.a  getloadavg.o\nrun install_incs getloadavg.h\nrun install_libs libgetloadavg.a"
+- pkgname: libgetsubopt
+  pkgtype: lib
+  version: "1"
+  summary: parse suboption arguments from a string
+  web-url: https://linux.die.net/man/3/getsubopt
+  dep-pkg: libstrchrnul
+  binbstd: "1"
+  parallel: "1"
+  install: "cat > getsubopt.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        int getsubopt(char **optionp, char * const *tokens, char **valuep);\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\n# https://git.busybox.net/uClibc/plain/libc/unistd/getsubopt.c\ncat > getsubopt.c <<EOF\n/* Parse comma separate list into words.\n   Copyright (C) 1996, 1997, 1999, 2004 Free Software Foundation, Inc.\n   This file is part of the GNU C Library.\n   Contributed by Ulrich Drepper <drepper@cygnus.com>, 1996.\n\n   The GNU C Library is free software; you can redistribute it and/or\n   modify it under the terms of the GNU Lesser General Public\n   License as published by the Free Software Foundation; either\n   version 2.1 of the License, or (at your option) any later version.\n\n   The GNU C Library is distributed in the hope that it will be useful,\n   but WITHOUT ANY WARRANTY; without even the implied warranty of\n   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n   Lesser General Public License for more details.\n\n   You should have received a copy of the GNU Lesser General Public\n   License along with the GNU C Library; if not, see\n   <http://www.gnu.org/licenses/>.  */\n\n#include <stdlib.h>\n#include <string.h>\n\n\n/* Parse comma separated suboption from *OPTIONP and match against\n   strings in TOKENS.  If found return index and set *VALUEP to\n   optional value introduced by an equal sign.  If the suboption is\n   not part of TOKENS return in *VALUEP beginning of unknown\n   suboption.  On exit *OPTIONP is set to the beginning of the next\n   token or at the terminating NUL character.  */\nint\ngetsubopt (char **optionp, char *const *tokens, char **valuep)\n{\n  char *endp, *vstart;\n  int cnt;\n\n  if (**optionp == '\\0')\n    return -1;\n\n  /* Find end of next token.  */\n  endp = strchrnul (*optionp, ',');\n\n  /* Find start of value.  */\n  vstart = memchr (*optionp, '=', endp - *optionp);\n  if (vstart == NULL)\n    vstart = endp;\n\n  /* Try to match the characters between *OPTIONP and VSTART against\n     one of the TOKENS.  */\n  for (cnt = 0; tokens[cnt] != NULL; ++cnt)\n    if (strncmp (*optionp, tokens[cnt], vstart - *optionp) == 0\n    && tokens[cnt][vstart - *optionp] == '\\0')\n      {\n    /* We found the current option in TOKENS.  */\n    *valuep = vstart != endp ? vstart + 1 : NULL;\n\n    if (*endp != '\\0')\n      *endp++ = '\\0';\n    *optionp = endp;\n\n    return cnt;\n      }\n\n  /* The current suboption does not match any option.  */\n  *valuep = *optionp;\n\n  if (*endp != '\\0')\n    *endp++ = '\\0';\n  *optionp = endp;\n\n  return -1;\n}\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o getsubopt.o getsubopt.c\nrun $AR rsc libgetsubopt.a  getsubopt.o\nrun install_incs getsubopt.h\nrun install_libs libgetsubopt.a"
 - pkgname: libgif
   pkgtype: lib
   version: 5.2.2
@@ -8119,29 +8151,20 @@
         -DENABLE_LIB_ONLY=OFF
 - pkgname: libnl
   pkgtype: lib
-  version: 3.9.0
+  version: 3.11.0
   license: LGPL-2.1-or-later
   summary: Netlink Library based Linux kernel interfaces
   web-url: https://github.com/thom311/libnl
   git-url: https://github.com/thom311/libnl
-  src-url: https://github.com/thom311/libnl/releases/download/libnl3_9_0/libnl-3.9.0.tar.gz
-  src-sha: aed507004d728a5cf11eab48ca4bf9e6e1874444e33939b9d3dfed25018ee9bb
+  src-url: https://github.com/thom311/libnl/releases/download/libnl3_11_0/libnl-3.11.0.tar.gz
+  src-sha: 2a56e1edefa3e68a7c00879496736fdbf62fc94ed3232c0baba127ecfa76874d
   dep-upp: flex bison libtool curl bsdtar gmake autotools gmake
   bsystem: autotools
   binbstd: "0"
-  ldflags: -Wl,--undefined-version
-  api-min: "26"
+  ccflags: -include sys/select.h
   parallel: "1"
-  dopatch: |-
-    autoreconf -ivf
-    gsed -i 's@linux-private/@@g' lib/mpls.c
-    gsed -i 's@linux-private/@@g' lib/route/link/vrf.c
-    gsed -i '/linux-private/d' Makefile.in
-    gsed -i '/linux-private/d' Makefile.am
-  install: |-
-    configure \
-        --enable-pthreads \
-        --enable-cli
+  dopatch: gsed -i '91a typedef __be32 in_addr_t;' include/linux-private/linux/in.h
+  install: configure --disable-pthreads --disable-cli
 - pkgname: libnng
   pkgtype: lib
   version: 1.8.0
@@ -8857,13 +8880,13 @@
     run install_libs libpystring.*
 - pkgname: libqalculate
   pkgtype: lib
-  version: 5.1.1
+  version: 5.3.0
   license: GPL-2.0-or-later
   summary: Library for Qalculate! program
   web-url: https://qalculate.github.io/
   git-url: https://github.com/Qalculate/libqalculate
-  src-url: https://github.com/Qalculate/libqalculate/releases/download/v5.1.1/libqalculate-5.1.1.tar.gz
-  src-sha: 04db2d1c8dc0d5a006971bb138aa71d4a944275dde8dbf952ad8b59bf499aba1
+  src-url: https://github.com/Qalculate/libqalculate/releases/download/v5.3.0/libqalculate-5.3.0.tar.gz
+  src-sha: 61dd60b1d43ad3d2944cff9b2f45c9bc646c5a849c621133ef07231e8289e35b
   dep-pkg: libintl libreadline icu4c libxml2 libcurl libgmp libmpfr libbthread
   dep-upp: gettext-tools perl intltool patch curl bsdtar gmake gmake
   bsystem: configure
@@ -8888,6 +8911,7 @@
     X0FORFJPSURfXwogCXJ1bm5pbmcgPSBwdGhyZWFkX2NhbmNlbChtX3RocmVhZCkgIT0gMDsKKyNl
     bHNlCisJcnVubmluZyA9IHB0aHJlYWRfa2lsbChtX3RocmVhZCwgU0lHVVNSMikgIT0gMDsKKyNl
     bmRpZgogCXJldHVybiAhcnVubmluZzsKIH0KIAo=' | base64 -d | patch -p1
+  prepare: export LDFLAGS="$LDFLAGS $("$CC" -print-libgcc-file-name)"
   install: configure
 - pkgname: libqpdf
   pkgtype: lib
@@ -9177,13 +9201,13 @@
   install: configure
 - pkgname: libsdl2
   pkgtype: lib
-  version: 2.30.4
+  version: 2.30.9
   license: Zlib
   summary: A cross-platform development library designed to provide low level access to audio, keyboard, mouse, joystick, and graphics hardware via OpenGL and Direct3D
   web-url: https://www.libsdl.org/
   git-url: https://github.com/libsdl-org/SDL
-  src-url: https://www.libsdl.org/release/SDL2-2.30.4.tar.gz
-  src-sha: 59c89d0ed40d4efb23b7318aa29fe7039dbbc098334b14f17f1e7e561da31a26
+  src-url: https://www.libsdl.org/release/SDL2-2.30.9.tar.gz
+  src-sha: 24b574f71c87a763f50704bbb630cbe38298d544a1f890f099a4696b1d6beba4
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -9322,6 +9346,20 @@
         export CFLAGS="$CFLAGS -march=armv8-a+crypto"
     fi
   install: configure
+- pkgname: libsoundtouch
+  pkgtype: lib
+  version: 2.3.3
+  license: LGPL-2.1-or-later
+  summary: An open-source audio processing library
+  web-url: https://www.surina.net/soundtouch/
+  git-url: https://codeberg.org/soundtouch/soundtouch
+  src-url: https://www.surina.net/soundtouch/soundtouch-2.3.3.tar.gz
+  src-sha: 43b23dfac2f64a3aff55d64be096ffc7b73842c3f5665caff44975633a975a99
+  dep-upp: curl bsdtar cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  install: cmakew 2 -DSOUNDSTRETCH=OFF
 - pkgname: libspatialite
   pkgtype: lib
   version: 5.1.0
@@ -10408,17 +10446,18 @@
   dotweak: gsed -i '/^Libs:/s|-l-l||' lib/pkgconfig/x265.pc
 - pkgname: libxapian
   pkgtype: lib
-  version: 1.4.25
+  version: 1.4.26
   license: GPL-2.0-or-later
   summary: C++ search engine library
   web-url: https://xapian.org/
-  src-url: https://oligarchy.co.uk/xapian/1.4.25/xapian-core-1.4.25.tar.xz
-  src-sha: 0c99dfdd817571cb5689bc412a7e021407938313f38ea3a70fa3bf86410608ee
-  dep-pkg: libz
+  src-url: https://oligarchy.co.uk/xapian/1.4.26/xapian-core-1.4.26.tar.xz
+  src-sha: 9e6a7903806966d16ce220b49377c9c8fad667c8f0ffcb23a3442946269363a7
+  dep-pkg: libz libuuid
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
   parallel: "1"
+  prepare: export LDFLAGS="$LDFLAGS $("$CC" -print-libgcc-file-name)"
   install: configure
 - pkgname: libxcrypt
   pkgtype: lib
@@ -11377,7 +11416,7 @@
   summary: Remote terminal application
   web-url: https://mosh.org/
   git-url: https://github.com/mobile-shell/mosh
-  src-url: https://mosh.org/mosh-1.4.0.tar.gz
+  src-url: https://github.com/mobile-shell/mosh/releases/download/mosh-1.4.0/mosh-1.4.0.tar.gz
   src-sha: 872e4b134e5df29c8933dff12350785054d2fd2839b5ae6b5587b14db1465ddd
   dep-pkg: openssl-dev libncurses libz libprotobuf liblanginfo
   dep-upp: perl curl bsdtar gmake gmake
@@ -14142,20 +14181,6 @@
         -DENABLE_PACKAGE_CONFIG=ON \
         -DINSTALL_PKGCONFIG_MODULE=OFF
   dotweak: rm -rf include/ lib/
-- pkgname: soundtouch
-  pkgtype: lib
-  version: 2.3.1
-  license: LGPL-2.1-or-later
-  summary: Audio processing library
-  web-url: https://www.surina.net/soundtouch/
-  git-url: https://codeberg.org/soundtouch/soundtouch
-  src-url: https://www.surina.net/soundtouch/soundtouch-2.3.1.tar.gz
-  src-sha: 6900996607258496ce126924a19fe9d598af9d892cf3f33d1e4daaa9b42ae0b1
-  dep-upp: libtool curl bsdtar gmake autotools gmake
-  bsystem: autotools
-  binbstd: "0"
-  parallel: "1"
-  install: configure
 - pkgname: spdlog
   pkgtype: lib
   version: 1.14.1
