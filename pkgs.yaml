@@ -185,15 +185,14 @@
   install: gow -X main.version=$PACKAGE_VERSION
 - pkgname: aom
   pkgtype: exe
-  version: 3.10.0
+  version: 3.11.0
   license: BSD-2-Clause
   summary: command-line tools for encoding and decoding AV1 video streams
   web-url: https://aomedia.googlesource.com/aom
-  git-url: https://github.com/jbeich/aom
-  src-url: https://github.com/jbeich/aom/archive/refs/tags/v3.10.0.tar.gz
-  src-sha: d1f2bd34b61ff1e58e72946825accd5f5fc23212055bf78161f6fa5b6d93b925
+  git-url: https://aomedia.googlesource.com/aom.git
+  git-ref: refs/tags/v3.11.0
   dep-pkg: libvmaf
-  dep-upp: nasm perl curl bsdtar cmake ninja
+  dep-upp: nasm perl git cmake ninja
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
@@ -5127,15 +5126,14 @@
   install: configure
 - pkgname: libaom
   pkgtype: lib
-  version: 3.9.1
+  version: 3.11.0
   license: BSD-2-Clause
   summary: Codec library for encoding and decoding AV1 video streams
   web-url: https://aomedia.googlesource.com/aom
-  git-url: https://github.com/jbeich/aom
-  src-url: https://github.com/jbeich/aom/archive/refs/tags/v3.9.1.tar.gz
-  src-sha: dcbc52dbb5bcfb79e83529c6357c7f170718f0fac21ad882d9ac410e5158296f
+  git-url: https://aomedia.googlesource.com/aom.git
+  git-ref: refs/tags/v3.11.0
   dep-pkg: libjxl libvmaf
-  dep-upp: nasm perl curl bsdtar cmake ninja
+  dep-upp: nasm perl git cmake ninja
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
@@ -14314,6 +14312,20 @@
   binbstd: "1"
   parallel: "1"
   install: gow ./cmd/subfinder
+- pkgname: superfile
+  pkgtype: pie
+  version: 1.1.5
+  license: MIT
+  summary: Modern and pretty fancy file manager for the terminal
+  web-url: https://github.com/yorukot/superfile
+  git-url: https://github.com/yorukot/superfile
+  src-url: https://github.com/yorukot/superfile/archive/refs/tags/v1.1.5.tar.gz
+  src-sha: 38ecb89048b712d244246c7317115d973c1b56323295e902fbe7e2cc400d9cd6
+  dep-upp: curl bsdtar golang
+  bsystem: go
+  binbstd: "1"
+  parallel: "1"
+  install: gow -o spf
 - pkgname: supervisord
   pkgtype: pie
   version: 0.7.3
@@ -16045,7 +16057,7 @@
   summary: A general purpose data compression library
   web-url: https://zlib.net/
   git-url: https://github.com/madler/zlib
-  src-url: https://zlib.net/fossils/zlib-1.3.1.tar.gz
+  src-url: https://zlib.net/zlib-1.3.1.tar.gz
   src-sha: 9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
