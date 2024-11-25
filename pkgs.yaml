@@ -1016,6 +1016,27 @@
         -Dtee=disabled \
         -Dfreetype=enabled \
         -Dfontconfig=enabled
+- pkgname: calc
+  pkgtype: exe
+  version: 2.15.1.0
+  license: LGPL-2.1-or-later
+  summary: Arbitrary precision calculator
+  web-url: http://www.isthe.com/chongo/tech/comp/calc/
+  git-url: https://github.com/lcn2/calc
+  src-url: https://github.com/lcn2/calc/releases/download/v2.15.1.0/calc-2.15.1.0.tar.bz2
+  src-sha: 633df610a5f5d2f69ad377e320afc85009052b4acc245f0586cbf932a179e2d6
+  patches: |-
+    335a6a7eae6cea9c4190fac0e6aa27bc62925275eccfc49d7d613e623323e1e9|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/calc/Makefile.config.patch
+    d803d7e05f2113f3bd4cd604d627ab25d6476548ed41fe15de3b1649d0578a32|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/calc/Makefile.target.patch
+  dep-pkg: libreadline
+  dep-upp: curl bsdtar patch gmake
+  bsystem: gmake
+  binbstd: "1"
+  parallel: "1"
+  install: |-
+    export BUILD_NJOBS=1
+    gmakew clean
+    gmakew --debug install EXTRA_CFLAGS="'$CFLAGS $CPPFLAGS'" EXTRA_LDFLAGS="'$LDFLAGS'" USE_READLINE=-DUSE_READLINE READLINE_EXTRAS="'-lhistory -lncurses'" LONG_BITS="$($CC -E -dM - < /dev/null | sed -n '/__LONG_WIDTH__/p' | cut -d ' ' -f3)"
 - pkgname: cargo-c
   pkgtype: exe
   version: 0.10.5
@@ -1414,6 +1435,21 @@
   api-min: "23"
   parallel: "1"
   install: configure --disable-mt
+- pkgname: cppcheck
+  pkgtype: exe
+  version: 2.16.0
+  license: GPL-3.0-or-later
+  summary: Static analysis tool for C and C++ code
+  web-url: https://sourceforge.net/projects/cppcheck
+  git-url: https://github.com/danmar/cppcheck
+  src-url: https://github.com/danmar/cppcheck/archive/refs/tags/2.16.0.tar.gz
+  src-sha: f1a97c8cef5ee9d0abb57e9244549d4fe18d4ecac80cf82e250d1fc5f38b1501
+  dep-pkg: libpcre libxml2 libgetloadavg
+  dep-upp: curl bsdtar cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  install: cmakew -DUSE_MATCHCOMPILER=On -DDISABLE_DMAKE=ON
 - pkgname: cpprestsdk
   pkgtype: lib
   version: 2.10.19
@@ -1832,6 +1868,24 @@
   binbstd: "1"
   api-min: "29"
   parallel: "1"
+  install: cargow install
+- pkgname: difftastic
+  pkgtype: exe
+  version: 0.61.0
+  license: MIT
+  summary: A structural diff tool that compares files based on their syntax
+  web-url: https://github.com/Wilfred/difftastic
+  git-url: https://github.com/Wilfred/difftastic
+  src-url: https://github.com/Wilfred/difftastic/archive/refs/tags/0.61.0.tar.gz
+  src-sha: 8e85001e32f1fe7b2c6d164f3a654cb589c6e48b6350421df27a56919da7a185
+  dep-lib: -lc++abi
+  dep-upp: curl bsdtar
+  bsystem: cargo
+  binbstd: "1"
+  parallel: "1"
+  prepare: |-
+    export CXXSTDLIB='c++_static'
+    export RUSTUP_TOOLCHAIN=1.74
   install: cargow install
 - pkgname: diffutils
   pkgtype: exe
@@ -2594,6 +2648,19 @@
   binbstd: "1"
   parallel: "1"
   install: configure
+- pkgname: findimagedupes
+  pkgtype: pie
+  version: 2024.11.25
+  license: GPL-3.0-or-later
+  summary: Find visually similar or duplicate images
+  web-url: https://gitlab.com/opennota/findimagedupes
+  git-url: https://gitlab.com/opennota/findimagedupes
+  dep-pkg: libmagic libjpeg-turbo libpng libtiff libheif
+  dep-upp: git golang
+  bsystem: go
+  binbstd: "1"
+  parallel: "1"
+  install: gow
 - pkgname: findutils
   pkgtype: exe
   version: 4.10.0
@@ -4315,13 +4382,13 @@
   install: cmakew
 - pkgname: helix
   pkgtype: exe
-  version: "24.03"
+  version: "24.07"
   license: MPL-2.0
   summary: A post-modern modal text editor
   web-url: https://helix-editor.com/
   git-url: https://github.com/helix-editor/helix
-  src-url: https://github.com/helix-editor/helix/releases/download/24.03/helix-24.03-source.tar.xz
-  src-sha: c59a5988f066c2ab90132e03a0e6b35b3dd89f48d3d78bf0ec81bd7d88c7677e
+  src-url: https://github.com/helix-editor/helix/archive/refs/tags/24.07.tar.gz
+  src-sha: 0f466ed2de039a7eca6faf29fc0db712c92e1a59d0bdc7e8916c717ceee8b3b3
   dep-upp: git curl bsdtar
   bsystem: cargo
   binbstd: "1"
