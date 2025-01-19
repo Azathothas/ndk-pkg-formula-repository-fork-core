@@ -1969,6 +1969,23 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: far2l
+pkgtype: exe+lib
+version: 2.6.4
+license: LGPL-2.0-or-later
+summary: FAR Manager v2
+web-url: https://github.com/elfmz/far2l
+git-url: https://github.com/elfmz/far2l
+src-url: https://github.com/elfmz/far2l/archive/refs/tags/v_2.6.4.tar.gz
+src-sha: 49bf67dd5cb2069b1212ff3256d85123ceaee74470bedeef9ef1836582e4a5bc
+dep-pkg: libarchive libuchardet libxml2 libssh openssl-dev
+dep-upp: curl bsdtar patch cmake ninja
+bsystem: cmake
+binbstd: 0
+api-min: 26
+parallel: 1
+installed: no
+---
 pkgname: fcp
 pkgtype: exe
 version: 0.2.1
