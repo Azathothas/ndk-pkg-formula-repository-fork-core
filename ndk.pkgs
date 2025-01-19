@@ -351,13 +351,13 @@ installed: no
 ---
 pkgname: b3sum
 pkgtype: exe
-version: 1.5.4
+version: 1.5.5
 license: CC0-1.0
 summary: A command line utility for calculating BLAKE3 hashes
 web-url: https://github.com/BLAKE3-team/BLAKE3
 git-url: https://github.com/BLAKE3-team/BLAKE3
-src-url: https://github.com/BLAKE3-team/BLAKE3/archive/refs/tags/1.5.4.tar.gz
-src-sha: ddd24f26a31d23373e63d9be2e723263ac46c8b6d49902ab08024b573fd2a416
+src-url: https://github.com/BLAKE3-team/BLAKE3/archive/refs/tags/1.5.5.tar.gz
+src-sha: 6feba0750efc1a99a79fb9a495e2628b5cd1603e15f56a06b1d6cb13ac55c618
 dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
@@ -835,8 +835,8 @@ web-url: https://github.com/lu-zero/cargo-c
 git-url: https://github.com/lu-zero/cargo-c
 src-url: https://github.com/lu-zero/cargo-c/archive/refs/tags/v0.10.5.tar.gz
 src-sha: 3f131a6a647851a617a87daaaf777a9e50817957be0af29806615613e98efc8a
-dep-pkg: libz
-dep-upp: libz git perl gmake curl bsdtar
+dep-pkg: libz openssl-dev
+dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
 parallel: 1
@@ -6563,16 +6563,14 @@ installed: no
 ---
 pkgname: libode
 pkgtype: lib
-version: 0.16.5
+version: 0.16.6
 license: LGPL-2.1-or-later BSD-3-Clause
 summary: Simulating articulated rigid body dynamics
 web-url: https://www.ode.org/
-src-url: https://bitbucket.org/odedevs/ode/downloads/ode-0.16.5.tar.gz
-src-sha: ba875edd164570958795eeaa70f14853bfc34cc9871f8adde8da47e12bd54679
-fix-url: https://raw.githubusercontent.com/termux/termux-packages/master/packages/libode/CMakeLists.patch
-fix-sha: 78e7b307fd107c9de4a4caf353d9495bfc37bd4bbd2f7c26ff77d3d5af1913f3
+src-url: https://bitbucket.org/odedevs/ode/downloads/ode-0.16.6.tar.gz
+src-sha: c91a28c6ff2650284784a79c726a380d6afec87ecf7a35c32a6be0c5b74513e8
 dep-pkg: libccd
-dep-upp: curl bsdtar patch cmake ninja
+dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
 parallel: 1
@@ -9813,10 +9811,9 @@ installed: no
 pkgname: packcc
 pkgtype: exe
 version: 2025.01.19
-license: MIT
 summary: A packrat parser generator for C
-web-url: https://github.com/enechaev/packcc
-git-url: https://github.com/enechaev/packcc
+web-url: https://github.com/arithy/packcc
+git-url: https://github.com/arithy/packcc
 dep-upp: git
 binbstd: 0
 parallel: 1
@@ -10449,7 +10446,7 @@ web-url: https://github.com/xiph/rav1e
 git-url: https://github.com/xiph/rav1e
 src-url: https://github.com/xiph/rav1e/archive/refs/tags/v0.7.1.tar.gz
 src-sha: da7ae0df2b608e539de5d443c096e109442cdfa6c5e9b4014361211cf61d030c
-dep-upp: nasm cargo-c curl bsdtar
+dep-upp: nasm cargo-c libz curl bsdtar
 bsystem: cargo
 binbstd: 1
 parallel: 1
@@ -10608,14 +10605,14 @@ installed: no
 ---
 pkgname: rover
 pkgtype: exe
-version: 0.25.0
+version: 0.26.3
 license: MIT
 summary: CLI for managing and maintaining data graphs with Apollo Studio
 web-url: https://www.apollographql.com/docs/rover/
 git-url: https://github.com/apollographql/rover
-src-url: https://github.com/apollographql/rover/archive/refs/tags/v0.25.0.tar.gz
-src-sha: 3d0137ac50c6e6a9ca2865b00e41957ca8e9725bab490f372176ae35be8e9f5b
-dep-pkg: openssl-dev libz
+src-url: https://github.com/apollographql/rover/archive/refs/tags/v0.26.3.tar.gz
+src-sha: accf6257f030e109d8626d2acf2885d2512d1a8918f88ea4e392712d879768c6
+dep-pkg: libz openssl-dev
 dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
@@ -10639,15 +10636,15 @@ installed: no
 ---
 pkgname: rsync
 pkgtype: exe
-version: 3.3.0
+version: 3.4.1
 license: GPL-3.0-or-later
 summary: Utility that provides fast incremental file transfer
 web-url: https://rsync.samba.org/
 git-url: https://github.com/RsyncProject/rsync
-src-url: https://rsync.samba.org/ftp/rsync/rsync-3.3.0.tar.gz
-src-sha: 7399e9a6708c32d678a72a63219e96f23be0be2336e50fd1348498d07041df90
-fix-url: https://download.samba.org/pub/rsync/src/rsync-patches-3.3.0.tar.gz
-fix-sha: 3dd51cd88d25133681106f68622ebedbf191ab25a21ea336ba409136591864b0
+src-url: https://rsync.samba.org/ftp/rsync/rsync-3.4.1.tar.gz
+src-sha: 2924bcb3a1ed8b551fc101f740b9f0fe0a202b115027647cf69850d65fd88c52
+fix-url: https://download.samba.org/pub/rsync/src/rsync-patches-3.4.1.tar.gz
+fix-sha: f56566e74cfa0f68337f7957d8681929f9ac4c55d3fb92aec0d743db590c9a88
 dep-pkg: openssl-dev libpopt libz liblz4 libzstd libxxhash libiconv libglob
 dep-upp: curl bsdtar patch gmake gmake
 bsystem: configure
@@ -10692,13 +10689,13 @@ installed: no
 ---
 pkgname: ruff
 pkgtype: exe
-version: 0.4.4
+version: 0.9.0
 license: MIT
 summary: An extremely fast Python linter, written in Rust
 web-url: https://beta.ruff.rs/
 git-url: https://github.com/astral-sh/ruff
-src-url: https://github.com/astral-sh/ruff/archive/refs/tags/v0.4.4.tar.gz
-src-sha: 36d900e3514739a9149363a087512222895f15244bd6612e299259be8ac8c1df
+src-url: https://github.com/astral-sh/ruff/archive/refs/tags/0.9.0.tar.gz
+src-sha: 392a9e5bf717731bbf48e29174cb0e9e96c45c7037d0b54ded69a1ef867e41a8
 dep-upp: gmake curl bsdtar
 bsystem: cargo
 binbstd: 1
@@ -10805,7 +10802,7 @@ summary: A small man page generator
 web-url: https://sr.ht/~sircmpwn/scdoc/
 src-url: https://git.sr.ht/~sircmpwn/scdoc/archive/1.11.3.tar.gz
 src-sha: 4c5c6136540384e5455b250f768e7ca11b03fdba1a8efc2341ee0f1111e57612
-dep-upp: curl bsdtar gmake
+dep-upp: scdoc curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
 parallel: 1

@@ -382,13 +382,13 @@
   {
     "pkgname": "b3sum",
     "pkgtype": "exe",
-    "version": "1.5.4",
+    "version": "1.5.5",
     "license": "CC0-1.0",
     "summary": "A command line utility for calculating BLAKE3 hashes",
     "web-url": "https://github.com/BLAKE3-team/BLAKE3",
     "git-url": "https://github.com/BLAKE3-team/BLAKE3",
-    "src-url": "https://github.com/BLAKE3-team/BLAKE3/archive/refs/tags/1.5.4.tar.gz",
-    "src-sha": "ddd24f26a31d23373e63d9be2e723263ac46c8b6d49902ab08024b573fd2a416",
+    "src-url": "https://github.com/BLAKE3-team/BLAKE3/archive/refs/tags/1.5.5.tar.gz",
+    "src-sha": "6feba0750efc1a99a79fb9a495e2628b5cd1603e15f56a06b1d6cb13ac55c618",
     "dep-upp": "curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
@@ -678,7 +678,7 @@
     "dep-upp": "curl bsdtar",
     "binbstd": "1",
     "parallel": "1",
-    "do12345": "gsed -i '1a set -x' bootstrap.sh tools/build/src/engine/build.sh\nrun ./bootstrap.sh",
+    "do12345": "gsed -i '1a set -x' bootstrap.sh tools/build/src/engine/build.sh\ngsed -i \"s|build.sh\\\" \\${TOOLSET}|build.sh\\\" --cxx=$CXX_FOR_BUILD \\${TOOLSET}|\" ./bootstrap.sh\nrun ./bootstrap.sh",
     "dopatch": "# https://stackoverflow.com/questions/32826175/ftello-and-fseeko-android-build-errors\n# https://linux.die.net/man/3/ftello\n# int   fseeko(FILE* __fp, off_t __offset, int __whence) __RENAME(fseeko64) __INTRODUCED_IN(24);\n# off_t ftello(FILE* __fp) __RENAME(ftello64) __INTRODUCED_IN(24);\nif [ \"$TARGET_PLATFORM_VERS\" -lt 24 ] ; then\n    gsed -i 's|BOOST_NOWIDE_FTELL ftello|BOOST_NOWIDE_FTELL ::ftell|' libs/nowide/src/filebuf.cpp\n    gsed -i 's|BOOST_NOWIDE_FTELL fseeko|BOOST_NOWIDE_FTELL ::fseek|' libs/nowide/src/filebuf.cpp\nfi",
     "install": "case $TARGET_PLATFORM_ARCH in\n    armv7a)\n        address_model=32\n        architecture=arm\n        abi=aapcs\n        ;;\n    aarch64)\n        address_model=64\n        architecture=arm\n        abi=aapcs\n        ;;\n    i686)\n        address_model=32\n        architecture=x86\n        abi=sysv\n        ;;\n    x86_64)\n        address_model=64\n        architecture=x86\n        abi=sysv\nesac\n\ncat > project-config.jam <<EOF\nusing clang : $TARGET_PLATFORM_ARCH : $CXX : <compileflags>\"$CXXFLAGS $CPPFLAGS\" <linkflags>\"$LDFLAGS -shared\" <archiver>$AR <ranlib>$RANLIB ;\nEOF\n\nrun ./b2 install \\\n    -q \\\n    -d+2 \\\n    -j$BUILD_NJOBS \\\n    --reconfigure \\\n    --without-python \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    -sICU_PATH=\"$icu4c_INSTALL_DIR\" \\\n    -sICONV_PATH=\"$libiconv_INSTALL_DIR\" \\\n    toolset=clang-$TARGET_PLATFORM_ARCH \\\n    link=static,shared \\\n    variant=release \\\n    threading=multi \\\n    target-os=android \\\n    binary-format=elf \\\n    address-model=\"$address_model\" \\\n    architecture=\"$architecture\" \\\n    abi=\"$abi\""
   },
@@ -915,12 +915,12 @@
     "git-url": "https://github.com/lu-zero/cargo-c",
     "src-url": "https://github.com/lu-zero/cargo-c/archive/refs/tags/v0.10.5.tar.gz",
     "src-sha": "3f131a6a647851a617a87daaaf777a9e50817957be0af29806615613e98efc8a",
-    "dep-pkg": "libz",
-    "dep-upp": "libz git perl gmake curl bsdtar",
+    "dep-pkg": "libz openssl-dev",
+    "dep-upp": "curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
     "parallel": "1",
-    "install": "cargow install --features=vendored-openssl"
+    "install": "cargow install"
   },
   {
     "pkgname": "catch2",
@@ -2241,7 +2241,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure",
+    "dopatch": "gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure\nln -s \"$CC_FOR_BUILD\" ../bin/gcc",
     "prepare": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac",
     "install": "if run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --disable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --enable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
   },
@@ -2260,7 +2260,7 @@
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "dopatch": "gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure",
+    "dopatch": "gsed -i 's|-lxvidcore|-lxvidcore -lm|' configure\ngsed -i \"s|SDL2_CONFIG=|SDL2_CONFIG='$libsdl2_INSTALL_DIR/bin/sdl2-config'|\" configure\nln -s \"$CC_FOR_BUILD\" ../bin/gcc",
     "prepare": "unset CONFIGURE_EXTRA_ARGS\n\ncase $TARGET_PLATFORM_ARCH in\n    aarch64) CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    armv7a)  CONFIGURE_EXTRA_ARGS='--enable-neon' ;;\n    i686)    CONFIGURE_EXTRA_ARGS='--disable-asm' ;;\nesac",
     "install": "if run ./configure \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --sysroot=\"$SYSROOT\" \\\n    --ar=\"$AR\" \\\n    --as=\"$CC\" \\\n    --ld=\"$CC\" \\\n    --cc=\"$CC\" \\\n    --cxx=\"$CXX\" \\\n    --nm=\"$NM\" \\\n    --ranlib=\"$RANLIB\" \\\n    --strip=\"$STRIP\" \\\n    --pkg-config=\"$PKG_CONFIG\" \\\n    --arch=\"$TARGET_PLATFORM_ARCH\" \\\n    --target-os=android \\\n    --enable-cross-compile \\\n    --enable-pic \\\n    --enable-static \\\n    --enable-shared \\\n    --enable-mediacodec \\\n    --enable-libmp3lame \\\n    --enable-libtheora \\\n    --enable-libvorbis \\\n    --enable-libspeex \\\n    --enable-librav1e \\\n    --enable-libdav1d \\\n    --enable-libopus \\\n    --enable-libwebp \\\n    --enable-libx264 \\\n    --enable-libx265 \\\n    --enable-libxvid \\\n    --enable-libvpx \\\n    --enable-libxml2 \\\n    --enable-lzma \\\n    --enable-gpl \\\n    --enable-jni \\\n    --disable-doc \\\n    --disable-debug \\\n    --disable-vulkan \\\n    --disable-ffplay \\\n    --disable-ffprobe \\\n    --disable-libfdk-aac \\\n    --extra-cflags='-DANDROID' $CONFIGURE_EXTRA_ARGS ; then\n    gmakew clean\n    gmakew install V=1\n    run cp ffbuild/config.log .\nelse\n    cat ffbuild/config.log\n    return 1\nfi"
   },
@@ -3830,7 +3830,7 @@
     "bsystem": "cargo",
     "binbstd": "1",
     "parallel": "1",
-    "install": "export RUSTUP_TOOLCHAIN=1.74\ncargow install --path helix-term\nrm -rf runtime/grammars/sources/\ninstall -d -v    \"$PACKAGE_INSTALL_DIR/libexec\"\ncp -v -r runtime \"$PACKAGE_INSTALL_DIR/libexec\""
+    "install": "export RUSTUP_TOOLCHAIN=1.81\ncargow install --path helix-term\nrm -rf runtime/grammars/sources/\ninstall -d -v    \"$PACKAGE_INSTALL_DIR/libexec\"\ncp -v -r runtime \"$PACKAGE_INSTALL_DIR/libexec\""
   },
   {
     "pkgname": "helm",
@@ -7174,16 +7174,14 @@
   {
     "pkgname": "libode",
     "pkgtype": "lib",
-    "version": "0.16.5",
+    "version": "0.16.6",
     "license": "LGPL-2.1-or-later BSD-3-Clause",
     "summary": "Simulating articulated rigid body dynamics",
     "web-url": "https://www.ode.org/",
-    "src-url": "https://bitbucket.org/odedevs/ode/downloads/ode-0.16.5.tar.gz",
-    "src-sha": "ba875edd164570958795eeaa70f14853bfc34cc9871f8adde8da47e12bd54679",
-    "fix-url": "https://raw.githubusercontent.com/termux/termux-packages/master/packages/libode/CMakeLists.patch",
-    "fix-sha": "78e7b307fd107c9de4a4caf353d9495bfc37bd4bbd2f7c26ff77d3d5af1913f3",
+    "src-url": "https://bitbucket.org/odedevs/ode/downloads/ode-0.16.6.tar.gz",
+    "src-sha": "c91a28c6ff2650284784a79c726a380d6afec87ecf7a35c32a6be0c5b74513e8",
     "dep-pkg": "libccd",
-    "dep-upp": "curl bsdtar patch cmake ninja",
+    "dep-upp": "curl bsdtar cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "parallel": "1",
@@ -9031,7 +9029,7 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DENABLE_CLI=OFF \\\n    -DENABLE_PIC=ON \\\n    -DENABLE_SHARED=ON \\\n    -DENABLE_ASSEMBLY=OFF",
-    "dotweak": "gsed -i '/^Libs:/s|-l-l||' lib/pkgconfig/x265.pc"
+    "dotweak": "gsed -i '/^Libs:/s|-l-l:libunwind\\.a||g' lib/pkgconfig/x265.pc"
   },
   {
     "pkgname": "libxapian",
@@ -10635,7 +10633,7 @@
     "binbstd": "1",
     "parallel": "1",
     "dopatch": "gsed -i '/-mandroid/d'           Configurations/15-android.conf\ngsed -i '/ndk is invalid/d'      Configurations/15-android.conf\ngsed -i '/no NDK $triarch-gcc/d' Configurations/15-android.conf\ngsed -i '/-target/d'             Configurations/15-android.conf\ngsed -i '/-gcc-toolchain/d'      Configurations/15-android.conf\ngsed -i '/tritools-4.9/d'        Configurations/15-android.conf",
-    "prepare": "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"",
+    "prepare": "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"\nexport PERL=\"$(command -v perl)\"",
     "install": "run ./Configure \\\n    no-shared \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew CROSS_COMPILE=\ngmakew CROSS_COMPILE= install",
     "dotweak": "gsed -i 's|-latomic||g' lib/pkgconfig/libcrypto.pc"
   },
@@ -10654,7 +10652,7 @@
     "binbstd": "1",
     "parallel": "1",
     "dopatch": "gsed -i '/-mandroid/d'           Configurations/15-android.conf\ngsed -i '/ndk is invalid/d'      Configurations/15-android.conf\ngsed -i '/no NDK $triarch-gcc/d' Configurations/15-android.conf\ngsed -i '/-target/d'             Configurations/15-android.conf\ngsed -i '/-gcc-toolchain/d'      Configurations/15-android.conf\ngsed -i '/tritools-4.9/d'        Configurations/15-android.conf",
-    "prepare": "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"",
+    "prepare": "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"\nexport PERL=\"$(command -v perl)\"",
     "install": "run ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= ",
     "dotweak": "gsed -i 's|-latomic||g' lib/pkgconfig/libcrypto.pc"
   },
@@ -10689,7 +10687,7 @@
     "binbstd": "1",
     "parallel": "1",
     "dopatch": "gsed -i '/-mandroid/d'           Configurations/15-android.conf\ngsed -i '/ndk is invalid/d'      Configurations/15-android.conf\ngsed -i '/no NDK $triarch-gcc/d' Configurations/15-android.conf\ngsed -i '/-target/d'             Configurations/15-android.conf\ngsed -i '/-gcc-toolchain/d'      Configurations/15-android.conf\ngsed -i '/tritools-4.9/d'        Configurations/15-android.conf",
-    "install": "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"\n\nrun ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
+    "install": "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"\nexport PERL=\"$(command -v perl)\"\n\nrun ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
   },
   {
     "pkgname": "orcc",
@@ -10730,14 +10728,13 @@
     "pkgname": "packcc",
     "pkgtype": "exe",
     "version": "2025.01.19",
-    "license": "MIT",
     "summary": "A packrat parser generator for C",
-    "web-url": "https://github.com/enechaev/packcc",
-    "git-url": "https://github.com/enechaev/packcc",
+    "web-url": "https://github.com/arithy/packcc",
+    "git-url": "https://github.com/arithy/packcc",
     "dep-upp": "git",
     "binbstd": "0",
     "parallel": "1",
-    "install": "run $CC $CPPFLAGS $CFLAGS $LDFLAGS -static -o packcc ../packcc.c\ninstall_bins packcc"
+    "install": "run $CC $CPPFLAGS $CFLAGS $LDFLAGS -o packcc ../src/packcc.c\ninstall_bins packcc"
   },
   {
     "pkgname": "pango",
@@ -11422,7 +11419,7 @@
     "git-url": "https://github.com/xiph/rav1e",
     "src-url": "https://github.com/xiph/rav1e/archive/refs/tags/v0.7.1.tar.gz",
     "src-sha": "da7ae0df2b608e539de5d443c096e109442cdfa6c5e9b4014361211cf61d030c",
-    "dep-upp": "nasm cargo-c curl bsdtar",
+    "dep-upp": "nasm cargo-c libz curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
     "parallel": "1",
@@ -11593,14 +11590,14 @@
   {
     "pkgname": "rover",
     "pkgtype": "exe",
-    "version": "0.25.0",
+    "version": "0.26.3",
     "license": "MIT",
     "summary": "CLI for managing and maintaining data graphs with Apollo Studio",
     "web-url": "https://www.apollographql.com/docs/rover/",
     "git-url": "https://github.com/apollographql/rover",
-    "src-url": "https://github.com/apollographql/rover/archive/refs/tags/v0.25.0.tar.gz",
-    "src-sha": "3d0137ac50c6e6a9ca2865b00e41957ca8e9725bab490f372176ae35be8e9f5b",
-    "dep-pkg": "openssl-dev libz",
+    "src-url": "https://github.com/apollographql/rover/archive/refs/tags/v0.26.3.tar.gz",
+    "src-sha": "accf6257f030e109d8626d2acf2885d2512d1a8918f88ea4e392712d879768c6",
+    "dep-pkg": "libz openssl-dev",
     "dep-upp": "curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
@@ -11626,15 +11623,15 @@
   {
     "pkgname": "rsync",
     "pkgtype": "exe",
-    "version": "3.3.0",
+    "version": "3.4.1",
     "license": "GPL-3.0-or-later",
     "summary": "Utility that provides fast incremental file transfer",
     "web-url": "https://rsync.samba.org/",
     "git-url": "https://github.com/RsyncProject/rsync",
-    "src-url": "https://rsync.samba.org/ftp/rsync/rsync-3.3.0.tar.gz",
-    "src-sha": "7399e9a6708c32d678a72a63219e96f23be0be2336e50fd1348498d07041df90",
-    "fix-url": "https://download.samba.org/pub/rsync/src/rsync-patches-3.3.0.tar.gz",
-    "fix-sha": "3dd51cd88d25133681106f68622ebedbf191ab25a21ea336ba409136591864b0",
+    "src-url": "https://rsync.samba.org/ftp/rsync/rsync-3.4.1.tar.gz",
+    "src-sha": "2924bcb3a1ed8b551fc101f740b9f0fe0a202b115027647cf69850d65fd88c52",
+    "fix-url": "https://download.samba.org/pub/rsync/src/rsync-patches-3.4.1.tar.gz",
+    "fix-sha": "f56566e74cfa0f68337f7957d8681929f9ac4c55d3fb92aec0d743db590c9a88",
     "dep-pkg": "openssl-dev libpopt libz liblz4 libzstd libxxhash libiconv libglob",
     "dep-upp": "curl bsdtar patch gmake gmake",
     "bsystem": "configure",
@@ -11683,13 +11680,13 @@
   {
     "pkgname": "ruff",
     "pkgtype": "exe",
-    "version": "0.4.4",
+    "version": "0.9.0",
     "license": "MIT",
     "summary": "An extremely fast Python linter, written in Rust",
     "web-url": "https://beta.ruff.rs/",
     "git-url": "https://github.com/astral-sh/ruff",
-    "src-url": "https://github.com/astral-sh/ruff/archive/refs/tags/v0.4.4.tar.gz",
-    "src-sha": "36d900e3514739a9149363a087512222895f15244bd6612e299259be8ac8c1df",
+    "src-url": "https://github.com/astral-sh/ruff/archive/refs/tags/0.9.0.tar.gz",
+    "src-sha": "392a9e5bf717731bbf48e29174cb0e9e96c45c7037d0b54ded69a1ef867e41a8",
     "dep-upp": "gmake curl bsdtar",
     "bsystem": "cargo",
     "binbstd": "1",
@@ -11803,12 +11800,11 @@
     "web-url": "https://sr.ht/~sircmpwn/scdoc/",
     "src-url": "https://git.sr.ht/~sircmpwn/scdoc/archive/1.11.3.tar.gz",
     "src-sha": "4c5c6136540384e5455b250f768e7ca11b03fdba1a8efc2341ee0f1111e57612",
-    "dep-upp": "curl bsdtar gmake",
+    "dep-upp": "scdoc curl bsdtar gmake",
     "bsystem": "gmake",
     "binbstd": "1",
     "parallel": "1",
-    "do12345": "gmakew clean\ngmakew scdoc CFLAGS=\"'$CFLAGS'\" LDFLAGS=\"'$LDFLAGS'\"\nmv scdoc scdoc.exe",
-    "install": "gmakew clean\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\" CFLAGS=\"'$CFLAGS'\" LDFLAGS=\"'$LDFLAGS'\" HOST_SCDOC=./scdoc.exe"
+    "install": "gmakew clean\ngmakew install PREFIX=\"$PACKAGE_INSTALL_DIR\" CFLAGS=\"'$CFLAGS'\" LDFLAGS=\"'$LDFLAGS'\" HOST_SCDOC=\"$(command -v scdoc)\""
   },
   {
     "pkgname": "sd",
