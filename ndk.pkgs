@@ -1,6 +1,6 @@
 pkgname: ARM_NEON_2_x86_SSE
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 summary: The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions
 web-url: https://github.com/intel/ARM_NEON_2_x86_SSE
 git-url: https://github.com/intel/ARM_NEON_2_x86_SSE
@@ -135,7 +135,7 @@ installed: no
 ---
 pkgname: alass
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 license: GPL-3.0-or-later
 summary: Automatic Language-Agnostic Subtitle Synchronization
 web-url: https://github.com/kaegi/alass
@@ -366,7 +366,7 @@ installed: no
 ---
 pkgname: base16
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 summary: base16 encoder and decoder
 web-url: https://github.com/leleliu008/C-examples
 git-url: https://github.com/leleliu008/C-examples
@@ -626,7 +626,7 @@ installed: no
 ---
 pkgname: boringssl
 pkgtype: exe+lib
-version: 2025.01.19
+version: 2025.01.20
 summary: A fork of OpenSSL that is designed to meet Google needs
 web-url: https://boringssl.googlesource.com/boringssl/
 git-url: https://github.com/google/boringssl
@@ -1259,7 +1259,7 @@ installed: no
 ---
 pkgname: cpuinfo
 pkgtype: pie
-version: 2025.01.19
+version: 2025.01.20
 license: BSD-2-Clause
 summary: CPU INFOrmation library
 web-url: https://github.com/pytorch/cpuinfo
@@ -1775,7 +1775,7 @@ installed: no
 ---
 pkgname: easyutils
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 summary: A collections of easy to use command-line utilities
 web-url: https://github.com/leleliu008/C-examples
 git-url: https://github.com/leleliu008/C-examples
@@ -2141,7 +2141,7 @@ installed: no
 ---
 pkgname: findimagedupes
 pkgtype: pie
-version: 2025.01.19
+version: 2025.01.20
 license: GPL-3.0-or-later
 summary: Find visually similar or duplicate images
 web-url: https://gitlab.com/opennota/findimagedupes
@@ -2295,7 +2295,7 @@ installed: no
 ---
 pkgname: fp16
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: MIT
 summary: A header-only C/C++ library for conversion to/from half-precision floating point formats
 web-url: https://github.com/Maratyszcza/FP16
@@ -2384,7 +2384,7 @@ installed: no
 ---
 pkgname: fxdiv
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: MIT
 summary: A header-only library for division via fixed-point multiplication by inverse
 web-url: https://github.com/Maratyszcza/FXdiv
@@ -2961,7 +2961,7 @@ installed: no
 ---
 pkgname: gn
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 summary: A meta-build system for generating build files for ninja
 web-url: https://gn.googlesource.com/gn
 git-url: https://gn.googlesource.com/gn
@@ -3097,7 +3097,7 @@ installed: no
 ---
 pkgname: gomobile
 pkgtype: pie
-version: 2025.01.19
+version: 2025.01.20
 summary: A tool for building and running mobile apps written in Go
 web-url: https://github.com/golang/mobile
 git-url: https://github.com/golang/mobile
@@ -4387,7 +4387,7 @@ installed: no
 ---
 pkgname: libbcrypt
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: CC0-1.0
 summary: A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface
 web-url: https://www.openwall.com/crypt
@@ -4691,7 +4691,7 @@ installed: no
 ---
 pkgname: libcpuinfo
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: BSD-2-Clause
 summary: CPU INFOrmation library
 web-url: https://github.com/pytorch/cpuinfo
@@ -4917,7 +4917,7 @@ installed: no
 ---
 pkgname: libexecinfo
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: 0BSD
 summary: A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc
 web-url: https://github.com/leleliu008/libexecinfo
@@ -5260,7 +5260,7 @@ installed: no
 ---
 pkgname: libglob
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 summary: glob(3) implementation
 web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html
 git-url: https://github.com/leleliu008/libglob
@@ -5604,7 +5604,7 @@ installed: no
 ---
 pkgname: libintl-lite
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: BSL-1.0
 summary: A simple (but less powerful) GNU gettext libintl replacement
 web-url: https://github.com/j-jorge/libintl-lite
@@ -5849,7 +5849,7 @@ installed: no
 ---
 pkgname: liblanginfo
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 summary: langinfo.h and its implementation from android ndk source code
 web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html
 git-url: https://github.com/leleliu008/liblanginfo
@@ -6103,7 +6103,7 @@ installed: no
 ---
 pkgname: libmesalink
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: BSD-3-Clause
 summary: memory-safe and OpenSSL-compatible TLS library
 web-url: https://mesalink.io
@@ -6145,7 +6145,7 @@ installed: no
 ---
 pkgname: libmill
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: MIT
 summary: Go-style concurrency in C
 web-url: https://github.com/sustrik/libmill
@@ -6489,7 +6489,7 @@ installed: no
 ---
 pkgname: libngtcp2
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: MIT
 summary: QUIC library written in C
 web-url: https://github.com/ngtcp2/ngtcp2
@@ -7105,7 +7105,7 @@ installed: no
 ---
 pkgname: libquiche
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: BSD-2-Clause
 summary: Savoury implementation of the QUIC transport protocol and HTTP/3
 web-url: https://github.com/cloudflare/quiche
@@ -8226,7 +8226,7 @@ installed: no
 ---
 pkgname: libwordexp
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 summary: wordexp(3) implementation
 web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html
 git-url: https://github.com/leleliu008/libwordexp
@@ -8332,7 +8332,7 @@ installed: no
 ---
 pkgname: libxnnpack
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: BSD-3-Clause
 summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
 web-url: https://github.com/google/XNNPACK
@@ -8623,7 +8623,7 @@ installed: no
 ---
 pkgname: lodepng
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: Zlib
 summary: PNG encoder and decoder in C and C++
 web-url: https://github.com/lvandeve/lodepng
@@ -9267,7 +9267,7 @@ installed: no
 ---
 pkgname: ndk-pkg-core
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 license: Apache-2.0
 summary: core utils for ndk-pkg
 web-url: https://github.com/leleliu008/ndk-pkg
@@ -9827,7 +9827,7 @@ installed: no
 ---
 pkgname: packcc
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 summary: A packrat parser generator for C
 web-url: https://github.com/arithy/packcc
 git-url: https://github.com/arithy/packcc
@@ -9943,7 +9943,7 @@ installed: no
 ---
 pkgname: pegof
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
 web-url: https://github.com/dolik-rce/pegof
 git-url: https://github.com/dolik-rce/pegof
@@ -10138,7 +10138,7 @@ installed: no
 ---
 pkgname: ppkg
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 license: Apache-2.0
 summary: A portable package manager for Unix-like systems
 web-url: https://github.com/leleliu008/ppkg
@@ -10234,7 +10234,7 @@ installed: no
 ---
 pkgname: psimd
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: MIT
 summary: Portable 128-bit SIMD intrinsics
 web-url: https://github.com/Maratyszcza/psimd
@@ -10247,7 +10247,7 @@ installed: no
 ---
 pkgname: pthreadpool
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: BSD-2-Clause
 summary: A portable and efficient thread pool implementation
 web-url: https://github.com/Maratyszcza/pthreadpool
@@ -10260,7 +10260,7 @@ installed: no
 ---
 pkgname: pup
 pkgtype: pie
-version: 2025.01.19
+version: 2025.01.20
 license: MIT
 summary: Parse HTML at the command-line
 web-url: https://github.com/EricChiang/pup
@@ -10751,7 +10751,7 @@ installed: no
 ---
 pkgname: ruy
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: Apache-2.0
 summary: matrix multiplication library
 web-url: https://github.com/google/ruy
@@ -10933,7 +10933,7 @@ installed: no
 ---
 pkgname: sjpeg
 pkgtype: exe+lib
-version: 2025.01.19
+version: 2025.01.20
 license: Apache-2.0
 summary: simple jpeg encoder
 web-url: https://github.com/webmproject/sjpeg
@@ -10947,7 +10947,7 @@ installed: no
 ---
 pkgname: skcms
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: BSD
 summary: SkCMS
 web-url: https://skia.googlesource.com/skcms.git
@@ -11218,7 +11218,7 @@ installed: no
 ---
 pkgname: sysinfo
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 summary: A command-line tool to get your currently running system information
 web-url: https://github.com/leleliu008/C-examples
 git-url: https://github.com/leleliu008/C-examples
@@ -11658,7 +11658,7 @@ installed: no
 ---
 pkgname: uctags
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 license: GPL-2.0-or-later
 summary: Maintained ctags implementation
 web-url: https://github.com/universal-ctags/ctags
@@ -11704,7 +11704,7 @@ installed: no
 ---
 pkgname: uppm
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 license: Apache-2.0
 summary: Universal Prebuild Package Manager
 web-url: https://github.com/leleliu008/uppm
@@ -11718,7 +11718,7 @@ installed: no
 ---
 pkgname: uppm@0.15.2
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 license: Apache-2.0
 summary: Universal Prebuild Package Manager
 web-url: https://github.com/leleliu008/uppm
@@ -11733,7 +11733,7 @@ installed: no
 ---
 pkgname: uppm@0.15.3
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 license: Apache-2.0
 summary: Universal Prebuild Package Manager
 web-url: https://github.com/leleliu008/uppm
@@ -11748,7 +11748,7 @@ installed: no
 ---
 pkgname: uppm@0.15.4
 pkgtype: exe
-version: 2025.01.19
+version: 2025.01.20
 license: Apache-2.0
 summary: Universal Prebuild Package Manager
 web-url: https://github.com/leleliu008/uppm
@@ -11778,7 +11778,7 @@ installed: no
 ---
 pkgname: utf8.h
 pkgtype: lib
-version: 2025.01.19
+version: 2025.01.20
 license: Unlicense
 summary: single header utf8 string functions for C and C++
 web-url: https://github.com/sheredom/utf8.h
@@ -12259,7 +12259,7 @@ installed: no
 ---
 pkgname: xpup
 pkgtype: pie
-version: 2025.01.19
+version: 2025.01.20
 license: Apache-2.0
 summary: A command line XML parsing tool
 web-url: https://github.com/ericchiang/xpup
