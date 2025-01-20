@@ -739,7 +739,7 @@ web-url: https://busybox.net/
 src-url: https://busybox.net/downloads/busybox-1.36.1.tar.bz2
 src-sha: b8cc24c9574d809e7279c3be349795c5d5ceb6fdf19ca709f80cde50e47de314
 res-url: https://raw.githubusercontent.com/termux/termux-packages/master/packages/busybox/busybox.config
-res-sha: 5dd6118c4571ec21186bdd4d87904f41e64f6d62ddfc73fa7396260de71f8432
+res-sha: e51e59e8569380a7fcd86e55e2d8a526f92b876f7f3691c04ab215970eaac7df
 dep-upp: bzip2 curl bsdtar patch gmake
 bsystem: gmake
 binbstd: 1
