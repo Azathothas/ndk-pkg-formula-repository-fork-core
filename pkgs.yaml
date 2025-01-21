@@ -1,6 +1,6 @@
 - pkgname: ARM_NEON_2_x86_SSE
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   summary: The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions
   web-url: https://github.com/intel/ARM_NEON_2_x86_SSE
   git-url: https://github.com/intel/ARM_NEON_2_x86_SSE
@@ -144,7 +144,7 @@
     run install_mans doc/age-keygen.1
 - pkgname: alass
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   license: GPL-3.0-or-later
   summary: Automatic Language-Agnostic Subtitle Synchronization
   web-url: https://github.com/kaegi/alass
@@ -386,7 +386,7 @@
   install: cargow install
 - pkgname: base16
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   summary: base16 encoder and decoder
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -759,7 +759,7 @@
         abi="$abi"
 - pkgname: boringssl
   pkgtype: exe+lib
-  version: 2025.01.20
+  version: 2025.01.21
   summary: A fork of OpenSSL that is designed to meet Google needs
   web-url: https://boringssl.googlesource.com/boringssl/
   git-url: https://github.com/google/boringssl
@@ -928,6 +928,7 @@
   parallel: "1"
   dopatch: |-
     ln -s "$ANDROID_NDK_CC" ../bin/clang
+    ln -s "$CC_FOR_BUILD"   ../bin/gcc
 
     printf '\n' > ../include/ndk-pkg-common.h
 
@@ -1516,7 +1517,7 @@
   install: gow ./cmd/cpuid
 - pkgname: cpuinfo
   pkgtype: pie
-  version: 2025.01.20
+  version: 2025.01.21
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -1639,13 +1640,13 @@
         --enable-automated
 - pkgname: curl
   pkgtype: exe
-  version: 8.10.0
+  version: 8.11.1
   license: curl
   summary: A command-line tool for transferring data from/to an HTTP, HTTPS or FTP server
   web-url: https://curl.haxx.se/
   git-url: https://github.com/curl/curl
-  src-url: https://curl.haxx.se/download/curl-8.10.0.tar.bz2
-  src-sha: be30a51f7bbe8819adf5a8e8cc6991393ede31f782b8de7b46235cc1eb7beb9f
+  src-url: https://curl.haxx.se/download/curl-8.11.1.tar.bz2
+  src-sha: e9773ad1dfa21aedbfe8e1ef24c9478fa780b1b3d4f763c98dd04629b5e43485
   dep-pkg: libnghttp2 libcares libzstd libz libbrotli openssl-dev
   dep-upp: perl curl bsdtar gmake gmake
   bsystem: configure
@@ -2151,7 +2152,7 @@
   install: cargow install
 - pkgname: easyutils
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   summary: A collections of easy to use command-line utilities
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -2684,7 +2685,7 @@
   install: configure
 - pkgname: findimagedupes
   pkgtype: pie
-  version: 2025.01.20
+  version: 2025.01.21
   license: GPL-3.0-or-later
   summary: Find visually similar or duplicate images
   web-url: https://gitlab.com/opennota/findimagedupes
@@ -2863,14 +2864,14 @@
         --with-libiconv-prefix="$libiconv_INSTALL_DIR"
 - pkgname: fortune
   pkgtype: exe
-  version: 3.18.0
+  version: 3.24.0
   summary: A command-line tool for displaying a random quotation
   web-url: https://github.com/shlomif/fortune-mod
   git-url: https://github.com/shlomif/fortune-mod
-  src-url: https://github.com/shlomif/fortune-mod/releases/download/fortune-mod-3.18.0/fortune-mod-3.18.0.tar.xz
-  src-sha: c5a681f1a2601b7186d1f612d2f3a7c42e1189f4326f17a34bccaca98134c42b
+  src-url: https://github.com/shlomif/fortune-mod/releases/download/fortune-mod-3.24.0/fortune-mod-3.24.0.tar.xz
+  src-sha: 1f387877254e95eab61f937257b42609f29b994ef0571531655bbfc3a2ac74ac
   dep-upp: perl xsltproc docbook-xsl curl bsdtar perl gmake cmake ninja
-  dep-plm: App::Cpan Path::Tiny App::Docmake
+  dep-plm: App::Docmake Code::TidyAll::Plugin::ClangFormat Code::TidyAll::Plugin::Flake8 Code::TidyAll::Plugin::TestCount File::Find::Object List::Util Path::Tiny Perl::Critic Perl::Tidy Test::Code::TidyAll Test::Differences Test::RunValgrind Test::TrailingSpace Test::Trap
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
@@ -2878,7 +2879,7 @@
   install: cmakew
 - pkgname: fp16
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: MIT
   summary: A header-only C/C++ library for conversion to/from half-precision floating point formats
   web-url: https://github.com/Maratyszcza/FP16
@@ -2968,7 +2969,7 @@
   install: gow
 - pkgname: fxdiv
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: MIT
   summary: A header-only library for division via fixed-point multiplication by inverse
   web-url: https://github.com/Maratyszcza/FXdiv
@@ -3477,13 +3478,13 @@
   dotweak: ln -s indent bin/gindent
 - pkgname: git
   pkgtype: exe
-  version: 2.45.2
+  version: 2.48.1
   license: GPL-2.0-only
   summary: A free and open source distributed version control system with speed and efficiency
   web-url: https://git-scm.com/
   git-url: https://github.com/git/git
-  src-url: https://www.kernel.org/pub/software/scm/git/git-2.45.2.tar.xz
-  src-sha: 51bfe87eb1c02fed1484051875365eeab229831d30d0cec5d89a14f9e40e9adb
+  src-url: https://www.kernel.org/pub/software/scm/git/git-2.48.1.tar.xz
+  src-sha: 1c5d545f5dc1eb51e95d2c50d98fdf88b1a36ba1fa30e9ae5d5385c6024f82ad
   dep-pkg: libpcre2 libiconv libexpat libcurl libz
   dep-lib: libcurl
   dep-upp: patch curl bsdtar gmake gmake
@@ -3780,7 +3781,7 @@
   dotweak: ln -s make bin/gmake
 - pkgname: gn
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   summary: A meta-build system for generating build files for ninja
   web-url: https://gn.googlesource.com/gn
   git-url: https://gn.googlesource.com/gn
@@ -3930,7 +3931,7 @@
   install: "export GOROOT_BOOTSTRAP=\"$(go env GOROOT)\"\n\nrun ./make.bash\nrun cd ..\nrun rm -rf _\nrun rm bin/go*\nrun mv bin/android_*/* bin/\nrun rm -rf bin/android_*\nrun rm -rf src/debug/elf/testdata\nrun rm -rf src/debug/dwarf/testdata\nrun rm -rf src/runtime/pprof/testdata\nrun rm -rf src/runtime/race/race_linux*.syso\nrun rm -rf src/runtime/race/internal/amd64v1/race_*.syso\nrun rm -rf src/runtime/race/internal/amd64v3/race_*.syso\nrun rm -rf pkg/obj \n\nfor item in $(ls pkg/tool)\ndo\n    case $item in\n        android_*) ;;\n        *)  run rm -rf \"pkg/tool/$item\"\n    esac\ndone\n\nrun cd ..\nrun install -d \"$PACKAGE_INSTALL_DIR/\"\nrun mv src/*   \"$PACKAGE_INSTALL_DIR/\"\n\n# override temporarily\n__check_elf_files() {\n    :\n}"
 - pkgname: gomobile
   pkgtype: pie
-  version: 2025.01.20
+  version: 2025.01.21
   summary: A tool for building and running mobile apps written in Go
   web-url: https://github.com/golang/mobile
   git-url: https://github.com/golang/mobile
@@ -4834,13 +4835,13 @@
   install: gow -o jfrog
 - pkgname: jj
   pkgtype: exe
-  version: 0.21.0
+  version: 0.25.0
   license: Apache-2.0
   summary: A git-compatible distributed version control system
   web-url: https://github.com/martinvonz/jj
   git-url: https://github.com/martinvonz/jj
-  src-url: https://github.com/martinvonz/jj/archive/refs/tags/v0.21.0.tar.gz
-  src-sha: c38d98d7db42f08b799f5c51f33cd8454867bc4862a15aa0897b72f2d32eea0a
+  src-url: https://github.com/martinvonz/jj/archive/refs/tags/v0.25.0.tar.gz
+  src-sha: 3a99528539e414a3373f24eb46a0f153d4e52f7035bb06df47bd317a19912ea3
   dep-pkg: openssl-dev libz
   dep-upp: curl bsdtar
   bsystem: cargo
@@ -5453,7 +5454,7 @@
     run install_incs include/b64/*:b64
 - pkgname: libbcrypt
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: CC0-1.0
   summary: A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface
   web-url: https://www.openwall.com/crypt
@@ -5817,7 +5818,7 @@
   install: cmakew 2 -DBUILD_PIC=ON
 - pkgname: libcpuinfo
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -5884,13 +5885,13 @@
   install: "cat > crypt.h <<EOF\n#ifdef __cplusplus\n    extern \"C\" {\n#endif\n\n        char* crypt(char* key, char* salt);\n\n#ifdef __cplusplus\n    }   \n#endif\nEOF\n\nrun $CC -c $CFLAGS $CPPFLAGS -o crypt.o ../*.c\nrun $AR rsc libcrypt.a crypt.o\nrun install_incs crypt.h\nrun install_libs libcrypt.a"
 - pkgname: libcurl
   pkgtype: lib
-  version: 8.8.0
+  version: 8.11.1
   license: curl
   summary: A free and easy-to-use client-side URL transfer library
   web-url: https://curl.haxx.se/
   git-url: https://github.com/curl/curl
-  src-url: https://curl.haxx.se/download/curl-8.8.0.tar.bz2
-  src-sha: 40d3792d38cfa244d8f692974a567e9a5f3387c547579f1124e95ea2a1020d0d
+  src-url: https://curl.haxx.se/download/curl-8.11.1.tar.bz2
+  src-sha: e9773ad1dfa21aedbfe8e1ef24c9478fa780b1b3d4f763c98dd04629b5e43485
   dep-pkg: libnghttp2 libcares libzstd libz libbrotli openssl-dev
   dep-upp: perl curl bsdtar gmake gmake
   bsystem: configure
@@ -6090,7 +6091,7 @@
   dotweak: gsed -i '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc
 - pkgname: libexecinfo
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: 0BSD
   summary: A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc
   web-url: https://github.com/leleliu008/libexecinfo
@@ -6541,7 +6542,7 @@
     EOF
 - pkgname: libglob
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   summary: glob(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html
   git-url: https://github.com/leleliu008/libglob
@@ -6986,7 +6987,7 @@
   dotweak: "writepc libintl <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
 - pkgname: libintl-lite
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: BSL-1.0
   summary: A simple (but less powerful) GNU gettext libintl replacement
   web-url: https://github.com/j-jorge/libintl-lite
@@ -7301,7 +7302,7 @@
   install: configure
 - pkgname: liblanginfo
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   summary: langinfo.h and its implementation from android ndk source code
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html
   git-url: https://github.com/leleliu008/liblanginfo
@@ -7589,7 +7590,7 @@
   install: cmakew 2
 - pkgname: libmesalink
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: BSD-3-Clause
   summary: memory-safe and OpenSSL-compatible TLS library
   web-url: https://mesalink.io
@@ -7639,7 +7640,7 @@
   install: configure
 - pkgname: libmill
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: MIT
   summary: Go-style concurrency in C
   web-url: https://github.com/sustrik/libmill
@@ -8243,7 +8244,7 @@
         -DENABLE_LIB_ONLY=ON
 - pkgname: libngtcp2
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: MIT
   summary: QUIC library written in C
   web-url: https://github.com/ngtcp2/ngtcp2
@@ -9071,7 +9072,7 @@
         -DWITHOUT_PNG=OFF
 - pkgname: libquiche
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: BSD-2-Clause
   summary: Savoury implementation of the QUIC transport protocol and HTTP/3
   web-url: https://github.com/cloudflare/quiche
@@ -10483,7 +10484,7 @@
     mv libwmflite-0.2.so.7 libwmflite-0.2.so
 - pkgname: libwordexp
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   summary: wordexp(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html
   git-url: https://github.com/leleliu008/libwordexp
@@ -10626,7 +10627,7 @@
   dotweak: gsed -i 's|-liconv|-liconv -ldl|' lib/pkgconfig/libxml-2.0.pc
 - pkgname: libxnnpack
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: BSD-3-Clause
   summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
   web-url: https://github.com/google/XNNPACK
@@ -11007,7 +11008,7 @@
     gow -tags linux -X github.com/lightningnetwork/lnd/build.Commit=v$PACKAGE_VERSION ./cmd/lncli
 - pkgname: lodepng
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: Zlib
   summary: PNG encoder and decoder in C and C++
   web-url: https://github.com/lvandeve/lodepng
@@ -11976,7 +11977,7 @@
     ln -s ncursesw.pc lib/pkgconfig/ncurses.pc
 - pkgname: ndk-pkg-core
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   license: Apache-2.0
   summary: core utils for ndk-pkg
   web-url: https://github.com/leleliu008/ndk-pkg
@@ -12727,6 +12728,27 @@
     export PERL="$(command -v perl)"
   install: "run ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
   dotweak: gsed -i 's|-latomic||g' lib/pkgconfig/libcrypto.pc
+- pkgname: openssl-dev@1.1
+  pkgtype: lib
+  version: 1.1.1w
+  license: OpenSSL
+  summary: Cryptography and SSL/TLS Toolkit
+  web-url: https://www.openssl.org/
+  git-url: https://github.com/openssl/openssl
+  src-url: https://www.openssl.org/source/openssl-1.1.1w.tar.gz
+  src-sha: cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8
+  dep-upp: perl curl bsdtar gmake
+  bsystem: gmake
+  binbstd: "1"
+  parallel: "1"
+  dopatch: |-
+    gsed -i '/-mandroid/d'           Configurations/15-android.conf
+    gsed -i '/ndk is invalid/d'      Configurations/15-android.conf
+    gsed -i '/no NDK $triarch-gcc/d' Configurations/15-android.conf
+    gsed -i '/-target/d'             Configurations/15-android.conf
+    gsed -i '/-gcc-toolchain/d'      Configurations/15-android.conf
+    gsed -i '/tritools-4.9/d'        Configurations/15-android.conf
+  install: "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"\nexport PERL=\"$(command -v perl)\"\n\nrun ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
 - pkgname: openssl-fips
   pkgtype: lib
   version: 2.0.16
@@ -12767,27 +12789,6 @@
         "$(get_os_compiler)"
     gmakew clean
     gmakew install
-- pkgname: openssl@1.1
-  pkgtype: exe
-  version: 1.1.1w
-  license: OpenSSL
-  summary: Cryptography and SSL/TLS Toolkit
-  web-url: https://www.openssl.org/
-  git-url: https://github.com/openssl/openssl
-  src-url: https://www.openssl.org/source/openssl-1.1.1w.tar.gz
-  src-sha: cf3098950cb4d853ad95c0841f1f9c6d3dc102dccfcacd521d93925208b76ac8
-  dep-upp: perl curl bsdtar gmake
-  bsystem: gmake
-  binbstd: "1"
-  parallel: "1"
-  dopatch: |-
-    gsed -i '/-mandroid/d'           Configurations/15-android.conf
-    gsed -i '/ndk is invalid/d'      Configurations/15-android.conf
-    gsed -i '/no NDK $triarch-gcc/d' Configurations/15-android.conf
-    gsed -i '/-target/d'             Configurations/15-android.conf
-    gsed -i '/-gcc-toolchain/d'      Configurations/15-android.conf
-    gsed -i '/tritools-4.9/d'        Configurations/15-android.conf
-  install: "# ./configure LIST | grep android\ncase $TARGET_PLATFORM_ARCH in\n    armv7a)  TARGET='android-arm'    ;;\n    aarch64) TARGET='android-arm64'  ;;\n    i686)    TARGET='android-x86'    ;;\n    x86_64)  TARGET='android-x86_64' ;;\nesac\n\nexport CROSS_SYSROOT=\"$SYSROOT\"\nexport PERL=\"$(command -v perl)\"\n\nrun ./Configure \\\n    no-tests \\\n    no-ssl2 \\\n    no-ssl3 \\\n    no-comp \\\n    no-asm \\\n    -D__ANDROID_API__=\"$TARGET_PLATFORM_VERS\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --libdir=lib \\\n    --openssldir=etc/ssl \\\n    \"$TARGET\"\ngmakew clean\ngmakew build_libs  CROSS_COMPILE=\ngmakew install_dev CROSS_COMPILE= "
 - pkgname: orcc
   pkgtype: pie
   version: 0.4.38
@@ -12833,7 +12834,7 @@
     gmakew install DEST_HOME="$PACKAGE_INSTALL_DIR"
 - pkgname: packcc
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   summary: A packrat parser generator for C
   web-url: https://github.com/arithy/packcc
   git-url: https://github.com/arithy/packcc
@@ -13033,7 +13034,7 @@
     run install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp
 - pkgname: pegof
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
   web-url: https://github.com/dolik-rce/pegof
   git-url: https://github.com/dolik-rce/pegof
@@ -13252,7 +13253,7 @@
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: ppkg
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   license: Apache-2.0
   summary: A portable package manager for Unix-like systems
   web-url: https://github.com/leleliu008/ppkg
@@ -13371,7 +13372,7 @@
         -Dprotobuf_JSONCPP_PROVIDER=package
 - pkgname: psimd
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: MIT
   summary: Portable 128-bit SIMD intrinsics
   web-url: https://github.com/Maratyszcza/psimd
@@ -13383,7 +13384,7 @@
   install: cmakew
 - pkgname: pthreadpool
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: BSD-2-Clause
   summary: A portable and efficient thread pool implementation
   web-url: https://github.com/Maratyszcza/pthreadpool
@@ -13403,7 +13404,7 @@
         -DPTHREADPOOL_LIBRARY_TYPE=shared
 - pkgname: pup
   pkgtype: pie
-  version: 2025.01.20
+  version: 2025.01.21
   license: MIT
   summary: Parse HTML at the command-line
   web-url: https://github.com/EricChiang/pup
@@ -13972,7 +13973,7 @@
   install: cargow install
 - pkgname: ruy
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: Apache-2.0
   summary: matrix multiplication library
   web-url: https://github.com/google/ruy
@@ -14165,7 +14166,7 @@
     fi
 - pkgname: sjpeg
   pkgtype: exe+lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: Apache-2.0
   summary: simple jpeg encoder
   web-url: https://github.com/webmproject/sjpeg
@@ -14178,7 +14179,7 @@
   install: cmakew 2 -DSJPEG_BUILD_EXAMPLES=OFF -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: skcms
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: BSD
   summary: SkCMS
   web-url: https://skia.googlesource.com/skcms.git
@@ -14488,7 +14489,7 @@
   git-url: https://github.com/rofl0r/svn-lite
   src-url: https://github.com/rofl0r/svn-lite/archive/refs/tags/v1.09.tar.gz
   src-sha: 6152c3c7e73d0face8e2867ed31782e4a08b2d7aae4d45e45b49418b6b08465e
-  dep-pkg: openssl@1.1
+  dep-pkg: openssl-dev@1.1
   dep-upp: curl bsdtar
   binbstd: "1"
   parallel: "1"
@@ -14585,7 +14586,7 @@
     run install_mans man/*.1 man/*.5 man/*.7
 - pkgname: sysinfo
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   summary: A command-line tool to get your currently running system information
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -15084,7 +15085,7 @@
   install: cargow install --path crates/typos-cli
 - pkgname: uctags
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   license: GPL-2.0-or-later
   summary: Maintained ctags implementation
   web-url: https://github.com/universal-ctags/ctags
@@ -15149,7 +15150,7 @@
     gmakew -f makefile install-lib   DESTDIR="$PACKAGE_INSTALL_DIR"
 - pkgname: uppm
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15163,7 +15164,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.2
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15178,7 +15179,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.3
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15193,7 +15194,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.4
   pkgtype: exe
-  version: 2025.01.20
+  version: 2025.01.21
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15223,7 +15224,7 @@
   install: configure --without-preflight --without-systemd
 - pkgname: utf8.h
   pkgtype: lib
-  version: 2025.01.20
+  version: 2025.01.21
   license: Unlicense
   summary: single header utf8 string functions for C and C++
   web-url: https://github.com/sheredom/utf8.h
@@ -15679,13 +15680,13 @@
   install: cmakew -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=OFF
 - pkgname: wget
   pkgtype: exe
-  version: 1.24.5
+  version: 1.25.0
   license: GPL-3.0-or-later
   summary: A free, open-source, command-line tool that is used to download files from web servers using HTTP, HTTPS, FTP protocols
   web-url: https://www.gnu.org/software/wget
   git-url: https://git.savannah.gnu.org/git/wget.git
-  src-url: https://ftp.gnu.org/gnu/wget/wget-1.24.5.tar.gz
-  src-sha: fa2dc35bab5184ecbc46a9ef83def2aaaa3f4c9f3c97d4bd19dcb07d4da637de
+  src-url: https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz
+  src-sha: 766e48423e79359ea31e41db9e5c289675947a7fcf2efdcedb726ac9d0da3784
   dep-pkg: openssl-dev libcares libidn2 libz
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
@@ -15705,6 +15706,21 @@
     If wget is a fully statically linked executable, to get it working on Android 8 and later, you need to pass --dns-servers=<DNS-SERVERS> argument to curl like below
 
     wget --dns-servers=8.8.8.8 https://example.com
+- pkgname: wget2
+  pkgtype: exe
+  version: 2.2.0
+  license: GPL-3.0-or-later
+  summary: Successor of GNU Wget, a file and recursive website downloader
+  web-url: https://gitlab.com/gnuwget/wget2
+  src-url: https://ftp.gnu.org/gnu/wget/wget2-2.2.0.tar.gz
+  src-sha: 2b3b9c85b7fb26d33ca5f41f1f8daca71838d869a19b406063aa5c655294d357
+  dep-pkg: libz libbz2 liblzma libzstd lzlib libbrotli libnghttp2 openssl-dev libpcre2 libpsl
+  dep-lib: -lc++
+  dep-upp: texinfo doxygen curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  parallel: "1"
+  install: configure --with-ssl=openssl --with-bzip2 --with-lzma --without-gpgme --enable-static --disable-shared
 - pkgname: whois
   pkgtype: exe
   version: 5.5.23
@@ -15972,7 +15988,7 @@
         --enable-jtethreads
 - pkgname: xpup
   pkgtype: pie
-  version: 2025.01.20
+  version: 2025.01.21
   license: Apache-2.0
   summary: A command line XML parsing tool
   web-url: https://github.com/ericchiang/xpup
