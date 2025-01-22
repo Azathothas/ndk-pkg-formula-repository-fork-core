@@ -2,7 +2,7 @@
   {
     "pkgname": "ARM_NEON_2_x86_SSE",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions",
     "web-url": "https://github.com/intel/ARM_NEON_2_x86_SSE",
     "git-url": "https://github.com/intel/ARM_NEON_2_x86_SSE",
@@ -148,7 +148,7 @@
   {
     "pkgname": "alass",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "GPL-3.0-or-later",
     "summary": "Automatic Language-Agnostic Subtitle Synchronization",
     "web-url": "https://github.com/kaegi/alass",
@@ -398,7 +398,7 @@
   {
     "pkgname": "base16",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "base16 encoder and decoder",
     "web-url": "https://github.com/leleliu008/C-examples",
     "git-url": "https://github.com/leleliu008/C-examples",
@@ -685,7 +685,7 @@
   {
     "pkgname": "boringssl",
     "pkgtype": "exe+lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "A fork of OpenSSL that is designed to meet Google needs",
     "web-url": "https://boringssl.googlesource.com/boringssl/",
     "git-url": "https://github.com/google/boringssl",
@@ -886,24 +886,6 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "mesonw \\\n    -Dtests=disabled \\\n    -Dpng=enabled \\\n    -Dzlib=enabled \\\n    -Dglib=enabled \\\n    -Dtee=disabled \\\n    -Dfreetype=enabled \\\n    -Dfontconfig=enabled"
-  },
-  {
-    "pkgname": "calc",
-    "pkgtype": "exe",
-    "version": "2.15.1.0",
-    "license": "LGPL-2.1-or-later",
-    "summary": "Arbitrary precision calculator",
-    "web-url": "http://www.isthe.com/chongo/tech/comp/calc/",
-    "git-url": "https://github.com/lcn2/calc",
-    "src-url": "https://github.com/lcn2/calc/releases/download/v2.15.1.0/calc-2.15.1.0.tar.bz2",
-    "src-sha": "633df610a5f5d2f69ad377e320afc85009052b4acc245f0586cbf932a179e2d6",
-    "patches": "335a6a7eae6cea9c4190fac0e6aa27bc62925275eccfc49d7d613e623323e1e9|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/calc/Makefile.config.patch\nd803d7e05f2113f3bd4cd604d627ab25d6476548ed41fe15de3b1649d0578a32|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/calc/Makefile.target.patch",
-    "dep-pkg": "libreadline",
-    "dep-upp": "curl bsdtar patch gmake",
-    "bsystem": "gmake",
-    "binbstd": "1",
-    "parallel": "1",
-    "install": "export BUILD_NJOBS=1\ngmakew clean\ngmakew --debug install EXTRA_CFLAGS=\"'$CFLAGS $CPPFLAGS'\" EXTRA_LDFLAGS=\"'$LDFLAGS'\" USE_READLINE=-DUSE_READLINE READLINE_EXTRAS=\"'-lhistory -lncurses'\" LONG_BITS=\"$($CC -E -dM - < /dev/null | sed -n '/__LONG_WIDTH__/p' | cut -d ' ' -f3)\""
   },
   {
     "pkgname": "cargo-c",
@@ -1373,7 +1355,7 @@
   {
     "pkgname": "cpuinfo",
     "pkgtype": "pie",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "BSD-2-Clause",
     "summary": "CPU INFOrmation library",
     "web-url": "https://github.com/pytorch/cpuinfo",
@@ -1935,7 +1917,7 @@
   {
     "pkgname": "easyutils",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "A collections of easy to use command-line utilities",
     "web-url": "https://github.com/leleliu008/C-examples",
     "git-url": "https://github.com/leleliu008/C-examples",
@@ -2155,7 +2137,7 @@
     "src-sha": "49bf67dd5cb2069b1212ff3256d85123ceaee74470bedeef9ef1836582e4a5bc",
     "patches": "87565c4a8009f0667d0d52339745109202aed722a9a92f64c5fdf70b4ee816eb|https://github.com/spvkgn/far2l-termux/raw/refs/heads/main/far2l/far2l-src-setattr.cpp.patch\n82a584804feade3b72045c553ddfbbf78d722e6ffc03dc5c53ebbefa7414cbc6|https://github.com/spvkgn/far2l-termux/raw/refs/heads/main/far2l/multiarc-CMakeLists.txt.patch\n318581c5614eec74abe339d7941c7cd287a712f9b35218ec788b4db0c02eeab6|https://github.com/spvkgn/far2l-termux/raw/refs/heads/main/far2l/multiarc-src-formats-rar-unrar-os.hpp.patch\n068e7ff80b1bb45bc68c06ca095e54ef3be7cb54898d8c1b2bd214fc8d33dfcf|https://github.com/spvkgn/far2l-termux/raw/refs/heads/main/far2l/NetRocks-src-Protocol-SSH-SSHConnection.cpp.patch",
     "dep-pkg": "libarchive libuchardet libxml2 libssh openssl-dev",
-    "dep-upp": "curl bsdtar patch cmake ninja",
+    "dep-upp": "perl curl bsdtar patch cmake ninja",
     "bsystem": "cmake",
     "binbstd": "0",
     "api-min": "26",
@@ -2337,21 +2319,6 @@
     "install": "configure"
   },
   {
-    "pkgname": "findimagedupes",
-    "pkgtype": "pie",
-    "version": "2025.01.21",
-    "license": "GPL-3.0-or-later",
-    "summary": "Find visually similar or duplicate images",
-    "web-url": "https://gitlab.com/opennota/findimagedupes",
-    "git-url": "https://gitlab.com/opennota/findimagedupes",
-    "dep-pkg": "libmagic libjpeg-turbo libpng libtiff libheif",
-    "dep-upp": "git golang",
-    "bsystem": "go",
-    "binbstd": "1",
-    "parallel": "1",
-    "install": "gow"
-  },
-  {
     "pkgname": "findutils",
     "pkgtype": "exe",
     "version": "4.10.0",
@@ -2508,7 +2475,7 @@
   {
     "pkgname": "fp16",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "MIT",
     "summary": "A header-only C/C++ library for conversion to/from half-precision floating point formats",
     "web-url": "https://github.com/Maratyszcza/FP16",
@@ -2604,7 +2571,7 @@
   {
     "pkgname": "fxdiv",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "MIT",
     "summary": "A header-only library for division via fixed-point multiplication by inverse",
     "web-url": "https://github.com/Maratyszcza/FXdiv",
@@ -3245,7 +3212,7 @@
   {
     "pkgname": "gn",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "A meta-build system for generating build files for ninja",
     "web-url": "https://gn.googlesource.com/gn",
     "git-url": "https://gn.googlesource.com/gn",
@@ -3392,7 +3359,7 @@
   {
     "pkgname": "gomobile",
     "pkgtype": "pie",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "A tool for building and running mobile apps written in Go",
     "web-url": "https://github.com/golang/mobile",
     "git-url": "https://github.com/golang/mobile",
@@ -4790,7 +4757,7 @@
   {
     "pkgname": "libbcrypt",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "CC0-1.0",
     "summary": "A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface",
     "web-url": "https://www.openwall.com/crypt",
@@ -5124,7 +5091,7 @@
   {
     "pkgname": "libcpuinfo",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "BSD-2-Clause",
     "summary": "CPU INFOrmation library",
     "web-url": "https://github.com/pytorch/cpuinfo",
@@ -5370,7 +5337,7 @@
   {
     "pkgname": "libexecinfo",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "0BSD",
     "summary": "A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc",
     "web-url": "https://github.com/leleliu008/libexecinfo",
@@ -5750,7 +5717,7 @@
   {
     "pkgname": "libglob",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "glob(3) implementation",
     "web-url": "https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html",
     "git-url": "https://github.com/leleliu008/libglob",
@@ -6126,7 +6093,7 @@
   {
     "pkgname": "libintl-lite",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "BSL-1.0",
     "summary": "A simple (but less powerful) GNU gettext libintl replacement",
     "web-url": "https://github.com/j-jorge/libintl-lite",
@@ -6389,7 +6356,7 @@
   {
     "pkgname": "liblanginfo",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "langinfo.h and its implementation from android ndk source code",
     "web-url": "https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html",
     "git-url": "https://github.com/leleliu008/liblanginfo",
@@ -6665,7 +6632,7 @@
   {
     "pkgname": "libmesalink",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "BSD-3-Clause",
     "summary": "memory-safe and OpenSSL-compatible TLS library",
     "web-url": "https://mesalink.io",
@@ -6710,7 +6677,7 @@
   {
     "pkgname": "libmill",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "MIT",
     "summary": "Go-style concurrency in C",
     "web-url": "https://github.com/sustrik/libmill",
@@ -7097,7 +7064,7 @@
   {
     "pkgname": "libngtcp2",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "MIT",
     "summary": "QUIC library written in C",
     "web-url": "https://github.com/ngtcp2/ngtcp2",
@@ -7770,7 +7737,7 @@
   {
     "pkgname": "libquiche",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "BSD-2-Clause",
     "summary": "Savoury implementation of the QUIC transport protocol and HTTP/3",
     "web-url": "https://github.com/cloudflare/quiche",
@@ -8990,7 +8957,7 @@
   {
     "pkgname": "libwordexp",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "wordexp(3) implementation",
     "web-url": "https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html",
     "git-url": "https://github.com/leleliu008/libwordexp",
@@ -9109,7 +9076,7 @@
   {
     "pkgname": "libxnnpack",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "BSD-3-Clause",
     "summary": "High-efficiency floating-point neural network inference operators for mobile, server, and web",
     "web-url": "https://github.com/google/XNNPACK",
@@ -9425,7 +9392,7 @@
   {
     "pkgname": "lodepng",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Zlib",
     "summary": "PNG encoder and decoder in C and C++",
     "web-url": "https://github.com/lvandeve/lodepng",
@@ -10128,7 +10095,7 @@
   {
     "pkgname": "ndk-pkg-core",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Apache-2.0",
     "summary": "core utils for ndk-pkg",
     "web-url": "https://github.com/leleliu008/ndk-pkg",
@@ -10748,7 +10715,7 @@
   {
     "pkgname": "packcc",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "A packrat parser generator for C",
     "web-url": "https://github.com/arithy/packcc",
     "git-url": "https://github.com/arithy/packcc",
@@ -10874,7 +10841,7 @@
   {
     "pkgname": "pegof",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.",
     "web-url": "https://github.com/dolik-rce/pegof",
     "git-url": "https://github.com/dolik-rce/pegof",
@@ -11087,7 +11054,7 @@
   {
     "pkgname": "ppkg",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Apache-2.0",
     "summary": "A portable package manager for Unix-like systems",
     "web-url": "https://github.com/leleliu008/ppkg",
@@ -11193,7 +11160,7 @@
   {
     "pkgname": "psimd",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "MIT",
     "summary": "Portable 128-bit SIMD intrinsics",
     "web-url": "https://github.com/Maratyszcza/psimd",
@@ -11207,7 +11174,7 @@
   {
     "pkgname": "pthreadpool",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "BSD-2-Clause",
     "summary": "A portable and efficient thread pool implementation",
     "web-url": "https://github.com/Maratyszcza/pthreadpool",
@@ -11221,7 +11188,7 @@
   {
     "pkgname": "pup",
     "pkgtype": "pie",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "MIT",
     "summary": "Parse HTML at the command-line",
     "web-url": "https://github.com/EricChiang/pup",
@@ -11749,7 +11716,7 @@
   {
     "pkgname": "ruy",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Apache-2.0",
     "summary": "matrix multiplication library",
     "web-url": "https://github.com/google/ruy",
@@ -11944,7 +11911,7 @@
   {
     "pkgname": "sjpeg",
     "pkgtype": "exe+lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Apache-2.0",
     "summary": "simple jpeg encoder",
     "web-url": "https://github.com/webmproject/sjpeg",
@@ -11959,7 +11926,7 @@
   {
     "pkgname": "skcms",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "BSD",
     "summary": "SkCMS",
     "web-url": "https://skia.googlesource.com/skcms.git",
@@ -12259,7 +12226,7 @@
   {
     "pkgname": "sysinfo",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "summary": "A command-line tool to get your currently running system information",
     "web-url": "https://github.com/leleliu008/C-examples",
     "git-url": "https://github.com/leleliu008/C-examples",
@@ -12739,7 +12706,7 @@
   {
     "pkgname": "uctags",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "GPL-2.0-or-later",
     "summary": "Maintained ctags implementation",
     "web-url": "https://github.com/universal-ctags/ctags",
@@ -12789,7 +12756,7 @@
   {
     "pkgname": "uppm",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Apache-2.0",
     "summary": "Universal Prebuild Package Manager",
     "web-url": "https://github.com/leleliu008/uppm",
@@ -12805,7 +12772,7 @@
   {
     "pkgname": "uppm@0.15.2",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Apache-2.0",
     "summary": "Universal Prebuild Package Manager",
     "web-url": "https://github.com/leleliu008/uppm",
@@ -12822,7 +12789,7 @@
   {
     "pkgname": "uppm@0.15.3",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Apache-2.0",
     "summary": "Universal Prebuild Package Manager",
     "web-url": "https://github.com/leleliu008/uppm",
@@ -12839,7 +12806,7 @@
   {
     "pkgname": "uppm@0.15.4",
     "pkgtype": "exe",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Apache-2.0",
     "summary": "Universal Prebuild Package Manager",
     "web-url": "https://github.com/leleliu008/uppm",
@@ -12873,7 +12840,7 @@
   {
     "pkgname": "utf8.h",
     "pkgtype": "lib",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Unlicense",
     "summary": "single header utf8 string functions for C and C++",
     "web-url": "https://github.com/sheredom/utf8.h",
@@ -13422,7 +13389,7 @@
   {
     "pkgname": "xpup",
     "pkgtype": "pie",
-    "version": "2025.01.21",
+    "version": "2025.01.22",
     "license": "Apache-2.0",
     "summary": "A command line XML parsing tool",
     "web-url": "https://github.com/ericchiang/xpup",
