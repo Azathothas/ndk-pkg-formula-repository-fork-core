@@ -257,12 +257,12 @@ pkgname: aria2
 pkgtype: exe
 version: 1.37.0
 license: GPL-2.0-or-later
-summary: Download with resuming and segmented downloading
+summary: A lightweight multi-protocol & multi-source, cross platform download utility
 web-url: https://aria2.github.io
 git-url: https://github.com/aria2/aria2
 src-url: https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0.tar.xz
 src-sha: 60a420ad7085eb616cb6e2bdf0a7206d68ff3d37fb5a956dc44242eb2f79b66b
-dep-pkg: libgnutls libcares libxml2 libz
+dep-pkg: libcares libssh2 libxml2 libsqlite3
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -5178,7 +5178,6 @@ pkgtype: lib
 version: 1
 summary: parse suboption arguments from a string
 web-url: https://linux.die.net/man/3/getsubopt
-dep-pkg: libstrchrnul
 binbstd: 1
 parallel: 1
 installed: no
