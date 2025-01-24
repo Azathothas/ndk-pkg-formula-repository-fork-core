@@ -1,6 +1,6 @@
 - pkgname: ARM_NEON_2_x86_SSE
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   summary: The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions
   web-url: https://github.com/intel/ARM_NEON_2_x86_SSE
   git-url: https://github.com/intel/ARM_NEON_2_x86_SSE
@@ -144,7 +144,7 @@
     run install_mans doc/age-keygen.1
 - pkgname: alass
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   license: GPL-3.0-or-later
   summary: Automatic Language-Agnostic Subtitle Synchronization
   web-url: https://github.com/kaegi/alass
@@ -402,7 +402,7 @@
   install: cargow install
 - pkgname: base16
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   summary: base16 encoder and decoder
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -765,7 +765,7 @@
         abi="$abi"
 - pkgname: boringssl
   pkgtype: exe+lib
-  version: 2025.01.23
+  version: 2025.01.24
   summary: A fork of OpenSSL that is designed to meet Google needs
   web-url: https://boringssl.googlesource.com/boringssl/
   git-url: https://github.com/google/boringssl
@@ -1502,7 +1502,7 @@
   install: gow ./cmd/cpuid
 - pkgname: cpuinfo
   pkgtype: pie
-  version: 2025.01.23
+  version: 2025.01.24
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -1999,16 +1999,16 @@
     gmakew install prefix="$PACKAGE_INSTALL_DIR"
 - pkgname: dot_static
   pkgtype: exe
-  version: 11.0.0
+  version: 12.2.1
   license: EPL-1.0
   summary: A command-line tool for drawing graphs
   web-url: https://www.graphviz.org/
   git-url: https://gitlab.com/graphviz/graphviz
-  src-url: https://gitlab.com/graphviz/graphviz/-/archive/11.0.0/graphviz-11.0.0.tar.bz2
-  src-sha: 95173d21922082b0b2649fb24c1dc4bbc1e39504a92903b88df39804778cbb9d
+  src-url: https://gitlab.com/graphviz/graphviz/-/archive/12.2.1/graphviz-12.2.1.tar.xz
+  src-sha: 85e34b5c982777c30f01dfab9ea7c713b4335a2f584e62c0abb9868413eb915b
   dep-pkg: gd pango libglob
-  dep-upp: libtool gm4 flex bison gawk git python3 curl bsdtar automake gmake
-  bsystem: autogen
+  dep-upp: libtool gm4 flex bison gawk git python3 curl bsdtar gmake gmake
+  bsystem: configure
   binbstd: "0"
   parallel: "1"
   prepare: export LDFLAGS="$LDFLAGS --static -static"
@@ -2137,7 +2137,7 @@
   install: cargow install
 - pkgname: easyutils
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   summary: A collections of easy to use command-line utilities
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -2845,7 +2845,7 @@
   install: cmakew
 - pkgname: fp16
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: MIT
   summary: A header-only C/C++ library for conversion to/from half-precision floating point formats
   web-url: https://github.com/Maratyszcza/FP16
@@ -2935,7 +2935,7 @@
   install: gow
 - pkgname: fxdiv
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: MIT
   summary: A header-only library for division via fixed-point multiplication by inverse
   web-url: https://github.com/Maratyszcza/FXdiv
@@ -3739,7 +3739,7 @@
   dotweak: ln -s make bin/gmake
 - pkgname: gn
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   summary: A meta-build system for generating build files for ninja
   web-url: https://gn.googlesource.com/gn
   git-url: https://gn.googlesource.com/gn
@@ -3889,7 +3889,7 @@
   install: "export GOROOT_BOOTSTRAP=\"$(go env GOROOT)\"\n\nrun ./make.bash\nrun cd ..\nrun rm -rf _\nrun rm bin/go*\nrun mv bin/android_*/* bin/\nrun rm -rf bin/android_*\nrun rm -rf src/debug/elf/testdata\nrun rm -rf src/debug/dwarf/testdata\nrun rm -rf src/runtime/pprof/testdata\nrun rm -rf src/runtime/race/race_linux*.syso\nrun rm -rf src/runtime/race/internal/amd64v1/race_*.syso\nrun rm -rf src/runtime/race/internal/amd64v3/race_*.syso\nrun rm -rf pkg/obj \n\nfor item in $(ls pkg/tool)\ndo\n    case $item in\n        android_*) ;;\n        *)  run rm -rf \"pkg/tool/$item\"\n    esac\ndone\n\nrun cd ..\nrun install -d \"$PACKAGE_INSTALL_DIR/\"\nrun mv src/*   \"$PACKAGE_INSTALL_DIR/\"\n\n# override temporarily\n__check_elf_files() {\n    :\n}"
 - pkgname: gomobile
   pkgtype: pie
-  version: 2025.01.23
+  version: 2025.01.24
   summary: A tool for building and running mobile apps written in Go
   web-url: https://github.com/golang/mobile
   git-url: https://github.com/golang/mobile
@@ -5411,7 +5411,7 @@
     run install_incs include/b64/*:b64
 - pkgname: libbcrypt
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: CC0-1.0
   summary: A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface
   web-url: https://www.openwall.com/crypt
@@ -5773,7 +5773,7 @@
   install: cmakew 2 -DBUILD_PIC=ON
 - pkgname: libcpuinfo
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -5947,13 +5947,13 @@
   install: cmakew 2 -DENABLE_SDL=OFF -DDISABLE_SSE=ON -DENABLE_ENCODER=OFF -DENABLE_DECODER=OFF
 - pkgname: libdeflate
   pkgtype: lib
-  version: "1.20"
+  version: "1.23"
   license: MIT
   summary: Heavily optimized DEFLATE/zlib/gzip compression and decompression
   web-url: https://github.com/ebiggers/libdeflate
   git-url: https://github.com/ebiggers/libdeflate
-  src-url: https://github.com/ebiggers/libdeflate/archive/refs/tags/v1.20.tar.gz
-  src-sha: ed1454166ced78913ff3809870a4005b7170a6fd30767dc478a09b96847b9c2a
+  src-url: https://github.com/ebiggers/libdeflate/archive/refs/tags/v1.23.tar.gz
+  src-sha: 1ab18349b9fb0ce8a0ca4116bded725be7dcbfa709e19f6f983d99df1fb8b25f
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -6046,7 +6046,7 @@
   dotweak: gsed -i '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc
 - pkgname: libexecinfo
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: 0BSD
   summary: A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc
   web-url: https://github.com/leleliu008/libexecinfo
@@ -6495,7 +6495,7 @@
     EOF
 - pkgname: libglob
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   summary: glob(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html
   git-url: https://github.com/leleliu008/libglob
@@ -6940,7 +6940,7 @@
   dotweak: "writepc libintl <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
 - pkgname: libintl-lite
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: BSL-1.0
   summary: A simple (but less powerful) GNU gettext libintl replacement
   web-url: https://github.com/j-jorge/libintl-lite
@@ -7255,7 +7255,7 @@
   install: configure
 - pkgname: liblanginfo
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   summary: langinfo.h and its implementation from android ndk source code
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html
   git-url: https://github.com/leleliu008/liblanginfo
@@ -7544,7 +7544,7 @@
   install: cmakew 2
 - pkgname: libmesalink
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: BSD-3-Clause
   summary: memory-safe and OpenSSL-compatible TLS library
   web-url: https://mesalink.io
@@ -7594,7 +7594,7 @@
   install: configure
 - pkgname: libmill
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: MIT
   summary: Go-style concurrency in C
   web-url: https://github.com/sustrik/libmill
@@ -8198,7 +8198,7 @@
         -DENABLE_LIB_ONLY=ON
 - pkgname: libngtcp2
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: MIT
   summary: QUIC library written in C
   web-url: https://github.com/ngtcp2/ngtcp2
@@ -8717,13 +8717,13 @@
         --enable-socketpair-pipe
 - pkgname: libpixman
   pkgtype: lib
-  version: 0.42.2
+  version: 0.44.2
   license: MIT
   summary: A low-level library for pixel manipulation
   web-url: https://cairographics.org
   git-url: https://gitlab.freedesktop.org/pixman/pixman
-  src-url: https://cairographics.org/releases/pixman-0.42.2.tar.gz
-  src-sha: ea1480efada2fd948bc75366f7c349e1c96d3297d09a3fe62626e38e234a625e
+  src-url: https://cairographics.org/releases/pixman-0.44.2.tar.gz
+  src-sha: 6349061ce1a338ab6952b92194d1b0377472244208d47ff25bef86fc71973466
   dep-upp: curl bsdtar python3 ninja
   dep-pym: ' meson'
   bsystem: meson
@@ -9026,7 +9026,7 @@
         -DWITHOUT_PNG=OFF
 - pkgname: libquiche
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: BSD-2-Clause
   summary: Savoury implementation of the QUIC transport protocol and HTTP/3
   web-url: https://github.com/cloudflare/quiche
@@ -9306,6 +9306,22 @@
   binbstd: "0"
   parallel: "1"
   install: cmakew 2
+- pkgname: libslirp
+  pkgtype: lib
+  version: 4.8.0
+  license: BSD-3-Clause
+  summary: A general purpose TCP-IP emulator
+  web-url: https://gitlab.freedesktop.org/slirp/libslirp
+  git-url: https://gitlab.freedesktop.org/slirp/libslirp
+  src-url: https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v4.8.0/libslirp-v4.8.0.tar.gz
+  src-sha: 2a98852e65666db313481943e7a1997abff0183bd9bea80caec1b5da89fda28c
+  dep-pkg: glib
+  dep-upp: curl bsdtar python3 ninja
+  dep-pym: ' meson'
+  bsystem: meson
+  binbstd: "0"
+  parallel: "1"
+  install: mesonw
 - pkgname: libsmartcols
   pkgtype: lib
   version: 2.40.2
@@ -10438,7 +10454,7 @@
     mv libwmflite-0.2.so.7 libwmflite-0.2.so
 - pkgname: libwordexp
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   summary: wordexp(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html
   git-url: https://github.com/leleliu008/libwordexp
@@ -10581,7 +10597,7 @@
   dotweak: gsed -i 's|-liconv|-liconv -ldl|' lib/pkgconfig/libxml-2.0.pc
 - pkgname: libxnnpack
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: BSD-3-Clause
   summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
   web-url: https://github.com/google/XNNPACK
@@ -10962,7 +10978,7 @@
     gow -tags linux -X github.com/lightningnetwork/lnd/build.Commit=v$PACKAGE_VERSION ./cmd/lncli
 - pkgname: lodepng
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: Zlib
   summary: PNG encoder and decoder in C and C++
   web-url: https://github.com/lvandeve/lodepng
@@ -11931,7 +11947,7 @@
     ln -s ncursesw.pc lib/pkgconfig/ncurses.pc
 - pkgname: ndk-pkg-core
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   license: Apache-2.0
   summary: core utils for ndk-pkg
   web-url: https://github.com/leleliu008/ndk-pkg
@@ -12195,13 +12211,13 @@
         ac_cv_path_GPGRT_CONFIG="$libgpg_error_INSTALL_DIR/bin/gpgrt-config"
 - pkgname: nuclei
   pkgtype: pie
-  version: 3.2.9
+  version: 3.3.8
   license: MIT
   summary: HTTP/DNS scanner configurable via YAML templates
   web-url: https://nuclei.projectdiscovery.io/
   git-url: https://github.com/projectdiscovery/nuclei
-  src-url: https://github.com/projectdiscovery/nuclei/archive/refs/tags/v3.2.9.tar.gz
-  src-sha: a30242402521f0969a879f12470c73a1afd9c4d1ed9b71533a19305f0abcfbe3
+  src-url: https://github.com/projectdiscovery/nuclei/archive/refs/tags/v3.3.8.tar.gz
+  src-sha: e03e36778ff9736882e52c43c19da8888443c9130cafd30a3305e42cbfb86467
   dep-upp: curl bsdtar golang
   bsystem: go
   binbstd: "1"
@@ -12603,13 +12619,13 @@
         FC=''
 - pkgname: openssl
   pkgtype: exe
-  version: 3.3.1
+  version: 3.4.0
   license: Apache-2.0
   summary: Cryptography and SSL/TLS Toolkit
   web-url: https://www.openssl.org/
   git-url: https://github.com/openssl/openssl
-  src-url: https://www.openssl.org/source/openssl-3.3.1.tar.gz
-  src-sha: 777cd596284c883375a2a7a11bf5d2786fc5413255efab20c50d6ffe6d020b7e
+  src-url: https://www.openssl.org/source/openssl-3.4.0.tar.gz
+  src-sha: e15dda82fe2fe8139dc2ac21a36d4ca01d5313c75f99f46c4e8a27709b7294bf
   dep-upp: perl curl bsdtar gmake
   bsystem: gmake
   binbstd: "1"
@@ -12788,11 +12804,14 @@
     gmakew install DEST_HOME="$PACKAGE_INSTALL_DIR"
 - pkgname: packcc
   pkgtype: exe
-  version: 2025.01.23
+  version: 2.0.2
+  license: MIT
   summary: A packrat parser generator for C
   web-url: https://github.com/arithy/packcc
   git-url: https://github.com/arithy/packcc
-  dep-upp: git
+  src-url: https://github.com/arithy/packcc/archive/refs/tags/v2.0.2.tar.gz
+  src-sha: b9bea7b2dee2a9bbc4d513a912b52d646556161a4f97e1074c9c9a509f2cc343
+  dep-upp: curl bsdtar
   binbstd: "0"
   parallel: "1"
   install: |-
@@ -12988,7 +13007,7 @@
     run install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp
 - pkgname: pegof
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
   web-url: https://github.com/dolik-rce/pegof
   git-url: https://github.com/dolik-rce/pegof
@@ -13083,13 +13102,13 @@
     # https://www.gnu.org/software/autoconf/manual/autoconf-2.67/html_node/Cache-Files.html
 - pkgname: pkgconf
   pkgtype: exe
-  version: 2.1.1
+  version: 2.3.0
   license: ISC
   summary: Reimplementation of pkg-config
   web-url: http://pkgconf.org
   git-url: https://github.com/pkgconf/pkgconf
-  src-url: https://distfiles.ariadne.space/pkgconf/pkgconf-2.1.1.tar.xz
-  src-sha: 3a224f2accf091b77a5781316e27b9ee3ba82c083cc2e539e08940b68a44fec5
+  src-url: https://distfiles.ariadne.space/pkgconf/pkgconf-2.3.0.tar.xz
+  src-sha: 3a9080ac51d03615e7c1910a0a2a8df08424892b5f13b0628a204d3fcce0ea8b
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
@@ -13207,7 +13226,7 @@
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: ppkg
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   license: Apache-2.0
   summary: A portable package manager for Unix-like systems
   web-url: https://github.com/leleliu008/ppkg
@@ -13222,13 +13241,13 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: procs
   pkgtype: exe
-  version: 0.14.5
+  version: 0.14.9
   license: MIT
   summary: Modern replacement for ps written by Rust
   web-url: https://github.com/dalance/procs
   git-url: https://github.com/dalance/procs
-  src-url: https://github.com/dalance/procs/archive/refs/tags/v0.14.5.tar.gz
-  src-sha: 539b88565c775a106063da5cc5148cfdc7e010534f3dbc90cb8f6317d51ca96b
+  src-url: https://github.com/dalance/procs/archive/refs/tags/v0.14.9.tar.gz
+  src-sha: 361982bd88bc84c184433309664598fdfdf5f603331cb21ba1108be40357608c
   dep-upp: curl bsdtar
   bsystem: cargo
   binbstd: "1"
@@ -13326,7 +13345,7 @@
         -Dprotobuf_JSONCPP_PROVIDER=package
 - pkgname: psimd
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: MIT
   summary: Portable 128-bit SIMD intrinsics
   web-url: https://github.com/Maratyszcza/psimd
@@ -13338,7 +13357,7 @@
   install: cmakew
 - pkgname: pthreadpool
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: BSD-2-Clause
   summary: A portable and efficient thread pool implementation
   web-url: https://github.com/Maratyszcza/pthreadpool
@@ -13358,7 +13377,7 @@
         -DPTHREADPOOL_LIBRARY_TYPE=shared
 - pkgname: pup
   pkgtype: pie
-  version: 2025.01.23
+  version: 2025.01.24
   license: MIT
   summary: Parse HTML at the command-line
   web-url: https://github.com/EricChiang/pup
@@ -13666,12 +13685,12 @@
   install: cmakew 2 -DRE2_BUILD_TESTING=OFF
 - pkgname: re2c
   pkgtype: exe
-  version: "3.1"
-  summary: Generate C-based recognizers from regular expressions
+  version: 4.0.2
+  summary: A free and open-source lexer generator that generates C-based recognizers from regular expressions
   web-url: https://re2c.org/
   git-url: https://github.com/skvadrik/re2c
-  src-url: https://github.com/skvadrik/re2c/releases/download/3.1/re2c-3.1.tar.xz
-  src-sha: 0ac299ad359e3f512b06a99397d025cfff81d3be34464ded0656f8a96676c029
+  src-url: https://github.com/skvadrik/re2c/releases/download/4.0.2/re2c-4.0.2.tar.xz
+  src-sha: 5e52ce0e26326115e41bc45d34dc2d5e10f2e44ed3a413fa2a826aa3500c8d56
   dep-upp: python3 curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -13685,13 +13704,13 @@
         -DRE2C_REBUILD_DOCS=OFF
 - pkgname: restic
   pkgtype: pie
-  version: 0.16.4
+  version: 0.17.3
   license: BSD-2-Clause
   summary: A fast, efficient and secure backup program
   web-url: https://restic.github.io/
   git-url: https://github.com/restic/restic
-  src-url: https://github.com/restic/restic/archive/refs/tags/v0.16.4.tar.gz
-  src-sha: d736a57972bb7ee3398cf6b45f30e5455d51266f5305987534b45a4ef505f965
+  src-url: https://github.com/restic/restic/archive/refs/tags/v0.17.3.tar.gz
+  src-sha: bf0dd73edfae531c24070e2e7833938613f7b179ed165e6b681098edfdf286c8
   dep-upp: curl bsdtar golang
   bsystem: go
   binbstd: "1"
@@ -13899,13 +13918,13 @@
   install: cargow install --no-default-features
 - pkgname: rust-analyzer
   pkgtype: exe
-  version: 2024.01.29
+  version: 2025.01.20
   license: Apache-2.0
   summary: A Rust compiler front-end for IDEs
   web-url: https://rust-analyzer.github.io/
   git-url: https://github.com/rust-analyzer/rust-analyzer
-  src-url: https://github.com/rust-analyzer/rust-analyzer/archive/refs/tags/2024-01-29.tar.gz
-  src-sha: 0a086d2b2f0e0ac2ec9b5c99cdb19cfa11c3abec641ca6347b0482f292435c71
+  src-url: https://github.com/rust-analyzer/rust-analyzer/archive/refs/tags/2025-01-20.tar.gz
+  src-sha: 96b176733e90cc318f613277780c6cff0481e36772a7314d84db0328a9a9cf4d
   dep-upp: curl bsdtar
   bsystem: cargo
   binbstd: "1"
@@ -13927,7 +13946,7 @@
   install: cargow install
 - pkgname: ruy
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: Apache-2.0
   summary: matrix multiplication library
   web-url: https://github.com/google/ruy
@@ -14120,7 +14139,7 @@
     fi
 - pkgname: sjpeg
   pkgtype: exe+lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: Apache-2.0
   summary: simple jpeg encoder
   web-url: https://github.com/webmproject/sjpeg
@@ -14133,7 +14152,7 @@
   install: cmakew 2 -DSJPEG_BUILD_EXAMPLES=OFF -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: skcms
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: BSD
   summary: SkCMS
   web-url: https://skia.googlesource.com/skcms.git
@@ -14540,7 +14559,7 @@
     run install_mans man/*.1 man/*.5 man/*.7
 - pkgname: sysinfo
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   summary: A command-line tool to get your currently running system information
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -15025,13 +15044,13 @@
   install: gow
 - pkgname: typos
   pkgtype: exe
-  version: 1.22.9
+  version: 1.29.4
   license: MIT
   summary: A source code spell checker
   web-url: https://github.com/crate-ci/typos
   git-url: https://github.com/crate-ci/typos
-  src-url: https://github.com/crate-ci/typos/archive/refs/tags/v1.22.9.tar.gz
-  src-sha: 8ea801ebf5465e562c31a1f47e591ecc6500ae63d58dc70aac59e0446b0fa123
+  src-url: https://github.com/crate-ci/typos/archive/refs/tags/v1.29.4.tar.gz
+  src-sha: 3d3aea798328653c16529d9dac7f0067a3faebd75230d59193afeda668ead93f
   dep-upp: curl bsdtar
   bsystem: cargo
   binbstd: "1"
@@ -15039,7 +15058,7 @@
   install: cargow install --path crates/typos-cli
 - pkgname: uctags
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   license: GPL-2.0-or-later
   summary: Maintained ctags implementation
   web-url: https://github.com/universal-ctags/ctags
@@ -15104,7 +15123,7 @@
     gmakew -f makefile install-lib   DESTDIR="$PACKAGE_INSTALL_DIR"
 - pkgname: uppm
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15118,7 +15137,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.2
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15133,7 +15152,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.3
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15148,7 +15167,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.4
   pkgtype: exe
-  version: 2025.01.23
+  version: 2025.01.24
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15178,7 +15197,7 @@
   install: configure --without-preflight --without-systemd
 - pkgname: utf8.h
   pkgtype: lib
-  version: 2025.01.23
+  version: 2025.01.24
   license: Unlicense
   summary: single header utf8 string functions for C and C++
   web-url: https://github.com/sheredom/utf8.h
@@ -15807,13 +15826,13 @@
   dotweak: rm -rf include/ lib/
 - pkgname: xh
   pkgtype: exe
-  version: 0.22.0
+  version: 0.23.1
   license: MIT
   summary: A friendly and fast tool for sending HTTP requests
   web-url: https://github.com/ducaale/xh
   git-url: https://github.com/ducaale/xh
-  src-url: https://github.com/ducaale/xh/archive/refs/tags/v0.22.0.tar.gz
-  src-sha: 72f4d5e24165d8749433167e3ad3df8f26faafb250f1232acbe5192843e4157c
+  src-url: https://github.com/ducaale/xh/archive/refs/tags/v0.23.1.tar.gz
+  src-sha: 3f7dc6a3c8809f57a32c9aae7a192b54e87702a65d426784c1775676eea2e67f
   dep-upp: curl bsdtar
   bsystem: cargo
   binbstd: "1"
@@ -15862,14 +15881,14 @@
   dotweak: ln -s xml bin/xmlstarlet
 - pkgname: xmlutils
   pkgtype: exe
-  version: 2.12.8
+  version: 2.13.5
   license: MIT
   summary: A collections of command-line utilities provided by libxml2
   web-url: http://xmlsoft.org
   git-url: https://gitlab.gnome.org/GNOME/libxml2
-  src-url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.8.tar.xz
-  src-uri: http://distfiles.macports.org/libxml2/libxml2-2.12.8.tar.xz
-  src-sha: 43ad877b018bc63deb2468d71f95219c2fac196876ef36d1bee51d226173ec93
+  src-url: https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.5.tar.xz
+  src-uri: http://distfiles.macports.org/libxml2/libxml2-2.13.5.tar.xz
+  src-sha: 74fc163217a3964257d3be39af943e08861263c4231f9ef5b496b6f6d4c7b2b6
   dep-pkg: libiconv libz
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
@@ -15885,6 +15904,8 @@
         --without-coverage \
         --without-debug \
         --enable-ipv6 \
+        --enable-static \
+        --disable-shared \
         LIBS=-liconv
   dotweak: |-
     rm -rfv include
@@ -15942,7 +15963,7 @@
         --enable-jtethreads
 - pkgname: xpup
   pkgtype: pie
-  version: 2025.01.23
+  version: 2025.01.24
   license: Apache-2.0
   summary: A command line XML parsing tool
   web-url: https://github.com/ericchiang/xpup
@@ -16068,13 +16089,13 @@
         --without-dmalloc
 - pkgname: youtubedr
   pkgtype: pie
-  version: 2.10.1
+  version: 2.10.2
   license: MIT
   summary: A command-line tool to download videos from youtube.com
   web-url: https://github.com/kkdai/youtube
   git-url: https://github.com/kkdai/youtube
-  src-url: https://github.com/kkdai/youtube/archive/refs/tags/v2.10.1.tar.gz
-  src-sha: 9d71c4a7e192d81f12944b3c881fa7d61a20d48d083bfad72bd357f9becb04ef
+  src-url: https://github.com/kkdai/youtube/archive/refs/tags/v2.10.2.tar.gz
+  src-sha: 7c8f8875fbf47110782e4ebd24dd70e3bb277cf25a7802d89fe4ca00d684e1d1
   dep-upp: curl bsdtar golang
   bsystem: go
   binbstd: "1"
@@ -16198,13 +16219,13 @@
   install: cmakew -DBUILD_SHARED_LIBS=OFF
 - pkgname: zoxide
   pkgtype: exe
-  version: 0.9.4
+  version: 0.9.6
   license: MIT
   summary: A shell extension to navigate your filesystem faster
   web-url: https://github.com/ajeetdsouza/zoxide
   git-url: https://github.com/ajeetdsouza/zoxide
-  src-url: https://github.com/ajeetdsouza/zoxide/archive/refs/tags/v0.9.4.tar.gz
-  src-sha: ec002bdca37917130ae34e733eb29d4baa03b130c4b11456d630a01a938e0187
+  src-url: https://github.com/ajeetdsouza/zoxide/archive/refs/tags/v0.9.6.tar.gz
+  src-sha: e1811511a4a9caafa18b7d1505147d4328b39f6ec88b88097fe0dad59919f19c
   dep-upp: curl bsdtar
   bsystem: cargo
   binbstd: "1"
