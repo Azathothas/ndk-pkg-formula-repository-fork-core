@@ -101,6 +101,21 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: aerc
+pkgtype: pie
+version: 0.19.0
+license: MIT
+summary: Email client that runs in your terminal
+web-url: https://aerc-mail.org/
+git-url: https://git.sr.ht/~rjarry/aerc
+src-url: https://git.sr.ht/~rjarry/aerc/archive/0.19.0.tar.gz
+src-sha: caf830959cf689db257ffb64893fd78f1a362a22fe774dd561340fc552d599eb
+dep-upp: scdoc curl bsdtar gmake golang
+bsystem: gmake go
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: ag
 pkgtype: exe
 version: 2.2.0
@@ -9879,7 +9894,7 @@ summary: Parallel bzip2
 web-url: http://compression.great-site.net/pbzip2/
 src-url: https://launchpad.net/pbzip2/1.1/1.1.13/+download/pbzip2-1.1.13.tar.gz
 src-sha: 8fd13eaaa266f7ee91f85c1ea97c86d9c9cc985969db9059cdebcb1e1b7bdbe6
-dep-pkg: libbz2
+dep-pkg: libbz2 libgetloadavg
 dep-upp: curl bsdtar gmake
 bsystem: gmake
 binbstd: 1
