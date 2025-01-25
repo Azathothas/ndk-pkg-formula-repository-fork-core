@@ -1,6 +1,6 @@
 - pkgname: ARM_NEON_2_x86_SSE
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   summary: The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions
   web-url: https://github.com/intel/ARM_NEON_2_x86_SSE
   git-url: https://github.com/intel/ARM_NEON_2_x86_SSE
@@ -119,6 +119,7 @@
   dep-upp: scdoc curl bsdtar gmake golang
   bsystem: gmake go
   binbstd: "1"
+  api-min: "26"
   parallel: "1"
   install: |-
     gmakew clean
@@ -161,7 +162,7 @@
     run install_mans doc/age-keygen.1
 - pkgname: alass
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   license: GPL-3.0-or-later
   summary: Automatic Language-Agnostic Subtitle Synchronization
   web-url: https://github.com/kaegi/alass
@@ -419,7 +420,7 @@
   install: cargow install
 - pkgname: base16
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   summary: base16 encoder and decoder
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -543,6 +544,24 @@
   install: |-
     gmakew clean
     gmakew install CC="$CC" CFLAGS="'$CFLAGS $CPPFLAGS'" LDFLAGS="'$LDFLAGS -lz'" PREFIX="$PACKAGE_INSTALL_DIR"
+- pkgname: bear
+  pkgtype: pie
+  version: 3.1.5
+  license: GPL-3.0-or-later
+  summary: Generate compilation database for clang tooling
+  web-url: https://github.com/rizsotto/Bear
+  git-url: https://github.com/rizsotto/Bear
+  src-url: https://github.com/rizsotto/Bear/archive/refs/tags/3.1.5.tar.gz
+  src-sha: 4ac7b041222dcfc7231c6570d5bd76c39eaeda7a075ee2385b84256e7d659733
+  dep-pkg: fmt grpc nlohmann-json spdlog libposix_spawn
+  dep-upp: grpc-plugins curl bsdtar cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    cmakew \
+        -DENABLE_UNIT_TESTS=OFF \
+        -DENABLE_FUNC_TESTS=OFF
 - pkgname: berkeley-db
   pkgtype: exe
   version: 18.1.40
@@ -782,7 +801,7 @@
         abi="$abi"
 - pkgname: boringssl
   pkgtype: exe+lib
-  version: 2025.01.24
+  version: 2025.01.25
   summary: A fork of OpenSSL that is designed to meet Google needs
   web-url: https://boringssl.googlesource.com/boringssl/
   git-url: https://github.com/google/boringssl
@@ -1081,11 +1100,10 @@
   git-url: https://github.com/ccache/ccache
   src-url: https://github.com/ccache/ccache/releases/download/v4.10.2/ccache-4.10.2.tar.xz
   src-sha: c0b85ddfc1a3e77b105ec9ada2d24aad617fa0b447c6a94d55890972810f0f5a
-  dep-pkg: libhiredis libblake3 libxxhash libzstd fmt
+  dep-pkg: libhiredis libblake3 libxxhash libzstd fmt libposix_spawn
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
-  api-min: "24"
   parallel: "1"
   dopatch: gsed -i '/add_subdirectory(blake3)/d' src/third_party/CMakeLists.txt
   install: |-
@@ -1120,6 +1138,7 @@
   web-url: https://www.gnu.org/software/cflow/
   src-url: https://ftp.gnu.org/gnu/cflow/cflow-1.7.tar.bz2
   src-sha: d01146caf9001e266133417c2a8258a64b5fc16fcb082a14f6528204d0c97086
+  dep-pkg: libglob
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
@@ -1519,7 +1538,7 @@
   install: gow ./cmd/cpuid
 - pkgname: cpuinfo
   pkgtype: pie
-  version: 2025.01.24
+  version: 2025.01.25
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -2154,7 +2173,7 @@
   install: cargow install
 - pkgname: easyutils
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   summary: A collections of easy to use command-line utilities
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -2716,11 +2735,11 @@
   git-url: https://github.com/fish-shell/fish-shell
   src-url: https://github.com/fish-shell/fish-shell/releases/download/3.7.1/fish-3.7.1.tar.xz
   src-sha: 614c9f5643cd0799df391395fa6bbc3649427bb839722ce3b114d3bbc1a3b250
-  dep-pkg: libpcre2 libreadline
+  dep-pkg: libpcre2 libreadline libposix_spawn
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
-  api-min: "28"
+  api-min: "26"
   parallel: "1"
   install: cmakew -DWITH_GETTEXT=OFF
 - pkgname: flac
@@ -2862,7 +2881,7 @@
   install: cmakew
 - pkgname: fp16
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: MIT
   summary: A header-only C/C++ library for conversion to/from half-precision floating point formats
   web-url: https://github.com/Maratyszcza/FP16
@@ -2952,7 +2971,7 @@
   install: gow
 - pkgname: fxdiv
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: MIT
   summary: A header-only library for division via fixed-point multiplication by inverse
   web-url: https://github.com/Maratyszcza/FXdiv
@@ -3749,14 +3768,13 @@
   dep-upp: patch curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
-  api-min: "28"
   parallel: "1"
   dopatch: "patch -p0 <<EOF\n--- src/job.c.origin\t2024-04-22 16:23:48.474827263 +0800\n+++ src/job.c\t2024-04-22 16:25:06.996893603 +0800\n@@ -2427,18 +2427,6 @@\n           break;\n         }\n \n-    /* execvp() will use a default PATH if none is set; emulate that.  */\n-    if (p == NULL)\n-      {\n-        size_t l = confstr (_CS_PATH, NULL, 0);\n-        if (l)\n-          {\n-            char *dp = alloca (l);\n-            confstr (_CS_PATH, dp, l);\n-            p = dp;\n-          }\n-      }\n-\n     cmd = (char *)find_in_given_path (argv[0], p, NULL, 0);\n   }\n \nEOF"
   install: configure --without-guile --without-dmalloc
   dotweak: ln -s make bin/gmake
 - pkgname: gn
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   summary: A meta-build system for generating build files for ninja
   web-url: https://gn.googlesource.com/gn
   git-url: https://gn.googlesource.com/gn
@@ -3906,7 +3924,7 @@
   install: "export GOROOT_BOOTSTRAP=\"$(go env GOROOT)\"\n\nrun ./make.bash\nrun cd ..\nrun rm -rf _\nrun rm bin/go*\nrun mv bin/android_*/* bin/\nrun rm -rf bin/android_*\nrun rm -rf src/debug/elf/testdata\nrun rm -rf src/debug/dwarf/testdata\nrun rm -rf src/runtime/pprof/testdata\nrun rm -rf src/runtime/race/race_linux*.syso\nrun rm -rf src/runtime/race/internal/amd64v1/race_*.syso\nrun rm -rf src/runtime/race/internal/amd64v3/race_*.syso\nrun rm -rf pkg/obj \n\nfor item in $(ls pkg/tool)\ndo\n    case $item in\n        android_*) ;;\n        *)  run rm -rf \"pkg/tool/$item\"\n    esac\ndone\n\nrun cd ..\nrun install -d \"$PACKAGE_INSTALL_DIR/\"\nrun mv src/*   \"$PACKAGE_INSTALL_DIR/\"\n\n# override temporarily\n__check_elf_files() {\n    :\n}"
 - pkgname: gomobile
   pkgtype: pie
-  version: 2025.01.24
+  version: 2025.01.25
   summary: A tool for building and running mobile apps written in Go
   web-url: https://github.com/golang/mobile
   git-url: https://github.com/golang/mobile
@@ -4056,13 +4074,13 @@
   install: configure
 - pkgname: gperftools
   pkgtype: exe
-  version: "2.15"
+  version: "2.16"
   license: BSD-3-Clause
   summary: A collection of a high-performance multi-threaded malloc() implementation, plus some pretty nifty performance analysis tools
   web-url: https://github.com/gperftools/gperftools
   git-url: https://github.com/gperftools/gperftools
-  src-url: https://github.com/gperftools/gperftools/releases/download/gperftools-2.15/gperftools-2.15.tar.gz
-  src-sha: c69fef855628c81ef56f12e3c58f2b7ce1f326c0a1fe783e5cae0b88cbbe9a80
+  src-url: https://github.com/gperftools/gperftools/releases/download/gperftools-2.16/gperftools-2.16.tar.gz
+  src-sha: f12624af5c5987f2cc830ee534f754c3c5961eec08004c26a8b80de015cf056f
   dep-pkg: liblzma libexecinfo
   dep-lib: -ldl
   dep-upp: libtool curl bsdtar automake gmake
@@ -5428,7 +5446,7 @@
     run install_incs include/b64/*:b64
 - pkgname: libbcrypt
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: CC0-1.0
   summary: A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface
   web-url: https://www.openwall.com/crypt
@@ -5790,7 +5808,7 @@
   install: cmakew 2 -DBUILD_PIC=ON
 - pkgname: libcpuinfo
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -6063,7 +6081,7 @@
   dotweak: gsed -i '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc
 - pkgname: libexecinfo
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: 0BSD
   summary: A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc
   web-url: https://github.com/leleliu008/libexecinfo
@@ -6511,7 +6529,7 @@
     EOF
 - pkgname: libglob
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   summary: glob(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html
   git-url: https://github.com/leleliu008/libglob
@@ -6956,7 +6974,7 @@
   dotweak: "writepc libintl <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
 - pkgname: libintl-lite
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: BSL-1.0
   summary: A simple (but less powerful) GNU gettext libintl replacement
   web-url: https://github.com/j-jorge/libintl-lite
@@ -7271,7 +7289,7 @@
   install: configure
 - pkgname: liblanginfo
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   summary: langinfo.h and its implementation from android ndk source code
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html
   git-url: https://github.com/leleliu008/liblanginfo
@@ -7560,7 +7578,7 @@
   install: cmakew 2
 - pkgname: libmesalink
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: BSD-3-Clause
   summary: memory-safe and OpenSSL-compatible TLS library
   web-url: https://mesalink.io
@@ -7610,7 +7628,7 @@
   install: configure
 - pkgname: libmill
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: MIT
   summary: Go-style concurrency in C
   web-url: https://github.com/sustrik/libmill
@@ -8214,7 +8232,7 @@
         -DENABLE_LIB_ONLY=ON
 - pkgname: libngtcp2
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: MIT
   summary: QUIC library written in C
   web-url: https://github.com/ngtcp2/ngtcp2
@@ -8805,6 +8823,22 @@
   ldflags: -Wl,--undefined-version
   parallel: "1"
   install: configure
+- pkgname: libposix_spawn
+  pkgtype: lib
+  version: "1"
+  summary: library to spawn a process
+  web-url: https://pubs.opengroup.org/onlinepubs/9799919799/functions/posix_spawn.html
+  git-url: https://github.com/leleliu008/android-ndk-missing
+  src-url: https://github.com/leleliu008/android-ndk-missing/archive/refs/tags/v1.tar.gz
+  src-sha: 8422c887712a012d6956d201a5e1587e3ef9b3bd2860a9bcc202715b3174bb76
+  dep-upp: curl bsdtar
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    run $CXX -c $CXXFLAGS $CPPFLAGS -o posix_spawn.o ../posix_spawn.cpp
+    run $AR rsc libposix_spawn.a  posix_spawn.o
+    run install_incs ../posix_spawn.h
+    run install_libs libposix_spawn.a
 - pkgname: libproj
   pkgtype: lib
   version: 9.4.1
@@ -9042,7 +9076,7 @@
         -DWITHOUT_PNG=OFF
 - pkgname: libquiche
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: BSD-2-Clause
   summary: Savoury implementation of the QUIC transport protocol and HTTP/3
   web-url: https://github.com/cloudflare/quiche
@@ -10470,7 +10504,7 @@
     mv libwmflite-0.2.so.7 libwmflite-0.2.so
 - pkgname: libwordexp
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   summary: wordexp(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html
   git-url: https://github.com/leleliu008/libwordexp
@@ -10613,7 +10647,7 @@
   dotweak: gsed -i 's|-liconv|-liconv -ldl|' lib/pkgconfig/libxml-2.0.pc
 - pkgname: libxnnpack
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: BSD-3-Clause
   summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
   web-url: https://github.com/google/XNNPACK
@@ -10994,7 +11028,7 @@
     gow -tags linux -X github.com/lightningnetwork/lnd/build.Commit=v$PACKAGE_VERSION ./cmd/lncli
 - pkgname: lodepng
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: Zlib
   summary: PNG encoder and decoder in C and C++
   web-url: https://github.com/lvandeve/lodepng
@@ -11963,7 +11997,7 @@
     ln -s ncursesw.pc lib/pkgconfig/ncurses.pc
 - pkgname: ndk-pkg-core
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   license: Apache-2.0
   summary: core utils for ndk-pkg
   web-url: https://github.com/leleliu008/ndk-pkg
@@ -12146,10 +12180,10 @@
   git-url: https://github.com/ninja-build/ninja
   src-url: https://github.com/ninja-build/ninja/archive/refs/tags/v1.12.1.tar.gz
   src-sha: 821bdff48a3f683bc4bb3b6f0b5fe7b2d647cf65d52aeb63328c91a6c6df285a
+  dep-pkg: libposix_spawn
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
-  api-min: "28"
   parallel: "1"
   install: cmakew
 - pkgname: nlohmann-json
@@ -13023,7 +13057,7 @@
     run install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp
 - pkgname: pegof
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
   web-url: https://github.com/dolik-rce/pegof
   git-url: https://github.com/dolik-rce/pegof
@@ -13242,7 +13276,7 @@
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: ppkg
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   license: Apache-2.0
   summary: A portable package manager for Unix-like systems
   web-url: https://github.com/leleliu008/ppkg
@@ -13361,7 +13395,7 @@
         -Dprotobuf_JSONCPP_PROVIDER=package
 - pkgname: psimd
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: MIT
   summary: Portable 128-bit SIMD intrinsics
   web-url: https://github.com/Maratyszcza/psimd
@@ -13373,7 +13407,7 @@
   install: cmakew
 - pkgname: pthreadpool
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: BSD-2-Clause
   summary: A portable and efficient thread pool implementation
   web-url: https://github.com/Maratyszcza/pthreadpool
@@ -13393,7 +13427,7 @@
         -DPTHREADPOOL_LIBRARY_TYPE=shared
 - pkgname: pup
   pkgtype: pie
-  version: 2025.01.24
+  version: 2025.01.25
   license: MIT
   summary: Parse HTML at the command-line
   web-url: https://github.com/EricChiang/pup
@@ -13962,7 +13996,7 @@
   install: cargow install
 - pkgname: ruy
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: Apache-2.0
   summary: matrix multiplication library
   web-url: https://github.com/google/ruy
@@ -13989,10 +14023,12 @@
   src-sha: 3b8cf51548dfc49b7efe035e191ff5e1963ebc4fe8f6064a5eefc5343eaf78a5
   fix-url: https://raw.githubusercontent.com/termux/termux-packages/master/packages/samurai/0e98a83a8e5e32898ef52764acef48d1db2d960d.patch
   fix-sha: 870b7f988e470839a59f3ee764b835c8574e5427513e066477179b2bc23edd85
+  dep-pkg: libposix_spawn
   dep-upp: curl bsdtar patch gmake
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
+  prepare: export ANDROID_NDK_COMPILER_ARGS="$ANDROID_NDK_COMPILER_ARGS $CFLAGS $CPPFLAGS $LDFLAGS"
   install: |-
     gmakew clean
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
@@ -14156,7 +14192,7 @@
     fi
 - pkgname: sjpeg
   pkgtype: exe+lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: Apache-2.0
   summary: simple jpeg encoder
   web-url: https://github.com/webmproject/sjpeg
@@ -14169,7 +14205,7 @@
   install: cmakew 2 -DSJPEG_BUILD_EXAMPLES=OFF -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: skcms
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: BSD
   summary: SkCMS
   web-url: https://skia.googlesource.com/skcms.git
@@ -14576,7 +14612,7 @@
     run install_mans man/*.1 man/*.5 man/*.7
 - pkgname: sysinfo
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   summary: A command-line tool to get your currently running system information
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -15075,7 +15111,7 @@
   install: cargow install --path crates/typos-cli
 - pkgname: uctags
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   license: GPL-2.0-or-later
   summary: Maintained ctags implementation
   web-url: https://github.com/universal-ctags/ctags
@@ -15140,7 +15176,7 @@
     gmakew -f makefile install-lib   DESTDIR="$PACKAGE_INSTALL_DIR"
 - pkgname: uppm
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15154,7 +15190,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.2
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15169,7 +15205,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.3
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15184,7 +15220,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.4
   pkgtype: exe
-  version: 2025.01.24
+  version: 2025.01.25
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15214,7 +15250,7 @@
   install: configure --without-preflight --without-systemd
 - pkgname: utf8.h
   pkgtype: lib
-  version: 2025.01.24
+  version: 2025.01.25
   license: Unlicense
   summary: single header utf8 string functions for C and C++
   web-url: https://github.com/sheredom/utf8.h
@@ -15278,7 +15314,7 @@
   src-url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.40/util-linux-2.40.2.tar.xz
   src-sha: d78b37a66f5922d70edf3bdfb01a6b33d34ed3c3cafd6628203b2a2b67c8e8b3
   patches: a8b2bcf9ca30674522443f980600ba2a36410fa908550d534a54f61d6ce292cb|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/configure.patch b275c1b1f6df7c60e96214842745b04f8b82d9aad2fc93c5cff1993fa23dd076|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/fix-cachestat.patch 48eece4fa5767781a71aac63d80bf850794de3728f3a4b93982bc75fb2a11a8b|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/fix-paths.patch d3d6a92deee736d1da6232ed680cc9bfbd2cc253f7d578295f8c4d51f2582f79|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/lib-ismounted.c.patch 58925a93344e80e15ec9841f3c557bad9b45e6349ea3196781e7c65bd25aecbc|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/misc-utils-lsfd-sock-xinfo.c.patch a76cbf0d1bc9cdc9df6ae7225cb1b753fcc6c49d4fa77b921f16d41173470eb6|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/misc-utuls-lsfd-file.c.patch 115d5c747fb0b261dfeb87b00a4a7b0dfc2c8cbaa90b8875b4db348f82f3a2dd|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-ipcmk.c.patch 89da79bcd2427f146147cefdb6ceb4765d26410bced0322280353da853ca0d06|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-ipcutils.c.patch 693a928594f021a73cabc67d23e38288c278f80a0e641dfbee459ffb788e6c7f|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-ipcutils.h.patch a8785e6b9ca0e8d786540d797163e3083d447d9de0204d62a95118e13ef663d8|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/sys-utils-irq-common.patch 45dd0f06f899fc5a02ad8e67c5349a1ab7fe75b00ae0e730326b33f873d54c61|https://raw.githubusercontent.com/termux/termux-packages/refs/heads/master/packages/util-linux/versionsort.patch
-  dep-pkg: libreadline libcap-ng libz
+  dep-pkg: libreadline libcap-ng libz libglob
   dep-upp: automake libtool curl bsdtar patch gmake gmake
   bsystem: configure
   binbstd: "0"
@@ -15541,6 +15577,7 @@
   git-url: https://github.com/dbry/WavPack
   src-url: https://www.wavpack.com/wavpack-5.7.0.tar.bz2
   src-sha: 8944b237968a1b3976a1eb47cd556916e041a2aa8917495db65f82c3fcc2a225
+  dep-pkg: libiconv libglob
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
@@ -15980,7 +16017,7 @@
         --enable-jtethreads
 - pkgname: xpup
   pkgtype: pie
-  version: 2025.01.24
+  version: 2025.01.25
   license: Apache-2.0
   summary: A command line XML parsing tool
   web-url: https://github.com/ericchiang/xpup
