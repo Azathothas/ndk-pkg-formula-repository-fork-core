@@ -1,6 +1,6 @@
 - pkgname: ARM_NEON_2_x86_SSE
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   summary: The platform independent header allowing to compile any C/C++ code containing ARM NEON intrinsic functions for x86 target systems using SIMD up to SSE4 intrinsic functions
   web-url: https://github.com/intel/ARM_NEON_2_x86_SSE
   git-url: https://github.com/intel/ARM_NEON_2_x86_SSE
@@ -162,7 +162,7 @@
     run install_mans doc/age-keygen.1
 - pkgname: alass
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   license: GPL-3.0-or-later
   summary: Automatic Language-Agnostic Subtitle Synchronization
   web-url: https://github.com/kaegi/alass
@@ -420,7 +420,7 @@
   install: cargow install
 - pkgname: base16
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   summary: base16 encoder and decoder
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -557,6 +557,7 @@
   dep-upp: grpc-plugins curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
+  api-min: "24"
   parallel: "1"
   install: |-
     cmakew \
@@ -801,7 +802,7 @@
         abi="$abi"
 - pkgname: boringssl
   pkgtype: exe+lib
-  version: 2025.01.25
+  version: 2025.01.26
   summary: A fork of OpenSSL that is designed to meet Google needs
   web-url: https://boringssl.googlesource.com/boringssl/
   git-url: https://github.com/google/boringssl
@@ -1320,13 +1321,13 @@
   install: cmakew
 - pkgname: cmake
   pkgtype: exe
-  version: 3.30.3
+  version: 3.31.5
   license: BSD-3-Clause
   summary: Cross-platform make
   web-url: https://www.cmake.org/
   git-url: https://github.com/Kitware/CMake
-  src-url: https://github.com/Kitware/CMake/releases/download/v3.30.3/cmake-3.30.3.tar.gz
-  src-sha: 6d5de15b6715091df7f5441007425264bdd477809f80333fdf95f846aaff88e4
+  src-url: https://github.com/Kitware/CMake/releases/download/v3.31.5/cmake-3.31.5.tar.gz
+  src-sha: 66fb53a145648be56b46fa9e8ccade3a4d0dfc92e401e52ce76bdad1fea43d27
   dep-pkg: libarchive libcurl libuv libz libexpat libjsoncpp librhash libncurses openssl-dev
   dep-lib: libarchive libcurl
   dep-upp: curl bsdtar cmake ninja
@@ -1538,7 +1539,7 @@
   install: gow ./cmd/cpuid
 - pkgname: cpuinfo
   pkgtype: pie
-  version: 2025.01.25
+  version: 2025.01.26
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -2173,7 +2174,7 @@
   install: cargow install
 - pkgname: easyutils
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   summary: A collections of easy to use command-line utilities
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -2769,13 +2770,13 @@
         -DINSTALL_CMAKE_CONFIG_MODULE=ON
 - pkgname: flatc
   pkgtype: exe
-  version: 24.3.25
+  version: 25.1.24
   license: Apache-2.0
   summary: An efficient cross platform serialization library for C++
   web-url: https://google.github.io/flatbuffers
   git-url: https://github.com/google/flatbuffers
-  src-url: https://github.com/google/flatbuffers/archive/refs/tags/v24.3.25.tar.gz
-  src-sha: 4157c5cacdb59737c5d627e47ac26b140e9ee28b1102f812b36068aab728c1ed
+  src-url: https://github.com/google/flatbuffers/archive/refs/tags/v25.1.24.tar.gz
+  src-sha: 0b9f8d2bb1d22d553c93cd7e3ecf3eb725469980a58a98db6e21574341b4ed63
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -2881,7 +2882,7 @@
   install: cmakew
 - pkgname: fp16
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: MIT
   summary: A header-only C/C++ library for conversion to/from half-precision floating point formats
   web-url: https://github.com/Maratyszcza/FP16
@@ -2971,7 +2972,7 @@
   install: gow
 - pkgname: fxdiv
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: MIT
   summary: A header-only library for division via fixed-point multiplication by inverse
   web-url: https://github.com/Maratyszcza/FXdiv
@@ -3774,7 +3775,7 @@
   dotweak: ln -s make bin/gmake
 - pkgname: gn
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   summary: A meta-build system for generating build files for ninja
   web-url: https://gn.googlesource.com/gn
   git-url: https://gn.googlesource.com/gn
@@ -3924,7 +3925,7 @@
   install: "export GOROOT_BOOTSTRAP=\"$(go env GOROOT)\"\n\nrun ./make.bash\nrun cd ..\nrun rm -rf _\nrun rm bin/go*\nrun mv bin/android_*/* bin/\nrun rm -rf bin/android_*\nrun rm -rf src/debug/elf/testdata\nrun rm -rf src/debug/dwarf/testdata\nrun rm -rf src/runtime/pprof/testdata\nrun rm -rf src/runtime/race/race_linux*.syso\nrun rm -rf src/runtime/race/internal/amd64v1/race_*.syso\nrun rm -rf src/runtime/race/internal/amd64v3/race_*.syso\nrun rm -rf pkg/obj \n\nfor item in $(ls pkg/tool)\ndo\n    case $item in\n        android_*) ;;\n        *)  run rm -rf \"pkg/tool/$item\"\n    esac\ndone\n\nrun cd ..\nrun install -d \"$PACKAGE_INSTALL_DIR/\"\nrun mv src/*   \"$PACKAGE_INSTALL_DIR/\"\n\n# override temporarily\n__check_elf_files() {\n    :\n}"
 - pkgname: gomobile
   pkgtype: pie
-  version: 2025.01.25
+  version: 2025.01.26
   summary: A tool for building and running mobile apps written in Go
   web-url: https://github.com/golang/mobile
   git-url: https://github.com/golang/mobile
@@ -3987,13 +3988,13 @@
   install: gow
 - pkgname: goreleaser
   pkgtype: pie
-  version: 2.0.1
+  version: 2.6.1
   license: MIT
   summary: Deliver Go binaries as fast and easily as possible
   web-url: https://goreleaser.com/
   git-url: https://github.com/goreleaser/goreleaser
-  src-url: https://github.com/goreleaser/goreleaser/archive/refs/tags/v2.0.1.tar.gz
-  src-sha: 056eec13b083c762e8d430c272d5e7db930a133de57deeebec1ca410331cdbe2
+  src-url: https://github.com/goreleaser/goreleaser/archive/refs/tags/v2.6.1.tar.gz
+  src-sha: ed35467f920334564d9c183492a596753497e30f192aa3fb242b1c7d807c886d
   dep-upp: curl bsdtar golang
   bsystem: go
   binbstd: "1"
@@ -4158,16 +4159,16 @@
         --with-jxl LIBS=-ldl
 - pkgname: graphviz
   pkgtype: exe+lib
-  version: 11.0.0
+  version: 12.2.1
   license: EPL-1.0
   summary: An open source graph visualization software
   web-url: https://www.graphviz.org/
   git-url: https://gitlab.com/graphviz/graphviz
-  src-url: https://gitlab.com/graphviz/graphviz/-/archive/11.0.0/graphviz-11.0.0.tar.bz2
-  src-sha: 95173d21922082b0b2649fb24c1dc4bbc1e39504a92903b88df39804778cbb9d
+  src-url: https://gitlab.com/graphviz/graphviz/-/archive/12.2.1/graphviz-12.2.1.tar.xz
+  src-sha: 85e34b5c982777c30f01dfab9ea7c713b4335a2f584e62c0abb9868413eb915b
   dep-pkg: gd pango libglob
-  dep-upp: gm4 flex bison gawk git python3 libtool curl bsdtar automake gmake
-  bsystem: autogen
+  dep-upp: gm4 flex bison gawk git python3 libtool curl bsdtar gmake gmake
+  bsystem: configure
   binbstd: "0"
   parallel: "1"
   install: |-
@@ -4179,7 +4180,8 @@
         --without-gtk \
         --without-qt \
         --without-x
-  dotweak: cd lib && ln -s graphviz/lib*.so .
+
+        #dotweak: cd lib && ln -s graphviz/lib*.so .
 - pkgname: grep
   pkgtype: exe
   version: "3.11"
@@ -4429,13 +4431,13 @@
     cp -v -r runtime "$PACKAGE_INSTALL_DIR/libexec"
 - pkgname: helm
   pkgtype: pie
-  version: 3.15.2
+  version: 3.17.0
   license: Apache-2.0
   summary: Kubernetes package manager
   web-url: https://helm.sh/
   git-url: https://github.com/helm/helm
-  src-url: https://github.com/helm/helm/archive/refs/tags/v3.15.2.tar.gz
-  src-sha: c26b74f855cd403183729f24be5a60ed6ed018d2855f0d9caf99cacb127f34b2
+  src-url: https://github.com/helm/helm/archive/refs/tags/v3.17.0.tar.gz
+  src-sha: ce7a7170f585cfdb8f9e79c09aa7a73c563fa6c76a15dadf4b73a8ae1223f894
   dep-upp: curl bsdtar golang
   bsystem: go
   binbstd: "1"
@@ -4614,6 +4616,20 @@
   binbstd: "1"
   parallel: "1"
   install: cargow install
+- pkgname: iconv
+  pkgtype: exe
+  version: "1.18"
+  license: GPL-3.0-or-later LGPL-2.0-or-later
+  summary: A command-line utility for converting text from one encoding to another
+  web-url: https://www.gnu.org/software/libiconv
+  git-url: https://git.savannah.gnu.org/git/libiconv.git
+  src-url: https://ftp.gnu.org/gnu/libiconv/libiconv-1.18.tar.gz
+  src-sha: 3b08f5f4f9b4eb82f151a7040bfd6fe6c6fb922efe4b1659c66ea933276965e8
+  dep-upp: curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  parallel: "1"
+  install: configure --enable-extra-encodings --enable-static --disable-shared
 - pkgname: icu4c
   pkgtype: lib
   version: "74.2"
@@ -4754,26 +4770,6 @@
     run $CC $CFLAGS $CPPFLAGS $LDFLAGS -lm -o ipinfo  ipinfo.c
     run $CC $CFLAGS $CPPFLAGS $LDFLAGS -lm -o ipmatch ipmatch.c
     install_bins ipinfo ipmatch
-- pkgname: isl
-  pkgtype: lib
-  version: "0.26"
-  license: MIT
-  summary: Integer Set Library for the polyhedral model
-  web-url: https://isl.gforge.inria.fr
-  git-url: https://github.com/Meinersbur/isl
-  src-url: https://libisl.sourceforge.io/isl-0.26.tar.xz
-  src-sha: a0b5cb06d24f9fa9e77b55fabbe9a3c94a336190345c2555f9915bb38e976504
-  dep-pkg: libgmp
-  dep-upp: curl bsdtar gmake gmake
-  bsystem: configure
-  binbstd: "0"
-  ppflags: -D_GNU_SOURCE
-  parallel: "1"
-  install: |-
-    configure \
-        --with-int=gmp \
-        --with-gmp=system \
-        --with-gmp-prefix="$libgmp_INSTALL_DIR"
 - pkgname: iw
   pkgtype: exe
   version: "6.7"
@@ -5446,7 +5442,7 @@
     run install_incs include/b64/*:b64
 - pkgname: libbcrypt
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: CC0-1.0
   summary: A password hashing method based on the Blowfish block cipher, provided via the crypt(3) and a reentrant interface
   web-url: https://www.openwall.com/crypt
@@ -5808,7 +5804,7 @@
   install: cmakew 2 -DBUILD_PIC=ON
 - pkgname: libcpuinfo
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: BSD-2-Clause
   summary: CPU INFOrmation library
   web-url: https://github.com/pytorch/cpuinfo
@@ -6081,7 +6077,7 @@
   dotweak: gsed -i '/Requires:/s|$| openssl|' lib/pkgconfig/libevent_openssl.pc
 - pkgname: libexecinfo
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: 0BSD
   summary: A quick-n-dirty BSD licensed clone of backtrace facility found in the GNU libc
   web-url: https://github.com/leleliu008/libexecinfo
@@ -6529,7 +6525,7 @@
     EOF
 - pkgname: libglob
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   summary: glob(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/glob.html
   git-url: https://github.com/leleliu008/libglob
@@ -6584,7 +6580,6 @@
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
-  api-min: "24"
   parallel: "1"
   install: |-
     configure \
@@ -6691,13 +6686,13 @@
   install: configure
 - pkgname: libharfbuzz
   pkgtype: lib
-  version: 8.5.0
+  version: 10.2.0
   license: MIT
   summary: A text shaping engine. It primarily supports OpenType, but also Apple Advanced Typography
   web-url: https://github.com/harfbuzz/harfbuzz
   git-url: https://github.com/harfbuzz/harfbuzz
-  src-url: https://github.com/harfbuzz/harfbuzz/archive/refs/tags/8.5.0.tar.gz
-  src-sha: 7ad8e4e23ce776efb6a322f653978b3eb763128fd56a90252775edb9fd327956
+  src-url: https://github.com/harfbuzz/harfbuzz/archive/refs/tags/10.2.0.tar.gz
+  src-sha: 11749926914fd488e08e744538f19329332487a6243eec39ef3c63efa154a578
   dep-pkg: icu4c glib libgraphite2
   dep-upp: curl bsdtar python3 ninja
   dep-pym: ' meson'
@@ -6784,22 +6779,17 @@
         -DHWY_ENABLE_INSTALL=ON
 - pkgname: libiconv
   pkgtype: lib
-  version: "1.17"
+  version: "1.18"
   license: GPL-3.0-or-later LGPL-2.0-or-later
   summary: charset conversion library
   web-url: https://www.gnu.org/software/libiconv
   git-url: https://git.savannah.gnu.org/git/libiconv.git
-  src-url: https://ftp.gnu.org/gnu/libiconv/libiconv-1.17.tar.gz
-  src-sha: 8f74213b56238c85a50a5329f77e06198771e70dd9a739779f4c02f65d971313
+  src-url: https://ftp.gnu.org/gnu/libiconv/libiconv-1.18.tar.gz
+  src-sha: 3b08f5f4f9b4eb82f151a7040bfd6fe6c6fb922efe4b1659c66ea933276965e8
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
   parallel: "1"
-  dopatch: |-
-    if [ "$TARGET_PLATFORM_VERS" -lt 30 ] ; then
-        gsed -i '1i void* mempcpy(void* dst, const void* src, size_t n) {return memcpy(dst, src, n) + n;}' srclib/canonicalize-lgpl.c
-        gsed -i '1i #include <string.h>' srclib/canonicalize-lgpl.c
-    fi
   install: configure --enable-extra-encodings
   dotweak: |-
     for item in iconv charset
@@ -6974,7 +6964,7 @@
   dotweak: "writepc libintl <<EOF\nprefix=\\${pcfiledir}/../..\nexec_prefix=\\${prefix}\nlibdir=\\${exec_prefix}/lib\nincludedir=\\${prefix}/include\n\nName: libintl\nDescription: National Language Support library\nVersion: $PACKAGE_VERSION\nCflags: -I\\${includedir}\nLibs: -L\\${libdir} -lintl \nRequires: libiconv\nEOF"
 - pkgname: libintl-lite
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: BSL-1.0
   summary: A simple (but less powerful) GNU gettext libintl replacement
   web-url: https://github.com/j-jorge/libintl-lite
@@ -7000,6 +6990,27 @@
   api-min: "24"
   parallel: "1"
   install: configure
+- pkgname: libisl
+  pkgtype: lib
+  version: "0.27"
+  license: MIT
+  summary: Integer Set Library for the polyhedral model
+  web-url: https://isl.gforge.inria.fr
+  git-url: https://github.com/Meinersbur/isl
+  src-url: https://libisl.sourceforge.io/isl-0.27.tar.xz
+  src-uri: https://deb.debian.org/debian/pool/main/i/isl/isl_0.27.orig.tar.xz
+  src-sha: 6d8babb59e7b672e8cb7870e874f3f7b813b6e00e6af3f8b04f7579965643d5c
+  dep-pkg: libgmp
+  dep-upp: curl bsdtar gmake gmake
+  bsystem: configure
+  binbstd: "0"
+  ppflags: -D_GNU_SOURCE
+  parallel: "1"
+  install: |-
+    configure \
+        --with-int=gmp \
+        --with-gmp=system \
+        --with-gmp-prefix="$libgmp_INSTALL_DIR"
 - pkgname: libisoburn
   pkgtype: lib
   version: 1.5.2
@@ -7289,7 +7300,7 @@
   install: configure
 - pkgname: liblanginfo
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   summary: langinfo.h and its implementation from android ndk source code
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/nl_langinfo.html
   git-url: https://github.com/leleliu008/liblanginfo
@@ -7449,6 +7460,46 @@
     gmakew liblua.a PLAT=generic CC="$CC" AR="'$AR crs'" RANLIB="$RANLIB" CFLAGS="'$CFLAGS -std=c99 -DLUA_COMPAT_5_3 $CPPFLAGS'"
     install_libs liblua.a
     install_incs lua.h luaconf.h lualib.h lauxlib.h lua.hpp
+- pkgname: libluajit
+  pkgtype: lib
+  version: 2.1.1736781742
+  license: MIT
+  summary: Just-In-Time Compiler (JIT) for the Lua programming language
+  web-url: https://luajit.org/
+  git-url: https://github.com/LuaJIT/LuaJIT
+  src-url: https://github.com/LuaJIT/LuaJIT/archive/a4f56a459a588ae768801074b46ba0adcfb49eb1.tar.gz
+  src-sha: b4120332a4191db9c9da2d81f9f11f0d4504fc4cff2dea0f642d3d8f1fcebd0e
+  dep-upp: curl bsdtar gmake
+  bsystem: gmake
+  binbstd: "1"
+  parallel: "1"
+  developer: Mike Pall <luajit@freelists.org>
+  dopatch: |-
+    if [ "$NATIVE_PLATFORM_KIND" = darwin ] ; then
+        export CFLAGS="$CFLAGS -arch=$NATIVE_PLATFORM_ARCH"
+    fi
+  install: |-
+    gmakew clean amalg \
+        HOST_SYS=$(uname -s) \
+        HOST_CC="'$CC_FOR_BUILD -m$TARGET_PLATFORM_NBIT'" \
+        HOST_LD="$CC_FOR_BUILD" \
+        HOST_CFLAGS="'$CPPFLAGS_FOR_BUILD $CFLAGS_FOR_BUILD'" \
+        HOST_LDFLAGS="'$LDFLAGS_FOR_BUILD'" \
+        CFLAGS= \
+        LDFLAGS= \
+        TARGET_SYS=Linux \
+        TARGET_CFLAGS="'$CPPFLAGS $CFLAGS'" \
+        TARGET_LDFLAGS="'$LDFLAGS'" \
+        TARGET_CC="$CC" \
+        TARGET_LD="$CC" \
+        TARGET_AR="'$AR rcus'" \
+        TARGET_STRIP="$STRIP" \
+        STATIC_CC="$CC" \
+        DYNAMIC_CC="'$CC -fPIC'" \
+        Q=
+    cd src
+    install_incs lua.h lualib.h lauxlib.h luaconf.h lua.hpp luajit.h
+    install_libs libluajit.a libluajit.so
 - pkgname: liblz4
   pkgtype: lib
   version: 1.9.4
@@ -7525,6 +7576,20 @@
   prepare: export FILE_COMPILE="$NATIVE_INSTALL_DIR/bin/file"
   install: configure --enable-zlib --disable-bzlib --disable-xzlib
   dotweak: rm -rf bin/ share/man/man1/
+- pkgname: libmarisa
+  pkgtype: lib
+  version: 0.2.6
+  license: BSD-2-Clause LGPL-2.1-or-later
+  summary: Matching Algorithm with Recursively Implemented StorAge
+  web-url: https://github.com/s-yata/marisa-trie
+  git-url: https://github.com/s-yata/marisa-trie
+  src-url: https://github.com/s-yata/marisa-trie/archive/refs/tags/v0.2.6.tar.gz
+  src-sha: 1063a27c789e75afa2ee6f1716cc6a5486631dcfcb7f4d56d6485d2462e566de
+  dep-upp: libtool curl bsdtar automake gmake
+  bsystem: autotools
+  binbstd: "1"
+  parallel: "1"
+  install: configure
 - pkgname: libmaxminddb
   pkgtype: lib
   version: 1.10.0
@@ -7578,7 +7643,7 @@
   install: cmakew 2
 - pkgname: libmesalink
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: BSD-3-Clause
   summary: memory-safe and OpenSSL-compatible TLS library
   web-url: https://mesalink.io
@@ -7628,7 +7693,7 @@
   install: configure
 - pkgname: libmill
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: MIT
   summary: Go-style concurrency in C
   web-url: https://github.com/sustrik/libmill
@@ -8232,7 +8297,7 @@
         -DENABLE_LIB_ONLY=ON
 - pkgname: libngtcp2
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: MIT
   summary: QUIC library written in C
   web-url: https://github.com/ngtcp2/ngtcp2
@@ -8433,6 +8498,21 @@
     gmakew clean OSNAME=Android ARCH=$ARCH TARGET=$TARGET HOSTCC="$CC_FOR_BUILD"
     gmakew       OSNAME=Android ARCH=$ARCH TARGET=$TARGET HOSTCC="$CC_FOR_BUILD" ONLY_CBLAS=1 ARM_SOFTFP_ABI=$ARM_SOFTFP_ABI CC="$CC" AS="$AS" AR="$AR"
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
+- pkgname: libopencc
+  pkgtype: lib
+  version: 1.1.9
+  license: Apache-2.0
+  summary: Simplified-traditional Chinese conversion tool
+  web-url: https://github.com/BYVoid/OpenCC
+  git-url: https://github.com/BYVoid/OpenCC
+  src-url: https://github.com/BYVoid/OpenCC/archive/refs/tags/ver.1.1.9.tar.gz
+  src-sha: ad4bcd8d87219a240a236d4a55c9decd2132a9436697d2882ead85c8939b0a99
+  dep-upp: curl bsdtar cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  do12345: cmakew   -DBUILD_PYTHON=OFF -DBUILD_SHARED_LIBS=OFF
+  install: cmakew 2 -DBUILD_PYTHON=OFF
 - pkgname: libopencolorio
   pkgtype: lib
   version: 2.3.2
@@ -9076,7 +9156,7 @@
         -DWITHOUT_PNG=OFF
 - pkgname: libquiche
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: BSD-2-Clause
   summary: Savoury implementation of the QUIC transport protocol and HTTP/3
   web-url: https://github.com/cloudflare/quiche
@@ -9344,13 +9424,13 @@
   install: configure
 - pkgname: libsimdjson
   pkgtype: lib
-  version: 3.9.4
+  version: 3.11.6
   license: Apache-2.0
   summary: SIMD-accelerated C++ JSON parser
   web-url: https://simdjson.org
   git-url: https://github.com/simdjson/simdjson
-  src-url: https://github.com/simdjson/simdjson/archive/refs/tags/v3.9.4.tar.gz
-  src-sha: 9bf13be00fa1e1c5891a90dbc39b983e09972f0972a8956c20a9974cedfcca2f
+  src-url: https://github.com/simdjson/simdjson/archive/refs/tags/v3.11.6.tar.gz
+  src-sha: 7176a2feb98e1b36b6b9fa56d64151068865f505a0ce24203f3ddbb3f985103b
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -10504,7 +10584,7 @@
     mv libwmflite-0.2.so.7 libwmflite-0.2.so
 - pkgname: libwordexp
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   summary: wordexp(3) implementation
   web-url: https://pubs.opengroup.org/onlinepubs/9699919799/functions/wordexp.html
   git-url: https://github.com/leleliu008/libwordexp
@@ -10647,7 +10727,7 @@
   dotweak: gsed -i 's|-liconv|-liconv -ldl|' lib/pkgconfig/libxml-2.0.pc
 - pkgname: libxnnpack
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: BSD-3-Clause
   summary: High-efficiency floating-point neural network inference operators for mobile, server, and web
   web-url: https://github.com/google/XNNPACK
@@ -11028,7 +11108,7 @@
     gow -tags linux -X github.com/lightningnetwork/lnd/build.Commit=v$PACKAGE_VERSION ./cmd/lncli
 - pkgname: lodepng
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: Zlib
   summary: PNG encoder and decoder in C and C++
   web-url: https://github.com/lvandeve/lodepng
@@ -11169,39 +11249,25 @@
     gmakew PLAT=generic CC="$CC" CFLAGS="'$CFLAGS -std=c99 -DLUA_COMPAT_5_3 $CPPFLAGS'" AR="'$AR crs'" RANLIB="$RANLIB" MYLDFLAGS="'$LDFLAGS -pie -fPIE'" MYLIBS=-lreadline
     gmakew install INSTALL_TOP="$PACKAGE_INSTALL_DIR"
 - pkgname: luajit
-  pkgtype: lib
-  version: 2.1.0
+  pkgtype: exe
+  version: 2.1.1736781742
   license: MIT
   summary: Just-In-Time Compiler (JIT) for the Lua programming language
   web-url: https://luajit.org/
   git-url: https://github.com/LuaJIT/LuaJIT
-  git-sha: a91d0d9d3bba1a936669cfac3244509a0f2ac0e3
-  dep-upp: git gmake
+  src-url: https://github.com/LuaJIT/LuaJIT/archive/a4f56a459a588ae768801074b46ba0adcfb49eb1.tar.gz
+  src-sha: b4120332a4191db9c9da2d81f9f11f0d4504fc4cff2dea0f642d3d8f1fcebd0e
+  dep-upp: curl bsdtar gmake
   bsystem: gmake
   binbstd: "1"
   parallel: "1"
   developer: Mike Pall <luajit@freelists.org>
   dopatch: |-
-    printf '%s\n' 'int main() {return 0;}' > test.c
-
-    cc -m32 test.c 2> /dev/null || {
-        if command -v apt > /dev/null ; then
-            run "$sudo" apt -y update &&
-            run "$sudo" apt -y install gcc-multilib
-        fi
-    }
-
     if [ "$NATIVE_PLATFORM_KIND" = darwin ] ; then
         export CFLAGS="$CFLAGS -arch=$NATIVE_PLATFORM_ARCH"
     fi
-
-    gsed -i '/TARGET_SONAME=/c TARGET_SONAME=libluajit.so' src/Makefile
-  prepare: |-
-    if [ -d /usr/include/x86_64-linux-gnu ] ; then
-        export CPPFLAGS_FOR_BUILD="$CPPFLAGS_FOR_BUILD -I/usr/include/x86_64-linux-gnu"
-    fi
   install: |-
-    gmakew clean all \
+    gmakew clean amalg \
         HOST_SYS=$(uname -s) \
         HOST_CC="'$CC_FOR_BUILD -m$TARGET_PLATFORM_NBIT'" \
         HOST_LD="$CC_FOR_BUILD" \
@@ -11219,10 +11285,7 @@
         STATIC_CC="$CC" \
         DYNAMIC_CC="'$CC -fPIC'" \
         Q=
-    cd src
-    install_bins luajit
-    install_incs lua.h lualib.h lauxlib.h luaconf.h lua.hpp luajit.h
-    install_libs libluajit.a libluajit.so
+    install_bins src/luajit
 - pkgname: luau
   pkgtype: exe
   version: "0.631"
@@ -11997,7 +12060,7 @@
     ln -s ncursesw.pc lib/pkgconfig/ncurses.pc
 - pkgname: ndk-pkg-core
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   license: Apache-2.0
   summary: core utils for ndk-pkg
   web-url: https://github.com/leleliu008/ndk-pkg
@@ -12439,6 +12502,21 @@
         -DALSOFT_BACKEND_PORTAUDIO=OFF \
         -DALSOFT_BACKEND_PULSEAUDIO=OFF \
         -DALSOFT_MIDI_FLUIDSYNTH=OFF
+- pkgname: opencc
+  pkgtype: exe
+  version: 1.1.9
+  license: Apache-2.0
+  summary: Simplified-traditional Chinese conversion tool
+  web-url: https://github.com/BYVoid/OpenCC
+  git-url: https://github.com/BYVoid/OpenCC
+  src-url: https://github.com/BYVoid/OpenCC/archive/refs/tags/ver.1.1.9.tar.gz
+  src-sha: ad4bcd8d87219a240a236d4a55c9decd2132a9436697d2882ead85c8939b0a99
+  dep-upp: curl bsdtar cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  do12345: cmakew -DBUILD_PYTHON=OFF -DBUILD_SHARED_LIBS=OFF
+  install: cmakew -DBUILD_PYTHON=OFF -DBUILD_SHARED_LIBS=OFF
 - pkgname: opencolorio
   pkgtype: exe
   version: 2.3.2
@@ -13057,7 +13135,7 @@
     run install_incs $PACKAGE_BSCRIPT_DIR/public/cpp/*.h:cpp
 - pkgname: pegof
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   summary: PEG grammar optimizer and formatter. Supports any grammar supported by PackCC parser generator.
   web-url: https://github.com/dolik-rce/pegof
   git-url: https://github.com/dolik-rce/pegof
@@ -13276,7 +13354,7 @@
         -DBUILD_SHARED_LIBS=OFF
 - pkgname: ppkg
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   license: Apache-2.0
   summary: A portable package manager for Unix-like systems
   web-url: https://github.com/leleliu008/ppkg
@@ -13324,13 +13402,13 @@
     gmakew install PREFIX="$PACKAGE_INSTALL_DIR"
 - pkgname: proj
   pkgtype: exe
-  version: 9.4.1
+  version: 9.5.1
   license: MIT
   summary: Cartographic Projections Library
   web-url: https://proj.org/
   git-url: https://github.com/OSGeo/PROJ
-  src-url: https://github.com/OSGeo/PROJ/releases/download/9.4.1/proj-9.4.1.tar.gz
-  src-sha: ffe20170ee2b952207adf8a195e2141eab12cda181e49fdeb54425d98c7171d7
+  src-url: https://github.com/OSGeo/PROJ/releases/download/9.5.1/proj-9.5.1.tar.gz
+  src-sha: a8395f9696338ffd46b0feb603edbb730fad6746fba77753c77f7f997345e3d3
   dep-pkg: libsqlite3 libtiff libcurl
   dep-lib: libtiff-4 libcurl
   dep-upp: sqlite3 curl bsdtar cmake ninja
@@ -13395,7 +13473,7 @@
         -Dprotobuf_JSONCPP_PROVIDER=package
 - pkgname: psimd
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: MIT
   summary: Portable 128-bit SIMD intrinsics
   web-url: https://github.com/Maratyszcza/psimd
@@ -13407,7 +13485,7 @@
   install: cmakew
 - pkgname: pthreadpool
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: BSD-2-Clause
   summary: A portable and efficient thread pool implementation
   web-url: https://github.com/Maratyszcza/pthreadpool
@@ -13427,7 +13505,7 @@
         -DPTHREADPOOL_LIBRARY_TYPE=shared
 - pkgname: pup
   pkgtype: pie
-  version: 2025.01.25
+  version: 2025.01.26
   license: MIT
   summary: Parse HTML at the command-line
   web-url: https://github.com/EricChiang/pup
@@ -13996,7 +14074,7 @@
   install: cargow install
 - pkgname: ruy
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: Apache-2.0
   summary: matrix multiplication library
   web-url: https://github.com/google/ruy
@@ -14192,7 +14270,7 @@
     fi
 - pkgname: sjpeg
   pkgtype: exe+lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: Apache-2.0
   summary: simple jpeg encoder
   web-url: https://github.com/webmproject/sjpeg
@@ -14205,7 +14283,7 @@
   install: cmakew 2 -DSJPEG_BUILD_EXAMPLES=OFF -DSJPEG_ANDROID_NDK_PATH="$ANDROID_NDK_HOME"
 - pkgname: skcms
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: BSD
   summary: SkCMS
   web-url: https://skia.googlesource.com/skcms.git
@@ -14612,7 +14690,7 @@
     run install_mans man/*.1 man/*.5 man/*.7
 - pkgname: sysinfo
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   summary: A command-line tool to get your currently running system information
   web-url: https://github.com/leleliu008/C-examples
   git-url: https://github.com/leleliu008/C-examples
@@ -15111,7 +15189,7 @@
   install: cargow install --path crates/typos-cli
 - pkgname: uctags
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   license: GPL-2.0-or-later
   summary: Maintained ctags implementation
   web-url: https://github.com/universal-ctags/ctags
@@ -15176,7 +15254,7 @@
     gmakew -f makefile install-lib   DESTDIR="$PACKAGE_INSTALL_DIR"
 - pkgname: uppm
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15190,7 +15268,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.2
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15205,7 +15283,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.3
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15220,7 +15298,7 @@
   install: cmakew -DLINK_STATIC_LIBS=ON
 - pkgname: uppm@0.15.4
   pkgtype: exe
-  version: 2025.01.25
+  version: 2025.01.26
   license: Apache-2.0
   summary: Universal Prebuild Package Manager
   web-url: https://github.com/leleliu008/uppm
@@ -15250,7 +15328,7 @@
   install: configure --without-preflight --without-systemd
 - pkgname: utf8.h
   pkgtype: lib
-  version: 2025.01.25
+  version: 2025.01.26
   license: Unlicense
   summary: single header utf8 string functions for C and C++
   web-url: https://github.com/sheredom/utf8.h
@@ -15541,17 +15619,17 @@
   install: cmakew -DBUILD_NATIVE=OFF && install_bins wasm3
 - pkgname: wasmtime
   pkgtype: exe
-  version: 22.0.0
+  version: 29.0.1
   license: Apache-2.0
   summary: Standalone JIT-style runtime for WebAssembly, using Cranelift
   web-url: https://wasmtime.dev/
   git-url: https://github.com/bytecodealliance/wasmtime
-  git-sha: 761f044efbb6d7465b88d723619168919b30ce0b
+  git-sha: 58282df898d79a787a726d829b166272dde155b9
   dep-upp: git
   bsystem: cargo
   binbstd: "1"
   parallel: "1"
-  install: cargow install
+  install: cargow install --profile=fastest-runtime
 - pkgname: watchexec
   pkgtype: exe
   version: 2.1.1
@@ -15870,12 +15948,11 @@
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
-  dopatch: gsed -i 's|cli x265-shared|cli x265-static|' CMakeLists.txt
   install: |-
     cmakew \
         -DENABLE_PIC=ON \
         -DENABLE_CLI=ON \
-        -DENABLE_SHARED=ON \
+        -DENABLE_SHARED=OFF \
         -DENABLE_ASSEMBLY=OFF
   dotweak: rm -rf include/ lib/
 - pkgname: xh
@@ -16017,7 +16094,7 @@
         --enable-jtethreads
 - pkgname: xpup
   pkgtype: pie
-  version: 2025.01.25
+  version: 2025.01.26
   license: Apache-2.0
   summary: A command line XML parsing tool
   web-url: https://github.com/ericchiang/xpup
@@ -16141,6 +16218,26 @@
         --disable-python \
         --disable-python-bindings \
         --without-dmalloc
+- pkgname: yazi
+  pkgtype: exe
+  version: 0.4.2
+  license: MIT
+  summary: Blazing fast terminal file manager written in Rust, based on async I/O
+  web-url: https://github.com/sxyazi/yazi
+  git-url: https://github.com/sxyazi/yazi
+  src-url: https://github.com/sxyazi/yazi/archive/refs/tags/v0.4.2.tar.gz
+  src-sha: 88995c90954d140f455cf9ca4f87f9ca36390717377be86b0672456e1eb5f65f
+  dep-upp: gmake curl bsdtar
+  bsystem: cargo
+  binbstd: "1"
+  api-min: "24"
+  parallel: "1"
+  prepare: |-
+    export VERGEN_GIT_SHA=ndk-pkg
+    export YAZI_GEN_COMPLETIONS=1
+  install: |-
+    cargow install --locked --path yazi-fm
+    cargow install --locked --path yazi-cli
 - pkgname: youtubedr
   pkgtype: pie
   version: 2.10.2
