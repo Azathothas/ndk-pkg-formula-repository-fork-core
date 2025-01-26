@@ -6580,6 +6580,7 @@
   dep-upp: curl bsdtar gmake gmake
   bsystem: configure
   binbstd: "0"
+  api-min: "24"
   parallel: "1"
   install: |-
     configure \
@@ -8507,7 +8508,7 @@
   git-url: https://github.com/BYVoid/OpenCC
   src-url: https://github.com/BYVoid/OpenCC/archive/refs/tags/ver.1.1.9.tar.gz
   src-sha: ad4bcd8d87219a240a236d4a55c9decd2132a9436697d2882ead85c8939b0a99
-  dep-upp: curl bsdtar cmake ninja
+  dep-upp: python3 curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
@@ -12511,7 +12512,7 @@
   git-url: https://github.com/BYVoid/OpenCC
   src-url: https://github.com/BYVoid/OpenCC/archive/refs/tags/ver.1.1.9.tar.gz
   src-sha: ad4bcd8d87219a240a236d4a55c9decd2132a9436697d2882ead85c8939b0a99
-  dep-upp: curl bsdtar cmake ninja
+  dep-upp: python3 curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
   parallel: "1"
