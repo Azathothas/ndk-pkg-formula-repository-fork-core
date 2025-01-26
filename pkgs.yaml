@@ -553,7 +553,7 @@
   git-url: https://github.com/rizsotto/Bear
   src-url: https://github.com/rizsotto/Bear/archive/refs/tags/3.1.5.tar.gz
   src-sha: 4ac7b041222dcfc7231c6570d5bd76c39eaeda7a075ee2385b84256e7d659733
-  dep-pkg: fmt grpc nlohmann-json spdlog libposix_spawn
+  dep-pkg: libfmt grpc nlohmann-json spdlog libposix_spawn
   dep-upp: grpc-plugins curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -1101,7 +1101,7 @@
   git-url: https://github.com/ccache/ccache
   src-url: https://github.com/ccache/ccache/releases/download/v4.10.2/ccache-4.10.2.tar.xz
   src-sha: c0b85ddfc1a3e77b105ec9ada2d24aad617fa0b447c6a94d55890972810f0f5a
-  dep-pkg: libhiredis libblake3 libxxhash libzstd fmt libposix_spawn
+  dep-pkg: libhiredis libblake3 libxxhash libzstd libfmt libposix_spawn
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
@@ -2824,26 +2824,6 @@
   parallel: "1"
   dopatch: gsed -i 's|%1u|%1ld|' src/flock.c
   install: configure
-- pkgname: fmt
-  pkgtype: lib
-  version: 10.2.1
-  license: MIT
-  summary: An open-source C/C++ library for formatting that provides a fast and safe alternative to C stdio and C++ iostreams
-  web-url: https://fmt.dev
-  git-url: https://github.com/fmtlib/fmt
-  src-url: https://github.com/fmtlib/fmt/archive/refs/tags/10.2.1.tar.gz
-  src-sha: 1250e4cc58bf06ee631567523f48848dc4596133e163f02615c97f78bab6c811
-  dep-upp: curl bsdtar cmake ninja
-  bsystem: cmake
-  binbstd: "0"
-  parallel: "1"
-  install: |-
-    cmakew \
-        -DFMT_FUZZ=OFF \
-        -DFMT_TEST=OFF \
-        -DFMT_INSTALL=ON \
-        -DFMT_WERROR=OFF \
-        -DFMT_PEDANTIC=OFF
 - pkgname: fontconfig
   pkgtype: exe
   version: 2.15.0
@@ -6287,6 +6267,26 @@
         -DFLATBUFFERS_BUILD_TESTS=OFF \
         -DFLATBUFFERS_BUILD_BENCHMARKS=OFF \
         -DFLATBUFFERS_BUILD_SHAREDLIB=OFF
+- pkgname: libfmt
+  pkgtype: lib
+  version: 11.1.2
+  license: MIT
+  summary: An open-source C/C++ library for formatting that provides a fast and safe alternative to C stdio and C++ iostreams
+  web-url: https://fmt.dev
+  git-url: https://github.com/fmtlib/fmt
+  src-url: https://github.com/fmtlib/fmt/archive/refs/tags/11.1.2.tar.gz
+  src-sha: d8773cf062cc806d4dd4df658111f15ba7a2c9c65db5084d2491696828b1eb97
+  dep-upp: curl bsdtar cmake ninja
+  bsystem: cmake
+  binbstd: "0"
+  parallel: "1"
+  install: |-
+    cmakew 2 \
+        -DFMT_FUZZ=OFF \
+        -DFMT_TEST=OFF \
+        -DFMT_INSTALL=ON \
+        -DFMT_WERROR=OFF \
+        -DFMT_PEDANTIC=OFF
 - pkgname: libfontconfig
   pkgtype: lib
   version: 2.15.0
@@ -14417,7 +14417,7 @@
   git-url: https://github.com/gabime/spdlog
   src-url: https://github.com/gabime/spdlog/archive/refs/tags/v1.14.1.tar.gz
   src-sha: 1586508029a7d0670dfcb2d97575dcdc242d3868a259742b69f100801ab4e16b
-  dep-pkg: fmt
+  dep-pkg: libfmt
   dep-upp: curl bsdtar cmake ninja
   bsystem: cmake
   binbstd: "0"
