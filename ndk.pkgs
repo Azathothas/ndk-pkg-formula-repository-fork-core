@@ -653,7 +653,7 @@ web-url: https://www.boost.org
 git-url: https://github.com/boostorg/boost
 src-url: https://github.com/boostorg/boost/releases/download/boost-1.84.0/boost-1.84.0.tar.xz
 src-sha: 2e64e5d79a738d0fa6fb546c6e5c2bd28f88d268a2a080546f74e5ff98f29d0e
-dep-pkg: libz libbz2 liblzma libzstd libiconv icu4c
+dep-pkg: libz libbz2 liblzma libzstd libiconv libicu
 dep-upp: curl bsdtar
 binbstd: 1
 parallel: 1
@@ -825,23 +825,6 @@ res-sha: 02e685227fdddd2756993ca019cbe120da61833df070ccf23f250c122c13d554
 dep-upp: curl bsdtar golang
 bsystem: go
 binbstd: 1
-parallel: 1
-installed: no
----
-pkgname: cairo
-pkgtype: lib
-version: 1.18.0
-license: LGPL-2.1-or-later MPL-1.1
-summary: Vector graphics library with cross-device output support
-web-url: https://cairographics.org/
-git-url: https://gitlab.freedesktop.org/cairo/cairo
-src-url: https://gitlab.freedesktop.org/cairo/cairo/-/archive/1.18.0/cairo-1.18.0.tar.bz2
-src-sha: abf8fba4d510086a492783c3e0828e90b32734738fd80906595617d229d02bab
-dep-pkg: libxml2 libpng libpixman liblzo glib libfontconfig libexecinfo
-dep-upp: curl bsdtar python3 ninja
-dep-pym: meson
-bsystem: meson
-binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -1677,7 +1660,7 @@ web-url: https://www.graphviz.org/
 git-url: https://gitlab.com/graphviz/graphviz
 src-url: https://gitlab.com/graphviz/graphviz/-/archive/12.2.1/graphviz-12.2.1.tar.xz
 src-sha: 85e34b5c982777c30f01dfab9ea7c713b4335a2f584e62c0abb9868413eb915b
-dep-pkg: gd pango libglob
+dep-pkg: libgd libpango libglob
 dep-upp: libtool gm4 flex bison gawk git python3 curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -2492,21 +2475,6 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
-pkgname: gd
-pkgtype: lib
-version: 2.3.3
-summary: Graphics library to dynamically manipulate images
-web-url: https://libgd.github.io/
-git-url: https://github.com/libgd/libgd
-src-url: https://github.com/libgd/libgd/releases/download/gd-2.3.3/libgd-2.3.3.tar.xz
-src-sha: 3fe822ece20796060af63b7c60acb151e5844204d289da0ce08f8fdf131e5a61
-dep-pkg: libfontconfig libavif
-dep-upp: curl bsdtar gmake gmake
-bsystem: configure
-binbstd: 0
-parallel: 1
-installed: no
----
 pkgname: gdk-pixbuf
 pkgtype: exe+lib
 version: 2.42.12
@@ -3007,6 +2975,22 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: gnuplot
+pkgtype: exe
+version: 6.0.0
+license: gnuplot
+summary: Command-driven, interactive function plotting
+web-url: http://www.gnuplot.info/
+git-url: https://git.code.sf.net/p/gnuplot/gnuplot-main.git
+src-url: https://downloads.sourceforge.net/project/gnuplot/gnuplot/6.0.0/gnuplot-6.0.0.tar.gz
+src-sha: 635a28f0993f6ab0d1179e072ad39b8139d07f51237f841d93c6c2ff4b1758ec
+dep-pkg: libgd libcerf libpango libreadline
+dep-upp: curl bsdtar automake gmake
+bsystem: autotools
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: go-md2man
 pkgtype: pie
 version: 2.0.4
@@ -3318,7 +3302,7 @@ web-url: https://www.graphviz.org/
 git-url: https://gitlab.com/graphviz/graphviz
 src-url: https://gitlab.com/graphviz/graphviz/-/archive/12.2.1/graphviz-12.2.1.tar.xz
 src-sha: 85e34b5c982777c30f01dfab9ea7c713b4335a2f584e62c0abb9868413eb915b
-dep-pkg: gd pango libglob
+dep-pkg: libgd libpango libglob
 dep-upp: gm4 flex bison gawk git python3 libtool curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -3704,21 +3688,6 @@ web-url: https://www.gnu.org/software/libiconv
 git-url: https://git.savannah.gnu.org/git/libiconv.git
 src-url: https://ftp.gnu.org/gnu/libiconv/libiconv-1.18.tar.gz
 src-sha: 3b08f5f4f9b4eb82f151a7040bfd6fe6c6fb922efe4b1659c66ea933276965e8
-dep-upp: curl bsdtar gmake gmake
-bsystem: configure
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: icu4c
-pkgtype: lib
-version: 74.2
-license: ICU
-summary: C/C++ and Java libraries for Unicode and globalization
-web-url: http://site.icu-project.org/home
-git-url: https://github.com/unicode-org/icu
-src-url: https://github.com/unicode-org/icu/releases/download/release-74-2/icu4c-74_2-src.tgz
-src-sha: 68db082212a96d6f53e35d60f47d38b962e9f9d207a74cfac78029ae8ff5e08c
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -4273,7 +4242,7 @@ web-url: https://github.com/libass/libass
 git-url: https://github.com/libass/libass
 src-url: https://github.com/libass/libass/releases/download/0.17.2/libass-0.17.2.tar.xz
 src-sha: e8261b51d66ba933fe99248c6fdd8767ed96c5a7e5363c83992c735a2c2fbf74
-dep-pkg: libfontconfig libharfbuzz fribidi libunibreak
+dep-pkg: libfontconfig libharfbuzz libfribidi libunibreak
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -4504,6 +4473,24 @@ dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 ppflags: -DX_DISPLAY_MISSING
+parallel: 1
+installed: no
+---
+pkgname: libcairo
+pkgtype: lib
+version: 1.18.2
+license: LGPL-2.1-or-later MPL-1.1
+summary: Vector graphics library with cross-device output support
+web-url: https://cairographics.org/
+git-url: https://gitlab.freedesktop.org/cairo/cairo
+src-url: https://cairographics.org/releases/cairo-1.18.2.tar.xz
+src-uri: https://distfiles.macports.org/cairo/cairo-1.18.2.tar.xz
+src-sha: a62b9bb42425e844cc3d6ddde043ff39dbabedd1542eba57a2eb79f85889d45a
+dep-pkg: glib liblzo libpixman libfontconfig libexecinfo
+dep-upp: curl bsdtar python3 ninja
+dep-pym: meson
+bsystem: meson
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -5114,6 +5101,36 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libfribidi
+pkgtype: lib
+version: 1.0.16
+license: LGPL-2.1-or-later
+summary: Implementation of the Unicode BiDi algorithm
+web-url: https://github.com/fribidi/fribidi
+git-url: https://github.com/fribidi/fribidi
+src-url: https://github.com/fribidi/fribidi/releases/download/v1.0.16/fribidi-1.0.16.tar.xz
+src-sha: 1b1cde5b235d40479e91be2f0e88a309e3214c8ab470ec8a2744d82a5a9ea05c
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libfts
+pkgtype: lib
+version: 1.2.7
+license: BSD-3-Clause
+summary: fts(3) functions that are missing in musl libc
+web-url: https://github.com/void-linux/musl-fts
+git-url: https://github.com/void-linux/musl-fts
+src-url: https://github.com/void-linux/musl-fts/archive/refs/tags/v1.2.7.tar.gz
+src-sha: 49ae567a96dbab22823d045ffebe0d6b14b9b799925e9ca9274d47d26ff482a6
+dep-upp: libtool curl bsdtar automake gmake
+bsystem: autotools
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libgcrypt
 pkgtype: lib
 version: 1.10.3
@@ -5131,6 +5148,21 @@ ldflags: -Wl,--undefined-version
 parallel: 1
 installed: no
 ---
+pkgname: libgd
+pkgtype: lib
+version: 2.3.3
+summary: Graphics library to dynamically manipulate images
+web-url: https://libgd.github.io/
+git-url: https://github.com/libgd/libgd
+src-url: https://github.com/libgd/libgd/releases/download/gd-2.3.3/libgd-2.3.3.tar.xz
+src-sha: 3fe822ece20796060af63b7c60acb151e5844204d289da0ce08f8fdf131e5a61
+dep-pkg: libfontconfig libtiff libavif
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libgdbm
 pkgtype: lib
 version: 1.23
@@ -5142,6 +5174,23 @@ src-url: https://ftp.gnu.org/gnu/gdbm/gdbm-1.23.tar.gz
 src-sha: 74b1081d21fff13ae4bd7c16e5d6e504a4c26f7cde1dca0d963a484174bbcacd
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libgdk-pixbuf
+pkgtype: lib
+version: 2.42.12
+license: LGPL-2.1-or-later
+summary: library for image loading and pixel buffer manipulation
+web-url: https://gtk.org/
+git-url: https://github.com/GNOME/gdk-pixbuf
+src-url: https://download.gnome.org/sources/gdk-pixbuf/2.42/gdk-pixbuf-2.42.12.tar.xz
+src-sha: b9505b3445b9a7e48ced34760c3bcb73e966df3ac94c95a148cb669ab748e3c7
+dep-pkg: glib libjpeg-turbo libpng libgif libtiff
+dep-upp: glib-tools curl bsdtar python3 ninja
+dep-pym: meson
+bsystem: meson
 binbstd: 0
 parallel: 1
 installed: no
@@ -5394,7 +5443,7 @@ web-url: https://github.com/harfbuzz/harfbuzz
 git-url: https://github.com/harfbuzz/harfbuzz
 src-url: https://github.com/harfbuzz/harfbuzz/archive/refs/tags/10.2.0.tar.gz
 src-sha: 11749926914fd488e08e744538f19329332487a6243eec39ef3c63efa154a578
-dep-pkg: icu4c glib libgraphite2
+dep-pkg: libicu glib libgraphite2
 dep-upp: curl bsdtar python3 ninja
 dep-pym: meson
 bsystem: meson
@@ -5461,6 +5510,22 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libical
+pkgtype: lib
+version: 3.0.19
+license: LGPL-2.1-or-later
+summary: Implementation of iCalendar protocols and data formats
+web-url: https://libical.github.io/libical
+git-url: https://github.com/libical/libical
+src-url: https://github.com/libical/libical/releases/download/v3.0.19/libical-3.0.19.tar.gz
+src-sha: 6a1e7f0f50a399cbad826bcc286ce10d7151f3df7cc103f641de15160523c73f
+dep-pkg: libicu libxml2
+dep-upp: perl curl bsdtar cmake ninja
+bsystem: cmake
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libiconv
 pkgtype: lib
 version: 1.18
@@ -5470,6 +5535,21 @@ web-url: https://www.gnu.org/software/libiconv
 git-url: https://git.savannah.gnu.org/git/libiconv.git
 src-url: https://ftp.gnu.org/gnu/libiconv/libiconv-1.18.tar.gz
 src-sha: 3b08f5f4f9b4eb82f151a7040bfd6fe6c6fb922efe4b1659c66ea933276965e8
+dep-upp: curl bsdtar gmake gmake
+bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libicu
+pkgtype: lib
+version: 74.2
+license: ICU
+summary: C/C++ libraries for Unicode and globalization
+web-url: http://site.icu-project.org/home
+git-url: https://github.com/unicode-org/icu
+src-url: https://github.com/unicode-org/icu/releases/download/release-74-2/icu4c-74_2-src.tgz
+src-sha: 68db082212a96d6f53e35d60f47d38b962e9f9d207a74cfac78029ae8ff5e08c
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -6916,6 +6996,23 @@ binbstd: 0
 parallel: 1
 installed: no
 ---
+pkgname: libpango
+pkgtype: lib
+version: 1.55.5
+license: LGPL-2.0-or-later
+summary: library for laying out and rendering of text, with an emphasis on internationalization
+web-url: https://www.pango.org/
+git-url: https://gitlab.gnome.org/GNOME/pango
+src-url: https://download.gnome.org/sources/pango/1.55/pango-1.55.5.tar.xz
+src-sha: e396126ea08203cbd8ef12638e6222e2e1fd8aa9cac6743072fedc5f2d820dd8
+dep-pkg: libcairo libfribidi libharfbuzz
+dep-upp: glib-tools curl bsdtar python3 ninja
+dep-pym: meson
+bsystem: meson
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: libpcap
 pkgtype: lib
 version: 1.10.4
@@ -6970,7 +7067,7 @@ web-url: https://github.com/google/libphonenumber
 git-url: https://github.com/google/libphonenumber
 src-url: https://github.com/google/libphonenumber/archive/refs/tags/v8.13.39.tar.gz
 src-sha: 700eb7a7b9a4bbd1c8aa757aaa7b0cc8c5047d4c33c48518564eb3f0938e193f
-dep-pkg: boost icu4c libprotobuf googletest abseil
+dep-pkg: boost libprotobuf googletest
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
@@ -7170,7 +7267,7 @@ web-url: https://rockdaboot.github.io/libpsl
 git-url: https://github.com/rockdaboot/libpsl
 src-url: https://github.com/rockdaboot/libpsl/releases/download/0.21.5/libpsl-0.21.5.tar.gz
 src-sha: 1dcc9ceae8b128f3c0b3f654decd0e1e891afc6ff81098f227ef260449dae208
-dep-pkg: icu4c
+dep-pkg: libicu
 dep-upp: curl bsdtar python3 ninja
 dep-pym: meson
 bsystem: meson
@@ -7215,7 +7312,7 @@ web-url: https://qalculate.github.io/
 git-url: https://github.com/Qalculate/libqalculate
 src-url: https://github.com/Qalculate/libqalculate/releases/download/v5.3.0/libqalculate-5.3.0.tar.gz
 src-sha: 61dd60b1d43ad3d2944cff9b2f45c9bc646c5a849c621133ef07231e8289e35b
-dep-pkg: libintl libreadline icu4c libxml2 libcurl libgmp libmpfr libbthread
+dep-pkg: libintl libreadline libicu libxml2 libcurl libgmp libmpfr libbthread
 dep-upp: gettext-tools perl intltool patch curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -7276,7 +7373,7 @@ web-url: https://github.com/HOST-Oman/libraqm
 git-url: https://github.com/HOST-Oman/libraqm
 src-url: https://github.com/HOST-Oman/libraqm/archive/refs/tags/v0.10.1.tar.gz
 src-sha: ff8f0604dc38671b57fc9ca5c15f3613e063d2f988ff14aa4de60981cb714134
-dep-pkg: fribidi libharfbuzz
+dep-pkg: libfribidi libharfbuzz
 dep-upp: curl bsdtar python3 ninja
 dep-pym: meson
 bsystem: meson
@@ -7403,6 +7500,22 @@ src-url: https://github.com/rhash/RHash/archive/v1.4.4.tar.gz
 src-sha: 8e7d1a8ccac0143c8fe9b68ebac67d485df119ea17a613f4038cda52f84ef52a
 dep-upp: curl bsdtar gmake
 bsystem: gmake
+binbstd: 1
+parallel: 1
+installed: no
+---
+pkgname: librsvg
+pkgtype: lib
+version: 2.58.3
+license: LGPL-2.1-or-later
+summary: A library to render SVG files using Cairo
+web-url: https://wiki.gnome.org/Projects/LibRsvg
+git-url: https://gitlab.gnome.org/GNOME/librsvg
+src-url: https://download.gnome.org/sources/librsvg/2.58/librsvg-2.58.3.tar.xz
+src-sha: 49f29a0a92f4c2d19a2cb41e96ab2fce7eb5bde41850c8a914fcf655e3110944
+dep-pkg: libgdk-pixbuf libpango libxml2
+dep-upp: gdk-pixbuf curl bsdtar gmake gmake
+bsystem: configure cargo
 binbstd: 1
 parallel: 1
 installed: no
@@ -8386,7 +8499,7 @@ web-url: https://wvware.sourceforge.net/libwmf.html
 src-url: https://downloads.sourceforge.net/project/wvware/libwmf/0.2.8.4/libwmf-0.2.8.4.tar.gz
 src-uri: https://distfiles.macports.org/libwmf/libwmf-0.2.8.4.tar.gz
 src-sha: 5b345c69220545d003ad52bfd035d5d6f4f075e65204114a9e875e84895a7cf8
-dep-pkg: gd
+dep-pkg: libgd
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
@@ -8645,7 +8758,7 @@ web-url: https://github.com/openzim/libzim
 git-url: https://github.com/openzim/libzim
 src-url: https://github.com/openzim/libzim/archive/refs/tags/9.2.2.tar.gz
 src-sha: 458d89638606eeabaad5098b0ede7a76396cbcb6c13fb2413afee601b5c1e0c6
-dep-pkg: libxapian libzstd liblzma icu4c
+dep-pkg: libxapian libzstd liblzma libicu
 dep-upp: curl bsdtar python3 ninja
 dep-pym: meson
 bsystem: meson
@@ -10036,23 +10149,6 @@ git-url: https://github.com/arithy/packcc
 src-url: https://github.com/arithy/packcc/archive/refs/tags/v2.0.2.tar.gz
 src-sha: b9bea7b2dee2a9bbc4d513a912b52d646556161a4f97e1074c9c9a509f2cc343
 dep-upp: curl bsdtar
-binbstd: 0
-parallel: 1
-installed: no
----
-pkgname: pango
-pkgtype: lib
-version: 1.54.0
-license: LGPL-2.0-or-later
-summary: Framework for layout and rendering of i18n text
-web-url: https://www.pango.org/
-git-url: https://gitlab.gnome.org/GNOME/pango
-src-url: https://download.gnome.org/sources/pango/1.54/pango-1.54.0.tar.xz
-src-sha: 8a9eed75021ee734d7fc0fdf3a65c3bba51dfefe4ae51a9b414a60c70b2d1ed8
-dep-pkg: cairo fribidi libharfbuzz
-dep-upp: glib-tools curl bsdtar python3 ninja
-dep-pym: meson
-bsystem: meson
 binbstd: 0
 parallel: 1
 installed: no
@@ -12188,6 +12284,21 @@ src-sha: b778dd72ee2251f4fe9e2666ee3fe1c26f06f517c3ffce572416db067546536c
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: wasmer
+pkgtype: exe
+version: 5.0.4
+license: MIT
+summary: The Universal WebAssembly Runtime
+web-url: https://wasmer.io
+git-url: https://github.com/wasmerio/wasmer
+src-url: https://github.com/wasmerio/wasmer/archive/refs/tags/v5.0.4.tar.gz
+src-sha: e6f0df11dd4647fa3d9177ed298a6e3afd2b5be6ea4494c00c2074c90681ad27
+dep-upp: wabt curl bsdtar
+bsystem: cargo
+binbstd: 1
 parallel: 1
 installed: no
 ---
