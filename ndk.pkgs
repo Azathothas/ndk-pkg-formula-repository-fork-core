@@ -844,6 +844,21 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
+pkgname: cargo-make
+pkgtype: exe
+version: 0.37.24
+license: Apache-2.0
+summary: Rust task runner and build tool
+web-url: https://github.com/sagiegurari/cargo-make
+git-url: https://github.com/sagiegurari/cargo-make
+src-url: https://github.com/sagiegurari/cargo-make/archive/refs/tags/0.37.24.tar.gz
+src-sha: a7f6f7332862442e6020e8d8b2568a6fa8eed28156be0dddd61982e1e644cf02
+dep-upp: curl bsdtar
+bsystem: cargo
+binbstd: 1
+parallel: 1
+installed: no
+---
 pkgname: catch2
 pkgtype: lib
 version: 3.6.0
@@ -1479,6 +1494,21 @@ dep-upp: curl bsdtar gmake gmake
 bsystem: configure
 binbstd: 0
 api-min: 26
+parallel: 1
+installed: no
+---
+pkgname: dashing
+pkgtype: pie
+version: 0.4.0
+license: MIT
+summary: Generate Dash documentation from HTML files
+web-url: https://github.com/technosophos/dashing
+git-url: https://github.com/technosophos/dashing
+src-url: https://github.com/technosophos/dashing/archive/refs/tags/0.4.0.tar.gz
+src-sha: 81b21acae83c144f10d9eea05a0b89f0dcdfa694c3760c2a25bd4eab72a2a3b9
+dep-upp: curl bsdtar golang
+bsystem: go
+binbstd: 1
 parallel: 1
 installed: no
 ---
@@ -7504,22 +7534,6 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
-pkgname: librsvg
-pkgtype: lib
-version: 2.58.3
-license: LGPL-2.1-or-later
-summary: A library to render SVG files using Cairo
-web-url: https://wiki.gnome.org/Projects/LibRsvg
-git-url: https://gitlab.gnome.org/GNOME/librsvg
-src-url: https://download.gnome.org/sources/librsvg/2.58/librsvg-2.58.3.tar.xz
-src-sha: 49f29a0a92f4c2d19a2cb41e96ab2fce7eb5bde41850c8a914fcf655e3110944
-dep-pkg: libgdk-pixbuf libpango libxml2
-dep-upp: gdk-pixbuf curl bsdtar gmake gmake
-bsystem: configure cargo
-binbstd: 1
-parallel: 1
-installed: no
----
 pkgname: librtmp
 pkgtype: lib
 version: 2.4.20151223
@@ -11637,6 +11651,20 @@ dep-lib: -ldl
 dep-upp: curl bsdtar cmake ninja
 bsystem: cmake
 binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: tcping
+pkgtype: exe
+version: 2.1.0
+license: MIT
+summary: TCP connect to the given IP/port combo
+web-url: https://github.com/mkirchner/tcping
+git-url: https://github.com/mkirchner/tcping
+src-url: https://github.com/mkirchner/tcping/archive/refs/tags/2.1.0.tar.gz
+src-sha: b8aa427420fe00173b5a2c0013d78e52b010350f5438bf5903c1942cba7c39c9
+dep-upp: curl bsdtar
+binbstd: 1
 parallel: 1
 installed: no
 ---

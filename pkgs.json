@@ -923,6 +923,22 @@
     "install": "cargow install --locked"
   },
   {
+    "pkgname": "cargo-make",
+    "pkgtype": "exe",
+    "version": "0.37.24",
+    "license": "Apache-2.0",
+    "summary": "Rust task runner and build tool",
+    "web-url": "https://github.com/sagiegurari/cargo-make",
+    "git-url": "https://github.com/sagiegurari/cargo-make",
+    "src-url": "https://github.com/sagiegurari/cargo-make/archive/refs/tags/0.37.24.tar.gz",
+    "src-sha": "a7f6f7332862442e6020e8d8b2568a6fa8eed28156be0dddd61982e1e644cf02",
+    "dep-upp": "curl bsdtar",
+    "bsystem": "cargo",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "cargow install"
+  },
+  {
     "pkgname": "catch2",
     "pkgtype": "lib",
     "version": "3.6.0",
@@ -1613,6 +1629,22 @@
     "api-min": "26",
     "parallel": "1",
     "install": "configure \\\n    --with-libedit=\"$libedit_INSTALL_DIR\" \\\n    --enable-test-workaround=no \\\n    --enable-fnmatch \\\n    --enable-lineno \\\n    --enable-glob"
+  },
+  {
+    "pkgname": "dashing",
+    "pkgtype": "pie",
+    "version": "0.4.0",
+    "license": "MIT",
+    "summary": "Generate Dash documentation from HTML files",
+    "web-url": "https://github.com/technosophos/dashing",
+    "git-url": "https://github.com/technosophos/dashing",
+    "src-url": "https://github.com/technosophos/dashing/archive/refs/tags/0.4.0.tar.gz",
+    "src-sha": "81b21acae83c144f10d9eea05a0b89f0dcdfa694c3760c2a25bd4eab72a2a3b9",
+    "dep-upp": "curl bsdtar golang",
+    "bsystem": "go",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "gow -X main.version=$PACKAGE_VERSION"
   },
   {
     "pkgname": "dav1d",
@@ -8200,24 +8232,6 @@
     "install": "run ./configure \\\n    --cc=\"$CC\" \\\n    --ar=\"$AR\" \\\n    --extra-cflags=\"'$CFLAGS $CPPFLAGS'\" \\\n    --extra-ldflags=\"'$LDFLAGS'\" \\\n    --target=\"$TARGET_TRIPLE\" \\\n    --prefix=\"$PACKAGE_INSTALL_DIR\" \\\n    --enable-lib-static \\\n    --enable-lib-shared\ngmakew clean\ngmakew install-lib-static install-lib-shared install-lib-headers install-pkg-config"
   },
   {
-    "pkgname": "librsvg",
-    "pkgtype": "lib",
-    "version": "2.58.3",
-    "license": "LGPL-2.1-or-later",
-    "summary": "A library to render SVG files using Cairo",
-    "web-url": "https://wiki.gnome.org/Projects/LibRsvg",
-    "git-url": "https://gitlab.gnome.org/GNOME/librsvg",
-    "src-url": "https://download.gnome.org/sources/librsvg/2.58/librsvg-2.58.3.tar.xz",
-    "src-sha": "49f29a0a92f4c2d19a2cb41e96ab2fce7eb5bde41850c8a914fcf655e3110944",
-    "dep-pkg": "libgdk-pixbuf libpango libxml2",
-    "dep-upp": "gdk-pixbuf curl bsdtar gmake gmake",
-    "bsystem": "configure cargo",
-    "binbstd": "1",
-    "parallel": "1",
-    "install": "configure \\\n    --enable-tools=yes \\\n    --enable-pixbuf-loader=yes \\\n    --enable-introspection=no \\\n    --disable-Bsymbolic \\\n    --disable-static",
-    "dotweak": "gsed -i '/^Requires:/d'                                                  lib/pkgconfig/librsvg-2.0.pc\nprintf 'Requires: gdk-pixbuf-2.0 libxml-2.0 pangocairo cairo-gobject' >> lib/pkgconfig/librsvg-2.0.pc"
-  },
-  {
     "pkgname": "librtmp",
     "pkgtype": "lib",
     "version": "2.4.20151223",
@@ -12711,6 +12725,21 @@
     "binbstd": "0",
     "parallel": "1",
     "install": "cmakew \\\n    -DWITH_CRYPTO=ON \\\n    -DWITH_SMI=OFF \\\n    -DWITH_CAP_NG=OFF \\\n    -DENABLE_SMB=OFF"
+  },
+  {
+    "pkgname": "tcping",
+    "pkgtype": "exe",
+    "version": "2.1.0",
+    "license": "MIT",
+    "summary": "TCP connect to the given IP/port combo",
+    "web-url": "https://github.com/mkirchner/tcping",
+    "git-url": "https://github.com/mkirchner/tcping",
+    "src-url": "https://github.com/mkirchner/tcping/archive/refs/tags/2.1.0.tar.gz",
+    "src-sha": "b8aa427420fe00173b5a2c0013d78e52b010350f5438bf5903c1942cba7c39c9",
+    "dep-upp": "curl bsdtar",
+    "binbstd": "1",
+    "parallel": "1",
+    "install": "run \"$CC\" \"$CFLAGS\" \"$CPPFLAGS\" \"$LDFLAGS\" -o tcping cli.c tcping.c\ninstall_bins tcping\ninstall_mans man/tcping.1"
   },
   {
     "pkgname": "tdu",
