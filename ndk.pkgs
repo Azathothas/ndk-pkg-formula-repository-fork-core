@@ -227,6 +227,23 @@ binbstd: 1
 parallel: 1
 installed: no
 ---
+pkgname: appstream
+pkgtype: exe
+version: 1.0.4
+license: LGPL-2.1-or-later
+summary: Tools and libraries to work with AppStream metadata
+web-url: https://www.freedesktop.org/wiki/Distributions/AppStream/
+git-url: https://github.com/ximion/appstream
+src-url: https://github.com/ximion/appstream/archive/refs/tags/v1.0.4.tar.gz
+src-sha: dff6efa67d9ea4797870d70e3370b9e3fa66ce3c749aba68e6b10222473463cf
+dep-pkg: libxmlb libxml2 libyaml libcurl
+dep-upp: gettext-tools itstool xsltproc docbook-xsl gperf curl bsdtar python3 ninja
+dep-pym: meson
+bsystem: meson
+binbstd: 0
+parallel: 1
+installed: no
+---
 pkgname: aptly
 pkgtype: pie
 version: 1.5.0
@@ -1543,6 +1560,22 @@ dep-upp: curl bsdtar
 bsystem: cargo
 binbstd: 1
 api-min: 24
+parallel: 1
+installed: no
+---
+pkgname: desktop-file-utils
+pkgtype: exe
+version: 0.28
+license: GPL-2.0-or-later
+summary: A few command-line utilities for working with desktop entries
+web-url: https://wiki.freedesktop.org/www/Software/desktop-file-utils/
+src-url: https://www.freedesktop.org/software/desktop-file-utils/releases/desktop-file-utils-0.28.tar.xz
+src-sha: 4401d4e231d842c2de8242395a74a395ca468cd96f5f610d822df33594898a70
+dep-pkg: glib
+dep-upp: curl bsdtar python3 ninja
+dep-pym: meson
+bsystem: meson
+binbstd: 0
 parallel: 1
 installed: no
 ---
@@ -8613,17 +8646,34 @@ installed: no
 ---
 pkgname: libxml2
 pkgtype: lib
-version: 2.12.8
+version: 2.13.5
 license: MIT
 summary: GNOME XML library
 web-url: http://xmlsoft.org
 git-url: https://gitlab.gnome.org/GNOME/libxml2
-src-url: https://download.gnome.org/sources/libxml2/2.12/libxml2-2.12.8.tar.xz
-src-uri: https://distfiles.macports.org/libxml2/libxml2-2.12.8.tar.xz
-src-sha: 43ad877b018bc63deb2468d71f95219c2fac196876ef36d1bee51d226173ec93
+src-url: https://download.gnome.org/sources/libxml2/2.13/libxml2-2.13.5.tar.xz
+src-uri: https://distfiles.macports.org/libxml2/libxml2-2.13.5.tar.xz
+src-sha: 74fc163217a3964257d3be39af943e08861263c4231f9ef5b496b6f6d4c7b2b6
 dep-pkg: libiconv libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: libxmlb
+pkgtype: lib
+version: 0.3.21
+license: LGPL-2.1-or-later
+summary: Library for querying compressed XML metadata
+web-url: https://github.com/hughsie/libxmlb
+git-url: https://github.com/hughsie/libxmlb
+src-url: https://github.com/hughsie/libxmlb/releases/download/0.3.21/libxmlb-0.3.21.tar.xz
+src-sha: 642343c9b3eca5c234ef83d3d5f6307c78d024f2545f3cc2fa252c9e14e4efd1
+dep-pkg: liblzma libzstd glib
+dep-upp: curl bsdtar python3 ninja
+dep-pym: meson
+bsystem: meson
 binbstd: 0
 parallel: 1
 installed: no
@@ -11379,6 +11429,22 @@ src-sha: 6f8e6a7b335273748816f9b3b62bbdc372a889de8782d7f048c653a447417a7d
 dep-pkg: libreadline libz
 dep-upp: curl bsdtar gmake gmake
 bsystem: configure
+binbstd: 0
+parallel: 1
+installed: no
+---
+pkgname: squashfs-tools-ng
+pkgtype: exe
+version: 1.3.2
+license: GPL-3.0-or-later
+summary: tools to create and extract Squashfs filesystems
+web-url: https://github.com/AgentD/squashfs-tools-ng
+git-url: https://github.com/AgentD/squashfs-tools-ng
+src-url: https://github.com/AgentD/squashfs-tools-ng/archive/refs/tags/v1.3.2.tar.gz
+src-sha: 21f40dc82f69b721e92bfc539e47bfb8581753f8de492c877c59737ce2e3bf0f
+dep-pkg: liblz4 liblzo libzstd liblzma libz
+dep-upp: libtool curl bsdtar automake gmake
+bsystem: autotools
 binbstd: 0
 parallel: 1
 installed: no
